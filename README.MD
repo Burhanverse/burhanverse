@@ -15,11 +15,6 @@
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=tokyonight&hide_border=true">
 </div>
 
-###
-
-<br clear="both">
-
 <img src="https://raw.githubusercontent.com/Burhanverse/assets/main/sanke.svg" alt="animation" />
 
-###
 ---
