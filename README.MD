@@ -4,8 +4,8 @@ An Android enthusiast and self-taught modder. I don't have a computer science ba
 In my free time, I dive into music, try crafting some designs, tinker with apps, or just have a good chat on Telegram. It's all about exploring new ideas and having fun! 😊
 
 Reach me on [**Telegram**](https://burhanverse.t.me)  
-[![](https://visitcount.itsvg.in/api?id=Burhanverse&icon=0&color=0)](https://visitcount.itsvg.in)  
 
+[![](https://visitcount.itsvg.in/api?id=Burhanverse&icon=0&color=0)](https://visitcount.itsvg.in)  
 ---
 <div align="center">
   <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=4&width=500&bg_color=1A1B27">
