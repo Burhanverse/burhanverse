@@ -114,6 +114,7 @@ a {
 .header_text h1 {
   color: var(--title_color);
   font-size: 2em;
+  font-style: italic;
 }
 
 .header_text h2 {
