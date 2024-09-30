@@ -1,4 +1,4 @@
-<h1 align="center">Hey there 👋, It's me Sid</h1>
+<h1 align="center">Hey there 👋, It's me <i>Sid.</i></h1>
 An Android enthusiast and self-taught modder. I don't have a computer science background, but I enjoy messing with code and have a knack for design. I'm passionate about the science of perception and love exploring new tech ideas.
 
 In my free time, I dive into music, try crafting some designs, tinker with apps, or just have a good chat on Telegram. It's all about exploring new ideas and having fun! 😊
