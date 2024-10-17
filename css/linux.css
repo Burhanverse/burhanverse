@@ -12,11 +12,11 @@
     --font_size: 16px;
 
     /* You can change the background color by typing the color code. (If you do not enter a background-image image, the background-color will be active.) */
-    --background_color: rgba(255, 255, 255, 0.2);
-    --background_image: url("../img/bg.jpg");
+    --background_color: #11111b;
+    --code_color: #313244;
 
     /* You can change the frame thickness and color of the picture by typing the number of pixels and the color code. */
-    --image_border_color: rgba(255, 255, 255, 0.3);
+    --image_border_color: #1e1e2e;
     --image_border_px: 4px;
 
     /* You can change the width and size of the picture by typing the number of pixels. */
@@ -25,22 +25,22 @@
 
     /* You can change the colors of the title and description section by typing the color codes. */
     --title_color: #fff;
-    --description_color: #A6F6DB;
+    --description_color: #b4befe;
 
     /* You can change the background, text color and active color of the menu by changing the color codes. */
-    --menu_background_color: rgba(255, 255, 255, 0.3);
+    --menu_background_color: #1e1e2e;
     --menu_text_color: #fff;
-    --menu_active_text_color: #A6F6DB;
+    --menu_active_text_color: #b4befe;
 
     /* You can change the button's background, text color and active color by changing the color codes. */
-    --button_background_color: rgba(255, 255, 255, 0.3);
+    --button_background_color: #1e1e2e;
     --button_text_color: #fff;
-    --button_text_hover_color: #A6F6DB;
+    --button_text_hover_color: #b4befe;
 
     /* You can change the background, text color and active color of the text field by changing the color codes. */
-    --textarea_background_color: rgba(255, 255, 255, 0.3);
+    --textarea_background_color: #1e1e2e;
     --textarea_text_color: #fff;
-    --textarea_link_text_color: #A6F6DB;
+    --textarea_link_text_color: #b4befe;
 
     /* You can change the background, text color and active color of the footer area by changing the color codes. */
     --footer_background_color: rgba(255, 255, 255, 000);
@@ -54,7 +54,7 @@ body {
     font: var(--font_size) var(--font_family);
     font-weight: 400;
     line-height: 1.5;
-    background-image: var(--background_image);
+    background: var(--background_color);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -140,7 +140,7 @@ a {
     /* horizontal spacing */
     border-radius: 30%;
     /* Adjust for shape */
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--code_color);
     width: 50px;
     /* Icon width */
     height: 50px;
@@ -245,7 +245,7 @@ main {
 .second_text code {
     font-family: monospace;
     font-size: 0.8em;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--code_color);
     display: block;
     padding: 0.4em;
     border-radius: 1em;
