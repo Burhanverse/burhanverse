@@ -243,7 +243,6 @@ main {
 .spacer {
     height: 10px;
 }
-
 .second_text code {
     font-family: monospace;
     font-size: 0.8em;
@@ -252,9 +251,8 @@ main {
     padding: 0.4em;
     border-radius: 1em;
     margin-top: 1em;
-    justify-content: left;
-    align-items: left;
-    min-height: auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 /* Footer Codes */
