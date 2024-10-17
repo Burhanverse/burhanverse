@@ -68,9 +68,7 @@ body {
 
 a {
     color: var(--textarea_link_text_color);
-    /* This makes the anchor tag inherit the color from its parent */
     text-decoration: none;
-    /* This removes the underline from the anchor tag */
 }
 
 .flex_column_center {
@@ -243,6 +241,7 @@ main {
 .spacer {
     height: 10px;
 }
+
 .second_text code {
     font-family: monospace;
     font-size: 0.8em;

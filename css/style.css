@@ -5,6 +5,7 @@
   font-weight: <weight>;
   font-style: normal;
 }
+
 :root {
   /* You can change the font family in the whole design here. (You need to add the font family to the codes.) */
   --font_family: "Nunito", sans-serif;
@@ -25,7 +26,7 @@
   /* You can change the colors of the title and description section by typing the color codes. */
   --title_color: #fff;
   --description_color: #A6F6DB;
-  
+
   /* You can change the background, text color and active color of the menu by changing the color codes. */
   --menu_background_color: rgba(255, 255, 255, 0.3);
   --menu_text_color: #fff;
@@ -66,8 +67,10 @@ body {
 }
 
 a {
-    color: --footer_background_color; /* This makes the anchor tag inherit the color from its parent */
-    text-decoration: none; /* This removes the underline from the anchor tag */
+  color: --footer_background_color;
+  /* This makes the anchor tag inherit the color from its parent */
+  text-decoration: none;
+  /* This removes the underline from the anchor tag */
 }
 
 .flex_column_center {
@@ -108,7 +111,7 @@ a {
   border: var(--image_border_px) solid var(--image_border_color);
   border-radius: 50%;
   margin-bottom: 1em;
-  
+
 }
 
 .header_text h1 {
@@ -278,6 +281,7 @@ main {
   margin-bottom: auto;
   box-sizing: border-box;
 }
+
 img {
   width: 100%;
   height: auto;
@@ -307,9 +311,10 @@ img {
   }
 
 }
+
 #musicControlBtn {
-    cursor: pointer;
-    color: white;
+  cursor: pointer;
+  color: white;
   font-size: 34px;
   /* icon size */
   margin: 0 10px;

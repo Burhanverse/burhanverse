@@ -41,7 +41,7 @@
                         <li><a href="#cii">Colloid Icons Installer</a></li>
                         <li><a href="#ge">GNOME
                                 Extensions</a></li>
-                        <li><a href="https://github.com/Burhanverse/my-linux-setup/blob/master/Mount_NTFS.md">Mount
+                        <li><a href="#mount">Mount
                                 NTFS</a>
                         </li>
                         <li><a
@@ -90,8 +90,7 @@
                                 Shell</a>: Adds a blur look to different parts of the GNOME Shell, including the top
                             panel, dash and overview.</li>
                         <div class="spacer"></div>
-                        <li>⦿ <a
-                                href="https://extensions.gnome.org/extension/517/caffeine">Caffeine</a>:
+                        <li>⦿ <a href="https://extensions.gnome.org/extension/517/caffeine">Caffeine</a>:
                             Disable the screensaver and auto suspend.</li>
                         <div class="spacer"></div>
                         <li>⦿ <a href="https://extensions.gnome.org/extension/4839/clipboard-history/">Clipboard
@@ -104,8 +103,7 @@
                             switching between windows and desktops. Side and bottom placement options are available.
                         </li>
                         <div class="spacer"></div>
-                        <li>⦿ <a
-                                href="https://extensions.gnome.org/extension/1319/gsconnect/">GSConnect</a>:
+                        <li>⦿ <a href="https://extensions.gnome.org/extension/1319/gsconnect/">GSConnect</a>:
                             GSConnect is a complete implementation of KDE Connect especially for GNOME Shell with
                             Nautilus, Chrome and Firefox integration. It does not rely on the KDE Connect desktop
                             application and will not work with it installed.</li>
@@ -113,7 +111,9 @@
                         <li>⦿ <a href="https://extensions.gnome.org/extension/6580/open-bar/">Open
                                 Bar</a>: Top Bar / Top Panel , Menus , Dash / Dock , Gnome Shell , Gtk Apps theming.
                             Open the bar and let the colors 🍹 flow.
-                            Here's my <a href="https://github.com/Burhanverse/my-linux-setup/blob/master/configs/openbar_config">config</a> you can download and import it.</li>
+                            Here's my <a
+                                href="https://github.com/Burhanverse/my-linux-setup/blob/master/configs/openbar_config">config</a>
+                            you can download and import it.</li>
                         <div class="spacer"></div>
                         <li>⦿ <a href="https://extensions.gnome.org/extension/5446/quick-settings-tweaker/">Quick
                                 Settings Tweaker</a>: Let's tweak gnome 43's quick settings! You can add Media Controls,
@@ -124,14 +124,96 @@
                                 Shell</a>: Extend Gnome Shell with advanced tiling window management. Supports multiple
                             monitors, Windows 11 Snap Assistant, Fancy Zones, customised tiling layouts and more.</li>
                         <div class="spacer"></div>
-                        <li>⦿ <a
-                                href="https://extensions.gnome.org/extension/1460/vitals/">Vitals</a>:
+                        <li>⦿ <a href="https://extensions.gnome.org/extension/1460/vitals/">Vitals</a>:
                             A glimpse into your computer's temperature, voltage, fan speed, memory usage, processor
                             load, system resources, network speed and storage stats. This is a one stop shop to monitor
                             all of your vital sensors. Uses asynchronous polling to provide a smooth user experience.
                         </li>
                     </h2>
                 </ul>
+            </div>
+            <div id="mount" class="second_text second_text_item">
+                <p>
+                <h1>MY way of mounting NTFS partions to Linux with full RW permissions:</h1>
+                </p>
+                <div class="spacer"></div>
+                <h2 style="font-weight: bold;">Prerequisites:</h2>
+                <div class="spacer"></div>
+                <ul>
+                    <li>⦿ To install ntfs-3g and fuse on CentOS, Fedora, AlmaLinux, and Red Hat:</li>
+                    <ul>
+                        <code>
+                                sudo dnf install ntfs-3g fuse
+                            </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <h2 style="font-weight: bold;">Mount NTFS partition on Linux:</h2>
+                    <div class="spacer"></div>
+                    <li>⦿ We will use the parted command to identify the path through which our NTFS partition is
+                        accessed.</li>
+                    <ul>
+                        <code>
+                                sudo parted -l
+                            </code>
+                        Here my NTFS partitions are /dev/nvme0n1p3 and /dev/nvme0n1p4.
+                        <div class="spacer"></div>
+                        <li>⦿ Then, create the path where you plan to mount the partition, if it hasn’t already been
+                            created.</li>
+                        <ul>
+                            <code>
+                                sudo mkdir /mnt/ntfs_partition3
+                            </code>
+                            <code>
+                                sudo mkdir /mnt/ntfs_partition4
+                            </code>
+                        </ul>
+                        <div class="spacer"></div>
+                        <li>⦿ The most basic mount command would look like this. It should mount your NTFS partition
+                            with read and write permissions. This is probably the only command that most users will
+                            need.</li>
+                        <ul>
+                            <code>
+                                sudo mount -t ntfs /dev/nvme0n1p3 /mnt/ntfs_partition3
+                            </code>
+                            <code>
+                                sudo mount -t ntfs /dev/nvme0n1p4 /mnt/ntfs_partition4
+                            </code>
+                        </ul>
+                        <div class="spacer"></div>
+                        <li>⦿ To verify the mount and the permissions that it has, use the mount command.
+                        </li>
+                        <ul>
+                            <code>
+                                mount | grep ntfs
+                            </code>
+                        </ul>
+                    </ul>
+                    <div class="spacer"></div>
+                    <h2 style="font-weight: bold;">Change Ownership to your username:</h2>
+                    <div class="spacer"></div>
+                    <li>⦿ To make the NTFS partition mount automatically on startup, we’ll need to add a line to the
+                        /etc/fstab file on our system. Use nano or your favorite text editor to open it up under root
+                        permissions.
+                    </li>
+                    <ul>
+                        <code>
+                        sudo nano /etc/fstab
+                    </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    Then, add the following line to the file, while substituting your own device directory and mount
+                    path.
+                    <ul>
+                        <code>
+                        /dev/nvme0n1p3  /mnt/ntfs_partition3  ntfs-3g  auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000  0  0
+                    </code>
+                        <code>
+                        /dev/nvme0n1p4  /mnt/ntfs_partition4  ntfs-3g  auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000  0  0
+                    </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    After updating the /etc/fstab file, you can run sudo mount -a to mount the partitions according to
+                    the updated configuration.
             </div>
 
         </section>
