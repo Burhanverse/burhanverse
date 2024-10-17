@@ -293,6 +293,10 @@ img {
         width: 92vw;
     }
 
+    .second_text_item {
+        width: 92vw;
+    }
+
     .main_small_button_item {
         width: calc(92vw / 2 - 5px);
         ;
@@ -308,26 +312,3 @@ img {
     }
 
 }
-
-#musicControlBtn {
-    cursor: pointer;
-    color: white;
-    font-size: 34px;
-    /* icon size */
-    margin: 0 10px;
-    /* horizontal spacing */
-    border-radius: 50%;
-    /* Adjust for shape */
-    background-color: rgba(255, 255, 255, 0.3);
-    width: 40px;
-    /* Icon width */
-    height: 40px;
-    /* Icon height */
-    display: inline-flex;
-    align-items: center;
-    /* Center align vertically */
-    justify-content: center;
-    /* Center align horizontally */
-}
-
-/* Adjust styles as needed for your page */
