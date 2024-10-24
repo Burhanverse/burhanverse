@@ -215,6 +215,43 @@
                     After updating the /etc/fstab file, you can run sudo mount -a to mount the partitions according to
                     the updated configuration.
             </div>
+            <div id="cii" class="second_text second_text_item">
+                <p>
+                <h1>Fix TouchPad 'right-click' on Fedora (GNOME):</h1>
+                <h2>To fix the RightClick on touchpad we need to change the touchpad clickarea method. Open a terminal
+                    and follow the below steps,</h2>
+                </p>
+                <ul>
+                    <div class="spacer"></div>
+                    <li>⦿ To check the full list of touchpad settings:</li>
+                    <ul>
+                        <code>
+                            gsettings list-recursively org.gnome.desktop.peripherals.touchpad
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ To see current click setting type:</li>
+                    <ul>
+                        <code>
+                            gsettings get org.gnome.desktop.peripherals.touchpad click-method
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ To see the available options, type:</li>
+                    <ul>
+                        <code>
+                            gsettings range org.gnome.desktop.peripherals.touchpad click-method
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ To change to right click method, type:</li>
+                    <ul>
+                        <code>
+                            gsettings set org.gnome.desktop.peripherals.touchpad click-method 'areas'
+                        </code>
+                    </ul>
+                </ul>
+            </div>
 
         </section>
         <br>
