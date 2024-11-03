@@ -285,7 +285,7 @@ img {
 
 /* Responsive Codes */
 
-@media (max-width: 768px) {
+@media (max-width: 1920px) {
     .main_text_item {
         width: 92vw;
     }
