@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materialgram</title>
+    <meta name="description" content="Your Description">
+    <link href="../img/favicon.png" rel="icon" />
+    <link href="../img/favicon.png" rel="apple-touch-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/linux.css">
+</head>
+
+<body>
+    <br><br>
+    <header>
+        <div class="header_text header_img flex_column_center">
+            <img src="../img/mg.png">
+            <h1 class="header_h_item">Materialgram RPM</h1>
+        </div>
+    </header>
+    <main>
+        <section id="main_section_container_1" class="flex_column_center">
+            <div class="second_text main_text_item">
+                <p>
+                <ul>
+                    <h1>Some Important GitHub Links:</h1>
+                    <h2>
+                        <li><a href="https://github.com/kukuruzka165/materialgram">Materialgram Github</a></li>
+                        <li><a href="https://github.com/burhancodes/materialgram-builder">Materialgram RPM Builder</a></li>
+                        <li><a href="https://github.com/burhancodes/materialgram-repo">Materialgram RPM Repository</a></li>
+                    </h2>
+                </ul>
+                </p>
+            </div>           
+            <div id="tpd" class="second_text second_text_item">
+                <h1>Materialgram RPM Repository:</h1>
+                <h2>Note: If you have installed the flatpak version then please do remove it first.</h2>
+                <ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Open a new terminal and copy-paste the below content to add the RPM repo of Materialgram:</li>
+                    <ul>
+                        <code>
+                            sudo tee /etc/yum.repos.d/materialgram.repo &#60;&#60;EOF
+                            [Materialgram]
+                            name=Materialgram RPM (From burhancodes) - x86_64 - Updates
+                            baseurl=https://burhancodes.github.io/materialgram-repo/
+                            enabled=1
+                            gpgcheck=0
+                            metadata_expire=1h
+                            EOF
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Then to install simply run:</li>
+                    <ul>
+                        <code>
+                            sudo dnf install materialgram
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ To uninstall the rpm Package:</li>
+                    <ul>
+                        <code>
+                            sudo dnf remove materialgram
+                        </code>
+                    </ul>
+                </ul>
+            </div>
+
+        </section>
+        <br>
+    </main>
+
+    <div class="header_icon flex_row_center">
+        <div>
+            <a href="https://github.com/burhanverse" target="_blank" rel="nofollow">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+        <div>
+            <a href="https://twitter.com/burhanverse" target="_blank" rel="nofollow">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+        </div>
+        <div>
+            <a href="https://t.me/burhanverse" target="_blank" rel="nofollow">
+                <i class="fa-brands fa-telegram-plane"></i>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.instagram.com/burhanverse?igsh=YzAwZjE1ZTI0Zg==" target="_blank" rel="nofollow">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer_div_item flex_row_center">
+            <a class="footer_a_item">&#169 burhanverse </a>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
