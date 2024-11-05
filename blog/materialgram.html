@@ -31,16 +31,20 @@
             <div class="second_text main_text_item">
                 <p>
                 <ul>
-                    <h1>Some Important GitHub Links:</h1>
+                    <h1></h1>
                     <h2>
+                        <li><a href="#rpm">Setup RPM Repository</a></li>
+                        <li><a href="#deb">Setup DEB Repository</a></li>
                         <li><a href="https://github.com/kukuruzka165/materialgram">Materialgram Github</a></li>
                         <li><a href="https://github.com/burhancodes/materialgram-builder">Materialgram RPM Builder</a></li>
                         <li><a href="https://github.com/burhancodes/materialgram-repo">Materialgram RPM Repository</a></li>
+                        <li><a href="https://github.com/burhancodes/materialgram-deb-builder">Materialgram DEB Builder</a></li>
+                        <li><a href="https://github.com/burhancodes/materialgram-deb">Materialgram DEB Repository</a></li>
                     </h2>
                 </ul>
                 </p>
             </div>           
-            <div id="tpd" class="second_text second_text_item">
+            <div id="rpm" class="second_text second_text_item">
                 <h1>Setup RPM Repository:</h1>
                 <h2>Note: If you have installed the flatpak version then please do remove it first.</h2>
                 <ul>
@@ -77,6 +81,27 @@
                     <ul>
                         <code>
                             sudo dnf remove materialgram
+                        </code>
+                    </ul>
+                </ul>
+            </div>
+
+            <div id="deb" class="second_text second_text_item">
+                <h1>Setup DEB Repository:</h1>
+                <h2>Note: If you have installed the flatpak version then please do remove it first.</h2>
+                <ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Open a new terminal and copy-paste the below content to add the RPM repo of Materialgram:</li>
+                    <ul>
+                        <code>
+                            echo "deb [arch=amd64 trusted=yes] https://burhancodes.github.io/materialgram-deb stable main" | sudo tee /etc/apt/sources.list.d/materialgram.list
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Then to install simply run:</li>
+                    <ul>
+                        <code>
+                            sudo apt update && sudo apt install materialgram
                         </code>
                     </ul>
                 </ul>
