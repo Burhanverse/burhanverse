@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materialgram</title>
     <meta name="description" content="Your Description">
-    <link href="../img/favicon.png" rel="icon" />
-    <link href="../img/favicon.png" rel="apple-touch-icon" />
+    <link href="../img/mg.png" rel="icon" />
+    <link href="../img/mg.png" rel="apple-touch-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
@@ -38,8 +38,7 @@
                         <li><a href="https://github.com/kukuruzka165/materialgram">Materialgram Github</a></li>
                         <li><a href="https://github.com/burhancodes/materialgram-builder">Materialgram RPM Builder</a></li>
                         <li><a href="https://github.com/burhancodes/materialgram-repo">Materialgram RPM Repository</a></li>
-                        <li><a href="https://github.com/burhancodes/materialgram-deb-builder">Materialgram DEB Builder</a> Forked from<a href="https://github.com/ghazzor/materialgram-deb-package"> @ghazzor</a></li>
-                        <li><a href="https://github.com/burhancodes/materialgram-deb">Materialgram DEB Repository</a></li>
+                        <li><a href="https://github.com/ghazzor/materialgram-deb-package">Materialgram DEB Builder & APT Repository</a> maintained by<a href="https://github.com/ghazzor"> @ghazzor</a></li>
                     </h2>
                 </ul>
                 </p>
@@ -94,7 +93,12 @@
                     <li>⦿ Open a new terminal and copy-paste the below content to add the RPM repo of Materialgram:</li>
                     <ul>
                         <code>
-                            echo "deb [arch=amd64 trusted=yes] https://burhancodes.github.io/materialgram-deb stable main" | sudo tee /etc/apt/sources.list.d/materialgram.list
+                            bash <(curl -s "https://raw.githubusercontent.com/ghazzor/materialgram-deb-package/master/install.sh")
+                        </code>
+                        <br>OR
+                        <code>
+                            wget -qO- https://raw.githubusercontent.com/ghazzor/materialgram-deb-package/master/materialgram_repo.asc | sudo tee /etc/apt/trusted.gpg.d/materialgram_repo.asc
+                            echo "deb [arch=amd64] https://raw.githubusercontent.com/ghazzor/materialgram-deb-package/master/apt/repo/ bionic main" | sudo tee /etc/apt/sources.list.d/materialgram.list
                         </code>
                     </ul>
                     <div class="spacer"></div>
