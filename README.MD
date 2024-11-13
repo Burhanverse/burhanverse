@@ -8,7 +8,7 @@ Reach me on [**Telegram**](https://burhanverse.t.me)
 [![](https://visitcount.itsvg.in/api?id=Burhanverse&icon=0&color=0)](https://visitcount.itsvg.in)  
 ---
 <div align="center">
-  <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=4&width=500&bg_color=1A1B27">
+  <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=3&width=500&bg_color=1A1B27">
   <br/><br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=tokyonight&hide_border=true">
 </div>
