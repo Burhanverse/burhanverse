@@ -1,4 +1,6 @@
 /* From the :root element you can easily change the colors of the design, its size and so on. */
+@import url("rain.css");
+
 .nunito-<uniquifier> {
     font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
@@ -131,7 +133,7 @@ a {
 }
 
 .fab,
-.fa-brands {
+.icon-css {
     color: white;
     /* icons colour */
     font-size: 34px;
@@ -151,6 +153,33 @@ a {
     justify-content: center;
     /* Center align horizontally */
 
+}
+
+.icon-hs {
+    color: white;
+    /* icons colour */
+    font-size: 18px;
+    /* icon size */
+    margin: 0 10px;
+    /* horizontal spacing */
+    border-radius: 50%;
+    /* Adjust for shape */
+    background-color: var(--code_color);
+    width: 35px;
+    /* Icon width */
+    height: 35px;
+    /* Icon height */
+    display: inline-flex;
+    align-items: center;
+    /* Center align vertically */
+    justify-content: center;
+    /* Center align horizontally */
+
+}
+
+.icon-size {
+    font-size: 16px;
+    margin: 0 6px;
 }
 
 /* Menu Codes */
@@ -264,7 +293,7 @@ main {
 }
 
 .footer_a_item {
-    color: var(--footer_link_text_color);
+    color: var(--description_color);
     text-decoration: none;
 }
 
@@ -281,6 +310,27 @@ img {
     height: auto;
     margin-top: 1.3em;
     max-width: 500px;
+}
+
+
+/*--------------------------------------------------------------
+# scroll
+--------------------------------------------------------------*/
+.wenprogress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 3px;
+    background-color: var(--background_color);
+}
+
+.neon {
+    display: block;
+    width: 0;
+    height: inherit;
+    background-image: linear-gradient(90deg, #b4befe, #b4befe);
 }
 
 /* Responsive Codes */

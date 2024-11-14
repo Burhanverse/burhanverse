@@ -1,4 +1,6 @@
 /* From the :root element you can easily change the colors of the design, its size and so on. */
+@import url("rain.css");
+
 .nunito-<uniquifier> {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
@@ -8,8 +10,8 @@
 
 :root {
   /* You can change the font family in the whole design here. (You need to add the font family to the codes.) */
-  --font_family: "Nunito", sans-serif;
-  --font_size: 16px;
+    --font_family: "Nunito", sans-serif;
+    --font_size: 16px;
 
     /* You can change the background color by typing the color code. (If you do not enter a background-image image, the background-color will be active.) */
     --background_color: #11111b;
@@ -132,7 +134,34 @@ a {
 }
 
 .fab,
-.fa-brands {
+.icon-size {
+  font-size: 16px;
+  margin: 0 6px;
+}
+
+.icon-hs {
+  color: white;
+  /* icons colour */
+  font-size: 18px;
+  /* icon size */
+  margin: 0 10px;
+  /* horizontal spacing */
+  border-radius: 50%;
+  /* Adjust for shape */
+  background-color: var(--code_color);
+  width: 35px;
+  /* Icon width */
+  height: 35px;
+  /* Icon height */
+  display: inline-flex;
+  align-items: center;
+  /* Center align vertically */
+  justify-content: center;
+  /* Center align horizontally */
+
+}
+
+.icon-css {
   color: white;
   /* icons colour */
   font-size: 34px;
@@ -270,7 +299,7 @@ main {
 }
 
 .footer_a_item {
-  color: var(--footer_link_text_color);
+  color: var(--description_color);
   text-decoration: none;
 }
 
