@@ -134,7 +134,7 @@ a {
 
 .fab,
 .icon-css {
-    color: white;
+    color: var(--button_text_hover_color);
     /* icons colour */
     font-size: 34px;
     /* icon size */
@@ -156,7 +156,7 @@ a {
 }
 
 .icon-hs {
-    color: white;
+    color: var(--button_text_hover_color);
     /* icons colour */
     font-size: 18px;
     /* icon size */
