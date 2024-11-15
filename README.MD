@@ -10,7 +10,8 @@ Reach me on [**Telegram**](https://burhanverse.t.me)
 <div align="center">
   <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=3&width=500&bg_color=1A1B27">
   <br/><br/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=catppuccin_mocha&hide_border=true"><br/><br/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=catppuccin_mocha&hide_border=true">
+  <br/><br/>
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Burhanverse&theme=catppuccin_mocha&hide_border=true&include_all_commits=false&count_private=false&layout=compact">
 </div>
 
