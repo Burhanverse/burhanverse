@@ -37,11 +37,9 @@
                 <ul>
                     <h1></h1>
                     <h2>
-                        <li><a href="#rpm">Setup RPM Repository</a></li>
-                        <li><a href="#deb">Setup DEB Repository</a></li>
+                        <li><a href="#rpm">Setup for RPM</a></li>
+                        <li><a href="#deb">Setup for DEB</a></li>
                         <li><a href="https://github.com/kukuruzka165/materialgram">Materialgram Github</a></li>
-                        <li><a href="https://github.com/burhancodes/materialgram-builder">Materialgram RPM Builder</a>
-                        </li>
                         <li><a href="https://github.com/burhancodes/materialgram-repo">Materialgram RPM Repository</a>
                         </li>
                         <li><a href="https://github.com/ghazzor/materialgram-deb-package">Materialgram DEB
@@ -61,7 +59,7 @@
                             sudo tee /etc/yum.repos.d/materialgram.repo &#60;&#60;EOF
                             [Materialgram]
                             name=Materialgram RPM (From burhancodes) - x86_64 - Updates
-                            baseurl=https://burhancodes.github.io/materialgram-repo/
+                            baseurl=https://burhancodes.github.io/materialgram-repo/rpms/
                             enabled=1
                             gpgcheck=0
                             metadata_expire=1h
