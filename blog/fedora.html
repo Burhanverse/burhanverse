@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>linux stuffs</title>
+    <title>Fedora</title>
     <meta name="description" content="Your Description">
     <link href="../img/favicon.png" rel="icon" />
     <link href="../img/favicon.png" rel="apple-touch-icon" />
@@ -26,14 +26,14 @@
     <br><br>
     <header>
         <div class="header_text flex_column_center">
-            <h1 class="header_h_item">My Linux Setup</h1>
+            <h1 class="header_h_item">My Fedora Setup</h1>
         </div>
     </header>
     <main>
         <section id="main_section_container_1" class="flex_column_center">
             <div class="second_text main_text_item">
                 <p>
-                <h2>This page holds the contents for some fixes and stuffs that i personally use on my Fedora 40
+                <h2>This page holds the contents for some fixes and stuffs that i personally use on my Fedora 41
                     Workstation (GNOME). Below is the index of the content available in the page.
                 </h2>
                 </p>
@@ -42,22 +42,32 @@
                 <p>
                 <ul>
                     <h2>
-                        <li><a href="#cii">Colloid Icons Installer</a></li>
-                        <li><a href="#ge">GNOME
-                                Extensions</a></li>
-                        <li><a href="#mount">Mount
-                                NTFS</a>
+                        <li>
+                            <a href="#cii">Colloid Icons Installer</a>
                         </li>
-                        <li><a href="#tpd">TouchPad
-                                Fix</a></li>
-                        <li><a href="https://github.com/Burhanverse/my-linux-setup/blob/master/Update_kernel.md">Kernel
-                                Update</a></li>
-                        <li><a href="https://github.com/Burhanverse/my-linux-setup/blob/master/YTM_RPM_Installer.md">Youtube
-                                Music Installer</a></li>
-                        <li><a href="https://github.com/Burhanverse/my-linux-setup/blob/master/setup_wezterm.md">Setup
-                                WezTerm</a></li>
-                        <li><a href="https://github.com/Burhanverse/my-linux-setup/blob/master/customize_grub.md">Customize
-                                GRUB</a> - Advanced users only</li>
+                        <li>
+                            <a href="#ge">GNOME Extensions</a>
+                        </li>
+                        <li>
+                            <a href="#mount">Mount NTFS</a>
+                        </li>
+                        <li>
+                            <a href="#tpd">TouchPad Fix</a>
+                        </li>
+                        <li>
+                            <a href="#wlf">GNOME Weather location Fix</a>
+                        </li>
+                        <li>
+                            <a href="#kernel">Update & clean old kernels</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Burhanverse/my-linux-setup/blob/master/setup_wezterm.md">Setup
+                                WezTerm</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Burhanverse/my-linux-setup/blob/master/customize_grub.md">Customize
+                                GRUB</a> - Advanced users only
+                        </li>
                     </h2>
                 </ul>
                 </p>
@@ -255,6 +265,58 @@
                     </ul>
                 </ul>
             </div>
+            <div id="wlf" class="second_text second_text_item">
+                <p>
+                <h1>GNOME Weather Location fix:</h1>
+                <h3>Well If you're here, it probably means GNOME Weather isn't showing your location, or even your
+                    country is missing. It's a known issue, but sadly, GNOME devs are lazy to fix it.</h3>
+                </p>
+                <ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Here's the workaround to add your location on the weather app:</li>
+                    <ul>
+                        <code>
+                            wget https://gitlab.com/julianfairfax/scripts/-/raw/main/add-location-to-gnome-weather.sh
+chmod +x add-location-to-gnome-weather.sh
+./add-location-to-gnome-weather.sh
+                        </code>
+                    </ul>
+                    <div class="spacer"></div>
+                    <h3>Thanks to <a href="https://gitlab.com/julianfairfax">@julianfairfax</a> for the script.</h3>
+                </ul>
+            </div>
+            <div id="kernel" class="second_text second_text_item">
+                <p>
+                <h1>My way of updating kernel to latest version and make it default:</h1>
+                <h2>NOTE: If something goes wrong although it shouldn't, Don't blame me for your broken system. Simply
+                    what I'm trying to say is " Do it at your own risk".</h2>
+                </p>
+                <ul>
+                    <div class="spacer"></div>
+                    <li>⦿ Firstly check for update:</li>
+                    <ul>
+                        <code>
+                            sudo dnf update -y
+                        </code>
+                    </ul>
+                    <h3>NOTE: Make sure to reboot with the new kernel and test it as sometimes the kernel may cause
+                        stuck on boot in some cases.</h3>
+                    <div class="spacer"></div>
+                    <li>⦿ After the successful reboot, run this to remove your old kernels:</li>
+                    <ul>
+                        <code>
+                            curl -sSL https://raw.githubusercontent.com/Burhanverse/scripts/main/rem_kernel.sh | bash
+                        </code>
+                    </ul>
+                    <h3>Here's the <a href="https://github.com/Burhanverse/scripts/blob/main/rem_kernel.sh">script</a>
+                        if you are interested to inspect.</h3>
+                    <h3>The script is taken from <a
+                            href="https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/#sect-clean-up-old-kernels">official
+                            fedora docs</a>, which is used to remove old kernels.</h3>
+                    <div class="spacer"></div>
+                    <h3>Now you can normally reboot your system to see the changes.</h3>
+                </ul>
+            </div>
 
         </section>
         <br>
@@ -286,7 +348,7 @@
 
     <footer>
         <div class="footer_div_item flex_row_center">
-            <a class="footer_a_item">&#169 burhanverse </a>
+            <a class="footer_a_item">&#169 burhanverse</a>
         </div>
     </footer>
 
