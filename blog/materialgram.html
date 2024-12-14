@@ -59,7 +59,7 @@
                         <li><a href="https://github.com/ghazzor/materialgram-deb-package">Materialgram DEB
                                 Repository</a> maintained by<a href="https://github.com/ghazzor"> @ghazzor</a></li>
                         <br>
-                        <h6><i>Last updated: 9th Dec, 2024</i></h6>
+                        <h6><i>Last updated: 15th Dec, 2024</i></h6>
                     </h2>
                 </ul>
                 </p>
@@ -72,14 +72,11 @@
                     <li>⦿ Open a new terminal and copy-paste the below content to add the RPM repo of Materialgram:</li>
                     <ul>
                         <code>
-                            sudo tee /etc/yum.repos.d/materialgram.repo &#60;&#60;EOF
-                            [Materialgram]
-                            name=Materialgram RPM (From burhancodes) - x86_64 - Updates
-                            baseurl=https://burhancodes.github.io/materialgram-repo/rpms/
-                            enabled=1
-                            gpgcheck=0
-                            metadata_expire=1h
-                            EOF
+                            sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/burhancodes/materialgram-repo/main/install.sh)"
+                        </code>
+                        <br>OR
+                        <code>
+                            sudo sh -c 'echo -e "[Materialgram]\nname=Materialgram RPM (From burhancodes) - x86_64 - Updates\nbaseurl=https://raw.githubusercontent.com/burhancodes/materialgram-repo/main/rpms/\nenabled=1\ngpgcheck=0\nmetadata_expire=1h" > /etc/yum.repos.d/materialgram.repo'
                         </code>
                     </ul>
                     <div class="spacer"></div>
