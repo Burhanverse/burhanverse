@@ -9,15 +9,9 @@ In my free time, I dive into music, try crafting some designs, tinker with apps,
   <img src="img/site.svg" alt="site Badge">
 </a>
 
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Linux/linux3.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Android/android3.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Fedora/fedora2.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Windows11/windows112.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Webstorm/webstorm2.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Git/git2.svg">
-<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/VisualStudioCode/visualstudiocode3.svg">
+<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Linux/linux3.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Android/android3.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Fedora/fedora2.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Windows11/windows112.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Webstorm/webstorm2.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Git/git2.svg"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/VisualStudioCode/visualstudiocode3.svg">
 <br/>
----
+----
 <div align="center">
   <img src="https://visitcount.itsvg.in/api?id=Burhanverse&label=Profile%20Views&icon=6&color=0&pretty=true">
   <br/><br/>
@@ -27,4 +21,4 @@ In my free time, I dive into music, try crafting some designs, tinker with apps,
   <br/><br/>
   <img src="https://raw.githubusercontent.com/Burhanverse/assets/main/sanke.svg" alt="animation" />
 </div>
----
+----
