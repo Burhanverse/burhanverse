@@ -54,50 +54,52 @@
                         <li><a href="#rpm">Setup for RPM</a></li>
                         <li><a href="#deb">Setup for DEB</a></li>
                         <li><a href="https://github.com/kukuruzka165/materialgram">Materialgram Github</a></li>
-                        <li><a href="https://github.com/burhancodes/materialgram-repo">Materialgram RPM Repository</a> maintained by<a href="https://github.com/burhanverse"> @burhanverse</a>
+                        <li><a href="https://copr.fedorainfracloud.org/coprs/burhanverse/materialgram/">Materialgram copr project</a> maintained by<a href="https://github.com/burhanverse"> @burhanverse</a>
                         </li>
                         <li><a href="https://github.com/ghazzor/materialgram-deb-package">Materialgram DEB
                                 Repository</a> maintained by<a href="https://github.com/ghazzor"> @ghazzor</a></li>
                         <br>
-                        <h6><i>Last updated: 15th Dec, 2024</i></h6>
+                        <h6><i>Last updated: 28th Dec, 2024</i></h6>
                     </h2>
                 </ul>
                 </p>
             </div>
             <div id="rpm" class="second_text second_text_item">
                 <h1>Setup RPM Repository:</h1>
-                <h2>Note: If you have installed the flatpak version then please do remove it first.</h2>
+                <h6>NOTE: 
+                    <p>⦿ If you have installed the flatpak version then please do remove it first.</p><div class="spacer"></div>
+                    <p>⦿ The github repo is now archived and is replaced with the <a href="https://github.com/burhancodes/materialgram-rpm">materialgram-rpm</a> which provides the spec file for the builds on <a href="https://copr.fedorainfracloud.org/coprs/burhanverse/materialgram/">fedora copr project</a>. The entire process is now automated and packages are OpenPGP/GPG signed by fedora with added supports for X86_64 versions of Centos-stream 10, Centos-stream 9, Fedora 40, Fedora 41, Fedora rawhide, openSUSE Leap 15.5, openSUSE Tumbleweed, RHEL 8 & RHEL 9.</p></h6>
                 <ul>
                     <div class="spacer"></div>
                     <li>⦿ Open a new terminal and copy-paste the below content to add the RPM repo of Materialgram:</li>
                     <ul>
                         <code>
-                            sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/burhancodes/materialgram-repo/main/install.sh)"
+                            sudo dnf copr enable burhanverse/materialgram
                         </code>
-                        <br>OR
+                        <div class="spacer"></div>
+                        <li>⦿ Users must remove the old <a href="">materialgram.repo</a> file from thier yum.repo.d directory before using the new materialgram copr project repo:</li>
                         <code>
-                            sudo sh -c 'echo -e "[Materialgram]\nname=Materialgram RPM (From burhancodes) - x86_64 - Updates\nbaseurl=https://raw.githubusercontent.com/burhancodes/materialgram-repo/main/rpms/\nenabled=1\ngpgcheck=0\nmetadata_expire=1h" > /etc/yum.repos.d/materialgram.repo'
+                            sudo rm -rf /etc/yum.repos.d/materialgram.repo
                         </code>
-                    </ul>
-                    <div class="spacer"></div>
-                    <li>⦿ Then to install simply run:</li>
-                    <ul>
+                        <div class="spacer"></div>
+                        <li>⦿ Then to install simply run:</li>
                         <code>
                             sudo dnf install materialgram
                         </code>
-                    </ul>
-                    <div class="spacer"></div>
-                    <li>⦿ To update simply type:</li>
-                    <ul>
+                        <div class="spacer"></div>
+                        <li>⦿ To update simply type:</li>
                         <code>
                             sudo dnf update materialgram
                         </code>
-                    </ul>
-                    <div class="spacer"></div>
-                    <li>⦿ To uninstall the rpm Package:</li>
-                    <ul>
+                        <div class="spacer"></div>
+                        <li>⦿ To uninstall the rpm Package:</li>
                         <code>
                             sudo dnf remove materialgram
+                        </code>
+                        <div class="spacer"></div>
+                        <li>⦿ Old Installer(based on github repo) just for reference:</li>
+                        <code>
+                            <s>sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/burhancodes/materialgram-repo/main/install.sh)"</s>
                         </code>
                     </ul>
                 </ul>
