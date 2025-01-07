@@ -1,47 +1,19 @@
-<div id="user-content-toc">
-  <ul align="center">
-    <summary><h1 style="display: inline-block">Hi 👋, I'm Jefino</h1></summary>
-  </ul>
+<h1 align="center">Hey there &#x1F44B;, It's me <i>Sid.</i></h1>
+A tech enthusiast from a place that's not on most maps. I'm passionate about the science of perception and love exploring new tech ideas.
+
+In my free time, I dive into music, try crafting some designs, tinker with apps, or just have a good chat on Telegram. It's all about exploring new ideas and having fun!
+
+<img src="https://visitcount.itsvg.in/api?id=Burhanverse&label=Profile%20Views&icon=6&color=0&pretty=true">
+
+<a href="mailto:contact@burhanverse.eu.org"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Mail/mail3.svg" alt="Mail Badge"></a> <a href="https://burhanverse.t.me"><img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Telegram/telegram2.svg"></a> <a href="https://akuamods.t.me"><img src="img/mods.svg" alt="Mods Badge"></a> <a href="https://burhanverse.eu.org"><img src="img/site.svg" alt="site Badge"></a>
+
+<img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Linux/linux3.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Android/android3.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Fedora/fedora2.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Windows11/windows112.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Webstorm/webstorm2.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Git/git2.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/VisualStudioCode/visualstudiocode3.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Figma/figma2.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Firefox/firefox3.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/NodeJS/nodejs3.svg"> <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Notion/notion2.svg">
+<br/>
+----
+<div align="center">
+  <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=2&width=500&bg_color=1A1B27">
+  <br/><br/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=catppuccin_mocha&hide_border=true">
+  <br/><br/>
+  <img src="https://raw.githubusercontent.com/Burhanverse/assets/main/sanke.svg" alt="animation" />
 </div>
-
-```python
-class Jefino:
-  def __init__(self):
-    self.name = "Jefino"
-    self.role = "Full Stack Developer"
-    self.location = "India,Tamil Nadu"
-    self.telegram = "@Jefino9488"
-    self.web = "jefino9488.vercel.app"
-
-  def __str__(self):
-    info = f"Name: {self.name}\n"
-    return info
-
-
-if __name__ == "__main__":
-  me = Jefino()
-  print(me)
-```
-<div style="text-align: center;" align="center">
-  <ul style="list-style-type: none; padding: 0;">
-    <p>
-      <h1 style="display: inline-block;">GitHub Stats</h1>
-    <p>
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Jefino9488&theme=neon-dark&hide_border=true" alt="Jefino's GitHub Stats" />
-    </p>
-    <p>
-      <img src="https://github.com/Jefino9488/MyProfileViews/blob/master/svg/profile/badge.svg" alt="Profile Views Badge" />  <img src="https://img.shields.io/github/followers/Jefino9488" alt="">
-    </p>
-  </ul>
-  <div align="center">
-    <img src="https://github-profile-trophy.vercel.app/?username=Jefino9488&theme=onedark&margin-w=15&margin-h=15&column=4&row=2&no-frame=true&no-bg=true">
-  </div>
-  <div align="center">
-    <a href="https://skillicons.dev">
-      <img src="https://skillicons.dev/icons?i=git,docker,python,pycharm,java,html,react,vite&perline="  alt=""/>
-    </a>
-  </div>
-</div>
-
-
-

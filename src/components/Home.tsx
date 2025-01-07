@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github, Mail, Linkedin, ExternalLink, Send, BookOpen, ArrowRight, Star, GitFork, MapPin } from 'lucide-react';
+import { Github, Mail, ExternalLink, Send, BookOpen, ArrowRight, Star, GitFork, MapPin } from 'lucide-react';
 import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
 import { useProjects } from './ProjectsContext';
 
@@ -34,9 +34,9 @@ export default function Home() {
                             <div
                                 className="flex flex-col items-center md:flex-row md:items-start space-y-6 md:space-y-0 md:space-x-8">
                                 <motion.div
-                                    initial={{scale: 0}}
-                                    animate={{scale: 1}}
-                                    transition={{duration: 0.5}}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.5 }}
                                     className="flex-shrink-0 relative"
                                 >
                                     <div
@@ -44,61 +44,54 @@ export default function Home() {
                                     <Avatar
                                         className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 border-4 border-purple-800 shadow-lg relative"
                                     >
-                                        <AvatarImage src="https://avatars.githubusercontent.com/u/89455522?v=4"
-                                                     alt="Jefino"/>
+                                        <AvatarImage src="https://avatars.githubusercontent.com/u/127223292?v=4"
+                                            alt="Burhanverse" />
                                         <AvatarFallback>JT</AvatarFallback>
                                     </Avatar>
                                 </motion.div>
                                 <div className="flex-grow text-center md:text-left">
                                     <motion.div
-                                        initial={{opacity: 0, y: 20}}
-                                        animate={{opacity: 1, y: 0}}
-                                        transition={{duration: 0.5, delay: 0.2}}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.2 }}
                                     >
                                         <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-700">
-                                            Jefino
+                                            Burhanverse
                                         </h1>
-                                        <p className="orbitron-regular text-xl sm:text-2xl md:text-3xl text-purple-300 font-light mb-4">
-                                            Full Stack Developer
+                                        <p className="nunito-regular text-xs sm:text-2xl md:text-3xl text-purple-300 font-medium mb-4">
+                                            <i>A tech enthusiast from a place that's not on most maps. I'm passionate about the science of perception and love exploring new tech ideas</i>
                                         </p>
                                         <div className="flex flex-col space-y-2 mb-6">
                                             <p className="poppins-regular flex items-center justify-center md:justify-start text-gray-300">
-                                                <MapPin className="mr-2 h-5 w-5"/>
-                                                Based in Chennai, India
+                                                <MapPin className="mr-2 h-5 w-5" />
+                                                Based in Assam, India
                                             </p>
                                         </div>
                                     </motion.div>
                                     <motion.div
-                                        initial={{opacity: 0}}
-                                        animate={{opacity: 1}}
-                                        transition={{duration: 0.5, delay: 0.4}}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5, delay: 0.4 }}
                                         className="flex justify-center md:justify-start space-x-4"
                                     >
                                         <Button variant="outline" size="icon"
-                                                className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
-                                            <a href="https://github.com/Jefino9488" target="_blank"
-                                               rel="noopener noreferrer" aria-label="GitHub">
-                                                <Github className="h-5 w-5"/>
+                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                            <a href="https://github.com/Burhanverse" target="_blank"
+                                                rel="noopener noreferrer" aria-label="GitHub">
+                                                <Github className="h-5 w-5" />
                                             </a>
                                         </Button>
                                         <Button variant="outline" size="icon"
-                                                className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
-                                            <a href="mailto:jefinojacob9488@gmail.com" aria-label="Email">
-                                                <Mail className="h-5 w-5"/>
+                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                            <a href="mailto:contact@burhanverse.eu.org" aria-label="Email">
+                                                <Mail className="h-5 w-5" />
                                             </a>
                                         </Button>
                                         <Button variant="outline" size="icon"
-                                                className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
-                                            <a href="https://www.linkedin.com/in/jefino9488/" target="_blank"
-                                               rel="noopener noreferrer" aria-label="LinkedIn">
-                                                <Linkedin className="h-5 w-5"/>
-                                            </a>
-                                        </Button>
-                                        <Button variant="outline" size="icon"
-                                                className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
-                                            <a href="https://telegram.me/jefino9488" target="_blank"
-                                               rel="noopener noreferrer" aria-label="Telegram">
-                                                <Send className="h-5 w-5"/>
+                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                            <a href="https://telegram.me/Burhanverse" target="_blank"
+                                                rel="noopener noreferrer" aria-label="Telegram">
+                                                <Send className="h-5 w-5" />
                                             </a>
                                         </Button>
                                     </motion.div>
@@ -112,7 +105,7 @@ export default function Home() {
                         <div className="flex flex-wrap justify-center gap-4">
                             {skills.map((skill, index) => (
                                 <Badge key={index} variant="secondary"
-                                       className="text-lg py-2 px-4 bg-gray-800 hover:bg-gray-700 transition-colors rounded-2xl text-white">
+                                    className="text-lg py-2 px-4 bg-gray-800 hover:bg-gray-700 transition-colors rounded-2xl text-white">
                                     {skill}
                                 </Badge>
                             ))}
@@ -125,7 +118,7 @@ export default function Home() {
                             <Link to="/blog" className="block">
                                 <CardHeader className="pb-2">
                                     <CardTitle className="flex items-center text-lg sm:text-2xl font-bold">
-                                        <BookOpen className="h-8 w-8 mr-3"/>
+                                        <BookOpen className="h-8 w-8 mr-3" />
                                         Explore My Blogs
                                     </CardTitle>
                                 </CardHeader>
@@ -135,7 +128,7 @@ export default function Home() {
                                     <div
                                         className="flex items-center text-purple-300 hover:text-purple-100 transition-colors">
                                         <span className="mr-2 font-semibold">Read latest posts</span>
-                                        <ArrowRight className="h-5 w-5"/>
+                                        <ArrowRight className="h-5 w-5" />
                                     </div>
                                 </CardContent>
                             </Link>
@@ -152,9 +145,9 @@ export default function Home() {
                                 {projects.map((project) => (
                                     <motion.div
                                         key={project.title}
-                                        initial={{opacity: 0, y: 20}}
-                                        animate={{opacity: 1, y: 0}}
-                                        transition={{duration: 0.5}}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5 }}
                                     >
                                         <div className="group relative h-56">
                                             <div
@@ -176,10 +169,10 @@ export default function Home() {
                                                 <div className="flex justify-between items-center mt-auto">
                                                     <div className="flex gap-4 text-sm text-gray-400">
                                                         <span className="flex items-center gap-1">
-                                                            <Star className="w-4 h-4"/> {project.stats.stars}
+                                                            <Star className="w-4 h-4" /> {project.stats.stars}
                                                         </span>
                                                         <span className="flex items-center gap-1">
-                                                            <GitFork className="w-4 h-4"/> {project.stats.forks}
+                                                            <GitFork className="w-4 h-4" /> {project.stats.forks}
                                                         </span>
                                                     </div>
                                                     <a
@@ -188,7 +181,7 @@ export default function Home() {
                                                         rel="noopener noreferrer"
                                                         className="p-2 text-gray-400 hover:text-purple-400 transition-colors"
                                                     >
-                                                        <ExternalLink className="w-5 h-5"/>
+                                                        <ExternalLink className="w-5 h-5" />
                                                     </a>
                                                 </div>
                                             </div>
@@ -236,16 +229,16 @@ export default function Home() {
                                 About
                             </Link>
                             <Link to="/privacy-policy"
-                                  className="text-gray-400 hover:text-white transition-colors text-sm">
+                                className="text-gray-400 hover:text-white transition-colors text-sm">
                                 Privacy Policy
                             </Link>
                             <Link to="/terms-of-service"
-                                  className="text-gray-400 hover:text-white transition-colors text-sm">
+                                className="text-gray-400 hover:text-white transition-colors text-sm">
                                 Terms of Service
                             </Link>
                         </div>
                         <div className="text-gray-400 text-sm">
-                            © {new Date().getFullYear()} Jefino. All rights reserved.
+                            © {new Date().getFullYear()} Burhanverse. All rights reserved.
                         </div>
                     </div>
                 </div>

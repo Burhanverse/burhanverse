@@ -5,7 +5,8 @@ import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const blogPosts = [
-    { id: 1, title: "Getting Started with FrameworkPatcher", excerpt: "Tool to modify miui/hyper frameworks", date: "2023-06-01", readTime: "5 min read" },
+    { id: 1, title: "Fedora Setup", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
+    { id: 2, title: "Materialgram", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
 ]
 
 export default function BlogList() {

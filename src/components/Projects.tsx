@@ -23,7 +23,7 @@ export default function Projects() {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch('https://api.github.com/users/Jefino9488/repos');
+                const response = await fetch('https://api.github.com/users/Burhanverse/repos');
                 if (!response.ok) {
                     throw new Error('Failed to fetch repositories');
                 }

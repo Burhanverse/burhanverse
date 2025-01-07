@@ -58,7 +58,7 @@ async function getGithubProjects(): Promise<{ projects: Project[]; error?: strin
 
     const query = `
         query {
-            user(login: "Jefino9488") {
+            user(login: "Burhanverse") {
                 pinnedItems(first: 6, types: [REPOSITORY]) {
                     nodes {
                         ... on Repository {
