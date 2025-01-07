@@ -1,25 +1,45 @@
 import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Copy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-twilight.css';
+
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-bash';
 
 export default function BlogPost() {
     const { id } = useParams<{ id: string }>();
     const postId = Number(id);
     const [post, setPost] = useState<any>(null);
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-        // Fetch the blog post data from an external source (JSON file)
         fetch(`/public/posts/post_${postId}.json`)
             .then(response => response.json())
-            .then(data => setPost(data))
+            .then(data => {
+                setPost(data);
+                Prism.highlightAll();
+            })
             .catch(error => {
                 console.error("Error fetching blog post:", error);
-                setPost(null); // Set post to null if error occurs
+                setPost(null);
             });
     }, [postId]);
+
+    const copyToClipboard = (content: string) => {
+        navigator.clipboard.writeText(content)
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            })
+            .catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+    };
 
     if (!post) {
         return (
@@ -80,6 +100,24 @@ export default function BlogPost() {
                                                 <li key={i} className="text-lg sm:text-xl text-gray-300 leading-relaxed">{item}</li>
                                             ))}
                                         </ul>
+                                    )}
+                                    {/* Render code blocks */}
+                                    {section.code && (
+                                        <div className="relative">
+                                            <pre className="bg-gray-800 p-4 rounded-lg">
+                                                <code className={`language-${section.code.language}`}>
+                                                    {section.code.content}
+                                                </code>
+                                            </pre>
+                                            <Button
+                                                variant="ghost"
+                                                onClick={() => copyToClipboard(section.code.content)}
+                                                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors"
+                                                aria-label="Copy code"
+                                            >
+                                                {copied ? "Copied!" : <Copy className="h-5 w-5" />}
+                                            </Button>
+                                        </div>
                                     )}
                                 </motion.div>
                             ))}

@@ -1,27 +1,21 @@
 {
-    "title": "Materialgram Blog Post",
-    "date": "January 7, 2025",
-    "readTime": "5 min read",
+    "id": 1,
+    "title": "My Post with Code",
     "content": {
-        "introduction": "This is the introduction to the blog post.",
+        "introduction": "This is an introduction.",
         "sections": [
             {
-                "title": "Section 1 Title",
+                "title": "Code Example",
                 "content": [
-                    "Paragraph 1",
-                    "Paragraph 2"
+                    "Here is some code for demonstration."
                 ],
-                "list": [
-                    "List item 1",
-                    "List item 2"
-                ]
-            },
-            {
-                "title": "Section 2 Title",
-                "content": [
-                    "Another paragraph"
-                ]
+                "code": {
+                    "language": "javascript",
+                    "content": "const hello = 'world';\nconsole.log(hello);"
+                }
             }
         ]
-    }
+    },
+    "date": "2025-01-07",
+    "readTime": "5 min read"
 }

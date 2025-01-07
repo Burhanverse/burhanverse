@@ -20,7 +20,11 @@
                 "title": "Section 2 Title",
                 "content": [
                     "Another paragraph"
-                ]
+                ],
+                "code": {
+                    "language": "javascript",
+                    "content": "const hello = 'world';\nconsole.log(hello);"
+                }
             }
         ]
     }
