@@ -13,6 +13,7 @@
                 "titleFontStyle": "bold",
                 "content": [
                     "Asynchronous programming allows you to perform non-blocking operations like reading files, querying a database, or making API requests. You can use callbacks, promises, or async/await to handle async code. For example, using async/await, you can write asynchronous code that looks like synchronous code.",
+                    "[image](https://raw.githubusercontent.com/Burhanverse/burhanverse/refs/heads/main/img/fedora.png) Fedora 41",
                     "[Async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) allows you to write asynchronous operations in a more readable manner."
                 ],
                 "contentFontSize": "small",

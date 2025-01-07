@@ -40,9 +40,16 @@ export default function BlogPost() {
             });
     };
 
-    const renderContentWithLinks = (content: string) => {
+    const renderContentWithLinksAndImages = (content: string) => {
+        // Render links and images
         return content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, p1, p2) => {
-            return `<a href="${p2}" target="_blank" class="text-blue-500 hover:underline">${p1}</a>`;
+            if (p2.match(/\.(jpeg|jpg|gif|png)$/i)) {
+                // Image format
+                return `<img src="${p2}" alt="${p1}" class="max-w-full h-auto rounded-lg mb-4" />`;
+            } else {
+                // Normal links
+                return `<a href="${p2}" target="_blank" class="text-blue-500 hover:underline">${p1}</a>`;
+            }
         });
     };
 
@@ -106,7 +113,7 @@ export default function BlogPost() {
                         <CardContent className="p-8 space-y-8">
                             <p
                                 className={getTextClasses(post.content.introductionFontSize, post.content.introductionFontStyle)}
-                                dangerouslySetInnerHTML={{ __html: renderContentWithLinks(post.content.introduction) }}
+                                dangerouslySetInnerHTML={{ __html: renderContentWithLinksAndImages(post.content.introduction) }}
                             />
                             {post.content.sections.map((section: any, index: number) => (
                                 <motion.div
@@ -122,7 +129,7 @@ export default function BlogPost() {
                                         <p
                                             key={i}
                                             className={getTextClasses(section.contentFontSize, section.contentFontStyle)}
-                                            dangerouslySetInnerHTML={{ __html: renderContentWithLinks(para) }}
+                                            dangerouslySetInnerHTML={{ __html: renderContentWithLinksAndImages(para) }}
                                         />
                                     ))}
                                     {section.list && (
@@ -131,7 +138,7 @@ export default function BlogPost() {
                                                 <li
                                                     key={i}
                                                     className={getTextClasses(section.listFontSize, section.listFontStyle)}
-                                                    dangerouslySetInnerHTML={{ __html: renderContentWithLinks(item) }}
+                                                    dangerouslySetInnerHTML={{ __html: renderContentWithLinksAndImages(item) }}
                                                 />
                                             ))}
                                         </ul>
