@@ -41,6 +41,12 @@ export default function BlogPost() {
             });
     };
 
+    const renderContentWithLinks = (content: string) => {
+        return content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, p1, p2) => {
+            return `<a href="${p2}" target="_blank" class="text-blue-500 hover:underline">${p1}</a>`;
+        });
+    };
+
     if (!post) {
         return (
             <div className="min-h-screen bg-gray-950 flex items-center justify-center text-white">
@@ -82,7 +88,10 @@ export default function BlogPost() {
                             </div>
                         </CardHeader>
                         <CardContent className="p-8 space-y-8">
-                            <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">{post.content.introduction}</p>
+                            <p
+                                className="text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: renderContentWithLinks(post.content.introduction) }}
+                            />
                             {post.content.sections.map((section: any, index: number) => (
                                 <motion.div
                                     key={index}
@@ -92,12 +101,20 @@ export default function BlogPost() {
                                 >
                                     <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-purple-400">{section.title}</h2>
                                     {section.content.map((para: string, i: number) => (
-                                        <p key={i} className="mb-4 text-lg sm:text-xl text-gray-300 leading-relaxed">{para}</p>
+                                        <p
+                                            key={i}
+                                            className="mb-4 text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: renderContentWithLinks(para) }}
+                                        />
                                     ))}
                                     {section.list && (
                                         <ul className="list-disc pl-6 space-y-2">
                                             {section.list.map((item: string, i: number) => (
-                                                <li key={i} className="text-lg sm:text-xl text-gray-300 leading-relaxed">{item}</li>
+                                                <li
+                                                    key={i}
+                                                    className="text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                                    dangerouslySetInnerHTML={{ __html: renderContentWithLinks(item) }}
+                                                />
                                             ))}
                                         </ul>
                                     )}

@@ -8,7 +8,7 @@
             {
                 "title": "Section 1 Title",
                 "content": [
-                    "Paragraph 1",
+                    "This is a section with another [link](https://www.example.com).",
                     "Paragraph 2"
                 ],
                 "list": [
