@@ -1,0 +1,27 @@
+{
+    "title": "Sample Blog Post",
+    "date": "January 7, 2025",
+    "readTime": "5 min read",
+    "content": {
+        "introduction": "This is the introduction to the blog post.",
+        "sections": [
+            {
+                "title": "Section 1 Title",
+                "content": [
+                    "Paragraph 1",
+                    "Paragraph 2"
+                ],
+                "list": [
+                    "List item 1",
+                    "List item 2"
+                ]
+            },
+            {
+                "title": "Section 2 Title",
+                "content": [
+                    "Another paragraph"
+                ]
+            }
+        ]
+    }
+}
