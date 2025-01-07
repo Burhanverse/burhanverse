@@ -1,29 +1,69 @@
 {
-    "title": "Sample Blog Post",
-    "date": "January 7, 2025",
-    "readTime": "5 min read",
+    "title": "Exploring Advanced JavaScript Concepts",
+    "date": "2025-01-07",
+    "readTime": "10 min read",
     "content": {
-        "introduction": "This is the introduction to the blog post.",
+        "introduction": "JavaScript is a powerful and versatile programming language. In this post, we'll explore some advanced concepts that can enhance your coding skills. [Learn more](https://developer.mozilla.org/en-US/docs/Web/JavaScript).",
+        "introductionFontSize": "medium",
+        "introductionFontStyle": "regular",
         "sections": [
             {
-                "title": "Section 1 Title",
+                "title": "Asynchronous Programming in JavaScript",
+                "titleFontSize": "large",
+                "titleFontStyle": "bold",
                 "content": [
-                    "This is a section with another [link](https://www.example.com).",
-                    "Paragraph 2"
+                    "Asynchronous programming allows you to perform non-blocking operations like reading files, querying a database, or making API requests. You can use callbacks, promises, or async/await to handle async code. For example, using async/await, you can write asynchronous code that looks like synchronous code.",
+                    "[Async function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) allows you to write asynchronous operations in a more readable manner."
                 ],
+                "contentFontSize": "small",
+                "contentFontStyle": "regular",
                 "list": [
-                    "List item 1",
-                    "List item 2"
-                ]
-            },
-            {
-                "title": "Section 2 Title",
-                "content": [
-                    "Another paragraph"
+                    "Promises",
+                    "async/await",
+                    "Callbacks"
                 ],
+                "listFontSize": "bold",
+                "listFontStyle": "italic",
                 "code": {
                     "language": "javascript",
-                    "content": "const hello = 'world';\nconsole.log(hello);"
+                    "content": "async function fetchData() { await fetch('https://api.example.com'); }"
+                }
+            },
+            {
+                "title": "JavaScript Closures",
+                "titleFontSize": "large",
+                "titleFontStyle": "bold",
+                "content": [
+                    "A closure is a function that retains access to its lexical scope, even after the function that created it has finished executing. Closures are useful for creating private variables and functions.",
+                    "For instance, closures can help in scenarios where you need to hide sensitive data or have control over how a function behaves."
+                ],
+                "contentFontSize": "small",
+                "contentFontStyle": "italic",
+                "code": {
+                    "language": "javascript",
+                    "content": "function outer() { let secret = 'This is a secret'; return function() { return secret; }; }"
+                }
+            },
+            {
+                "title": "JavaScript Prototypal Inheritance",
+                "titleFontSize": "large",
+                "titleFontStyle": "bold",
+                "content": [
+                    "JavaScript uses prototypal inheritance, which means that objects can inherit properties and methods from other objects. This is different from classical inheritance in languages like Java or C++.",
+                    "You can create an object and assign another object as its prototype. This allows you to extend functionality without needing to modify the original object."
+                ],
+                "contentFontSize": "small",
+                "contentFontStyle": "regular",
+                "list": [
+                    "Prototype chain",
+                    "Object.create()",
+                    "Inheritance"
+                ],
+                "listFontSize": "small",
+                "listFontStyle": "italic",
+                "code": {
+                    "language": "javascript",
+                    "content": "const person = { name: 'John', greet() { console.log('Hello, ' + this.name); } }; const john = Object.create(person); john.name = 'Jane'; john.greet();"
                 }
             }
         ]

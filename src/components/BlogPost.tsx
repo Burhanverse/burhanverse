@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-twilight.css';
-
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-bash';
@@ -15,7 +14,7 @@ export default function BlogPost() {
     const { id } = useParams<{ id: string }>();
     const postId = Number(id);
     const [post, setPost] = useState<any>(null);
-    const [copied, setCopied] = useState(false);
+    const [copiedCodes, setCopiedCodes] = useState<{ [key: number]: boolean }>({});
 
     useEffect(() => {
         fetch(`/public/posts/post_${postId}.json`)
@@ -30,11 +29,11 @@ export default function BlogPost() {
             });
     }, [postId]);
 
-    const copyToClipboard = (content: string) => {
+    const copyToClipboard = (content: string, index: number) => {
         navigator.clipboard.writeText(content)
             .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
+                setCopiedCodes(prev => ({ ...prev, [index]: true }));
+                setTimeout(() => setCopiedCodes(prev => ({ ...prev, [index]: false })), 2000);
             })
             .catch(err => {
                 console.error("Failed to copy: ", err);
@@ -45,6 +44,23 @@ export default function BlogPost() {
         return content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, p1, p2) => {
             return `<a href="${p2}" target="_blank" class="text-blue-500 hover:underline">${p1}</a>`;
         });
+    };
+
+    const getTextClasses = (fontSize: string, fontStyle: string) => {
+        const sizeClasses = {
+            small: "text-base",
+            medium: "text-lg sm:text-xl",
+            large: "text-2xl sm:text-3xl",
+        };
+
+        const styleClasses = {
+            regular: "font-normal",
+            bold: "font-bold",
+            italic: "italic",
+            underline: "underline",
+        };
+
+        return `${sizeClasses[fontSize] || sizeClasses.medium} ${styleClasses[fontStyle] || styleClasses.regular} text-gray-300 leading-relaxed`;
     };
 
     if (!post) {
@@ -89,7 +105,7 @@ export default function BlogPost() {
                         </CardHeader>
                         <CardContent className="p-8 space-y-8">
                             <p
-                                className="text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                className={getTextClasses(post.content.introductionFontSize, post.content.introductionFontStyle)}
                                 dangerouslySetInnerHTML={{ __html: renderContentWithLinks(post.content.introduction) }}
                             />
                             {post.content.sections.map((section: any, index: number) => (
@@ -99,11 +115,13 @@ export default function BlogPost() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.2 }}
                                 >
-                                    <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-purple-400">{section.title}</h2>
+                                    <h2 className={getTextClasses(section.titleFontSize, section.titleFontStyle)}>
+                                        {section.title}
+                                    </h2>
                                     {section.content.map((para: string, i: number) => (
                                         <p
                                             key={i}
-                                            className="mb-4 text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                            className={getTextClasses(section.contentFontSize, section.contentFontStyle)}
                                             dangerouslySetInnerHTML={{ __html: renderContentWithLinks(para) }}
                                         />
                                     ))}
@@ -112,27 +130,26 @@ export default function BlogPost() {
                                             {section.list.map((item: string, i: number) => (
                                                 <li
                                                     key={i}
-                                                    className="text-lg sm:text-xl text-gray-300 leading-relaxed"
+                                                    className={getTextClasses(section.listFontSize, section.listFontStyle)}
                                                     dangerouslySetInnerHTML={{ __html: renderContentWithLinks(item) }}
                                                 />
                                             ))}
                                         </ul>
                                     )}
-                                    {/* Render code blocks */}
                                     {section.code && (
-                                        <div className="relative">
-                                            <pre className="bg-gray-800 p-4 rounded-lg">
+                                        <div className="relative flex items-center space-x-4">
+                                            <pre className="bg-gray-800 p-4 rounded-lg flex-1">
                                                 <code className={`language-${section.code.language}`}>
                                                     {section.code.content}
                                                 </code>
                                             </pre>
                                             <Button
                                                 variant="ghost"
-                                                onClick={() => copyToClipboard(section.code.content)}
-                                                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white transition-colors"
+                                                onClick={() => copyToClipboard(section.code.content, index)}
+                                                className="text-gray-400 hover:text-white hover:bg-gray-700 transition-colors p-2"
                                                 aria-label="Copy code"
                                             >
-                                                {copied ? "Copied!" : <Copy className="h-5 w-5" />}
+                                                {copiedCodes[index] ? "Copied!" : <Copy className="h-5 w-5" />}
                                             </Button>
                                         </div>
                                     )}
