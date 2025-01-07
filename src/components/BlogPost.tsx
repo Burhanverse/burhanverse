@@ -17,7 +17,7 @@ export default function BlogPost() {
     const [copiedCodes, setCopiedCodes] = useState<{ [key: number]: boolean }>({});
 
     useEffect(() => {
-        fetch(`/public/posts/post_${postId}.json`)
+        fetch(`/posts/post_${postId}.json`)
             .then(response => response.json())
             .then(data => {
                 setPost(data);
