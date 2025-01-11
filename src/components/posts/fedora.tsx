@@ -247,6 +247,15 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     To verify the mount and the permissions that it has, use the mount command.
                 </p>
+                <pre className="relative group">
+                    <code className="language-javascript">{ntfs7}</code>
+                    <button
+                        onClick={() => handleCopy(ntfs7)}
+                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
+                    >
+                        {isCopied ? "Copied!" : "Copy"}
+                    </button>
+                </pre>
                 <div className="half-space"></div>
                 <p className="text-s font-semibold text-gray-300">
                     ⦿ Change Ownership to your username:

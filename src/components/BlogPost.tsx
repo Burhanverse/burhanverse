@@ -12,7 +12,13 @@ export default function BlogPost() {
         "materialgram": <Post2 />,
     };
 
-    const postContent = postComponents[slug];
+    if (!slug) {
+        return <p>Error: Post not found. Please check the URL.</p>;
+    }
+
+    const postContent = postComponents[slug] ?? (
+        <p>Error: Post not found. Please check the URL.</p>
+    );
 
     if (!postContent) {
         return (
