@@ -23,7 +23,10 @@ export default function Projects() {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch('https://api.github.com/users/Burhanverse/repos');
+                // Fetch repositories sorted by last updated date in descending order
+                const response = await fetch(
+                    'https://api.github.com/users/Burhanverse/repos?sort=updated&direction=desc&per_page=15'
+                );
                 if (!response.ok) {
                     throw new Error('Failed to fetch repositories');
                 }
