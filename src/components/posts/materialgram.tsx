@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Calendar, Clock } from "lucide-react";
 import Prism from "prismjs";
-import "prismjs/themes/prism-duotone-sea.css";
+import "prism-themes/themes/prism-duotone-sea.css";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export const Post2 = () => {
