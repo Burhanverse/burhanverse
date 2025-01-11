@@ -21,7 +21,7 @@ export default function BlogList() {
                 <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogPosts.map((post, index) => (
                         <motion.div
-                            key={post.slug}  // Use the slug as the key
+                            key={post.slug}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -39,7 +39,7 @@ export default function BlogList() {
                                     </CardHeader>
                                     <CardContent>
                                         <p className="text-gray-300 mb-4">{post.excerpt}</p>
-                                        <div className="flex items-center text-purple-400 hover:text-purple-300 transition-colors">
+                                        <div className="flex items-center text-teal-400 hover:text-teal-300 transition-colors">
                                             <span className="mr-2 font-semibold">Read more</span>
                                             <ArrowRight className="h-4 w-4" />
                                         </div>

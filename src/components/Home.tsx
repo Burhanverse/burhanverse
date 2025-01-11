@@ -40,9 +40,9 @@ export default function Home() {
                                     className="flex-shrink-0 relative"
                                 >
                                     <div
-                                        className="absolute inset-0 bg-purple-800 rounded-full filter blur-xl opacity-50"></div>
+                                        className="absolute inset-0 bg-teal-800 rounded-full filter blur-xl opacity-50"></div>
                                     <Avatar
-                                        className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 border-4 border-purple-800 shadow-lg relative"
+                                        className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 border-4 border-teal-600 shadow-lg relative"
                                     >
                                         <AvatarImage src="https://avatars.githubusercontent.com/u/127223292?v=4"
                                             alt="Burhanverse" />
@@ -55,10 +55,10 @@ export default function Home() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: 0.2 }}
                                     >
-                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-700">
+                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-700">
                                             Burhanverse
                                         </h1>
-                                        <p className="nunito-regular text-xs sm:text-2xl md:text-3xl text-purple-300 font-medium mb-4">
+                                        <p className="nunito-regular text-xs sm:text-2xl md:text-3xl text-teal-300 font-medium mb-4">
                                             <i>A tech enthusiast from a place that's not on most maps. I'm passionate about the science of perception and love exploring new tech ideas</i>
                                         </p>
                                         <div className="flex flex-col space-y-2 mb-6">
@@ -114,7 +114,7 @@ export default function Home() {
 
                     <section>
                         <Card
-                            className="bg-gradient-to-br from-purple-900 to-indigo-900 border-none text-white hover:from-purple-800 hover:to-indigo-800 transition-colors rounded-3xl shadow-lg overflow-hidden">
+                            className="bg-gradient-to-br from-teal-900 to-blue-600 border-none text-white hover:from-teal-800 hover:to-blue-800 transition-colors rounded-3xl shadow-lg overflow-hidden">
                             <Link to="/blog" className="block">
                                 <CardHeader className="pb-2">
                                     <CardTitle className="flex items-center text-lg sm:text-2xl font-bold">
@@ -126,7 +126,7 @@ export default function Home() {
                                     <p className="text-lg sm:text-xl text-gray-200 mb-4">Dive into my latest thoughts
                                         and insights on technology, development, and more.</p>
                                     <div
-                                        className="flex items-center text-purple-300 hover:text-purple-100 transition-colors">
+                                        className="flex items-center text-teal-300 hover:text-teal-100 transition-colors">
                                         <span className="mr-2 font-semibold">Read latest posts</span>
                                         <ArrowRight className="h-5 w-5" />
                                     </div>
@@ -151,9 +151,9 @@ export default function Home() {
                                     >
                                         <div className="group relative h-56">
                                             <div
-                                                className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                                className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                                             <div
-                                                className="relative backdrop-blur-xl bg-gray-800 rounded-3xl p-6 border border-gray-700 transition-all duration-300 group-hover:border-purple-500/50 h-full flex flex-col">
+                                                className="relative backdrop-blur-xl bg-gray-800 rounded-3xl p-6 border border-gray-700 transition-all duration-300 group-hover:border-teal-500/50 h-full flex flex-col">
                                                 <h3 className="text-xl font-semibold mb-3 text-white">{project.title}</h3>
                                                 <p className="text-gray-300 mb-4 text-sm line-clamp-2">{project.description}</p>
                                                 <div className="flex flex-wrap gap-2 mb-4">
@@ -179,7 +179,7 @@ export default function Home() {
                                                         href={project.link}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="p-2 text-gray-400 hover:text-purple-400 transition-colors"
+                                                        className="p-2 text-gray-400 hover:text-teal-400 transition-colors"
                                                     >
                                                         <ExternalLink className="w-5 h-5" />
                                                     </a>
