@@ -33,7 +33,7 @@ function AppContent() {
                     }
                 />
                 <Route
-                    path="/blog/:id"
+                    path="/blog/:slug"
                     element={
                         <TransitionWrapper>
                             <BlogPost />

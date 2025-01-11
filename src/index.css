@@ -96,6 +96,12 @@
   font-style: normal;
 }
 
+.half-space {
+  display: block;
+  height: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 @layer components {
   .animate-pulse {
     animation: pulse 1.8s cubic-bezier(0.42, 0, 0.58, 1) infinite;

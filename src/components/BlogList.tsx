@@ -5,8 +5,8 @@ import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const blogPosts = [
-    { id: 1, title: "Fedora Setup", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
-    { id: 2, title: "Materialgram", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
+    { slug: "fedora", title: "Fedora Setup", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
+    { slug: "materialgram", title: "Materialgram", excerpt: "Tweaks and stuffs that I use on...", date: "2025-06-01", readTime: "5 min read" },
 ]
 
 export default function BlogList() {
@@ -21,12 +21,12 @@ export default function BlogList() {
                 <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogPosts.map((post, index) => (
                         <motion.div
-                            key={post.id}
+                            key={post.slug}  // Use the slug as the key
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <Link to={`/blog/${post.id}`}>
+                            <Link to={`/blog/${post.slug}`}> {/* Use the slug in the link */}
                                 <Card className="bg-gray-800 border-none text-white hover:bg-gray-700 transition-all duration-300 rounded-2xl shadow-lg transform hover:-translate-y-1">
                                     <CardHeader>
                                         <CardTitle className="text-xl sm:text-2xl font-semibold mb-2">{post.title}</CardTitle>
