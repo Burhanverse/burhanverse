@@ -39,9 +39,9 @@ export const Post1 = () => {
 
     return (
         <Card className="bg-gray-800 border-none text-white rounded-2xl shadow-lg overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-green-900 to-teal-900 p-8">
+            <CardHeader className="bg-gradient-to-r from-teal-800 to-teal-600 p-8">
                 <h1 className="text-4xl font-bold text-white mb-4">My Fedora Setup</h1>
-                <div className="text-sm text-gray-400 flex items-center">
+                <div className="text-sm text-teal-300 flex items-center">
                     <span className="flex items-center">
                         <Calendar className="mr-2 h-4 w-4" />
                         11 Jan, 2025
@@ -71,7 +71,7 @@ export const Post1 = () => {
                 </p>
                 <div className="half-space"></div>
 
-                <h2 className="text-2xl text-center font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 className="text-2xl text-center font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Contents
                 </h2>
                 <p className="text-center text-s text-gray-300">
@@ -93,7 +93,7 @@ export const Post1 = () => {
                     <a className="text-teal-400" href="#kernel">Update/Clean Kernels</a>
                 </p>
                 <br />
-                <h2 id="colloid" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="colloid" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Colloid icons installer
                 </h2>
                 <p className="text-s text-gray-300">
@@ -115,7 +115,7 @@ export const Post1 = () => {
                     </div>
                 </pre>
                 <br />
-                <h2 id="ext" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="ext" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     GNOME Extensions
                 </h2>
                 <p className="text-s text-gray-300">
@@ -166,7 +166,7 @@ export const Post1 = () => {
                     ⦿ <a className="text-teal-400" href="https://extensions.gnome.org/extension/1460/vitals/">Vitals</a> - A glimpse into your computer's temperature, voltage, fan speed, memory usage, processor load, system resources, network speed and storage stats. This is a one stop shop to monitor all of your vital sensors. Uses asynchronous polling to provide a smooth user experience.
                 </p>
                 <br />
-                <h2 id="ntfs" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="ntfs" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     MY way of mounting NTFS partions to Linux with full RW permissions:
                 </h2>
                 <p className="text-s font-semibold text-gray-300">
@@ -367,7 +367,7 @@ export const Post1 = () => {
                     After updating the /etc/fstab file, you can run sudo mount -a to mount the partitions according to the updated configuration.
                 </p>
                 <br />
-                <h2 id="tpadfix" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="tpadfix" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Fix TouchPad 'right-click' on Fedora (GNOME):
                 </h2>
                 <p className="text-s text-gray-300">
@@ -450,7 +450,7 @@ export const Post1 = () => {
                     </div>
                 </pre>
                 <br />
-                <h2 id="weather" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="weather" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     GNOME Weather Location fix:
                 </h2>
                 <p className="text-s text-gray-300">
@@ -480,7 +480,7 @@ export const Post1 = () => {
                     Thanks to <a className="text-teal-400" href="https://gitlab.com/julianfairfax">@julianfairfax</a> for the script.
                 </p>
                 <br />
-                <h2 id="kernel" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 id="kernel" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     My way of updating kernel to latest version and make it default
                 </h2>
                 <p className="text-xs text-gray-300">

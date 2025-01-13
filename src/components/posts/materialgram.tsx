@@ -26,9 +26,9 @@ export const Post2 = () => {
 
     return (
         <Card className="bg-gray-800 border-none text-white rounded-2xl shadow-lg overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-green-900 to-teal-900 p-8">
+            <CardHeader className="bg-gradient-to-r from-teal-800 to-teal-600 p-8">
                 <h1 className="text-4xl font-bold text-white mb-4">Materialgram</h1>
-                <div className="text-sm text-gray-400  flex items-center">
+                <div className="text-sm text-teal-300  flex items-center">
                     <span className="flex items-center">
                         <Calendar className="mr-2 h-4 w-4" />
                         11 Jan, 2025
@@ -41,7 +41,7 @@ export const Post2 = () => {
                 </div>
             </CardHeader>
             <CardContent className="p-8">
-                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Setup for Arch Linux users
                 </h2>
                 <h6 className="text-xs text-italic text-gray-300  ">NOTE: If you have installed the flatpak version then please do remove it first.</h6>
@@ -69,7 +69,7 @@ export const Post2 = () => {
                     </div>
                 </pre>
                 <br />
-                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Setup for Fedora/CentOS users
                 </h2>
                 <p className="text-s text-gray-300  ">
@@ -114,7 +114,7 @@ export const Post2 = () => {
                     </div>
                 </pre>
                 <br />
-                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
+                <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Setup for Debian/Ubuntu users
                 </h2>
                 <p className="text-s text-gray-300  ">
