@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { Calendar, Clock } from "lucide-react";
-import Prism from "prismjs";
-import "prism-themes/themes/prism-duotone-sea.css";
+import { useState } from "react";
+import { Calendar, Clock, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export const Post2 = () => {
-    const [isCopied, setIsCopied] = useState(false);
-
-    useEffect(() => {
-        Prism.highlightAll();
-    }, []);
+    const [isCopied, setIsCopied] = useState<{ [key: string]: boolean }>({});
 
     const handleCopy = (code: string) => {
         navigator.clipboard.writeText(code).then(() => {
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000);
+            setIsCopied((prev) => ({
+                ...prev,
+                [code]: true,
+            }));
+            setTimeout(() => setIsCopied((prev) => ({
+                ...prev,
+                [code]: false,
+            })), 2000);
         });
     };
 
@@ -53,14 +53,20 @@ export const Post2 = () => {
                 <p className="text-s text-gray-300  ">
                     ⦿ You can use this installer script:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{arch}</code>
-                    <button
-                        onClick={() => handleCopy(arch)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(arch)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[arch] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{arch}</code>
+                    </div>
                 </pre>
                 <br />
                 <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
@@ -73,27 +79,39 @@ export const Post2 = () => {
                 <p className="text-s text-gray-300  ">
                     ⦿ Add the repository and install Materialgram:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{rpm1}</code>
-                    <button
-                        onClick={() => handleCopy(rpm1)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(rpm1)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[rpm1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{rpm1}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300  ">
                     ⦿ Update Materialgram:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{rpm2}</code>
-                    <button
-                        onClick={() => handleCopy(rpm2)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(rpm2)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[rpm2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{rpm2}</code>
+                    </div>
                 </pre>
                 <br />
                 <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
@@ -106,27 +124,39 @@ export const Post2 = () => {
                 <p className="text-s text-gray-300  ">
                     ⦿ You can use this installer script:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{deb1}</code>
-                    <button
-                        onClick={() => handleCopy(deb1)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(deb1)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[deb1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{deb1}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300  ">
                     ⦿ Update Materialgram:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{deb2}</code>
-                    <button
-                        onClick={() => handleCopy(deb2)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(deb2)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[deb2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{deb2}</code>
+                    </div>
                 </pre>
 
             </CardContent>

@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { Calendar, Clock } from "lucide-react";
-import Prism from "prismjs";
-import "prism-themes/themes/prism-duotone-sea.css";
+import { useState } from "react";
+import { Calendar, Clock, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export const Post1 = () => {
-    const [isCopied, setIsCopied] = useState(false);
-
-    useEffect(() => {
-        Prism.highlightAll();
-    }, []);
+    const [isCopied, setIsCopied] = useState<{ [key: string]: boolean }>({});
 
     const handleCopy = (code: string) => {
         navigator.clipboard.writeText(code).then(() => {
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000);
+            setIsCopied((prev) => ({
+                ...prev,
+                [code]: true,
+            }));
+            setTimeout(() => setIsCopied((prev) => ({
+                ...prev,
+                [code]: false,
+            })), 2000);
         });
     };
 
@@ -99,14 +99,20 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     I have made a script to install the <a className="text-teal-400" href="https://github.com/vinceliuice/Colloid-icon-theme/ ">Colloid icon theme</a> on Fedora. You can run the script below to install the icons.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{colloid_installer}</code>
-                    <button
-                        onClick={() => handleCopy(colloid_installer)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(colloid_installer)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[colloid_installer] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{colloid_installer}</code>
+                    </div>
                 </pre>
                 <br />
                 <h2 id="ext" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
@@ -170,14 +176,20 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     To install ntfs-3g and fuse on CentOS, Fedora, AlmaLinux, and Red Hat:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs1}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs1)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs1)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs1}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s font-semibold text-gray-300">
@@ -187,14 +199,20 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     We will use the parted command to identify the path through which our NTFS partition is accessed.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs2}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs2)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs2)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs2}</code>
+                    </div>
                 </pre>
                 <p className="text-s text-gray-300">
                     Here my NTFS partitions are /dev/nvme0n1p3 and /dev/nvme0n1p4.
@@ -203,58 +221,88 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     Then, create the path where you plan to mount the partition, if it hasn’t already been created.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs3}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs3)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs3)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs3] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs3}</code>
+                    </div>
                 </pre>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs4}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs4)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs4)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs4] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs4}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     The most basic mount command would look like this. It should mount your NTFS partition with read and write permissions. This is probably the only command that most users will need.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs5}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs5)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs5)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs5] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs5}</code>
+                    </div>
                 </pre>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs6}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs6)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs6)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs6] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs6}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     To verify the mount and the permissions that it has, use the mount command.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs7}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs7)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs7)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs7] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs7}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s font-semibold text-gray-300">
@@ -264,37 +312,56 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     To make the NTFS partition mount automatically on startup, we’ll need to add a line to the /etc/fstab file on our system. Use nano or your favorite text editor to open it up under root permissions.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs8}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs8)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs8)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs8] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs8}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     Then, add the following line to the file, while substituting your own device directory and mount path.
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs9}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs9)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs9)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs9] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs9}</code>
+                    </div>
                 </pre>
-                <pre className="relative group">
-                    <code className="language-javascript">{ntfs10}</code>
-                    <button
-                        onClick={() => handleCopy(ntfs10)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs10)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[ntfs10] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{ntfs10}</code>
+                    </div>
                 </pre>
+                <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     After updating the /etc/fstab file, you can run sudo mount -a to mount the partitions according to the updated configuration.
                 </p>
@@ -309,53 +376,77 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     ⦿ To check the full list of touchpad settings:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{tpadfix1}</code>
-                    <button
-                        onClick={() => handleCopy(tpadfix1)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(tpadfix1)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[tpadfix1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{tpadfix1}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     ⦿ To check the current click method:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{tpadfix2}</code>
-                    <button
-                        onClick={() => handleCopy(tpadfix2)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(tpadfix2)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[tpadfix2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{tpadfix2}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     ⦿ To check the available click methods:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{tpadfix3}</code>
-                    <button
-                        onClick={() => handleCopy(tpadfix3)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(tpadfix3)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[tpadfix3] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{tpadfix3}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     ⦿ To set the click method to 'areas':
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{tpadfix4}</code>
-                    <button
-                        onClick={() => handleCopy(tpadfix4)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(tpadfix4)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[tpadfix4] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{tpadfix4}</code>
+                    </div>
                 </pre>
                 <br />
                 <h2 id="weather" className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-400">
@@ -368,15 +459,22 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     ⦿ ⦿ Here's the workaround to add your location on the weather app:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{weather}</code>
-                    <button
-                        onClick={() => handleCopy(weather)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(weather)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[weather] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{weather}</code>
+                    </div>
                 </pre>
+                <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     Thanks to <a className="text-teal-400" href="https://gitlab.com/julianfairfax">@julianfairfax</a> for the script.
                 </p>
@@ -390,14 +488,20 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     ⦿ Firstly check for update:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{kernel1}</code>
-                    <button
-                        onClick={() => handleCopy(kernel1)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(kernel1)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[kernel1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{kernel1}</code>
+                    </div>
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
@@ -407,15 +511,22 @@ export const Post1 = () => {
                 <p className="text-s text-gray-300">
                     ⦿ After the successful reboot, run this to remove your old kernels:
                 </p>
-                <pre className="relative group">
-                    <code className="language-javascript">{kernel2}</code>
-                    <button
-                        onClick={() => handleCopy(kernel2)}
-                        className="hidden group-hover:inline-block absolute top-2 right-2 text-sm px-2 py-1 bg-teal-700 text-white rounded hover:bg-teal-600 transition"
-                    >
-                        {isCopied ? "Copied!" : "Copy"}
-                    </button>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
+                        <span className="text-sm text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(kernel2)}
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {isCopied[kernel2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>{kernel2}</code>
+                    </div>
                 </pre>
+                <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     Here's the <a className="text-teal-400" href="https://github.com/Burhanverse/scripts/blob/main/rem_kernel.sh">script</a> if you are interested to inspect.
                 </p>
