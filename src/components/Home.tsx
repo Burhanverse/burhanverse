@@ -223,23 +223,8 @@ export default function Home() {
             </motion.div>
             <footer className="bg-gray-900 rounded-t-3xl mt-8">
                 <div className="max-w-6xl mx-auto px-6 py-6">
-                    <div className="flex flex-col items-center justify-center space-y-4">
-                        <div className="flex space-x-6">
-                            <Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm">
-                                About
-                            </Link>
-                            <Link to="/privacy-policy"
-                                className="text-gray-400 hover:text-white transition-colors text-sm">
-                                Privacy Policy
-                            </Link>
-                            <Link to="/terms-of-service"
-                                className="text-gray-400 hover:text-white transition-colors text-sm">
-                                Terms of Service
-                            </Link>
-                        </div>
-                        <div className="text-gray-400 text-sm">
-                            © {new Date().getFullYear()} Burhanverse. All rights reserved.
-                        </div>
+                    <div className="text-gray-400 text-sm">
+                        © {new Date().getFullYear()} Burhanverse. All rights reserved.
                     </div>
                 </div>
             </footer>

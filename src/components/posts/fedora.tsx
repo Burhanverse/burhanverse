@@ -214,6 +214,7 @@ export const Post1 = () => {
                         <code>{ntfs2}</code>
                     </div>
                 </pre>
+                <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     Here my NTFS partitions are /dev/nvme0n1p3 and /dev/nvme0n1p4.
                 </p>
