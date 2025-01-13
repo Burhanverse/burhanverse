@@ -78,8 +78,8 @@ export default function Projects() {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
                             <div className="group relative h-56 rounded-3xl overflow-hidden shadow-lg">
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                                <div className="relative backdrop-blur-xl bg-gray-800 rounded-3xl p-6 border border-gray-700 transition-all duration-300 group-hover:border-purple-500/50 h-full flex flex-col">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                <div className="relative backdrop-blur-xl bg-gray-800 rounded-3xl p-6 border border-gray-700 transition-all duration-300 group-hover:border-teal-500/50 h-full flex flex-col">
                                     <h3 className="text-xl font-semibold mb-3 text-white">{project.title}</h3>
                                     <p className="text-gray-300 mb-4 text-sm line-clamp-2">{project.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-4">
@@ -105,7 +105,7 @@ export default function Projects() {
                                             href={project.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 text-gray-400 hover:text-purple-400 transition-colors"
+                                            className="p-2 text-gray-400 hover:text-teal-400 transition-colors"
                                         >
                                             <ExternalLink className="w-5 h-5" />
                                         </a>
