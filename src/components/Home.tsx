@@ -42,7 +42,7 @@ export default function Home() {
                                     <div
                                         className="absolute inset-0 bg-teal-800 rounded-full filter blur-xl opacity-50"></div>
                                     <Avatar
-                                        className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 border-4 border-teal-600 shadow-lg relative"
+                                        className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 border-4 border-teal-500 shadow-lg relative"
                                     >
                                         <AvatarImage src="https://avatars.githubusercontent.com/u/127223292?v=4"
                                             alt="Burhanverse" />
@@ -55,7 +55,7 @@ export default function Home() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: 0.2 }}
                                     >
-                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-700">
+                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-800">
                                             Burhanverse
                                         </h1>
                                         <p className="nunito-regular text-xs sm:text-2xl md:text-3xl text-teal-300 font-medium mb-4">
@@ -74,21 +74,21 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.4 }}
                                         className="flex justify-center md:justify-start space-x-4"
                                     >
-                                        <Button variant="outline" size="icon"
-                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                        <Button size="icon"
+                                            className="bg-gradient-to-r from-teal-600 to-teal-900 hover:from-teal-900 hover:to-teal-600  transition-colors">
                                             <a href="https://github.com/Burhanverse" target="_blank"
                                                 rel="noopener noreferrer" aria-label="GitHub">
                                                 <Github className="h-5 w-5" />
                                             </a>
                                         </Button>
-                                        <Button variant="outline" size="icon"
-                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                        <Button size="icon"
+                                            className="bg-gradient-to-l from-teal-600 to-teal-900 hover:from-teal-900 hover:to-teal-600 transition-colors">
                                             <a href="mailto:contact@burhanverse.eu.org" aria-label="Email">
                                                 <Mail className="h-5 w-5" />
                                             </a>
                                         </Button>
-                                        <Button variant="outline" size="icon"
-                                            className="bg-gray-700 hover:bg-gray-600 transition-colors border-gray-600">
+                                        <Button size="icon"
+                                            className="bg-gradient-to-r from-teal-600 to-teal-900 hover:from-teal-900 hover:to-teal-600 transition-colors">
                                             <a href="https://telegram.me/Burhanverse" target="_blank"
                                                 rel="noopener noreferrer" aria-label="Telegram">
                                                 <Send className="h-5 w-5" />
@@ -114,7 +114,7 @@ export default function Home() {
 
                     <section>
                         <Card
-                            className="bg-gradient-to-br from-teal-900 to-blue-600 border-none text-white hover:from-teal-800 hover:to-blue-800 transition-colors rounded-3xl shadow-lg overflow-hidden">
+                            className="bg-gradient-to-br from-teal-600 to-teal-900 border-none text-white hover:from-teal-800 hover:to-teal-800 transition-colors rounded-3xl shadow-lg overflow-hidden">
                             <Link to="/blog" className="block">
                                 <CardHeader className="pb-2">
                                     <CardTitle className="flex items-center text-lg sm:text-2xl font-bold">
@@ -207,7 +207,7 @@ export default function Home() {
                 className="cursor-grab active:cursor-grabbing transition-all ease-in-out"
             >
                 <div className="flex flex-col items-center justify-center">
-                    <p className="text-gray-300 text-xs sm:text-sm mb-2 animate-pulse text-center">
+                    <p className="tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600 hover:from-teal-600 hover:to-teal-400 text-xs sm:text-sm mb-2 animate-pulse text-center">
                         Pull up to explore projects
                     </p>
                     <motion.div
@@ -217,13 +217,13 @@ export default function Home() {
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
-                        className="w-8 h-1.5 sm:w-12 sm:h-2 bg-gray-500 rounded-full"
+                        className="w-8 h-1.5 sm:w-12 sm:h-2 bg-gradient-to-r from-teal-600 to-teal-900 hover:from-teal-900 hover:to-teal-600 rounded-full"
                     ></motion.div>
                 </div>
             </motion.div>
             <footer className="bg-gray-900 rounded-t-3xl mt-8">
-                <div className="max-w-6xl mx-auto px-6 py-6">
-                    <div className="text-gray-400 text-sm">
+                <div className="max-w-6xl mx-auto px-6 py-6 flex justify-center items-center">
+                    <div className="tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600 text-sm text-center">
                         © {new Date().getFullYear()} Burhanverse. All rights reserved.
                     </div>
                 </div>
