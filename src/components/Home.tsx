@@ -55,7 +55,7 @@ export default function Home() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: 0.2 }}
                                     >
-                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-800">
+                                        <h1 className="rubik-mono-one-regular text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                                             Burhanverse
                                         </h1>
                                         <p className="nunito-regular text-xs sm:text-2xl md:text-3xl text-teal-300 font-medium mb-4">
