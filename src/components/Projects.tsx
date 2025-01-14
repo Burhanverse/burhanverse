@@ -25,7 +25,7 @@ export default function Projects() {
             try {
                 // Fetch repositories sorted by last updated date in descending order
                 const response = await fetch(
-                    'https://api.github.com/users/Burhanverse/repos?sort=updated&direction=desc&per_page=15'
+                    'https://api.github.com/users/Burhanverse/repos?sort=updated&direction=desc&per_page=20'
                 );
                 if (!response.ok) {
                     throw new Error('Failed to fetch repositories');

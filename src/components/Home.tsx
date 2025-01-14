@@ -223,7 +223,7 @@ export default function Home() {
             </motion.div>
             <footer className="bg-gray-900 rounded-t-3xl mt-8">
                 <div className="max-w-6xl mx-auto px-6 py-6 flex justify-center items-center">
-                    <div className="tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-600 text-sm text-center">
+                    <div className="tracking-tight bg-clip-text text-sm text-center">
                         © {new Date().getFullYear()} Burhanverse. All rights reserved.
                     </div>
                 </div>
