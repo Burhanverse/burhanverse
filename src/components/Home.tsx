@@ -22,7 +22,7 @@ export default function Home() {
         }
     };
 
-    const skills = ["Python", "Java", "JavaScript", "React", "Tailwind CSS", "Flask", "MySql", "Docker", "FireBase"];
+    const skills = ["Python", "JavaScript", "React", "Tailwind CSS", "Flask", "MongoDB", "HTML", "Figma", "Git", "CI/CD", "Linux"];
 
     return (
         <div className="poppins-medium min-h-screen bg-gray-950 flex flex-col text-white">
