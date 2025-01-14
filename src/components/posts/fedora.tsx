@@ -3,32 +3,29 @@ import { Calendar, Clock, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export const Post1 = () => {
-    const [isCopied, setIsCopied] = useState<{ [key: string]: boolean }>({});
+    const [copiedLines, setCopiedLines] = useState<Record<number, boolean>>({});
 
-    const handleCopy = (code: string) => {
-        navigator.clipboard.writeText(code).then(() => {
-            setIsCopied((prev) => ({
-                ...prev,
-                [code]: true,
-            }));
-            setTimeout(() => setIsCopied((prev) => ({
-                ...prev,
-                [code]: false,
-            })), 2000);
+    const handleCopy = (line: string, index: number) => {
+        navigator.clipboard.writeText(line).then(() => {
+            setCopiedLines((prev) => ({ ...prev, [index]: true }));
+            setTimeout(() => setCopiedLines((prev) => ({ ...prev, [index]: false })), 2000);
         });
     };
 
     const colloid_installer = `wget https://github.com/Burhanverse/scripts/raw/main/colloid_installer.sh && chmod +x colloid_installer.sh ./colloid_installer.sh `;
     const ntfs1 = `sudo dnf install ntfs-3g fuse`;
     const ntfs2 = `sudo parted -l`;
-    const ntfs3 = `sudo mkdir /mnt/ntfs_partition3`;
-    const ntfs4 = `sudo mkdir /mnt/ntfs_partition4`;
-    const ntfs5 = `sudo mount -t ntfs /dev/nvme0n1p3 /mnt/ntfs_partition3`;
-    const ntfs6 = `sudo mount -t ntfs /dev/nvme0n1p4 /mnt/ntfs_partition4`;
-    const ntfs7 = `mount | grep ntfs`;
-    const ntfs8 = `sudo nano /etc/fstab`;
-    const ntfs9 = `/dev/nvme0n1p3 /mnt/ntfs_partition3 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0`;
-    const ntfs10 = `/dev/nvme0n1p4 /mnt/ntfs_partition4 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0`;
+    const ntfs3 =
+        `sudo mkdir /mnt/ntfs_partition3\n` +
+        `sudo mkdir /mnt/ntfs_partition4`;
+    const ntfs4 =
+        `sudo mount -t ntfs /dev/nvme0n1p3 /mnt/ntfs_partition3\n` +
+        `sudo mount -t ntfs /dev/nvme0n1p4 /mnt/ntfs_partition4`;
+    const ntfs5 = `mount | grep ntfs`;
+    const ntfs6 = `sudo nano /etc/fstab`;
+    const ntfs7 =
+        `/dev/nvme0n1p3 /mnt/ntfs_partition3 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0\n` +
+        `/dev/nvme0n1p4 /mnt/ntfs_partition4 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0`;
     const tpadfix1 = `gsettings list-recursively org.gnome.desktop.peripherals.touchpad`;
     const tpadfix2 = `gsettings get org.gnome.desktop.peripherals.touchpad click-method`;
     const tpadfix3 = `gsettings range org.gnome.desktop.peripherals.touchpad click-method`;
@@ -104,14 +101,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(colloid_installer)}
+                            onClick={() => handleCopy(colloid_installer, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[colloid_installer] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{colloid_installer}</code>
+                        <code>
+                            {colloid_installer.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <br />
@@ -181,14 +197,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs1)}
+                            onClick={() => handleCopy(ntfs1, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs1}</code>
+                        <code>
+                            {ntfs1.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -204,14 +239,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs2)}
+                            onClick={() => handleCopy(ntfs2, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs2}</code>
+                        <code>
+                            {ntfs2.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -227,31 +281,36 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs3)}
+                            onClick={() => handleCopy(ntfs3, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs3] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs3}</code>
+                        <code>
+                            {ntfs3.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
-                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
-                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
-                        <span className="text-sm text-gray-300">Code</span>
-                        <button
-                            onClick={() => handleCopy(ntfs4)}
-                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
-                        >
-                            {isCopied[ntfs4] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        </button>
-                    </div>
-                    <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs4}</code>
-                    </div>
-                </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
                     The most basic mount command would look like this. It should mount your NTFS partition with read and write permissions. This is probably the only command that most users will need.
@@ -261,29 +320,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs5)}
+                            onClick={() => handleCopy(ntfs4, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs5] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs5}</code>
-                    </div>
-                </pre>
-                <div className="half-space"></div>
-                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
-                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
-                        <span className="text-sm text-gray-300">Code</span>
-                        <button
-                            onClick={() => handleCopy(ntfs6)}
-                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
-                        >
-                            {isCopied[ntfs6] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        </button>
-                    </div>
-                    <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs6}</code>
+                        <code>
+                            {ntfs4.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -295,14 +358,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs7)}
+                            onClick={() => handleCopy(ntfs5, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs7] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs7}</code>
+                        <code>
+                            {ntfs5.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -318,14 +400,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs8)}
+                            onClick={() => handleCopy(ntfs6, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs8] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs8}</code>
+                        <code>
+                            {ntfs6.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -337,29 +438,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(ntfs9)}
+                            onClick={() => handleCopy(ntfs7, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[ntfs9] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs9}</code>
-                    </div>
-                </pre>
-                <div className="half-space"></div>
-                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
-                    <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
-                        <span className="text-sm text-gray-300">Code</span>
-                        <button
-                            onClick={() => handleCopy(ntfs10)}
-                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
-                        >
-                            {isCopied[ntfs10] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        </button>
-                    </div>
-                    <div className="text-xs p-4 overflow-auto">
-                        <code>{ntfs10}</code>
+                        <code>
+                            {ntfs7.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -382,14 +487,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(tpadfix1)}
+                            onClick={() => handleCopy(tpadfix1, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[tpadfix1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{tpadfix1}</code>
+                        <code>
+                            {tpadfix1.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -401,14 +525,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(tpadfix2)}
+                            onClick={() => handleCopy(tpadfix2, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[tpadfix2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{tpadfix2}</code>
+                        <code>
+                            {tpadfix2.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -420,14 +563,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(tpadfix3)}
+                            onClick={() => handleCopy(tpadfix3, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[tpadfix3] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{tpadfix3}</code>
+                        <code>
+                            {tpadfix3.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -439,14 +601,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(tpadfix4)}
+                            onClick={() => handleCopy(tpadfix4, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[tpadfix4] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{tpadfix4}</code>
+                        <code>
+                            {tpadfix4.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <br />
@@ -465,14 +646,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(weather)}
+                            onClick={() => handleCopy(weather, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[weather] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{weather}</code>
+                        <code>
+                            {weather.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -494,14 +694,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(kernel1)}
+                            onClick={() => handleCopy(kernel1, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[kernel1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{kernel1}</code>
+                        <code>
+                            {kernel1.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -517,14 +736,33 @@ export const Post1 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(kernel2)}
+                            onClick={() => handleCopy(kernel2, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[kernel2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{kernel2}</code>
+                        <code>
+                            {kernel2.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>

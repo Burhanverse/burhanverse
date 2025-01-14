@@ -3,23 +3,19 @@ import { Calendar, Clock, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export const Post2 = () => {
-    const [isCopied, setIsCopied] = useState<{ [key: string]: boolean }>({});
+    const [copiedLines, setCopiedLines] = useState<Record<number, boolean>>({});
 
-    const handleCopy = (code: string) => {
-        navigator.clipboard.writeText(code).then(() => {
-            setIsCopied((prev) => ({
-                ...prev,
-                [code]: true,
-            }));
-            setTimeout(() => setIsCopied((prev) => ({
-                ...prev,
-                [code]: false,
-            })), 2000);
+    const handleCopy = (line: string, index: number) => {
+        navigator.clipboard.writeText(line).then(() => {
+            setCopiedLines((prev) => ({ ...prev, [index]: true }));
+            setTimeout(() => setCopiedLines((prev) => ({ ...prev, [index]: false })), 2000);
         });
     };
 
     const arch = `sudo sh -c "curl -s https://raw.githubusercontent.com/materialgram/arch/x86_64/installer.sh | bash"`;
-    const rpm1 = `sudo dnf copr enable burhanverse/materialgram && sudo dnf install materialgram`;
+    const rpm1 =
+        `sudo dnf copr enable burhanverse/materialgram\n` +
+        `sudo dnf install materialgram`;
     const rpm2 = `sudo dnf update materialgram --refresh`;
     const deb1 = `bash <(curl -s "https://raw.githubusercontent.com/ghazzor/materialgram-deb-package/master/install.sh")`;
     const deb2 = `sudo apt update && sudo apt install materialgram`;
@@ -58,14 +54,33 @@ export const Post2 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(arch)}
+                            onClick={() => handleCopy(arch, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[arch] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{arch}</code>
+                        <code>
+                            {arch.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <br />
@@ -84,14 +99,33 @@ export const Post2 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(rpm1)}
+                            onClick={() => handleCopy(rpm1, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[rpm1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{rpm1}</code>
+                        <code>
+                            {rpm1.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -103,14 +137,33 @@ export const Post2 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(rpm2)}
+                            onClick={() => handleCopy(rpm2, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[rpm2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{rpm2}</code>
+                        <code>
+                            {rpm2.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <br />
@@ -129,14 +182,33 @@ export const Post2 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(deb1)}
+                            onClick={() => handleCopy(deb1, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[deb1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{deb1}</code>
+                        <code>
+                            {deb1.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
                 <div className="half-space"></div>
@@ -148,14 +220,33 @@ export const Post2 = () => {
                     <div className="flex justify-between items-center bg-gray-700 px-4 py-2">
                         <span className="text-sm text-gray-300">Code</span>
                         <button
-                            onClick={() => handleCopy(deb2)}
+                            onClick={() => handleCopy(deb2, -1)} // Handle full code copy if needed
                             className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
                         >
-                            {isCopied[deb2] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            {copiedLines[-1] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         </button>
                     </div>
                     <div className="text-xs p-4 overflow-auto">
-                        <code>{deb2}</code>
+                        <code>
+                            {deb2.split('\n').map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button */}
+                                    <button
+                                        onClick={() => handleCopy(line, index)}
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
                     </div>
                 </pre>
 
