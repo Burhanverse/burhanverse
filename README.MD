@@ -13,7 +13,7 @@ In my free time, I dive into music, try crafting some designs, tinker with apps,
 <div align="center">
   <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=2&width=500&bg_color=1A1B27">
   <br/><br/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Burhanverse&theme=catppuccin_mocha&hide_border=true">
+  <img src="https://github-streak-stats-psi.vercel.app/?user=Burhanverse&theme=catppuccin_mocha&hide_border=true&date_format=j/n/Y">
   <br/><br/>
   <img src="https://raw.githubusercontent.com/Burhanverse/assets/main/sanke.svg" alt="animation" />
 </div>
