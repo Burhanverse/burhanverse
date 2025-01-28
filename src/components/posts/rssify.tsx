@@ -85,19 +85,19 @@ export const Post3 = () => {
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/add</td>
-                                <td className="text-gray-300 pl-4">To add new feeds</td>
+                                <td className="text-gray-300 pl-4">To add a new feed to the subscription list</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/del</td>
-                                <td className="text-gray-300 pl-4">To delete a feed.</td>
+                                <td className="text-gray-300 pl-4">Unsubcscibe existing feed from the subscribed list.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/list</td>
-                                <td className="text-gray-300 pl-4">Lists all the feeds you are subscribed to in your private chat</td>
+                                <td className="text-gray-300 pl-4">To view the subscribed feeds list.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/stats</td>
-                                <td className="text-gray-300 pl-4">Shows bot server stats</td>
+                                <td className="text-gray-300 pl-4">Shows the bot server stats like, uptime, ping, in-bound & out-bound network usage.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/about</td>
