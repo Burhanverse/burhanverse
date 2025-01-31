@@ -43,8 +43,11 @@ export const Post1 = () => {
         `sudo mount -t ntfs /dev/nvme0n1p3 /mnt/ntfs_partition3\n` +
         `sudo mount -t ntfs /dev/nvme0n1p4 /mnt/ntfs_partition4`;
     const ntfs5 = `mount | grep ntfs`;
-    const ntfs6 = `sudo nano /etc/fstab`;
-    const ntfs7 =
+    const ntfs6 =
+        `sudo chown -R aqua:aqua /mnt/ntfs_partition3\n` +
+        `sudo chown -R aqua:aqua /mnt/ntfs_partition4`;
+    const ntfs7 = `sudo nano /etc/fstab`;
+    const ntfs8 =
         `/dev/nvme0n1p3 /mnt/ntfs_partition3 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0\n` +
         `/dev/nvme0n1p4 /mnt/ntfs_partition4 ntfs-3g auto,nodev,nofail,x-gvfs-show,uid=1000,gid=1000,umask=000 0 0`;
     const tpadfix1 = `gsettings list-recursively org.gnome.desktop.peripherals.touchpad`;
@@ -414,7 +417,7 @@ export const Post1 = () => {
                 </p>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
-                    To make the NTFS partition mount automatically on startup, we’ll need to add a line to the /etc/fstab file on our system. Use nano or your favorite text editor to open it up under root permissions.
+                    To make the NTFS partition R/W you need to change the ownership of the mount point to your username.
                 </p>
                 <div className="half-space"></div>
                 <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
@@ -452,7 +455,15 @@ export const Post1 = () => {
                 </pre>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
-                    Then, add the following line to the file, while substituting your own device directory and mount path.
+                    This command will recursively change the ownership of all files and directories inside the mount point.
+                </p>
+                <div className="half-space"></div>
+                <p className="text-s font-semibold text-gray-300">
+                    ⦿ Mount NTFS partition automatically:
+                </p>
+                <div className="half-space"></div>
+                <p className="text-s text-gray-300">
+                    To make the NTFS partition mount automatically on startup, we’ll need to add a line to the /etc/fstab file on our system. Use nano or your favorite text editor to open it up under root permissions.
                 </p>
                 <div className="half-space"></div>
                 <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
@@ -468,6 +479,44 @@ export const Post1 = () => {
                     <div className="text-xs p-4 overflow-auto">
                         <code>
                             {ntfs7.split("\n").map((line, index) => (
+                                <div key={index} className="group flex items-center">
+                                    {/* Line number */}
+                                    <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
+
+                                    {/* Code line */}
+                                    <span className="flex-grow">{line}</span>
+
+                                    {/* Copy button for individual lines */}
+                                    <button
+                                        onClick={() => handleCopy("", line, index)} // Individual line copy
+                                        aria-label={`Copy line ${index + 1}`}
+                                        className="ml-2 text-gray-400 hover:text-white hidden group-hover:inline"
+                                    >
+                                        {copiedLines[index] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                    </button>
+                                </div>
+                            ))}
+                        </code>
+                    </div>
+                </pre>
+                <div className="half-space"></div>
+                <p className="text-s text-gray-300">
+                    Then, add the following line to the file, while substituting your own device directory and mount path.
+                </p>
+                <div className="half-space"></div>
+                <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
+                    <div className="flex justify-between items-center bg-gray-700 px-2 py-2">
+                        <span className="text-sm font-semibold text-gray-300">Code</span>
+                        <button
+                            onClick={() => handleCopy(ntfs8, "", -1)} // Main copy button
+                            className="text-sm px-2 py-1 text-white rounded hover:text-teal-400 transition"
+                        >
+                            {mainCopied[ntfs8] ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <div className="text-xs p-4 overflow-auto">
+                        <code>
+                            {ntfs8.split("\n").map((line, index) => (
                                 <div key={index} className="group flex items-center">
                                     {/* Line number */}
                                     <span className="mr-4 text-gray-500 select-none">{index + 1}</span>
