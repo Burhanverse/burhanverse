@@ -417,7 +417,7 @@ export const Post1 = () => {
                 </p>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300">
-                    To make the NTFS partition R/W you need to change the ownership of the mount point to your username.
+                    To make the NTFS partition R/W you need to change the ownership of the mount point to your username. Here in this case <a className="text-teal-400">aqua</a> is my username,
                 </p>
                 <div className="half-space"></div>
                 <pre className="relative group rounded-lg overflow-hidden bg-gray-900">
