@@ -78,7 +78,7 @@ export const Post1 = () => {
                 {/* Image with caption */}
                 <figure className="mb-6">
                     <img
-                        src="https://raw.githubusercontent.com/Burhanverse/assets/refs/heads/main/fedora.png"
+                        src="https://raw.githubusercontent.com/Burhanverse/assets/refs/heads/main/fedoraa.png"
                         alt="Fedora Setup"
                         className="w-full rounded-xl"
                     />
