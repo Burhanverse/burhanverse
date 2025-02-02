@@ -11,7 +11,7 @@ In my free time, I dive into music, try crafting some designs, tinker with apps,
 <br/>
 ----
 <div align="center">
-  <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=2&width=525&bg_color=1A1B27">
+  <img src="https://lastfm-cyan.vercel.app/api?user=AquaListens&count=2&width=525&bg_color=1e1e2e">
   <br/><br/>
   <img src="https://streak-stats-azure.vercel.app/?user=Burhanverse&theme=catppuccin-mocha&hide_border=true&border_radius=10&short_numbers=true&date_format=M%20j%5B%2C%20Y%5D&card_width=525&stroke=17EBCC&fire=C691EB" alt="GitHub Streak" />
   <br/><br/>
