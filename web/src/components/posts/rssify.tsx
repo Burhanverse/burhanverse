@@ -10,12 +10,12 @@ export const Post3 = () => {
                 <div className="text-sm text-teal-300  flex items-center">
                     <span className="flex items-center">
                         <Calendar className="mr-2 h-4 w-4" />
-                        28 Jan, 2025
+                        24 Feb, 2025
                     </span>
                     <span className="mx-2">·</span>
                     <span className="flex items-center">
                         <Clock className="mr-2 h-4 w-4" />
-                        3 min read
+                        5 min read
                     </span>
                 </div>
             </CardHeader>
@@ -47,19 +47,19 @@ export const Post3 = () => {
                 </p>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300  ">
-                    ⦿ RSS-ify utilizes <a className="text-teal-400" href="https://pypi.org/project/feedparser/">Universal feed parser</a> API for parsing which handles RSS 0.9x, RSS 1.0, RSS 2.0, CDF, Atom 0.3, and Atom 1.0 feeds.
+                    ⦿ RSS-ify utilizes <a className="text-teal-400" href="https://github.com/burhanverse/api/parserapi/">ParserAPI</a> a suit composed of python libraries for parsing which handles RSS 0.9x, RSS 1.0, RSS 2.0, CDF, Atom 0.3, Atom 1.0 and HTML parsing [experimental].
                 </p>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300  ">
-                    ⦿ If your site is protected with cloudflare then the bot will return invalid URL or an error.
+                    ⦿ OPML Import and export of feeds are supported, which means you can easily backup and restore your subscriptions.
+                </p>
+                <div className="half-space"></div>
+                <p className="text-s text-gray-300  ">
+                    ⦿ If your site is protected with cloudflare then the bot will return invalid URL or an error code 403.
                 </p>
                 <div className="half-space"></div>
                 <p className="text-s text-gray-300  ">
                     ⦿ As of now channels are not supported, but I do have a plan to add support in the future.
-                </p>
-                <div className="half-space"></div>
-                <p className="text-s text-gray-300  ">
-                    ⦿ The bot works in a cyclic manner for new updates for your feeds with a wait time of 10 seconds before the next cycle starts.
                 </p>
                 <div className="half-space"></div>
                 <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
@@ -96,12 +96,20 @@ export const Post3 = () => {
                                 <td className="text-gray-300 pl-4">To view the subscribed feeds list.</td>
                             </tr>
                             <tr>
+                                <td className="text-teal-200 pr-4">/export</td>
+                                <td className="text-gray-300 pl-4">Export your subscribed feeds list in OPML format.</td>
+                            </tr>
+                            <tr>
+                                <td className="text-teal-200 pr-4">/import</td>
+                                <td className="text-gray-300 pl-4">Import your subscribed feeds list in OPML format.</td>
+                            </tr>
+                            <tr>
                                 <td className="text-teal-200 pr-4">/stats</td>
-                                <td className="text-gray-300 pl-4">Shows the bot server stats like, uptime, ping, in-bound & out-bound network usage.</td>
+                                <td className="text-gray-300 pl-4">Shows the bot server stats.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/about</td>
-                                <td className="text-gray-300 pl-4">Shows the current bot version, description, author, etc.</td>
+                                <td className="text-gray-300 pl-4">Shows the current bot version, description, etc.</td>
                             </tr>
                         </tbody>
                     </table>
