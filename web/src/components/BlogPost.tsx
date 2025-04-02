@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Post1 } from "./posts/fedora";
 import { Post2 } from "./posts/materialgram";
-import { Post3 } from "./posts/rssify";
+import { Post3 } from "./posts/fagram";
+import { Post4 } from "./posts/rssify";
 
 export default function BlogPost() {
     const { slug } = useParams<{ slug: string }>();
@@ -11,7 +12,8 @@ export default function BlogPost() {
     const postComponents: { [key: string]: JSX.Element } = {
         "fedora": <Post1 />,
         "materialgram": <Post2 />,
-        "rssify": <Post3 />,
+        "fagram": <Post3 />,
+        "rssify": <Post4 />,
     };
 
     if (!slug) {

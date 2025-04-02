@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 const blogPosts = [
     { slug: "fedora", title: "Fedora Setup", excerpt: "Tweaks and stuffs that I use on my fedora workstation...", date: "2025-06-01", readTime: "15 min read" },
     { slug: "materialgram", title: "Materialgram", excerpt: "Guide on how to install materialgram native distro packages...", date: "2025-11-01", readTime: "3 min read" },
+    { slug: "fagram", title: "FAgram Desktop", excerpt: "Install FAgram on Arch/Fedora/Ubuntu/Debian linux distros...", date: "2025-02-04", readTime: "3 min read" },
     { slug: "rssify", title: "RSS-ify", excerpt: "Introduction and general information on my RSS-ify telegram bot...", date: "2025-24-02", readTime: "5 min read" },
 ]
 
