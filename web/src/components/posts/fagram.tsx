@@ -38,7 +38,7 @@ export const Post3 = () => {
         `sudo dnf copr enable burhanverse/fagram\n` +
         `sudo dnf install fagram`;
     const rpm2 = `sudo dnf update fagram --refresh`;
-    const deb1 = `$ bash <(curl -s "https://raw.githubusercontent.com/burhancodes/fagram-deb/main/install.sh")`;
+    const deb1 = `bash <(curl -s "https://raw.githubusercontent.com/burhancodes/fagram-deb/main/install.sh")`;
     const deb2 = `sudo apt upgrade fagram`;
 
     return (
