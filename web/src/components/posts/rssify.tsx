@@ -10,7 +10,7 @@ export const Post4 = () => {
                 <div className="text-sm text-teal-300  flex items-center">
                     <span className="flex items-center">
                         <Calendar className="mr-2 h-4 w-4" />
-                        24 Feb, 2025
+                        02 Apr, 2025
                     </span>
                     <span className="mx-2">·</span>
                     <span className="flex items-center">
@@ -24,7 +24,7 @@ export const Post4 = () => {
                     Introduction:
                 </h2>
                 <p className="text-s text-gray-300  ">
-                    RSS-ify is a lightweight telegram bot written in Javascript and powered by NodeJS™, that
+                    RSS-ify is a lightweight telegram bot powered by NodeJS™, that
                     helps you stay updated by delivering content from your favorite feeds directly to your group
                     chat or in private. Customize, organize, and manage your subscriptions effortlessly!
                 </p>
@@ -77,15 +77,15 @@ export const Post4 = () => {
                         <tbody>
                             <tr>
                                 <td className="text-teal-200 pr-4">/start</td>
-                                <td className="text-gray-300 pl-4">Starts the bot and shows the welcome message</td>
+                                <td className="text-gray-300 pl-4">Starts the bot and shows the welcome message.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/set</td>
-                                <td className="text-gray-300 pl-4">Sets the default topic for your group</td>
+                                <td className="text-gray-300 pl-4">Sets the default topic for your group.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/add</td>
-                                <td className="text-gray-300 pl-4">To add a new feed to the subscription list</td>
+                                <td className="text-gray-300 pl-4">To add a new feed to the subscription list.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/del</td>
@@ -94,6 +94,18 @@ export const Post4 = () => {
                             <tr>
                                 <td className="text-teal-200 pr-4">/list</td>
                                 <td className="text-gray-300 pl-4">To view the subscribed feeds list.</td>
+                            </tr>
+                            <tr>
+                                <td className="text-teal-200 pr-4">/del_all</td>
+                                <td className="text-gray-300 pl-4">Delete all subscribed feed with a backup.</td>
+                            </tr>
+                            <tr>
+                                <td className="text-teal-200 pr-4">/pause</td>
+                                <td className="text-gray-300 pl-4">Pause the feed updates.</td>
+                            </tr>
+                            <tr>
+                                <td className="text-teal-200 pr-4">/resume</td>
+                                <td className="text-gray-300 pl-4">Resume the feed updates.</td>
                             </tr>
                             <tr>
                                 <td className="text-teal-200 pr-4">/export</td>
