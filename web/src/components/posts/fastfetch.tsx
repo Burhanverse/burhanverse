@@ -67,8 +67,17 @@ export const FASTFETCH = () => {
                 <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-teal-600">
                     Install and setup FASTFETCH on Linux
                 </h2>
-                <h6 className="text-xs text-italic text-gray-300  "><i>For reference I'm using Fedora 42 Workstation and wezterm</i></h6>
-                <div className="half-space"></div>
+                {/* Image with caption */}
+                <figure className="mb-6">
+                    <img
+                        src="https://raw.githubusercontent.com/Burhanverse/assets/refs/heads/main/fedora.png"
+                        alt="Fedora Setup"
+                        className="w-full rounded-xl"
+                    />
+                    <figcaption className="text-center mt-1">
+                    <h6 className="text-xs text-italic text-gray-300  "><i>For reference I'm using Fedora 42 Workstation with GNOME 48 and wezterm</i></h6>
+                    </figcaption>
+                </figure>
                 <p className="text-s text-gray-300  ">
                     ⦿ First we will install fastfetch and crontab (required to update & display the installed packages):
                 </p>

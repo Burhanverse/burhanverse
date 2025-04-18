@@ -78,17 +78,17 @@ export const FEDORA = () => {
                 {/* Image with caption */}
                 <figure className="mb-6">
                     <img
-                        src="https://raw.githubusercontent.com/Burhanverse/assets/refs/heads/main/fedoraa.png"
+                        src="https://raw.githubusercontent.com/Burhanverse/assets/refs/heads/main/fedora.png"
                         alt="Fedora Setup"
                         className="w-full rounded-xl"
                     />
                     <figcaption className="text-xs text-center text-gray-400 mt-1">
-                        Running Fedora 41 with GNOME 47
+                        Running Fedora 42 with GNOME 48
                     </figcaption>
                 </figure>
 
                 <p className="text-s text-gray-300">
-                    I have been using Fedora for a long time now and I have customized it to my liking. Here are some tweaks and stuffs that I use on my Fedora setup.
+                    I have been using Fedora for quite a long time now and I have customized it to my liking. Here are some tweaks and stuffs that I use on my Fedora setup.
                 </p>
                 <div className="half-space"></div>
 
