@@ -9,6 +9,7 @@ const blogPosts = [
     { slug: "materialgram", title: "Materialgram", excerpt: "Guide on how to install materialgram native distro packages...", date: "2025-11-01", readTime: "3 min read" },
     { slug: "fagram", title: "FAgram Desktop", excerpt: "Install FAgram on Arch/Fedora/Ubuntu/Debian linux distros...", date: "2025-02-04", readTime: "3 min read" },
     { slug: "rssify", title: "RSS-ify", excerpt: "Introduction and general information on my RSS-ify telegram bot...", date: "2025-24-02", readTime: "5 min read" },
+    { slug: "fastfetch", title: "Fastfetch Configs", excerpt: "Fastfetch is a fast and customizable alternative to neofetch...", date: "2025-18-04", readTime: "4 min read" },
 ]
 
 export default function BlogList() {

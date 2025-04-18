@@ -5,6 +5,7 @@ import { FEDORA } from "./posts/fedora";
 import { MATERIALGRAM } from "./posts/materialgram";
 import { FAGRAM } from "./posts/fagram";
 import { RSSIFY } from "./posts/rssify";
+import { FASTFETCH } from "./posts/fastfetch";
 
 export default function BlogPost() {
     const { slug } = useParams<{ slug: string }>();
@@ -14,6 +15,7 @@ export default function BlogPost() {
         "materialgram": <MATERIALGRAM />,
         "fagram": <FAGRAM />,
         "rssify": <RSSIFY />,
+        "fastfetch": <FASTFETCH />,
     };
 
     if (!slug) {
