@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar, Clock, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export const Post1 = () => {
+export const FEDORA = () => {
     const [copiedLines, setCopiedLines] = useState<Record<number, boolean>>({});
     const [mainCopied, setMainCopied] = useState<{ [key: string]: boolean }>({}); // Separate state for the main copy button
 

@@ -1,19 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { Post1 } from "./posts/fedora";
-import { Post2 } from "./posts/materialgram";
-import { Post3 } from "./posts/fagram";
-import { Post4 } from "./posts/rssify";
+import { FEDORA } from "./posts/fedora";
+import { MATERIALGRAM } from "./posts/materialgram";
+import { FAGRAM } from "./posts/fagram";
+import { RSSIFY } from "./posts/rssify";
 
 export default function BlogPost() {
     const { slug } = useParams<{ slug: string }>();
 
     const postComponents: { [key: string]: JSX.Element } = {
-        "fedora": <Post1 />,
-        "materialgram": <Post2 />,
-        "fagram": <Post3 />,
-        "rssify": <Post4 />,
+        "fedora": <FEDORA />,
+        "materialgram": <MATERIALGRAM />,
+        "fagram": <FAGRAM />,
+        "rssify": <RSSIFY />,
     };
 
     if (!slug) {

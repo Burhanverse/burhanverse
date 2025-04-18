@@ -1,7 +1,7 @@
 import { Calendar, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export const Post4 = () => {
+export const RSSIFY = () => {
 
     return (
         <Card className="bg-gray-800 border-none text-white rounded-2xl shadow-lg overflow-hidden">
