@@ -1,5 +1,13 @@
 /* ARTICLE PAGE STYLES */
 
+/* Hide system cursor on desktop */
+@media (pointer: fine) {
+    .article-page,
+    .article-page * {
+        cursor: none !important;
+    }
+}
+
 /* ARTICLE PAGE WRAPPER */
 
 .article-page .title-elements {
