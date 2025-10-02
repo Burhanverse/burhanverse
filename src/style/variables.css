@@ -279,6 +279,8 @@
     --md-sys-color-surface-container-lowest: var(--md-sys-color-surface-container-lowest-light);
     --md-sys-color-surface-bright: var(--md-sys-color-surface-bright-light);
     --md-sys-color-surface-dim: var(--md-sys-color-surface-dim-light);
+    --md-sys-clock-hours: var(--md-ref-palette-primary30);
+    --md-sys-clock-minutes: var(--md-ref-palette-primary60);
 }
 
 [theme="light"] {
@@ -340,6 +342,8 @@
     --md-sys-color-surface-container-lowest: var(--md-sys-color-surface-container-lowest-dark);
     --md-sys-color-surface-bright: var(--md-sys-color-surface-bright-dark);
     --md-sys-color-surface-dim: var(--md-sys-color-surface-dim-dark);
+    --md-sys-clock-hours: var(--md-ref-palette-primary60);
+    --md-sys-clock-minutes: var(--md-ref-palette-primary30);
 }
 
 [theme="dark"] {

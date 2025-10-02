@@ -18,7 +18,7 @@ function updateClock(): void {
 
   const clockElement = document.querySelector('.clock');
   if (clockElement) {
-    clockElement.textContent = `${hour}\n${minute}`;
+    clockElement.innerHTML = `<span class="clock-hours">${hour}</span><br><span class="clock-minutes">${minute}</span>`;
   }
 
   // Update every 5 seconds
