@@ -8,36 +8,36 @@ const mobileThemeIcon = document.querySelector<HTMLElement>('#mobile-theme-icon'
 type Theme = 'light_mode' | 'dark_mode';
 
 function lightTheme() {
-  if (themeIcon) themeIcon.innerHTML = '&#xe901;';
-  if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe901;';
+  if (themeIcon) themeIcon.textContent = 'light_mode';
+  if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
   document.documentElement.setAttribute('theme', 'light');
 }
 
 function darkTheme() {
-  if (themeIcon) themeIcon.innerHTML = '&#xe908;';
-  if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe908;';
+  if (themeIcon) themeIcon.textContent = 'dark_mode';
+  if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
   document.documentElement.setAttribute('theme', 'dark');
 }
 
 export function themeToggleHover() {
   const theme = localStorage.getItem('theme') as Theme | null;
   if (theme === 'dark_mode') {
-    if (themeIcon) themeIcon.innerHTML = '&#xe909;';
-    if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe909;';
+    if (themeIcon) themeIcon.textContent = 'light_mode';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
   } else if (theme === 'light_mode') {
-    if (themeIcon) themeIcon.innerHTML = '&#xe902;';
-    if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe902;';
+    if (themeIcon) themeIcon.textContent = 'dark_mode';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
   }
 }
 
 export function themeToggleLeave() {
   const theme = localStorage.getItem('theme') as Theme | null;
   if (theme === 'dark_mode') {
-    if (themeIcon) themeIcon.innerHTML = '&#xe908;';
-    if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe908;';
+    if (themeIcon) themeIcon.textContent = 'dark_mode';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
   } else if (theme === 'light_mode') {
-    if (themeIcon) themeIcon.innerHTML = '&#xe901;';
-    if (mobileThemeIcon) mobileThemeIcon.innerHTML = '&#xe901;';
+    if (themeIcon) themeIcon.textContent = 'light_mode';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
   }
 }
 

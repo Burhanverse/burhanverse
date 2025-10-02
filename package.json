@@ -14,6 +14,7 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@octokit/rest": "^20.0.2"
+    "@octokit/rest": "^20.0.2",
+    "material-symbols": "^0.36.2"
   }
 }
