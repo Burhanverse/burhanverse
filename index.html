@@ -38,8 +38,8 @@
         </div>
     </noscript>
 
-    <body style="opacity: 0;" onload="bodyLoaded()">
-        <div class="overlay hidden" onclick="closeNavPanel()"></div>
+    <body style="opacity: 0;">
+        <div class="overlay hidden"></div>
         <div class="cursor"></div>
         <div class="super-wrapper">
             <nav class="navbar-wrapper">
@@ -49,7 +49,7 @@
                     </div>
                     
                     <div class="change-theme-wrapper">
-                        <div aria-label="Change the theme" tabindex="0" class="clickable change-theme" onmouseover="themeToggleHover()" onmouseleave="themeToggleLeave()" onclick="themeToggle()" onkeydown="if(event.key === 'Enter'){themeToggle()}">
+                        <div aria-label="Change the theme" tabindex="0" class="clickable change-theme">
                             <span class="material-symbols-rounded" id="theme-icon">light_mode</span>
                         </div>
                     </div>
@@ -57,28 +57,28 @@
 
                 <div class="navbar-elements-container">
                     <div class="icon-container selected" id="home-icon">
-                        <div tabindex="0" class="clickable home-icon" onclick="homeSelected()" onkeydown="if(event.key === 'Enter'){homeSelected()}">
+                        <div tabindex="0" class="clickable home-icon">
                             <span class="material-symbols-rounded">home</span>
                         </div>
                         <div class="label">Home</div>
                     </div>
 
                     <div class="icon-container" id="repos-icon">
-                        <div tabindex="0" class="clickable repos-icon" onclick="reposSelected()" onkeydown="if(event.key === 'Enter'){reposSelected()}">
+                        <div tabindex="0" class="clickable repos-icon">
                             <span class="material-symbols-rounded">folder_code</span>
                         </div>
                         <div class="label">Repos</div>
                     </div>
 
                     <div class="icon-container" id="blog-icon">
-                        <div tabindex="0" class="clickable blog-icon" onclick="blogSelected()" onkeydown="if(event.key === 'Enter'){blogSelected()}">
+                        <div tabindex="0" class="clickable blog-icon">
                             <span class="material-symbols-rounded">article</span>
                         </div>
                         <div class="label">Blog</div>
                     </div>
 
                     <div class="icon-container" id="contact-icon">
-                        <div tabindex="0" class="clickable contact-icon" onclick="contactSelected()" onkeydown="if(event.key === 'Enter'){contactSelected()}">
+                        <div tabindex="0" class="clickable contact-icon">
                             <span class="material-symbols-rounded">mail</span>
                         </div>
                         <div class="label">Contact</div>
@@ -89,17 +89,17 @@
             <div class="navbar-mobile-wrapper visible" id="navbar-mobile">
                 <div class="navbar-mobile-elements">
                     <div class="navbar-mobile-navigation">
-                        <div class="clickable hamburger-menu-wrapper" onclick="openNavPanel()">
+                        <div class="clickable hamburger-menu-wrapper">
                             <span class="material-symbols-rounded">menu</span>
                         </div>
-                        <div class="clickable header-wrapper" onclick="homeSelected()">
+                        <div class="clickable header-wrapper">
                             <img class="header-logo" alt="Profile image" src="/img/avatar.webp">
                             <p class="header-text">My Portfolio</p>
                         </div>
                     </div>
 
                     <div class="navbar-mobile-change-theme">
-                        <div aria-label="Change the theme" class="clickable mobile-change-theme" onmouseover="themeToggleHover()" onmouseleave="themeToggleLeave()" onclick="themeToggle()" onkeydown="if(event.key === 'Enter'){themeToggle()}">
+                        <div aria-label="Change the theme" class="clickable mobile-change-theme">
                             <span id="mobile-theme-icon" class="material-symbols-rounded">light_mode</span>
                         </div>
                     </div>
@@ -108,28 +108,28 @@
             
             <nav class="mobile-panel-wrapper">
                 <div class="close-menu-wrapper">
-                    <div class="clickable close-menu-button" tabindex="0" onclick="closeNavPanel()" onkeydown="if(event.key === 'Enter'){closeNavPanel()}">
+                    <div class="clickable close-menu-button" tabindex="0">
                         <span class="material-symbols-rounded">close</span>
                     </div>
                 </div>
 
                 <div class="mobile-panel-contents">
-                    <div class="clickable mobile-icon-container selected" id="mobile-home-icon" tabindex="0" onclick="homeSelected()" onkeydown="if(event.key === 'Enter'){homeSelected()}">
+                    <div class="clickable mobile-icon-container selected" id="mobile-home-icon" tabindex="0">
                         <span id="mobile-home-font-icon" class="material-symbols-rounded">home</span>
                         <div class="mobile-label">Home</div>
                     </div>
 
-                    <div class="clickable mobile-icon-container" id="mobile-repos-icon" tabindex="0" onclick="reposSelected()" onkeydown="if(event.key === 'Enter'){reposSelected()}">
+                    <div class="clickable mobile-icon-container" id="mobile-repos-icon" tabindex="0">
                         <span id="mobile-repos-font-icon" class="material-symbols-rounded">folder</span>
                         <div class="mobile-label">Repositories</div>
                     </div>
 
-                    <div class="clickable mobile-icon-container" id="mobile-blog-icon" tabindex="0" onclick="blogSelected()" onkeydown="if(event.key === 'Enter'){blogSelected()}">
+                    <div class="clickable mobile-icon-container" id="mobile-blog-icon" tabindex="0">
                         <span id="mobile-blog-font-icon" class="material-symbols-rounded">article</span>
                         <div class="mobile-label">Blog</div>
                     </div>
 
-                    <div class="clickable mobile-icon-container" id="mobile-contact-icon" tabindex="0" onclick="contactSelected()" onkeydown="if(event.key === 'Enter'){contactSelected()}">
+                    <div class="clickable mobile-icon-container" id="mobile-contact-icon" tabindex="0">
                         <span id="mobile-contact-font-icon" class="material-symbols-rounded">mail</span>
                         <div class="mobile-label">Contact</div>
                     </div>

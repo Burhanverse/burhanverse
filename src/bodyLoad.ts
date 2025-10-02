@@ -7,6 +7,7 @@ import { initClock } from './clock';
 import { initDate } from './dateDisplay';
 import { initDayProgress } from './dayProgress';
 import { initSubtitleStyling } from './subtitleStyling';
+import { initializeEventHandlers } from './eventHandlers';
 
 export function bodyLoaded() {
   const body = document.querySelector<HTMLElement>('body');
@@ -21,6 +22,7 @@ export function bodyLoaded() {
   initDate();
   initDayProgress();
   initSubtitleStyling();
+  initializeEventHandlers();
 }
 
 // Auto-initialize when DOM is ready
