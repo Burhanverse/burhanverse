@@ -4,26 +4,20 @@
  */
 
 import { article1 } from './fagram';
-import { article2 } from './article-2';
-import { article3 } from './article-3';
 import { ArticleContent } from '../types';
 
 /**
  * All articles mapped by ID
  */
 export const articles: Record<number, ArticleContent> = {
-  1: article1,
-  2: article2,
-  3: article3
+  1: article1
 };
 
 /**
  * All articles mapped by slug
  */
 export const articlesBySlug: Record<string, ArticleContent> = {
-  'fagram-desktop': article1,
-  'typescript-web-apps': article2,
-  'ui-animations': article3
+  'fagram-desktop': article1
 };
 
 /**
