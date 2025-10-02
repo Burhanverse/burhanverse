@@ -133,14 +133,27 @@
 
 .article-code-block {
     margin: 3rem 0;
-    background-color: var(--md-sys-color-surface-variant);
+    background-color: var(--md-sys-color-surface-container-high);
     border-radius: var(--border-radius-l);
     overflow: hidden;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Light mode shadow */
+:root[data-theme="light"] .article-code-block {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+                0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode shadow */
+:root[data-theme="dark"] .article-code-block {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4),
+                0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .code-header {
     padding: 1.5rem 2rem;
-    background-color: var(--md-sys-color-surface);
+    background-color: var(--md-sys-color-surface-container);
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
     display: flex;
     align-items: center;
@@ -197,13 +210,14 @@
     margin: 0;
     padding: 2rem;
     overflow-x: auto;
+    background-color: var(--md-sys-color-surface-container-high);
 }
 
 .article-code-block code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.4rem;
     line-height: 1.6;
-    color: var(--md-sys-color-on-surface-variant);
+    color: var(--md-sys-color-on-surface);
 }
 
 /* Scrollbar for code blocks */
@@ -212,7 +226,8 @@
 }
 
 .article-code-block pre::-webkit-scrollbar-track {
-    background: var(--md-sys-color-surface);
+    background: var(--md-sys-color-surface-container);
+    border-radius: var(--border-radius-s);
 }
 
 .article-code-block pre::-webkit-scrollbar-thumb {

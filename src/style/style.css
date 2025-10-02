@@ -12,6 +12,7 @@
 @import "articlePageStyle.css";
 @import "contactPageStyle.css";
 @import "statsCardsStyle.css";
+@import "prismTheme.css";
 @import "mediaQueries.css";
 
 html {

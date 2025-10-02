@@ -5,6 +5,17 @@
 import { ArticleSection } from './types';
 import { getArticleById } from './blog/index';
 import { getBlogPostById } from './blog/posts';
+import Prism from 'prismjs';
+
+// Import Prism languages
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-markdown';
 
 /**
  * Render article section based on type
@@ -121,7 +132,12 @@ export function renderArticle(articleId: number): void {
     </article>
   `;
 
-  // Initialize copy buttons after rendering
+  // Apply syntax highlighting after DOM update
+  setTimeout(() => {
+    Prism.highlightAll();
+  }, 0);
+  
+  // Setup copy buttons after rendering
   initializeCopyButtons();
 }
 

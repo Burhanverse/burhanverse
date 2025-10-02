@@ -1,0 +1,206 @@
+/**
+ * Custom Prism.js Theme with Material Design 3 colors
+ * Adapts to light and dark modes
+ */
+
+/* Base styles */
+code[class*="language-"],
+pre[class*="language-"] {
+    background: none;
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1.4rem;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.6;
+    tab-size: 4;
+    hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 2rem;
+    margin: 0;
+    overflow: auto;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: 0.2em 0.4em;
+    border-radius: 0.4rem;
+    white-space: normal;
+}
+
+/* Light mode syntax colors - Using MD3 tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6B7280;
+    font-style: italic;
+}
+
+.token.punctuation {
+    color: #4B5563;
+}
+
+.token.namespace {
+    opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #DC2626;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #16A34A;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #EA580C;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #7C3AED;
+}
+
+.token.function,
+.token.class-name {
+    color: #2563EB;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #0891B2;
+}
+
+/* Dark mode syntax colors - Override for dark theme */
+:root[data-theme="dark"] .token.comment,
+:root[data-theme="dark"] .token.prolog,
+:root[data-theme="dark"] .token.doctype,
+:root[data-theme="dark"] .token.cdata {
+    color: #9CA3AF;
+    font-style: italic;
+}
+
+:root[data-theme="dark"] .token.punctuation {
+    color: #D1D5DB;
+}
+
+:root[data-theme="dark"] .token.property,
+:root[data-theme="dark"] .token.tag,
+:root[data-theme="dark"] .token.boolean,
+:root[data-theme="dark"] .token.number,
+:root[data-theme="dark"] .token.constant,
+:root[data-theme="dark"] .token.symbol,
+:root[data-theme="dark"] .token.deleted {
+    color: #F87171;
+}
+
+:root[data-theme="dark"] .token.selector,
+:root[data-theme="dark"] .token.attr-name,
+:root[data-theme="dark"] .token.string,
+:root[data-theme="dark"] .token.char,
+:root[data-theme="dark"] .token.builtin,
+:root[data-theme="dark"] .token.inserted {
+    color: #4ADE80;
+}
+
+:root[data-theme="dark"] .token.operator,
+:root[data-theme="dark"] .token.entity,
+:root[data-theme="dark"] .token.url,
+:root[data-theme="dark"] .language-css .token.string,
+:root[data-theme="dark"] .style .token.string {
+    color: #FB923C;
+}
+
+:root[data-theme="dark"] .token.atrule,
+:root[data-theme="dark"] .token.attr-value,
+:root[data-theme="dark"] .token.keyword {
+    color: #A78BFA;
+}
+
+:root[data-theme="dark"] .token.function,
+:root[data-theme="dark"] .token.class-name {
+    color: #60A5FA;
+}
+
+:root[data-theme="dark"] .token.regex,
+:root[data-theme="dark"] .token.important,
+:root[data-theme="dark"] .token.variable {
+    color: #22D3EE;
+}
+
+/* Common styles */
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* Line highlighting */
+pre[data-line] {
+    position: relative;
+    padding-left: 3.8em;
+}
+
+pre[data-line] .line-highlight-before {
+    content: attr(data-line);
+}
+
+pre[data-line] .line-highlight {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: inherit 0;
+    margin-top: 1em;
+    background: var(--md-sys-color-primary-container);
+    opacity: 0.1;
+    pointer-events: none;
+    line-height: inherit;
+    white-space: pre;
+}
+
+/* Selection */
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection {
+    background: var(--md-sys-color-primary);
+    opacity: 0.3;
+}
+
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection {
+    background: var(--md-sys-color-primary);
+    opacity: 0.3;
+}
