@@ -1,8 +1,15 @@
-// Import all script modules
+// Import all modules (auto-execute initialization)
 import './listRepo';
 import './theme';
 import './navigation';
 import './bodyLoad';
+
+// Import individual feature modules (initialized by bodyLoad)
+import './customCursor';
+import './clock';
+import './dateDisplay';
+import './dayProgress';
+import './subtitleStyling';
 
 // Export functions to window for inline event handlers
 import { themeToggle, themeToggleHover, themeToggleLeave } from './theme';
@@ -37,4 +44,4 @@ window.closeNavPanel = closeNavPanel;
 window.openNavPanel = openNavPanel;
 window.bodyLoaded = bodyLoaded;
 
-console.log('🚀 Burhanverse Portfolio initialized');
+console.log('🚀 Burhanverse Portfolio - All features initialized');
