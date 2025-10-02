@@ -19,12 +19,22 @@ function renderSection(section: ArticleSection): string {
     
     case 'code':
       const language = section.language || 'plaintext';
+      const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
       return `
         <div class="article-code-block">
           <div class="code-header">
             <span class="code-language">${language}</span>
+            <button class="code-copy-btn clickable" data-code-id="${codeId}" aria-label="Copy code">
+              <svg class="copy-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+              <span class="copy-text">Copy</span>
+            </button>
           </div>
-          <pre><code class="language-${language}">${escapeHtml(section.content as string)}</code></pre>
+          <pre><code id="${codeId}" class="language-${language}">${escapeHtml(section.content as string)}</code></pre>
         </div>
       `;
     
@@ -110,6 +120,52 @@ export function renderArticle(articleId: number): void {
       </footer>
     </article>
   `;
+
+  // Initialize copy buttons after rendering
+  initializeCopyButtons();
+}
+
+/**
+ * Initialize copy buttons for code blocks
+ */
+function initializeCopyButtons(): void {
+  const copyButtons = document.querySelectorAll<HTMLButtonElement>('.code-copy-btn');
+  
+  copyButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const codeId = button.getAttribute('data-code-id');
+      if (!codeId) return;
+      
+      const codeElement = document.getElementById(codeId);
+      if (!codeElement) return;
+      
+      const code = codeElement.textContent || '';
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        
+        // Show success feedback
+        const copyIcon = button.querySelector('.copy-icon') as SVGElement;
+        const checkIcon = button.querySelector('.check-icon') as SVGElement;
+        const copyText = button.querySelector('.copy-text') as HTMLSpanElement;
+        
+        if (copyIcon && checkIcon && copyText) {
+          copyIcon.style.display = 'none';
+          checkIcon.style.display = 'block';
+          copyText.textContent = 'Copied!';
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            copyIcon.style.display = 'block';
+            checkIcon.style.display = 'none';
+            copyText.textContent = 'Copy';
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy code:', err);
+      }
+    });
+  });
 }
 
 /**
