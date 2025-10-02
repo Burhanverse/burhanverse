@@ -1,0 +1,105 @@
+@media (max-width: 1300px) {
+    .featured-projects,
+    .repos-list-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .title-wrapper {
+        height: 30rem;
+    }
+
+    .title-elements {
+        font-size: .75rem;
+    }
+
+    .title {
+        letter-spacing: -0.2rem;
+    }
+
+    .logo-wrapper,
+    .title-elements,
+    .logo {
+        height: 13rem;
+    }
+
+    .logo-wrapper,
+    .logo {
+        width: 13rem;
+    }
+}
+
+@media (max-width: 950px) {
+    .navbar-mobile-wrapper {
+        display: flex;
+    }
+
+    .mobile-panel-wrapper.visible {
+        display: flex;
+    }
+
+    .overlay {
+        display: block !important;
+    }
+
+    .statusbar-wrapper,
+    .navbar-wrapper {
+        display: none;
+    }
+
+    .page-content-wrapper {
+        height: calc(100vh - 6rem);
+        height: calc(100svh - 6rem);
+        padding: 6rem 0 0 0 !important;
+    }
+
+    .inverted-topright-corner,
+    .inverted-topleft-corner {
+        display: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .featured-projects,
+    .repos-list-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .page {
+        margin-bottom: 3rem;
+        padding: 0;
+    }
+
+    .logo-wrapper {
+        display: none;
+    }
+
+    .title-wrapper {
+        border-radius: 0;
+        height: 20rem;
+    }
+
+    .title-elements {
+        font-size: .6rem;
+    }
+
+    .featured-projects-title {
+        font-size: 3.4rem;
+        margin: 0;
+        text-align: center;
+        width: auto;
+    }
+
+    .badges-wrapper {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .home .squiggly-separator,
+    .badges-wrapper {
+        margin-top: 0.525rem;
+    }
+}
