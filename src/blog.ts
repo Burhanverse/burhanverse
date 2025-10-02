@@ -2,46 +2,8 @@
  * Blog page functionality
  */
 
-export interface BlogPost {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  image: string;
-  link: string;
-  tags?: string[];
-}
-
-// Sample blog posts - replace with actual data source
-const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: 'Getting Started with Material Design 3',
-    description: 'An introduction to Material Design 3 principles and how to implement them in your projects.',
-    date: '2024-09-15',
-    image: '/img/project1.webp',
-    link: '/article.html?article=1',
-    tags: ['Design', 'Material Design']
-  },
-  {
-    id: 2,
-    title: 'Building Modern Web Apps with TypeScript',
-    description: 'Learn how TypeScript can improve your web development workflow and code quality.',
-    date: '2024-08-20',
-    image: '/img/project2.webp',
-    link: '/article.html?article=2',
-    tags: ['TypeScript', 'Web Development']
-  },
-  {
-    id: 3,
-    title: 'Creating Beautiful UI Animations',
-    description: 'Tips and tricks for creating smooth, performant animations in web applications.',
-    date: '2024-07-10',
-    image: '/img/project3.webp',
-    link: '/article.html?article=3',
-    tags: ['CSS', 'Animations']
-  }
-];
+import { BlogPost } from './types';
+import { getSortedBlogPosts } from './blog/posts';
 
 /**
  * Render a single blog post card
@@ -91,10 +53,8 @@ export function renderBlogPosts(): void {
     return;
   }
 
-  // Sort posts by date (newest first)
-  const sortedPosts = [...blogPosts].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  // Get sorted posts (newest first)
+  const sortedPosts = getSortedBlogPosts();
 
   // Render posts
   blogListWrapper.innerHTML = sortedPosts.map(post => renderBlogPost(post)).join('');
