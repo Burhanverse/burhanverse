@@ -69,9 +69,9 @@
 }
 
 .article-title {
-    font-family: 'Lexend Zetta', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 4.8rem;
-    font-weight: 900;
+    font-weight: 700;
     line-height: 1.2;
     color: var(--md-sys-color-on-background);
     margin: 0 0 1.5rem 0;
@@ -105,9 +105,9 @@
 }
 
 .article-heading {
-    font-family: 'Lexend Zetta', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 3.2rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--md-sys-color-on-background);
     margin: 4rem 0 2rem 0;
     line-height: 1.3;
