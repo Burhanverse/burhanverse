@@ -19,6 +19,7 @@ export interface GitHubConfig {
 // Blog and Article types
 export interface BlogPost {
   id: number;
+  slug: string; // URL-friendly identifier
   title: string;
   description: string;
   date: string;
@@ -29,6 +30,7 @@ export interface BlogPost {
 
 export interface ArticleContent {
   id: number;
+  slug: string; // URL-friendly identifier
   sections: ArticleSection[];
 }
 

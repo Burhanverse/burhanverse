@@ -18,10 +18,26 @@ export const articles: Record<number, ArticleContent> = {
 };
 
 /**
+ * All articles mapped by slug
+ */
+export const articlesBySlug: Record<string, ArticleContent> = {
+  'material-design-3': article1,
+  'typescript-web-apps': article2,
+  'ui-animations': article3
+};
+
+/**
  * Get article by ID
  */
 export function getArticleById(id: number): ArticleContent | null {
   return articles[id] || null;
+}
+
+/**
+ * Get article by slug
+ */
+export function getArticleBySlug(slug: string): ArticleContent | null {
+  return articlesBySlug[slug] || null;
 }
 
 /**

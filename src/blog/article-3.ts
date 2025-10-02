@@ -6,6 +6,7 @@ import { ArticleContent } from '../types';
 
 export const article3: ArticleContent = {
   id: 3,
+  slug: 'ui-animations',
   sections: [
     {
       type: 'heading',

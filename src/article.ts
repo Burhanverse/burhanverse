@@ -3,8 +3,8 @@
  */
 
 import { ArticleSection } from './types';
-import { getArticleById } from './blog/index';
-import { getBlogPostById } from './blog/posts';
+import { getArticleBySlug } from './blog/index';
+import { getBlogPostBySlug } from './blog/posts';
 import Prism from 'prismjs';
 
 // Import Prism languages
@@ -78,12 +78,12 @@ function escapeHtml(text: string): string {
 /**
  * Render the full article page
  */
-export function renderArticle(articleId: number): void {
-  const articleContent = getArticleById(articleId);
-  const blogPost = getBlogPostById(articleId);
+export function renderArticle(articleSlug: string): void {
+  const articleContent = getArticleBySlug(articleSlug);
+  const blogPost = getBlogPostBySlug(articleSlug);
   
   if (!articleContent || !blogPost) {
-    console.error(`Article ${articleId} not found`);
+    console.error(`Article "${articleSlug}" not found`);
     return;
   }
 
@@ -189,13 +189,10 @@ function initializeCopyButtons(): void {
  */
 export function initializeArticlePage(): void {
   const urlParams = new URLSearchParams(window.location.search);
-  const articleId = urlParams.get('article');
+  const articleSlug = urlParams.get('article');
   
-  if (articleId) {
-    const id = parseInt(articleId, 10);
-    if (!isNaN(id)) {
-      renderArticle(id);
-    }
+  if (articleSlug) {
+    renderArticle(articleSlug);
   }
 }
 

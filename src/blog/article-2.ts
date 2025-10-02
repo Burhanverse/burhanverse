@@ -6,6 +6,7 @@ import { ArticleContent } from '../types';
 
 export const article2: ArticleContent = {
   id: 2,
+  slug: 'typescript-web-apps',
   sections: [
     {
       type: 'heading',
