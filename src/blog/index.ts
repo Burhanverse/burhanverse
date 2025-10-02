@@ -3,7 +3,7 @@
  * Import and export all articles from this central location
  */
 
-import { article1 } from './article-1';
+import { article1 } from './fagram';
 import { article2 } from './article-2';
 import { article3 } from './article-3';
 import { ArticleContent } from '../types';
@@ -21,7 +21,7 @@ export const articles: Record<number, ArticleContent> = {
  * All articles mapped by slug
  */
 export const articlesBySlug: Record<string, ArticleContent> = {
-  'material-design-3': article1,
+  'fagram-desktop': article1,
   'typescript-web-apps': article2,
   'ui-animations': article3
 };

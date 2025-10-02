@@ -117,6 +117,7 @@
         <script type="module">
             import { themeToggle } from './src/theme.ts';
             import { updateClock } from './src/clock.ts';
+            import { initCustomCursor } from './src/customCursor.ts';
             
             // Theme toggle functionality
             document.getElementById('theme-toggle')?.addEventListener('click', themeToggle);
@@ -127,7 +128,7 @@
             setInterval(updateClock, 1000);
 
             // Initialize custom cursor
-            import('./src/customCursor.ts');
+            initCustomCursor();
         </script>
     </body>
 </html>

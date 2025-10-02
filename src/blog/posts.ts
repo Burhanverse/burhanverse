@@ -8,13 +8,13 @@ import { BlogPost } from '../types';
 export const blogPosts: BlogPost[] = [
   {
     id: 1,
-    slug: 'material-design-3',
-    title: 'Getting Started with Material Design 3',
-    description: 'An introduction to Material Design 3 principles and how to implement them in your projects.',
+    slug: 'fagram-desktop',
+    title: 'FAgram Desktop',
+    description: 'Instructions for installing fagram on linux distros.',
     date: '2024-09-15',
-    image: '/img/project1.webp',
-    link: '/article.html?article=material-design-3',
-    tags: ['Design', 'Material Design']
+    image: '/img/fagram.jpg',
+    link: '/article.html?article=fagram-desktop',
+    tags: ['Fork', 'FAgram', 'Telegram Desktop']
   },
   {
     id: 2,
