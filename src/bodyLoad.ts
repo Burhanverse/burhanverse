@@ -8,6 +8,7 @@ import { initDate } from './dateDisplay';
 import { initDayProgress } from './dayProgress';
 import { initSubtitleStyling } from './subtitleStyling';
 import { initializeEventHandlers } from './eventHandlers';
+import { initializeStatsCards } from './statsCards';
 
 export function bodyLoaded() {
   const body = document.querySelector<HTMLElement>('body');
@@ -23,6 +24,7 @@ export function bodyLoaded() {
   initDayProgress();
   initSubtitleStyling();
   initializeEventHandlers();
+  initializeStatsCards();
 }
 
 // Auto-initialize when DOM is ready
