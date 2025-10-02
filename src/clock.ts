@@ -3,7 +3,7 @@
  * Updates the time display every 5 seconds
  */
 
-function updateClock(): void {
+export function updateClock(): void {
   const date = new Date();
   let hour: number | string = date.getHours();
   let minute: number | string = date.getMinutes();

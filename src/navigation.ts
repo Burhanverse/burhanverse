@@ -5,7 +5,7 @@
 // Page elements
 const homeContent = document.querySelector<HTMLElement>('#home-page');
 const reposContent = document.querySelector<HTMLElement>('#repos-page');
-const infoContent = document.querySelector<HTMLElement>('#info-page');
+const blogContent = document.querySelector<HTMLElement>('#blog-page');
 const contactContent = document.querySelector<HTMLElement>('#contact-page');
 
 // Navigation icons
@@ -13,16 +13,16 @@ const homeIcon = document.querySelector<HTMLElement>('#home-icon');
 const mobileHomeIcon = document.querySelector<HTMLElement>('#mobile-home-icon');
 const reposIcon = document.querySelector<HTMLElement>('#repos-icon');
 const mobileReposIcon = document.querySelector<HTMLElement>('#mobile-repos-icon');
-const infoIcon = document.querySelector<HTMLElement>('#info-icon');
-const mobileInfoIcon = document.querySelector<HTMLElement>('#mobile-info-icon');
+const blogIcon = document.querySelector<HTMLElement>('#blog-icon');
+const mobileBlogIcon = document.querySelector<HTMLElement>('#mobile-blog-icon');
 const contactIcon = document.querySelector<HTMLElement>('#contact-icon');
 const mobileContactIcon = document.querySelector<HTMLElement>('#mobile-contact-icon');
 
 // Font icons
 const homeFontIcon = document.querySelector<HTMLElement>('#home-font-icon');
 const mobileHomeFontIcon = document.querySelector<HTMLElement>('#mobile-home-font-icon');
-const infoFontIcon = document.querySelector<HTMLElement>('#info-font-icon');
-const mobileInfoFontIcon = document.querySelector<HTMLElement>('#mobile-info-font-icon');
+const blogFontIcon = document.querySelector<HTMLElement>('#blog-font-icon');
+const mobileBlogFontIcon = document.querySelector<HTMLElement>('#mobile-blog-font-icon');
 const contactFontIcon = document.querySelector<HTMLElement>('#contact-font-icon');
 const mobileContactFontIcon = document.querySelector<HTMLElement>('#mobile-contact-font-icon');
 
@@ -30,15 +30,15 @@ const mobileContactFontIcon = document.querySelector<HTMLElement>('#mobile-conta
 const mobileNavPanel = document.querySelector<HTMLElement>('.mobile-panel-wrapper');
 const overlay = document.querySelector<HTMLElement>('.overlay');
 
-type PageSection = 'home' | 'repos' | 'info' | 'contact';
+type PageSection = 'home' | 'repos' | 'blog' | 'contact';
 
 function hideAllPages() {
   homeContent?.classList.add('hidden');
   homeContent?.classList.remove('visible');
   reposContent?.classList.add('hidden');
   reposContent?.classList.remove('visible');
-  infoContent?.classList.add('hidden');
-  infoContent?.classList.remove('visible');
+  blogContent?.classList.add('hidden');
+  blogContent?.classList.remove('visible');
   contactContent?.classList.add('hidden');
   contactContent?.classList.remove('visible');
 }
@@ -48,15 +48,15 @@ function resetAllIcons() {
   mobileHomeIcon?.classList.remove('selected');
   reposIcon?.classList.remove('selected');
   mobileReposIcon?.classList.remove('selected');
-  infoIcon?.classList.remove('selected');
-  mobileInfoIcon?.classList.remove('selected');
+  blogIcon?.classList.remove('selected');
+  mobileBlogIcon?.classList.remove('selected');
   contactIcon?.classList.remove('selected');
   mobileContactIcon?.classList.remove('selected');
 
   if (homeFontIcon) homeFontIcon.innerHTML = '&#xe906;';
   if (mobileHomeFontIcon) mobileHomeFontIcon.innerHTML = '&#xe906;';
-  if (infoFontIcon) infoFontIcon.innerHTML = '&#xe904;';
-  if (mobileInfoFontIcon) mobileInfoFontIcon.innerHTML = '&#xe904;';
+  if (blogFontIcon) blogFontIcon.innerHTML = '&#xe904;';
+  if (mobileBlogFontIcon) mobileBlogFontIcon.innerHTML = '&#xe904;';
   if (contactFontIcon) contactFontIcon.innerHTML = '&#xe90a;';
   if (mobileContactFontIcon) mobileContactFontIcon.innerHTML = '&#xe90a;';
 }
@@ -95,16 +95,16 @@ export function reposSelected() {
   closeNavPanel();
 }
 
-export function infoSelected() {
+export function blogSelected() {
   hideAllPages();
   resetAllIcons();
-  infoContent?.classList.remove('hidden');
-  infoContent?.classList.add('visible');
-  infoIcon?.classList.add('selected');
-  mobileInfoIcon?.classList.add('selected');
-  if (infoFontIcon) infoFontIcon.innerHTML = '&#xe907;';
-  if (mobileInfoFontIcon) mobileInfoFontIcon.innerHTML = '&#xe907;';
-  localStorage.setItem('page-section', 'info');
+  blogContent?.classList.remove('hidden');
+  blogContent?.classList.add('visible');
+  blogIcon?.classList.add('selected');
+  mobileBlogIcon?.classList.add('selected');
+  if (blogFontIcon) blogFontIcon.innerHTML = '&#xe907;';
+  if (mobileBlogFontIcon) mobileBlogFontIcon.innerHTML = '&#xe907;';
+  localStorage.setItem('page-section', 'blog');
   closeNavPanel();
 }
 
@@ -132,8 +132,8 @@ function initializePage() {
     case 'repos':
       reposSelected();
       break;
-    case 'info':
-      infoSelected();
+    case 'blog':
+      blogSelected();
       break;
     case 'contact':
       contactSelected();

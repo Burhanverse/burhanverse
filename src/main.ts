@@ -3,6 +3,8 @@ import './listRepo';
 import './theme';
 import './navigation';
 import './bodyLoad';
+import './blog';
+import './article';
 
 // Import individual feature modules (initialized by bodyLoad)
 import './customCursor';
@@ -13,7 +15,7 @@ import './subtitleStyling';
 
 // Export functions to window for inline event handlers
 import { themeToggle, themeToggleHover, themeToggleLeave } from './theme';
-import { homeSelected, reposSelected, infoSelected, contactSelected, closeNavPanel, openNavPanel } from './navigation';
+import { homeSelected, reposSelected, blogSelected, contactSelected, closeNavPanel, openNavPanel } from './navigation';
 import { bodyLoaded } from './bodyLoad';
 
 // Make functions globally available for HTML inline handlers
@@ -24,7 +26,7 @@ declare global {
     themeToggleLeave: typeof themeToggleLeave;
     homeSelected: typeof homeSelected;
     reposSelected: typeof reposSelected;
-    infoSelected: typeof infoSelected;
+    blogSelected: typeof blogSelected;
     contactSelected: typeof contactSelected;
     closeNavPanel: typeof closeNavPanel;
     openNavPanel: typeof openNavPanel;
@@ -38,7 +40,7 @@ window.themeToggleHover = themeToggleHover;
 window.themeToggleLeave = themeToggleLeave;
 window.homeSelected = homeSelected;
 window.reposSelected = reposSelected;
-window.infoSelected = infoSelected;
+window.blogSelected = blogSelected;
 window.contactSelected = contactSelected;
 window.closeNavPanel = closeNavPanel;
 window.openNavPanel = openNavPanel;

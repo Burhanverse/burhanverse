@@ -8,7 +8,8 @@
 @import "pageContentStyle.css";
 @import "homePageStyle.css";
 @import "reposPageStyle.css";
-@import "infoPageStyle.css";
+@import "blogPageStyle.css";
+@import "articlePageStyle.css";
 @import "contactPageStyle.css";
 @import "mediaQueries.css";
 
@@ -50,7 +51,8 @@ html {
 
 .home,
 .repos-page,
-.info-page,
+.blog-page,
+.article-page,
 .contact-page {
     transition: opacity 200ms linear;
 }
