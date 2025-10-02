@@ -53,21 +53,28 @@ function resetAllIcons() {
   contactIcon?.classList.remove('selected');
   mobileContactIcon?.classList.remove('selected');
 
-  if (homeFontIcon) homeFontIcon.innerHTML = '&#xe906;';
-  if (mobileHomeFontIcon) mobileHomeFontIcon.innerHTML = '&#xe906;';
-  if (blogFontIcon) blogFontIcon.innerHTML = '&#xe904;';
-  if (mobileBlogFontIcon) mobileBlogFontIcon.innerHTML = '&#xe904;';
-  if (contactFontIcon) contactFontIcon.innerHTML = '&#xe90a;';
-  if (mobileContactFontIcon) mobileContactFontIcon.innerHTML = '&#xe90a;';
+  if (homeFontIcon) homeFontIcon.textContent = 'home';
+  if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = 'home';
+  if (blogFontIcon) blogFontIcon.textContent = 'article';
+  if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = 'article';
+  if (contactFontIcon) contactFontIcon.textContent = 'mail';
+  if (mobileContactFontIcon) mobileContactFontIcon.textContent = 'mail';
 }
 
 function closeNavPanel() {
-  mobileNavPanel?.classList.remove('open');
-  overlay?.classList.add('hidden');
+  mobileNavPanel?.classList.add('hiding');
+  overlay?.classList.add('hiding');
+  
+  setTimeout(() => {
+    mobileNavPanel?.classList.remove('visible');
+    mobileNavPanel?.classList.remove('hiding');
+    overlay?.classList.add('hidden');
+    overlay?.classList.remove('hiding');
+  }, 200);
 }
 
 function openNavPanel() {
-  mobileNavPanel?.classList.add('open');
+  mobileNavPanel?.classList.add('visible');
   overlay?.classList.remove('hidden');
 }
 
@@ -78,8 +85,8 @@ export function homeSelected() {
   homeContent?.classList.add('visible');
   homeIcon?.classList.add('selected');
   mobileHomeIcon?.classList.add('selected');
-  if (homeFontIcon) homeFontIcon.innerHTML = '&#xe905;';
-  if (mobileHomeFontIcon) mobileHomeFontIcon.innerHTML = '&#xe905;';
+  if (homeFontIcon) homeFontIcon.textContent = 'home';
+  if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = 'home';
   localStorage.setItem('page-section', 'home');
   closeNavPanel();
 }
@@ -102,8 +109,8 @@ export function blogSelected() {
   blogContent?.classList.add('visible');
   blogIcon?.classList.add('selected');
   mobileBlogIcon?.classList.add('selected');
-  if (blogFontIcon) blogFontIcon.innerHTML = '&#xe907;';
-  if (mobileBlogFontIcon) mobileBlogFontIcon.innerHTML = '&#xe907;';
+  if (blogFontIcon) blogFontIcon.textContent = 'article';
+  if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = 'article';
   localStorage.setItem('page-section', 'blog');
   closeNavPanel();
 }
@@ -115,8 +122,8 @@ export function contactSelected() {
   contactContent?.classList.add('visible');
   contactIcon?.classList.add('selected');
   mobileContactIcon?.classList.add('selected');
-  if (contactFontIcon) contactFontIcon.innerHTML = '&#xe90b;';
-  if (mobileContactFontIcon) mobileContactFontIcon.innerHTML = '&#xe90b;';
+  if (contactFontIcon) contactFontIcon.textContent = 'mail';
+  if (mobileContactFontIcon) mobileContactFontIcon.textContent = 'mail';
   localStorage.setItem('page-section', 'contact');
   closeNavPanel();
 }

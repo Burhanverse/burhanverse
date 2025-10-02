@@ -73,6 +73,10 @@ html {
     animation-name: fade-in;
 }
 
+.overlay:not(.hidden) {
+    display: block;
+}
+
 .overlay.hiding {
     animation-duration: 200ms;
     animation-name: fade-out;
