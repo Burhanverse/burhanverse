@@ -69,23 +69,19 @@ npm run type-check   # TypeScript type checking
 
 ```
 website/
-├── src/                # TypeScript source
-│   ├── main.ts        # Entry point
-│   ├── bodyLoad.ts    # Initialization
-│   ├── githubApi.ts   # GitHub API client
-│   ├── listRepo.ts    # Repo fetching
-│   ├── repoRenderer.ts # DOM rendering
-│   ├── navigation.ts  # Page navigation
-│   ├── theme.ts       # Theme system
-│   ├── customCursor.ts # Custom cursor
-│   ├── clock.ts       # Time display
-│   ├── dateDisplay.ts # Date formatting
-│   ├── dayProgress.ts # Progress bar
-│   └── subtitleStyling.ts # Subtitle animation
-├── res/               # Static assets
-├── style/             # CSS files
-├── index.html         # Main HTML
-└── .env               # Config (create this)
+├── src/                    # All source files
+│   ├── *.ts               # TypeScript modules
+│   ├── res/               # Static assets (served from root)
+│   │   ├── config/        # Web manifests
+│   │   ├── favicon/       # Favicons
+│   │   ├── font/          # Custom fonts
+│   │   └── img/           # Images
+│   └── style/             # CSS files
+├── index.html             # Main HTML
+├── .env                   # Config (create this)
+├── package.json           # Dependencies
+├── tsconfig.json          # TypeScript config
+└── vite.config.ts         # Vite config
 ```
 
 ## 🎨 Customization
