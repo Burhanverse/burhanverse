@@ -239,9 +239,6 @@ export function renderLastFmCard(): string {
 /**
  * Update GitHub stats with real data
  */
-/**
- * Update GitHub stats with real data
- */
 async function updateGitHubStats(username: string): Promise<void> {
   const contentElement = document.querySelector('#github-stats-content');
   if (!contentElement) return;
@@ -274,7 +271,7 @@ async function updateGitHubStats(username: string): Promise<void> {
           </div>
           <div class="stat-item-large">
             <div class="stat-value-large">${stats.totalRepos}</div>
-            <div class="stat-label"><span class="material-symbols-rounded">folder</span> Repositories</div>
+            <div class="stat-label"><span class="material-symbols-rounded">folder_code</span> Repositories</div>
           </div>
         </div>
         
