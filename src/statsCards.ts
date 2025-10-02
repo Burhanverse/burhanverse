@@ -9,7 +9,7 @@ interface GitHubStats {
   following: number;
   publicGists: number;
   totalForks: number;
-  contributions: string;
+  contributions: number;
   languageStats: { name: string; percentage: number; color: string }[];
 }
 
@@ -24,6 +24,66 @@ interface LastFmStats {
   };
   playcount: number;
   username: string;
+}
+
+/**
+ * Fetch total contributions since account creation using GitHub GraphQL API
+ */
+async function fetchGitHubContributions(username: string, accountCreatedAt: string): Promise<number> {
+  try {
+    const today = new Date();
+    const createdDate = new Date(accountCreatedAt);
+    
+    // GitHub's GraphQL API only allows fetching 1 year at a time
+    // So we need to fetch year by year and sum them up
+    let totalContributions = 0;
+    let currentYear = createdDate.getFullYear();
+    const currentYearNow = today.getFullYear();
+    
+    while (currentYear <= currentYearNow) {
+      const fromDate = currentYear === createdDate.getFullYear() 
+        ? createdDate 
+        : new Date(currentYear, 0, 1);
+      
+      const toDate = currentYear === currentYearNow 
+        ? today 
+        : new Date(currentYear, 11, 31, 23, 59, 59);
+      
+      const query = `
+        query {
+          user(login: "${username}") {
+            contributionsCollection(from: "${fromDate.toISOString()}", to: "${toDate.toISOString()}") {
+              contributionCalendar {
+                totalContributions
+              }
+            }
+          }
+        }
+      `;
+      
+      const response = await fetch('https://api.github.com/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN || ''}`
+        },
+        body: JSON.stringify({ query })
+      });
+      
+      const data = await response.json();
+      
+      if (data.data?.user?.contributionsCollection?.contributionCalendar?.totalContributions !== undefined) {
+        totalContributions += data.data.user.contributionsCollection.contributionCalendar.totalContributions;
+      }
+      
+      currentYear++;
+    }
+    
+    return totalContributions;
+  } catch (error) {
+    console.error('Error fetching GitHub contributions:', error);
+    return 0;
+  }
 }
 
 /**
@@ -75,6 +135,9 @@ async function fetchGitHubStats(username: string): Promise<GitHubStats | null> {
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 4); // Top 4 languages
     
+    // Fetch total contributions since account creation
+    const contributions = await fetchGitHubContributions(username, userData.created_at);
+    
     return {
       totalStars,
       totalRepos: userData.public_repos,
@@ -82,7 +145,7 @@ async function fetchGitHubStats(username: string): Promise<GitHubStats | null> {
       following: userData.following,
       publicGists: userData.public_gists,
       totalForks,
-      contributions: '500+', // This would need a different API or service
+      contributions,
       languageStats
     };
   } catch (error) {
@@ -240,8 +303,8 @@ async function updateGitHubStats(username: string): Promise<void> {
           <div class="stat-item-small">
             <span class="material-symbols-rounded stat-icon">emoji_events</span>
             <div>
-              <div class="stat-value-small">${stats.contributions}</div>
-              <div class="stat-sublabel">Contributions</div>
+              <div class="stat-value-small">${stats.contributions > 0 ? stats.contributions.toLocaleString() : 'N/A'}</div>
+              <div class="stat-sublabel">Total Contributions</div>
             </div>
           </div>
         </div>
