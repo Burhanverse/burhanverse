@@ -553,3 +553,74 @@
         text-align: center;
     }
 }
+
+/* DARK MODE ENHANCEMENTS */
+
+[theme="dark"] .stat-card {
+    background-color: var(--md-sys-color-surface-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(105, 211, 255, 0.05);
+}
+
+[theme="dark"] .stat-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(105, 211, 255, 0.1);
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+[theme="dark"] .stat-item-large {
+    background-color: var(--md-sys-color-primary-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[theme="dark"] .stat-item-large:hover {
+    background-color: var(--md-sys-color-tertiary-container);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[theme="dark"] .stat-item-small {
+    background-color: var(--md-sys-color-secondary-container);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+[theme="dark"] .stat-item-small:hover {
+    background-color: var(--md-sys-color-tertiary-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[theme="dark"] .language-stats {
+    background-color: var(--md-sys-color-tertiary-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[theme="dark"] .language-progress-bar {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[theme="dark"] .lastfm-album-art,
+[theme="dark"] .lastfm-no-image {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(105, 211, 255, 0.1);
+}
+
+[theme="dark"] .lastfm-no-image {
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+[theme="dark"] .lastfm-live-badge {
+    box-shadow: 0 0 8px rgba(255, 180, 171, 0.3);
+}
+
+[theme="dark"] .lastfm-playcount {
+    background-color: var(--md-sys-color-surface-container-high);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+[theme="dark"] .stat-card-header {
+    border-bottom-color: var(--md-sys-color-outline-variant);
+}
+
+[theme="dark"] .stats-cards-title {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
