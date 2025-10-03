@@ -56,8 +56,7 @@
 
 /* SELECTED STYLING */
 
-.selected > .clickable,
-.mobile-icon-container.selected {
+.selected > .clickable {
   background-color: var(--md-sys-color-primary-container);
 }
 
@@ -78,8 +77,7 @@
 /* HOVER */
 
 @media (pointer: fine) {
-  .icon-container:not(.selected) > .clickable:hover,
-  .mobile-icon-container:not(.selected):hover {
+  .icon-container:not(.selected) > .clickable:hover {
     background: var(--md-sys-color-surface-variant);
   }
 }

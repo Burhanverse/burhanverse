@@ -430,88 +430,63 @@
         </div>
       </nav>
 
-      <div class="navbar-mobile-wrapper visible" id="navbar-mobile">
-        <div class="navbar-mobile-elements">
-          <div class="navbar-mobile-navigation">
-            <div class="clickable hamburger-menu-wrapper">
-              <span class="material-symbols-rounded">menu</span>
-            </div>
-            <div class="clickable header-wrapper">
-              <img
-                class="header-logo"
-                alt="Profile image"
-                src="/img/avatar.webp"
-              />
-              <p class="header-text">Burhanverse</p>
-            </div>
-          </div>
+      <div class="mobile-nav-wrapper">
+        <button
+          aria-label="Change the theme"
+          class="clickable mobile-change-theme"
+          type="button"
+        >
+          <span id="mobile-theme-icon" class="material-symbols-rounded"
+            >light_mode</span
+          >
+        </button>
 
-          <div class="navbar-mobile-change-theme">
-            <div
-              aria-label="Change the theme"
-              class="clickable mobile-change-theme"
-            >
-              <span id="mobile-theme-icon" class="material-symbols-rounded"
-                >light_mode</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <nav class="mobile-panel-wrapper">
-        <div class="close-menu-wrapper">
-          <div class="clickable close-menu-button" tabindex="0">
-            <span class="material-symbols-rounded">close</span>
-          </div>
-        </div>
-
-        <div class="mobile-panel-contents">
-          <div
-            class="clickable mobile-icon-container selected"
+        <nav class="mobile-nav">
+          <button
+            class="clickable mobile-nav-item selected"
             id="mobile-home-icon"
-            tabindex="0"
+            type="button"
           >
             <span id="mobile-home-font-icon" class="material-symbols-rounded"
               >home</span
             >
-            <div class="mobile-label">Home</div>
-          </div>
+            <span class="mobile-nav-text">Home</span>
+          </button>
 
-          <div
-            class="clickable mobile-icon-container"
+          <button
+            class="clickable mobile-nav-item"
             id="mobile-repos-icon"
-            tabindex="0"
+            type="button"
           >
             <span id="mobile-repos-font-icon" class="material-symbols-rounded"
               >folder</span
             >
-            <div class="mobile-label">Repositories</div>
-          </div>
+            <span class="mobile-nav-text">Repositories</span>
+          </button>
 
-          <div
-            class="clickable mobile-icon-container"
+          <button
+            class="clickable mobile-nav-item"
             id="mobile-blog-icon"
-            tabindex="0"
+            type="button"
           >
             <span id="mobile-blog-font-icon" class="material-symbols-rounded"
               >article</span
             >
-            <div class="mobile-label">Blog</div>
-          </div>
+            <span class="mobile-nav-text">Blog</span>
+          </button>
 
-          <div
-            class="clickable mobile-icon-container"
+          <button
+            class="clickable mobile-nav-item"
             id="mobile-contact-icon"
-            tabindex="0"
+            type="button"
           >
             <span id="mobile-contact-font-icon" class="material-symbols-rounded"
               >mail</span
             >
-            <div class="mobile-label">Contact</div>
-          </div>
-        </div>
-      </nav>
+            <span class="mobile-nav-text">Contact</span>
+          </button>
+        </nav>
+      </div>
 
       <div class="page-content-wrapper">
         <div class="home page visible" id="home-page">

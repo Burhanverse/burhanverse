@@ -32,16 +32,12 @@
 }
 
 @media (max-width: 950px) {
-  .navbar-mobile-wrapper {
-    display: flex;
-  }
-
-  .mobile-panel-wrapper.visible {
+  .mobile-nav-wrapper {
     display: flex;
   }
 
   .overlay {
-    display: block !important;
+    display: none !important;
   }
 
   .statusbar-wrapper,
@@ -50,9 +46,8 @@
   }
 
   .page-content-wrapper {
-    height: calc(100vh - 6rem);
-    height: calc(100svh - 6rem);
-    padding: 6rem 0 0 0 !important;
+    padding: 0 0 11rem 0 !important;
+    min-height: 100svh;
   }
 
   .inverted-topright-corner,

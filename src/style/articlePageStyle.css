@@ -1,5 +1,15 @@
 /* ARTICLE PAGE STYLES */
 
+/* ARTICLE SPECIFIC BODY STYLES */
+body {
+  opacity: 0;
+}
+
+.article-page .title-wrapper {
+  background-image: url("/img/reposBG.webp");
+  background-color: var(--md-ref-palette-secondary40);
+}
+
 /* Hide system cursor on desktop */
 @media (pointer: fine) {
   .article-page,
