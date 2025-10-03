@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Instructions for installing fagram on linux distros.',
     date: '2024-09-15',
     image: '/img/fagram.jpg',
-    link: '/article.html?article=fagram-desktop',
+  link: 'article.html?article=fagram-desktop',
     tags: ['Fork', 'FAgram', 'Telegram Desktop']
   }
 ];
