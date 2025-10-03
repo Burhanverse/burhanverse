@@ -5,6 +5,7 @@ import "./navigation";
 import "./bodyLoad";
 import "./blog";
 import "./article";
+import "./pullToRefresh";
 
 // Import individual feature modules (initialized by bodyLoad)
 import "./customCursor";

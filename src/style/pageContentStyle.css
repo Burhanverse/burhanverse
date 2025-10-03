@@ -8,6 +8,7 @@
   padding: 0 0 0 8em;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 .page-content-wrapper::-webkit-scrollbar {
