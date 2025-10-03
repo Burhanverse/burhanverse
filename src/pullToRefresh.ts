@@ -53,7 +53,7 @@ function handleTouchMove(e: TouchEvent) {
     const scale = 0.5 + (progress * 0.5);
     const opacity = progress;
     
-    refreshIndicator.style.transform = `translateX(-50%) translateY(${pullDistance * 0.5}px)`;
+    refreshIndicator.style.transform = `translateX(-50%) translateY(${effectivePullDistance * 0.5}px)`;
     refreshIndicator.style.opacity = `${opacity}`;
     
     const spinner = refreshIndicator.querySelector('.refresh-spinner') as HTMLElement;
