@@ -10,6 +10,7 @@
   overflow: hidden;
   position: fixed;
   width: 9rem;
+  z-index: 100;
 }
 
 /* NAVBAR STYLING */

@@ -16,11 +16,11 @@ import { themeToggle, themeToggleHover, themeToggleLeave } from "./theme";
  * Initialize all event listeners
  */
 export function initializeEventHandlers(): void {
-  // Desktop navigation icons
-  setupNavigationHandlers(".home-icon", homeSelected);
-  setupNavigationHandlers(".repos-icon", reposSelected);
-  setupNavigationHandlers(".blog-icon", blogSelected);
-  setupNavigationHandlers(".contact-icon", contactSelected);
+  // Desktop navigation icons (target the outer container)
+  setupNavigationHandlers("#home-icon", homeSelected);
+  setupNavigationHandlers("#repos-icon", reposSelected);
+  setupNavigationHandlers("#blog-icon", blogSelected);
+  setupNavigationHandlers("#contact-icon", contactSelected);
 
   // Mobile navigation icons
   setupNavigationHandlers("#mobile-home-icon", homeSelected);
