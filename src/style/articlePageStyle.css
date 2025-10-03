@@ -287,6 +287,7 @@ body {
   margin-top: 6rem;
   padding-top: 3rem;
   border-top: 1px solid var(--md-sys-color-outline-variant);
+  text-align: center;
 }
 
 .back-to-blog {
