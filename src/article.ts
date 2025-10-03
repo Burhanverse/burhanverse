@@ -202,6 +202,46 @@ export function initializeArticlePage(): void {
   if (articleSlug) {
     renderArticle(articleSlug);
   }
+
+  // Setup mobile navigation handlers
+  setupMobileNavigation();
+}
+
+/**
+ * Setup mobile navigation handlers
+ */
+function setupMobileNavigation(): void {
+  // Home button
+  const homeBtn = document.getElementById("mobile-home-icon");
+  if (homeBtn) {
+    homeBtn.addEventListener("click", () => {
+      window.location.href = "/";
+    });
+  }
+
+  // Repos button
+  const reposBtn = document.getElementById("mobile-repos-icon");
+  if (reposBtn) {
+    reposBtn.addEventListener("click", () => {
+      window.location.href = "/?page=repos";
+    });
+  }
+
+  // Blog button
+  const blogBtn = document.getElementById("mobile-blog-icon");
+  if (blogBtn) {
+    blogBtn.addEventListener("click", () => {
+      window.location.href = "/?page=blog";
+    });
+  }
+
+  // Contact button
+  const contactBtn = document.getElementById("mobile-contact-icon");
+  if (contactBtn) {
+    contactBtn.addEventListener("click", () => {
+      window.location.href = "/?page=contact";
+    });
+  }
 }
 
 // Auto-initialize if on article page

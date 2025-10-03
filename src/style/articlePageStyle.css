@@ -284,10 +284,33 @@ body {
 /* ARTICLE FOOTER */
 
 .article-footer {
-  margin-top: 6rem;
+  margin-top: 4rem;
   padding-top: 3rem;
+  padding-bottom: 3rem;
   border-top: 1px solid var(--md-sys-color-outline-variant);
   text-align: center;
+  margin-bottom: 0;
+}
+
+/* Contact footer styling for article page */
+.article-page .contact-footer {
+  margin-top: -2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding-bottom: 12rem;
+}
+
+/* Reduce padding on mobile for article footer */
+@media (max-width: 768px) {
+  .article-footer {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  .article-page .contact-footer {
+    padding-top: 2.5rem;
+  }
 }
 
 .back-to-blog {
@@ -348,7 +371,7 @@ body {
 
 @media (max-width: 640px) {
   .article-content {
-    padding: 0 0.4rem 5rem 0.4rem;
+    padding: 0 0.4rem 2rem 0.4rem;
   }
 
   .article-title {
@@ -395,7 +418,7 @@ body {
 
 @media (max-width: 480px) {
   .article-content {
-    padding: 0 0.2rem 4rem 0.2rem;
+    padding: 0 0.2rem 2rem 0.2rem;
   }
 
   .article-header {
