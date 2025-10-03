@@ -42,10 +42,11 @@ const mobileNavPanel = document.querySelector<HTMLElement>(
 );
 const overlay = document.querySelector<HTMLElement>(".overlay");
 const mobileNav = document.querySelector<HTMLElement>(".mobile-nav");
+const navbarContainer = document.querySelector<HTMLElement>(".navbar-elements-container");
 
 type PageSection = "home" | "repos" | "blog" | "contact";
 
-// Function to update the sliding indicator
+// Function to update the sliding indicator for mobile navbar
 function updateSlidingIndicator(selectedItem: HTMLElement) {
   if (!mobileNav || !selectedItem) return;
   
@@ -58,6 +59,23 @@ function updateSlidingIndicator(selectedItem: HTMLElement) {
   // Update the ::before pseudo-element via CSS custom properties
   mobileNav.style.setProperty('--indicator-left', `${left}px`);
   mobileNav.style.setProperty('--indicator-width', `${width}px`);
+}
+
+// Function to update the sliding indicator for desktop navbar
+function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
+  if (!navbarContainer || !selectedItem) return;
+  
+  // Get the clickable icon element (not the entire container)
+  const iconClickable = selectedItem.querySelector<HTMLElement>('.clickable');
+  if (!iconClickable) return;
+  
+  const navRect = navbarContainer.getBoundingClientRect();
+  const iconRect = iconClickable.getBoundingClientRect();
+  
+  const top = iconRect.top - navRect.top;
+  
+  // Update only the top position - height is fixed at 3.2rem in CSS
+  navbarContainer.style.setProperty('--indicator-top', `${top}px`);
 }
 
 function hideAllPages() {
@@ -118,9 +136,12 @@ export function homeSelected() {
   localStorage.setItem("page-section", "home");
   closeNavPanel();
   
-  // Update sliding indicator
+  // Update sliding indicators
   if (mobileHomeIcon) {
     setTimeout(() => updateSlidingIndicator(mobileHomeIcon), 50);
+  }
+  if (homeIcon) {
+    setTimeout(() => updateDesktopSlidingIndicator(homeIcon), 50);
   }
 }
 
@@ -134,9 +155,12 @@ export function reposSelected() {
   localStorage.setItem("page-section", "repos");
   closeNavPanel();
   
-  // Update sliding indicator
+  // Update sliding indicators
   if (mobileReposIcon) {
     setTimeout(() => updateSlidingIndicator(mobileReposIcon), 50);
+  }
+  if (reposIcon) {
+    setTimeout(() => updateDesktopSlidingIndicator(reposIcon), 50);
   }
 }
 
@@ -152,9 +176,12 @@ export function blogSelected() {
   localStorage.setItem("page-section", "blog");
   closeNavPanel();
   
-  // Update sliding indicator
+  // Update sliding indicators
   if (mobileBlogIcon) {
     setTimeout(() => updateSlidingIndicator(mobileBlogIcon), 50);
+  }
+  if (blogIcon) {
+    setTimeout(() => updateDesktopSlidingIndicator(blogIcon), 50);
   }
 }
 
@@ -170,9 +197,12 @@ export function contactSelected() {
   localStorage.setItem("page-section", "contact");
   closeNavPanel();
   
-  // Update sliding indicator
+  // Update sliding indicators
   if (mobileContactIcon) {
     setTimeout(() => updateSlidingIndicator(mobileContactIcon), 50);
+  }
+  if (contactIcon) {
+    setTimeout(() => updateDesktopSlidingIndicator(contactIcon), 50);
   }
 }
 

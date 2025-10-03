@@ -21,6 +21,27 @@
   margin-bottom: auto;
   margin-top: 11.5rem;
   width: 9rem;
+  position: relative;
+  --indicator-top: 0px;
+}
+
+/* Sliding background indicator */
+.navbar-elements-container::before {
+  content: '';
+  position: absolute;
+  background-color: var(--md-sys-color-primary-container);
+  border-radius: 100vw;
+  transition: 
+    top 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 300ms ease;
+  pointer-events: none;
+  z-index: 0;
+  width: 5.6rem;
+  height: 3.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  top: var(--indicator-top);
+  opacity: 1;
 }
 
 .navbar-top-elements-container {
@@ -38,6 +59,8 @@
   flex-direction: column;
   flex-wrap: wrap;
   gap: 0.2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .icon-container > .clickable {
@@ -48,21 +71,28 @@
   justify-content: center;
   position: relative;
   width: 5.6rem;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .material-symbols-rounded {
   margin: 0;
+  transition: 
+    color 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    font-variation-settings 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* SELECTED STYLING */
 
 .selected > .clickable {
-  background-color: var(--md-sys-color-primary-container);
+  background-color: transparent;
+  transform: scale(1.02);
 }
 
 .selected .material-symbols-rounded {
   color: var(--md-sys-color-on-primary-container) !important;
   font-variation-settings: "FILL" 1;
+  transform: scale(1.1);
 }
 
 /* LABEL */
@@ -72,6 +102,12 @@
   font-size: 1.4rem;
   text-align: center;
   user-select: none;
+  transition: color 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.selected .label {
+  color: var(--md-sys-color-on-background);
+  font-weight: 600;
 }
 
 /* HOVER */
