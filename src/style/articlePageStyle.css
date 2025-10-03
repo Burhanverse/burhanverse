@@ -332,12 +332,19 @@ body {
 
 /* Footer actions: center the buttons and space them */
 .footer-actions {
-  /* Center both buttons together */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 1rem;
+  /* Hide on desktop, show only on mobile */
+  display: none;
+}
+
+@media (max-width: 950px) {
+  .footer-actions {
+    /* Show buttons on tablet and mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
 }
 
 /* Material Design 3 base action button - Pill shape (elongated capsule) */

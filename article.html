@@ -17,6 +17,7 @@
         <meta name="theme-color" content="#ffffff" />
             <link type="text/css" rel="stylesheet" href="/src/style/fonts.css" />
     <link type="text/css" rel="stylesheet" href="/src/style/style.css" />
+    <link type="text/css" rel="stylesheet" href="/src/style/navBarStyle.css" />
     <link
       type="text/css"
       rel="stylesheet"
@@ -24,6 +25,8 @@
     />
     <script type="module" src="/src/article.ts"></script>
     <script type="module" src="/src/theme.ts"></script>
+    <script type="module" src="/src/clock.ts"></script>
+    <script type="module" src="/src/customCursor.ts"></script>
   </head>
 
   <body onload="document.body.style.opacity = '1'">
@@ -43,6 +46,57 @@
           >
         </button>
       </header>
+
+      <nav class="navbar-wrapper">
+        <div class="navbar-top-elements-container">
+          <div class="clock-wrapper">
+            <div class="clock">CLOCK</div>
+          </div>
+
+          <div class="change-theme-wrapper">
+            <div
+              aria-label="Change the theme"
+              tabindex="0"
+              class="clickable change-theme"
+              onclick="window.themeToggle && window.themeToggle()"
+            >
+              <span class="material-symbols-rounded" id="theme-icon"
+                >light_mode</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-elements-container">
+          <div class="icon-container" id="home-icon">
+            <a href="/" class="clickable home-icon" aria-label="Go to Home">
+              <span class="material-symbols-rounded">home</span>
+            </a>
+            <div class="label">Home</div>
+          </div>
+
+          <div class="icon-container" id="repos-icon">
+            <a href="/?section=repos" class="clickable repos-icon" aria-label="Go to Repos">
+              <span class="material-symbols-rounded">folder_code</span>
+            </a>
+            <div class="label">Repos</div>
+          </div>
+
+          <div class="icon-container selected" id="blog-icon">
+            <a href="/?section=blog" class="clickable blog-icon" aria-label="Go to Blog">
+              <span class="material-symbols-rounded">article</span>
+            </a>
+            <div class="label">Blog</div>
+          </div>
+
+          <div class="icon-container" id="contact-icon">
+            <a href="/?section=contact" class="clickable contact-icon" aria-label="Go to Contact">
+              <span class="material-symbols-rounded">mail</span>
+            </a>
+            <div class="label">Contact</div>
+          </div>
+        </div>
+      </nav>
 
       <div class="page-content-wrapper">
         <div class="article-page page visible">
@@ -81,6 +135,9 @@
       import { initCustomCursor } from "./src/customCursor.ts";
       import { themeToggle } from "./src/theme.ts";
 
+      // Make themeToggle globally available
+      window.themeToggle = themeToggle;
+
       // Update clock
       updateClock();
       setInterval(updateClock, 1000);
@@ -92,6 +149,30 @@
       const mobileThemeBtn = document.querySelector('.mobile-change-theme');
       if (mobileThemeBtn) {
         mobileThemeBtn.addEventListener('click', themeToggle);
+      }
+
+      // Handle navigation links with section parameter
+      const navLinks = document.querySelectorAll('a[href^="/?section="]');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const url = new URL(link.href);
+          const section = url.searchParams.get('section');
+          if (section) {
+            localStorage.setItem('page-section', section);
+            window.location.href = '/';
+          }
+        });
+      });
+
+      // Handle home link
+      const homeLink = document.querySelector('a[href="/"]');
+      if (homeLink && homeLink.getAttribute('href') === '/') {
+        homeLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.setItem('page-section', 'home');
+          window.location.href = '/';
+        });
       }
     </script>
   </body>
