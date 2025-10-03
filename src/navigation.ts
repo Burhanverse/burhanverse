@@ -136,12 +136,12 @@ export function homeSelected() {
   localStorage.setItem("page-section", "home");
   closeNavPanel();
   
-  // Update sliding indicators
+  // Update sliding indicators immediately
   if (mobileHomeIcon) {
-    setTimeout(() => updateSlidingIndicator(mobileHomeIcon), 50);
+    requestAnimationFrame(() => updateSlidingIndicator(mobileHomeIcon));
   }
   if (homeIcon) {
-    setTimeout(() => updateDesktopSlidingIndicator(homeIcon), 50);
+    requestAnimationFrame(() => updateDesktopSlidingIndicator(homeIcon));
   }
 }
 
@@ -155,12 +155,12 @@ export function reposSelected() {
   localStorage.setItem("page-section", "repos");
   closeNavPanel();
   
-  // Update sliding indicators
+  // Update sliding indicators immediately
   if (mobileReposIcon) {
-    setTimeout(() => updateSlidingIndicator(mobileReposIcon), 50);
+    requestAnimationFrame(() => updateSlidingIndicator(mobileReposIcon));
   }
   if (reposIcon) {
-    setTimeout(() => updateDesktopSlidingIndicator(reposIcon), 50);
+    requestAnimationFrame(() => updateDesktopSlidingIndicator(reposIcon));
   }
 }
 
@@ -176,12 +176,12 @@ export function blogSelected() {
   localStorage.setItem("page-section", "blog");
   closeNavPanel();
   
-  // Update sliding indicators
+  // Update sliding indicators immediately
   if (mobileBlogIcon) {
-    setTimeout(() => updateSlidingIndicator(mobileBlogIcon), 50);
+    requestAnimationFrame(() => updateSlidingIndicator(mobileBlogIcon));
   }
   if (blogIcon) {
-    setTimeout(() => updateDesktopSlidingIndicator(blogIcon), 50);
+    requestAnimationFrame(() => updateDesktopSlidingIndicator(blogIcon));
   }
 }
 
@@ -197,12 +197,12 @@ export function contactSelected() {
   localStorage.setItem("page-section", "contact");
   closeNavPanel();
   
-  // Update sliding indicators
+  // Update sliding indicators immediately
   if (mobileContactIcon) {
-    setTimeout(() => updateSlidingIndicator(mobileContactIcon), 50);
+    requestAnimationFrame(() => updateSlidingIndicator(mobileContactIcon));
   }
   if (contactIcon) {
-    setTimeout(() => updateDesktopSlidingIndicator(contactIcon), 50);
+    requestAnimationFrame(() => updateDesktopSlidingIndicator(contactIcon));
   }
 }
 

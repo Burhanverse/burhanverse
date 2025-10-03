@@ -32,8 +32,8 @@
   background-color: var(--md-sys-color-primary-container);
   border-radius: 100vw;
   transition: 
-    top 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 300ms ease;
+    top 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 200ms ease;
   pointer-events: none;
   z-index: 0;
   width: 5.6rem;

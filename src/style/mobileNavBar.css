@@ -61,9 +61,9 @@
   background-color: var(--md-sys-color-primary-container);
   border-radius: 9999px;
   transition: 
-    left 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    width 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 300ms ease;
+    left 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    width 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 200ms ease;
   pointer-events: none;
   z-index: 0;
   height: calc(100% - 1.6rem);
@@ -86,22 +86,22 @@
   background: transparent;
   cursor: pointer;
   transition:
-    color 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    padding 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    padding 300ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   text-decoration: none;
   color: inherit;
-  will-change: transform, background-color, padding;
+  will-change: transform, padding;
 }
 
 .mobile-nav-item .material-symbols-rounded {
   font-size: 2.8rem;
   color: var(--md-sys-color-on-surface-variant);
   transition: 
-    color 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    font-variation-settings 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-variation-settings 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: color, font-variation-settings, transform;
 }
 
@@ -112,9 +112,9 @@
   font-weight: 600;
   color: var(--md-sys-color-on-surface-variant);
   transition: 
-    color 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
@@ -122,19 +122,18 @@
   background-color: transparent;
   color: var(--md-sys-color-on-primary-container);
   padding: 1rem 2rem;
-  transform: scale(1.02);
 }
 
 .mobile-nav-item.selected .material-symbols-rounded {
   color: var(--md-sys-color-on-primary-container);
   font-variation-settings: "FILL" 1;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .mobile-nav-item.selected .mobile-nav-text {
   display: inline-block;
   color: var(--md-sys-color-on-primary-container);
-  animation: slideInText 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: slideInText 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .mobile-change-theme {
@@ -231,9 +230,10 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .mobile-nav-wrapper {
-    display: none;
+@media (min-width: 951px) {
+  .mobile-nav-wrapper,
+  .mobile-topbar {
+    display: none !important;
   }
 }
 
@@ -242,10 +242,7 @@
 @keyframes slideInText {
   0% {
     opacity: 0;
-    transform: translateX(-8px) scale(0.9);
-  }
-  60% {
-    transform: translateX(2px) scale(1.02);
+    transform: translateX(-6px) scale(0.95);
   }
   100% {
     opacity: 1;
