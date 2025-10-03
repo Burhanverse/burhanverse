@@ -51,12 +51,17 @@ function handleTouchMove(e: TouchEvent) {
     const scale = 0.5 + (progress * 0.5);
     const opacity = progress;
     
-    refreshIndicator.style.transform = `translateY(${pullDistance * 0.5}px)`;
+    refreshIndicator.style.transform = `translateX(-50%) translateY(${pullDistance * 0.5}px)`;
     refreshIndicator.style.opacity = `${opacity}`;
     
     const spinner = refreshIndicator.querySelector('.refresh-spinner') as HTMLElement;
     if (spinner) {
-      spinner.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+      spinner.style.transform = `scale(${scale})`;
+    }
+    
+    const icon = refreshIndicator.querySelector('.material-symbols-rounded') as HTMLElement;
+    if (icon) {
+      icon.style.transform = `rotate(${rotation}deg)`;
     }
     
     // Add "ready" class when threshold is reached
@@ -93,13 +98,18 @@ function handleTouchEnd() {
 }
 
 function resetIndicator() {
-  refreshIndicator.style.transform = '';
+  refreshIndicator.style.transform = 'translateX(-50%)';
   refreshIndicator.style.opacity = '0';
   refreshIndicator.classList.remove('ready', 'refreshing');
   
   const spinner = refreshIndicator.querySelector('.refresh-spinner') as HTMLElement;
   if (spinner) {
     spinner.style.transform = '';
+  }
+  
+  const icon = refreshIndicator.querySelector('.material-symbols-rounded') as HTMLElement;
+  if (icon) {
+    icon.style.transform = '';
   }
 }
 

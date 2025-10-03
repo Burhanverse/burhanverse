@@ -48,12 +48,12 @@
 }
 
 .pull-to-refresh-indicator.refreshing .refresh-spinner {
-  animation: spinRefresh 800ms linear infinite;
   background-color: var(--md-sys-color-primary-container);
 }
 
 .pull-to-refresh-indicator.refreshing .material-symbols-rounded {
   color: var(--md-sys-color-on-primary-container);
+  animation: spinRefresh 800ms linear infinite;
 }
 
 @keyframes spinRefresh {
