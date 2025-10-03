@@ -2,22 +2,22 @@
  * Blog page functionality
  */
 
-import { BlogPost } from './types';
-import { getSortedBlogPosts } from './blog/posts';
+import { BlogPost } from "./types";
+import { getSortedBlogPosts } from "./blog/posts";
 
 /**
  * Render a single blog post card
  */
 function renderBlogPost(post: BlogPost): string {
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
-  const tagsHtml = post.tags 
-    ? `<div class="blog-post-tags">${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}</div>`
-    : '';
+  const tagsHtml = post.tags
+    ? `<div class="blog-post-tags">${post.tags.map((tag) => `<span class="blog-tag">${tag}</span>`).join("")}</div>`
+    : "";
 
   return `
     <article class="blog-post-element">
@@ -46,10 +46,11 @@ function renderBlogPost(post: BlogPost): string {
  * Render all blog posts to the page
  */
 export function renderBlogPosts(): void {
-  const blogListWrapper = document.querySelector<HTMLElement>('.blog-list-wrapper');
-  
+  const blogListWrapper =
+    document.querySelector<HTMLElement>(".blog-list-wrapper");
+
   if (!blogListWrapper) {
-    console.error('Blog list wrapper not found');
+    console.error("Blog list wrapper not found");
     return;
   }
 
@@ -57,12 +58,14 @@ export function renderBlogPosts(): void {
   const sortedPosts = getSortedBlogPosts();
 
   // Render posts
-  blogListWrapper.innerHTML = sortedPosts.map(post => renderBlogPost(post)).join('');
+  blogListWrapper.innerHTML = sortedPosts
+    .map((post) => renderBlogPost(post))
+    .join("");
 }
 
 // Initialize blog posts when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', renderBlogPosts);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderBlogPosts);
 } else {
   renderBlogPosts();
 }

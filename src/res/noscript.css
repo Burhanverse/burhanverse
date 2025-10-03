@@ -1,82 +1,82 @@
 body {
-    background-color: var(--md-sys-color-surface-variant);
-    opacity: 1 !important;
+  background-color: var(--md-sys-color-surface-variant);
+  opacity: 1 !important;
 }
 
 .super-wrapper {
-    display: none;
+  display: none;
 }
 
 a:hover {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 .noscript-avatar-wrapper {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .noscript-avatar {
-    height: 19rem;
-    border-radius: 50%;
+  height: 19rem;
+  border-radius: 50%;
 }
 
 .noscript-wrapper {
-    align-items: center;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-    gap: 2rem;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  gap: 2rem;
 }
 
 .noscript-error-wrapper {
-    background-color: var(--md-ref-palette-error80);
-    border-radius: 100vw 60rem 60rem 100vw;
-    display: flex;
-    gap: 2rem;
-    min-width: 65rem;
-    width: 65rem;
-    padding: 2rem;
+  background-color: var(--md-ref-palette-error80);
+  border-radius: 100vw 60rem 60rem 100vw;
+  display: flex;
+  gap: 2rem;
+  min-width: 65rem;
+  width: 65rem;
+  padding: 2rem;
 }
 
 .noscript-warning-img {
-    width: 15rem;
+  width: 15rem;
 }
 
 .noscript-text-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .noscript-text-wrapper h1 {
-    font-family: 'Lexend Deca', sans-serif;
-    font-size: 3rem;
-    font-weight: 600;
-    margin-block: 0;
-    color: var(--white);
-    background-color: var(--md-ref-palette-error40);
-    border-radius: 100vw;
-    padding: 1rem;
-    text-align: center;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-block: 0;
+  color: var(--white);
+  background-color: var(--md-ref-palette-error40);
+  border-radius: 100vw;
+  padding: 1rem;
+  text-align: center;
 }
 
 .noscript-text-wrapper p {
-    font-family: 'Jetbrains Mono', monospace;
-    font-size: 2rem;
-    font-weight: 400;
-    margin-block: 0;
-    color: var(--md-ref-palette-error20);
-    text-align: justify;
+  font-family: "Jetbrains Mono", monospace;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-block: 0;
+  color: var(--md-ref-palette-error20);
+  text-align: justify;
 }
 
 .noscript-text-wrapper a {
-    text-decoration: underline !important;
-    color: var(--md-ref-palette-error30);
+  text-decoration: underline !important;
+  color: var(--md-ref-palette-error30);
 }
 
 .noscript-text-wrapper a:visited {
-    text-decoration: underline !important;
-    color: var(--md-ref-palette-tertiary30);
+  text-decoration: underline !important;
+  color: var(--md-ref-palette-tertiary30);
 }

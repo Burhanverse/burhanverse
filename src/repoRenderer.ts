@@ -1,4 +1,4 @@
-import type { Repository } from './types';
+import type { Repository } from "./types";
 
 export class RepoRenderer {
   private container: HTMLElement;
@@ -15,7 +15,7 @@ export class RepoRenderer {
    * Clear all repositories from the container
    */
   clear(): void {
-    this.container.innerHTML = '';
+    this.container.innerHTML = "";
   }
 
   /**
@@ -44,16 +44,16 @@ export class RepoRenderer {
    * Render a single repository
    */
   private renderRepo(repo: Repository): string {
-    const description = repo.description || '<i>No Description</i>';
-    const language = repo.language || '';
-    
+    const description = repo.description || "<i>No Description</i>";
+    const language = repo.language || "";
+
     return `
       <a class="clickable repo-wrapper" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
         <div class="repo-infos">
           <p class="repo-title">${this.escapeHtml(repo.name)}</p>
           <p class="repo-desc">${this.escapeHtml(description)}</p>
           <div class="repo-metadata">
-            ${language ? `<p class="repo-language">${this.escapeHtml(language)}</p>` : ''}
+            ${language ? `<p class="repo-language">${this.escapeHtml(language)}</p>` : ""}
             <span class="material-symbols-rounded">&#xe90e;</span>
             <p class="metadata-text">${repo.stargazers_count}</p>
             <span class="material-symbols-rounded">&#xe903;</span>
@@ -77,7 +77,7 @@ export class RepoRenderer {
       return;
     }
 
-    const html = repos.map(repo => this.renderRepo(repo)).join('');
+    const html = repos.map((repo) => this.renderRepo(repo)).join("");
     this.container.innerHTML = html;
   }
 
@@ -85,7 +85,7 @@ export class RepoRenderer {
    * Escape HTML to prevent XSS
    */
   private escapeHtml(text: string): string {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }

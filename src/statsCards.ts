@@ -29,26 +29,31 @@ interface LastFmStats {
 /**
  * Fetch total contributions since account creation using GitHub GraphQL API
  */
-async function fetchGitHubContributions(username: string, accountCreatedAt: string): Promise<number> {
+async function fetchGitHubContributions(
+  username: string,
+  accountCreatedAt: string,
+): Promise<number> {
   try {
     const today = new Date();
     const createdDate = new Date(accountCreatedAt);
-    
+
     // GitHub's GraphQL API only allows fetching 1 year at a time
     // So we need to fetch year by year and sum them up
     let totalContributions = 0;
     let currentYear = createdDate.getFullYear();
     const currentYearNow = today.getFullYear();
-    
+
     while (currentYear <= currentYearNow) {
-      const fromDate = currentYear === createdDate.getFullYear() 
-        ? createdDate 
-        : new Date(currentYear, 0, 1);
-      
-      const toDate = currentYear === currentYearNow 
-        ? today 
-        : new Date(currentYear, 11, 31, 23, 59, 59);
-      
+      const fromDate =
+        currentYear === createdDate.getFullYear()
+          ? createdDate
+          : new Date(currentYear, 0, 1);
+
+      const toDate =
+        currentYear === currentYearNow
+          ? today
+          : new Date(currentYear, 11, 31, 23, 59, 59);
+
       const query = `
         query {
           user(login: "${username}") {
@@ -60,28 +65,33 @@ async function fetchGitHubContributions(username: string, accountCreatedAt: stri
           }
         }
       `;
-      
-      const response = await fetch('https://api.github.com/graphql', {
-        method: 'POST',
+
+      const response = await fetch("https://api.github.com/graphql", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_TOKEN || ''}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN || ""}`,
         },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ query }),
       });
-      
+
       const data = await response.json();
-      
-      if (data.data?.user?.contributionsCollection?.contributionCalendar?.totalContributions !== undefined) {
-        totalContributions += data.data.user.contributionsCollection.contributionCalendar.totalContributions;
+
+      if (
+        data.data?.user?.contributionsCollection?.contributionCalendar
+          ?.totalContributions !== undefined
+      ) {
+        totalContributions +=
+          data.data.user.contributionsCollection.contributionCalendar
+            .totalContributions;
       }
-      
+
       currentYear++;
     }
-    
+
     return totalContributions;
   } catch (error) {
-    console.error('Error fetching GitHub contributions:', error);
+    console.error("Error fetching GitHub contributions:", error);
     return 0;
   }
 }
@@ -91,53 +101,67 @@ async function fetchGitHubContributions(username: string, accountCreatedAt: stri
  */
 async function fetchGitHubStats(username: string): Promise<GitHubStats | null> {
   try {
-    const userResponse = await fetch(`https://api.github.com/users/${username}`);
+    const userResponse = await fetch(
+      `https://api.github.com/users/${username}`,
+    );
     const userData = await userResponse.json();
-    
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+
+    const reposResponse = await fetch(
+      `https://api.github.com/users/${username}/repos?per_page=100`,
+    );
     const reposData = await reposResponse.json();
-    
-    const totalStars = reposData.reduce((acc: number, repo: any) => acc + repo.stargazers_count, 0);
-    const totalForks = reposData.reduce((acc: number, repo: any) => acc + repo.forks_count, 0);
-    
+
+    const totalStars = reposData.reduce(
+      (acc: number, repo: any) => acc + repo.stargazers_count,
+      0,
+    );
+    const totalForks = reposData.reduce(
+      (acc: number, repo: any) => acc + repo.forks_count,
+      0,
+    );
+
     // Calculate language statistics
     const languageCount: { [key: string]: number } = {};
     let totalSize = 0;
-    
+
     reposData.forEach((repo: any) => {
       if (repo.language) {
-        languageCount[repo.language] = (languageCount[repo.language] || 0) + (repo.size || 1);
+        languageCount[repo.language] =
+          (languageCount[repo.language] || 0) + (repo.size || 1);
         totalSize += repo.size || 1;
       }
     });
-    
+
     const languageColors: { [key: string]: string } = {
-      TypeScript: '#3178c6',
-      JavaScript: '#f1e05a',
-      Python: '#3572A5',
-      Java: '#b07219',
-      HTML: '#e34c26',
-      CSS: '#563d7c',
-      Go: '#00ADD8',
-      Rust: '#dea584',
-      C: '#555555',
-      'C++': '#f34b7d',
-      Ruby: '#701516',
-      PHP: '#4F5D95'
+      TypeScript: "#3178c6",
+      JavaScript: "#f1e05a",
+      Python: "#3572A5",
+      Java: "#b07219",
+      HTML: "#e34c26",
+      CSS: "#563d7c",
+      Go: "#00ADD8",
+      Rust: "#dea584",
+      C: "#555555",
+      "C++": "#f34b7d",
+      Ruby: "#701516",
+      PHP: "#4F5D95",
     };
-    
+
     const languageStats = Object.entries(languageCount)
       .map(([name, size]) => ({
         name,
         percentage: (size / totalSize) * 100,
-        color: languageColors[name] || '#8257e5'
+        color: languageColors[name] || "#8257e5",
       }))
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 4); // Top 4 languages
-    
+
     // Fetch total contributions since account creation
-    const contributions = await fetchGitHubContributions(username, userData.created_at);
-    
+    const contributions = await fetchGitHubContributions(
+      username,
+      userData.created_at,
+    );
+
     return {
       totalStars,
       totalRepos: userData.public_repos,
@@ -146,15 +170,13 @@ async function fetchGitHubStats(username: string): Promise<GitHubStats | null> {
       publicGists: userData.public_gists,
       totalForks,
       contributions,
-      languageStats
+      languageStats,
     };
   } catch (error) {
-    console.error('Error fetching GitHub stats:', error);
+    console.error("Error fetching GitHub stats:", error);
     return null;
   }
 }
-
-
 
 /**
  * Render GitHub stats card
@@ -178,41 +200,49 @@ export function renderGitHubStatsCard(): string {
 /**
  * Fetch Last.fm stats
  */
-async function fetchLastFmStats(username: string, apiKey: string): Promise<LastFmStats | null> {
+async function fetchLastFmStats(
+  username: string,
+  apiKey: string,
+): Promise<LastFmStats | null> {
   try {
     // Fetch recent tracks
     const recentTracksResponse = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`
+      `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`,
     );
     const recentData = await recentTracksResponse.json();
-    
+
     // Fetch user info for playcount
     const userInfoResponse = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${apiKey}&format=json`
+      `https://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=${username}&api_key=${apiKey}&format=json`,
     );
     const userInfo = await userInfoResponse.json();
-    
+
     if (recentData.recenttracks && recentData.recenttracks.track) {
-      const track = recentData.recenttracks.track[0] || recentData.recenttracks.track;
-      const nowPlaying = track['@attr']?.nowplaying === 'true';
-      
+      const track =
+        recentData.recenttracks.track[0] || recentData.recenttracks.track;
+      const nowPlaying = track["@attr"]?.nowplaying === "true";
+
       return {
         recentTrack: {
           name: track.name,
-          artist: typeof track.artist === 'string' ? track.artist : track.artist['#text'],
-          album: track.album['#text'] || 'Unknown Album',
-          image: track.image?.[3]?.['#text'] || track.image?.[2]?.['#text'] || '',
+          artist:
+            typeof track.artist === "string"
+              ? track.artist
+              : track.artist["#text"],
+          album: track.album["#text"] || "Unknown Album",
+          image:
+            track.image?.[3]?.["#text"] || track.image?.[2]?.["#text"] || "",
           url: track.url,
-          nowPlaying
+          nowPlaying,
         },
         playcount: parseInt(userInfo.user.playcount) || 0,
-        username
+        username,
       };
     }
-    
+
     return null;
   } catch (error) {
-    console.error('Error fetching Last.fm stats:', error);
+    console.error("Error fetching Last.fm stats:", error);
     return null;
   }
 }
@@ -240,27 +270,31 @@ export function renderLastFmCard(): string {
  * Update GitHub stats with real data
  */
 async function updateGitHubStats(username: string): Promise<void> {
-  const contentElement = document.querySelector('#github-stats-content');
+  const contentElement = document.querySelector("#github-stats-content");
   if (!contentElement) return;
 
   const stats = await fetchGitHubStats(username);
-  
+
   if (stats) {
     const languageBars = stats.languageStats
-      .map(lang => `
+      .map(
+        (lang) => `
         <div class="language-bar" style="width: ${lang.percentage}%; background-color: ${lang.color};" title="${lang.name}: ${lang.percentage.toFixed(1)}%"></div>
-      `)
-      .join('');
-    
+      `,
+      )
+      .join("");
+
     const languageList = stats.languageStats
-      .map(lang => `
+      .map(
+        (lang) => `
         <div class="language-item">
           <span class="language-dot" style="background-color: ${lang.color};"></span>
           <span class="language-name">${lang.name}</span>
           <span class="language-percent">${lang.percentage.toFixed(1)}%</span>
         </div>
-      `)
-      .join('');
+      `,
+      )
+      .join("");
 
     contentElement.innerHTML = `
       <div class="github-stats-wrapper">
@@ -300,7 +334,7 @@ async function updateGitHubStats(username: string): Promise<void> {
           <div class="stat-item-small">
             <span class="material-symbols-rounded stat-icon">emoji_events</span>
             <div>
-              <div class="stat-value-small">${stats.contributions > 0 ? stats.contributions.toLocaleString() : 'N/A'}</div>
+              <div class="stat-value-small">${stats.contributions > 0 ? stats.contributions.toLocaleString() : "N/A"}</div>
               <div class="stat-sublabel">Total Contributions</div>
             </div>
           </div>
@@ -327,23 +361,24 @@ async function updateGitHubStats(username: string): Promise<void> {
   }
 }
 
-
-
 /**
  * Update Last.fm card with real data
  */
-async function updateLastFmStats(username: string, apiKey: string): Promise<void> {
-  const contentElement = document.querySelector('#lastfm-content');
+async function updateLastFmStats(
+  username: string,
+  apiKey: string,
+): Promise<void> {
+  const contentElement = document.querySelector("#lastfm-content");
   if (!contentElement) return;
 
   const stats = await fetchLastFmStats(username, apiKey);
-  
+
   if (stats && stats.recentTrack) {
     const track = stats.recentTrack;
-    const statusBadge = track.nowPlaying 
-      ? '<span class="lastfm-live-badge">🔴 Now Playing</span>' 
+    const statusBadge = track.nowPlaying
+      ? '<span class="lastfm-live-badge">🔴 Now Playing</span>'
       : '<span class="lastfm-recent-badge">Recently Played</span>';
-    
+
     contentElement.innerHTML = `
       <div class="lastfm-track">
         ${track.image ? `<img src="${track.image}" alt="${track.album}" class="lastfm-album-art" />` : '<div class="lastfm-no-image"><span class="material-symbols-rounded">album</span></div>'}
@@ -374,7 +409,7 @@ async function updateLastFmStats(username: string, apiKey: string): Promise<void
  * Initialize stats cards
  */
 export function initializeStatsCards(): void {
-  const statsContainer = document.querySelector('.stats-cards-wrapper');
+  const statsContainer = document.querySelector(".stats-cards-wrapper");
   if (!statsContainer) return;
 
   // Render cards
@@ -387,19 +422,19 @@ export function initializeStatsCards(): void {
   `;
 
   // Update GitHub stats
-  const githubUsername = import.meta.env.VITE_GITHUB_USERNAME || 'Burhanverse';
+  const githubUsername = import.meta.env.VITE_GITHUB_USERNAME || "Burhanverse";
   updateGitHubStats(githubUsername);
-  
+
   // Update Last.fm stats
   // Get a free API key from: https://www.last.fm/api/account/create
-  const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY || '';
-  const LASTFM_USERNAME = import.meta.env.VITE_LASTFM_USERNAME || '';
-  
+  const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY || "";
+  const LASTFM_USERNAME = import.meta.env.VITE_LASTFM_USERNAME || "";
+
   if (LASTFM_API_KEY && LASTFM_USERNAME) {
     updateLastFmStats(LASTFM_USERNAME, LASTFM_API_KEY);
   } else {
     // Show setup instructions if no API key
-    const contentElement = document.querySelector('#lastfm-content');
+    const contentElement = document.querySelector("#lastfm-content");
     if (contentElement) {
       contentElement.innerHTML = `
         <div class="lastfm-setup">

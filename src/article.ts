@@ -2,34 +2,34 @@
  * Article page functionality
  */
 
-import { ArticleSection } from './types';
-import { getArticleBySlug } from './blog/index';
-import { getBlogPostBySlug } from './blog/posts';
-import Prism from 'prismjs';
+import { ArticleSection } from "./types";
+import { getArticleBySlug } from "./blog/index";
+import { getBlogPostBySlug } from "./blog/posts";
+import Prism from "prismjs";
 
 // Import Prism languages
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-markdown';
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-markdown";
 
 /**
  * Render article section based on type
  */
 function renderSection(section: ArticleSection): string {
   switch (section.type) {
-    case 'heading':
+    case "heading":
       return `<h2 class="article-heading">${section.content}</h2>`;
-    
-    case 'paragraph':
+
+    case "paragraph":
       return `<p class="article-paragraph">${section.content}</p>`;
-    
-    case 'code':
-      const language = section.language || 'plaintext';
+
+    case "code":
+      const language = section.language || "plaintext";
       const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
       return `
         <div class="article-code-block">
@@ -48,21 +48,23 @@ function renderSection(section: ArticleSection): string {
           <pre><code id="${codeId}" class="language-${language}">${escapeHtml(section.content as string)}</code></pre>
         </div>
       `;
-    
-    case 'image':
+
+    case "image":
       return `
         <figure class="article-image">
-          <img src="${section.content}" alt="${section.alt || 'Article image'}" loading="lazy">
-          ${section.alt ? `<figcaption>${section.alt}</figcaption>` : ''}
+          <img src="${section.content}" alt="${section.alt || "Article image"}" loading="lazy">
+          ${section.alt ? `<figcaption>${section.alt}</figcaption>` : ""}
         </figure>
       `;
-    
-    case 'list':
-      const items = (section.content as string[]).map(item => `<li>${item}</li>`).join('');
+
+    case "list":
+      const items = (section.content as string[])
+        .map((item) => `<li>${item}</li>`)
+        .join("");
       return `<ul class="article-list">${items}</ul>`;
-    
+
     default:
-      return '';
+      return "";
   }
 }
 
@@ -70,7 +72,7 @@ function renderSection(section: ArticleSection): string {
  * Escape HTML to prevent XSS
  */
 function escapeHtml(text: string): string {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
@@ -81,29 +83,34 @@ function escapeHtml(text: string): string {
 export function renderArticle(articleSlug: string): void {
   const articleContent = getArticleBySlug(articleSlug);
   const blogPost = getBlogPostBySlug(articleSlug);
-  
+
   if (!articleContent || !blogPost) {
     console.error(`Article "${articleSlug}" not found`);
     return;
   }
 
-  const articleContainer = document.querySelector<HTMLElement>('.article-content');
+  const articleContainer =
+    document.querySelector<HTMLElement>(".article-content");
   if (!articleContainer) {
-    console.error('Article container not found');
+    console.error("Article container not found");
     return;
   }
 
-  const formattedDate = new Date(blogPost.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = new Date(blogPost.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
-  const tagsHtml = blogPost.tags 
-    ? blogPost.tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')
-    : '';
+  const tagsHtml = blogPost.tags
+    ? blogPost.tags
+        .map((tag) => `<span class="article-tag">${tag}</span>`)
+        .join("")
+    : "";
 
-  const sectionsHtml = articleContent.sections.map(section => renderSection(section)).join('');
+  const sectionsHtml = articleContent.sections
+    .map((section) => renderSection(section))
+    .join("");
 
   articleContainer.innerHTML = `
     <article class="article-wrapper">
@@ -136,7 +143,7 @@ export function renderArticle(articleSlug: string): void {
   setTimeout(() => {
     Prism.highlightAll();
   }, 0);
-  
+
   // Setup copy buttons after rendering
   initializeCopyButtons();
 }
@@ -145,40 +152,41 @@ export function renderArticle(articleSlug: string): void {
  * Initialize copy buttons for code blocks
  */
 function initializeCopyButtons(): void {
-  const copyButtons = document.querySelectorAll<HTMLButtonElement>('.code-copy-btn');
-  
-  copyButtons.forEach(button => {
-    button.addEventListener('click', async () => {
-      const codeId = button.getAttribute('data-code-id');
+  const copyButtons =
+    document.querySelectorAll<HTMLButtonElement>(".code-copy-btn");
+
+  copyButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const codeId = button.getAttribute("data-code-id");
       if (!codeId) return;
-      
+
       const codeElement = document.getElementById(codeId);
       if (!codeElement) return;
-      
-      const code = codeElement.textContent || '';
-      
+
+      const code = codeElement.textContent || "";
+
       try {
         await navigator.clipboard.writeText(code);
-        
+
         // Show success feedback
-        const copyIcon = button.querySelector('.copy-icon') as SVGElement;
-        const checkIcon = button.querySelector('.check-icon') as SVGElement;
-        const copyText = button.querySelector('.copy-text') as HTMLSpanElement;
-        
+        const copyIcon = button.querySelector(".copy-icon") as SVGElement;
+        const checkIcon = button.querySelector(".check-icon") as SVGElement;
+        const copyText = button.querySelector(".copy-text") as HTMLSpanElement;
+
         if (copyIcon && checkIcon && copyText) {
-          copyIcon.style.display = 'none';
-          checkIcon.style.display = 'block';
-          copyText.textContent = 'Copied!';
-          
+          copyIcon.style.display = "none";
+          checkIcon.style.display = "block";
+          copyText.textContent = "Copied!";
+
           // Reset after 2 seconds
           setTimeout(() => {
-            copyIcon.style.display = 'block';
-            checkIcon.style.display = 'none';
-            copyText.textContent = 'Copy';
+            copyIcon.style.display = "block";
+            checkIcon.style.display = "none";
+            copyText.textContent = "Copy";
           }, 2000);
         }
       } catch (err) {
-        console.error('Failed to copy code:', err);
+        console.error("Failed to copy code:", err);
       }
     });
   });
@@ -189,16 +197,16 @@ function initializeCopyButtons(): void {
  */
 export function initializeArticlePage(): void {
   const urlParams = new URLSearchParams(window.location.search);
-  const articleSlug = urlParams.get('article');
-  
+  const articleSlug = urlParams.get("article");
+
   if (articleSlug) {
     renderArticle(articleSlug);
   }
 }
 
 // Auto-initialize if on article page
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeArticlePage);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeArticlePage);
 } else {
   initializeArticlePage();
 }

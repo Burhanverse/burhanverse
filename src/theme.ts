@@ -2,73 +2,74 @@
  * Theme toggle system with localStorage persistence
  */
 
-const themeIcon = document.querySelector<HTMLElement>('#theme-icon');
-const mobileThemeIcon = document.querySelector<HTMLElement>('#mobile-theme-icon');
+const themeIcon = document.querySelector<HTMLElement>("#theme-icon");
+const mobileThemeIcon =
+  document.querySelector<HTMLElement>("#mobile-theme-icon");
 
-type Theme = 'light_mode' | 'dark_mode';
+type Theme = "light_mode" | "dark_mode";
 
 function lightTheme() {
-  if (themeIcon) themeIcon.textContent = 'light_mode';
-  if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
-  document.documentElement.setAttribute('theme', 'light');
+  if (themeIcon) themeIcon.textContent = "light_mode";
+  if (mobileThemeIcon) mobileThemeIcon.textContent = "light_mode";
+  document.documentElement.setAttribute("theme", "light");
 }
 
 function darkTheme() {
-  if (themeIcon) themeIcon.textContent = 'dark_mode';
-  if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
-  document.documentElement.setAttribute('theme', 'dark');
+  if (themeIcon) themeIcon.textContent = "dark_mode";
+  if (mobileThemeIcon) mobileThemeIcon.textContent = "dark_mode";
+  document.documentElement.setAttribute("theme", "dark");
 }
 
 export function themeToggleHover() {
-  const theme = localStorage.getItem('theme') as Theme | null;
-  if (theme === 'dark_mode') {
-    if (themeIcon) themeIcon.textContent = 'light_mode';
-    if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
-  } else if (theme === 'light_mode') {
-    if (themeIcon) themeIcon.textContent = 'dark_mode';
-    if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
+  const theme = localStorage.getItem("theme") as Theme | null;
+  if (theme === "dark_mode") {
+    if (themeIcon) themeIcon.textContent = "light_mode";
+    if (mobileThemeIcon) mobileThemeIcon.textContent = "light_mode";
+  } else if (theme === "light_mode") {
+    if (themeIcon) themeIcon.textContent = "dark_mode";
+    if (mobileThemeIcon) mobileThemeIcon.textContent = "dark_mode";
   }
 }
 
 export function themeToggleLeave() {
-  const theme = localStorage.getItem('theme') as Theme | null;
-  if (theme === 'dark_mode') {
-    if (themeIcon) themeIcon.textContent = 'dark_mode';
-    if (mobileThemeIcon) mobileThemeIcon.textContent = 'dark_mode';
-  } else if (theme === 'light_mode') {
-    if (themeIcon) themeIcon.textContent = 'light_mode';
-    if (mobileThemeIcon) mobileThemeIcon.textContent = 'light_mode';
+  const theme = localStorage.getItem("theme") as Theme | null;
+  if (theme === "dark_mode") {
+    if (themeIcon) themeIcon.textContent = "dark_mode";
+    if (mobileThemeIcon) mobileThemeIcon.textContent = "dark_mode";
+  } else if (theme === "light_mode") {
+    if (themeIcon) themeIcon.textContent = "light_mode";
+    if (mobileThemeIcon) mobileThemeIcon.textContent = "light_mode";
   }
 }
 
 export function themeToggle() {
-  const theme = localStorage.getItem('theme') as Theme | null;
-  
-  if (theme === 'dark_mode') {
-    localStorage.setItem('theme', 'light_mode');
+  const theme = localStorage.getItem("theme") as Theme | null;
+
+  if (theme === "dark_mode") {
+    localStorage.setItem("theme", "light_mode");
     lightTheme();
   } else {
-    localStorage.setItem('theme', 'dark_mode');
+    localStorage.setItem("theme", "dark_mode");
     darkTheme();
   }
 }
 
 // Initialize theme on load
 function initializeTheme() {
-  let currentTheme = localStorage.getItem('theme') as Theme | null;
+  let currentTheme = localStorage.getItem("theme") as Theme | null;
 
   if (!currentTheme) {
     // Detect system preference
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      localStorage.setItem('theme', 'light_mode');
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      localStorage.setItem("theme", "light_mode");
       lightTheme();
     } else {
-      localStorage.setItem('theme', 'dark_mode');
+      localStorage.setItem("theme", "dark_mode");
       darkTheme();
     }
   } else {
     // Apply saved theme
-    if (currentTheme === 'light_mode') {
+    if (currentTheme === "light_mode") {
       lightTheme();
     } else {
       darkTheme();
@@ -77,8 +78,8 @@ function initializeTheme() {
 }
 
 // Initialize on DOM ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeTheme);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeTheme);
 } else {
   initializeTheme();
 }

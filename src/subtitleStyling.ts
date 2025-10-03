@@ -13,13 +13,14 @@ async function updateSubtitleStyling(): Promise<void> {
   if (isRunning) return;
   isRunning = true;
 
-  const subtitle = document.querySelector('#subtitle');
+  const subtitle = document.querySelector("#subtitle");
   if (!subtitle) {
     isRunning = false;
     return;
   }
 
-  const originalText = subtitle.textContent?.replace('_', '').replace('\xa0', '') || 'Burhanverse';
+  const originalText =
+    subtitle.textContent?.replace("_", "").replace("\xa0", "") || "Burhanverse";
 
   // Show cursor
   subtitle.textContent = `${originalText}_`;
@@ -34,7 +35,7 @@ async function updateSubtitleStyling(): Promise<void> {
 export function initSubtitleStyling(): void {
   // Start the animation
   updateSubtitleStyling();
-  
+
   // Repeat every 2 seconds
   setInterval(updateSubtitleStyling, 2000);
 }

@@ -2,36 +2,43 @@
  * Centralized event handlers - replaces all inline event handlers from HTML
  */
 
-import { homeSelected, reposSelected, blogSelected, contactSelected, closeNavPanel, openNavPanel } from './navigation';
-import { themeToggle, themeToggleHover, themeToggleLeave } from './theme';
+import {
+  homeSelected,
+  reposSelected,
+  blogSelected,
+  contactSelected,
+  closeNavPanel,
+  openNavPanel,
+} from "./navigation";
+import { themeToggle, themeToggleHover, themeToggleLeave } from "./theme";
 
 /**
  * Initialize all event listeners
  */
 export function initializeEventHandlers(): void {
   // Desktop navigation icons
-  setupNavigationHandlers('.home-icon', homeSelected);
-  setupNavigationHandlers('.repos-icon', reposSelected);
-  setupNavigationHandlers('.blog-icon', blogSelected);
-  setupNavigationHandlers('.contact-icon', contactSelected);
+  setupNavigationHandlers(".home-icon", homeSelected);
+  setupNavigationHandlers(".repos-icon", reposSelected);
+  setupNavigationHandlers(".blog-icon", blogSelected);
+  setupNavigationHandlers(".contact-icon", contactSelected);
 
   // Mobile navigation icons
-  setupNavigationHandlers('#mobile-home-icon', homeSelected);
-  setupNavigationHandlers('#mobile-repos-icon', reposSelected);
-  setupNavigationHandlers('#mobile-blog-icon', blogSelected);
-  setupNavigationHandlers('#mobile-contact-icon', contactSelected);
+  setupNavigationHandlers("#mobile-home-icon", homeSelected);
+  setupNavigationHandlers("#mobile-repos-icon", reposSelected);
+  setupNavigationHandlers("#mobile-blog-icon", blogSelected);
+  setupNavigationHandlers("#mobile-contact-icon", contactSelected);
 
   // Mobile header home button
-  setupNavigationHandlers('.header-wrapper', homeSelected);
+  setupNavigationHandlers(".header-wrapper", homeSelected);
 
   // Theme toggle buttons (desktop and mobile)
-  setupThemeToggleHandlers('.change-theme');
-  setupThemeToggleHandlers('.mobile-change-theme');
+  setupThemeToggleHandlers(".change-theme");
+  setupThemeToggleHandlers(".mobile-change-theme");
 
   // Mobile menu controls
-  setupClickHandler('.hamburger-menu-wrapper', openNavPanel);
-  setupClickHandler('.close-menu-button', closeNavPanel);
-  setupClickHandler('.overlay', closeNavPanel);
+  setupClickHandler(".hamburger-menu-wrapper", openNavPanel);
+  setupClickHandler(".close-menu-button", closeNavPanel);
+  setupClickHandler(".overlay", closeNavPanel);
 }
 
 /**
@@ -39,14 +46,14 @@ export function initializeEventHandlers(): void {
  */
 function setupNavigationHandlers(selector: string, handler: () => void): void {
   const elements = document.querySelectorAll<HTMLElement>(selector);
-  
-  elements.forEach(element => {
+
+  elements.forEach((element) => {
     // Click handler
-    element.addEventListener('click', handler);
-    
+    element.addEventListener("click", handler);
+
     // Keyboard handler (Enter key)
-    element.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
+    element.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
         handler();
       }
     });
@@ -58,15 +65,15 @@ function setupNavigationHandlers(selector: string, handler: () => void): void {
  */
 function setupThemeToggleHandlers(selector: string): void {
   const elements = document.querySelectorAll<HTMLElement>(selector);
-  
-  elements.forEach(element => {
-    element.addEventListener('click', themeToggle);
-    element.addEventListener('mouseover', themeToggleHover);
-    element.addEventListener('mouseleave', themeToggleLeave);
-    
+
+  elements.forEach((element) => {
+    element.addEventListener("click", themeToggle);
+    element.addEventListener("mouseover", themeToggleHover);
+    element.addEventListener("mouseleave", themeToggleLeave);
+
     // Keyboard support
-    element.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
+    element.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
         themeToggle();
       }
     });
@@ -78,14 +85,14 @@ function setupThemeToggleHandlers(selector: string): void {
  */
 function setupClickHandler(selector: string, handler: () => void): void {
   const elements = document.querySelectorAll<HTMLElement>(selector);
-  
-  elements.forEach(element => {
-    element.addEventListener('click', handler);
-    
+
+  elements.forEach((element) => {
+    element.addEventListener("click", handler);
+
     // Keyboard support if element has tabindex
-    if (element.hasAttribute('tabindex')) {
-      element.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
+    if (element.hasAttribute("tabindex")) {
+      element.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Enter") {
           handler();
         }
       });

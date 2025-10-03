@@ -1,22 +1,29 @@
 // Import all modules (auto-execute initialization)
-import './listRepo';
-import './theme';
-import './navigation';
-import './bodyLoad';
-import './blog';
-import './article';
+import "./listRepo";
+import "./theme";
+import "./navigation";
+import "./bodyLoad";
+import "./blog";
+import "./article";
 
 // Import individual feature modules (initialized by bodyLoad)
-import './customCursor';
-import './clock';
-import './dateDisplay';
-import './dayProgress';
-import './subtitleStyling';
+import "./customCursor";
+import "./clock";
+import "./dateDisplay";
+import "./dayProgress";
+import "./subtitleStyling";
 
 // Export functions to window for inline event handlers
-import { themeToggle, themeToggleHover, themeToggleLeave } from './theme';
-import { homeSelected, reposSelected, blogSelected, contactSelected, closeNavPanel, openNavPanel } from './navigation';
-import { bodyLoaded } from './bodyLoad';
+import { themeToggle, themeToggleHover, themeToggleLeave } from "./theme";
+import {
+  homeSelected,
+  reposSelected,
+  blogSelected,
+  contactSelected,
+  closeNavPanel,
+  openNavPanel,
+} from "./navigation";
+import { bodyLoaded } from "./bodyLoad";
 
 // Make functions globally available for HTML inline handlers
 declare global {
@@ -46,4 +53,4 @@ window.closeNavPanel = closeNavPanel;
 window.openNavPanel = openNavPanel;
 window.bodyLoaded = bodyLoaded;
 
-console.log('🚀 Burhanverse Portfolio - All features initialized');
+console.log("🚀 Burhanverse Portfolio - All features initialized");

@@ -1,205 +1,206 @@
 /* TITLE */
 
 .home .title-elements {
-    color: var(--md-sys-color-on-primary-container);
-    background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container);
 }
 
-    /* LOGO */
+/* LOGO */
 
 .logo-wrapper {
-    width: 15rem;
-    height: 15rem;
-    overflow: hidden;
-    animation-name: logo-mask-rotation;
-    mask: var(--logo-mask);
-    -webkit-mask: var(--logo-mask);
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-size: contain;
-    -webkit-mask-size: contain;
+  width: 15rem;
+  height: 15rem;
+  overflow: hidden;
+  animation-name: logo-mask-rotation;
+  mask: var(--logo-mask);
+  -webkit-mask: var(--logo-mask);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
 }
 
 .logo {
-    width: 15rem;
-    height: 15rem;
-    animation-name: logo-rotate-negation;
-    border-radius: 50%;
+  width: 15rem;
+  height: 15rem;
+  animation-name: logo-rotate-negation;
+  border-radius: 50%;
 }
 
 .logo-wrapper,
 .logo {
-    animation-delay: 0s;
-    animation-direction: normal;
-    animation-duration: 60s;
-    animation-fill-mode: none;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
-    animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-direction: normal;
+  animation-duration: 60s;
+  animation-fill-mode: none;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  animation-timing-function: linear;
 }
 
-@media(pointer: fine) {
-    .logo-wrapper:hover,
-    .logo-wrapper:hover .logo {
-        animation-play-state: paused;
-    }
+@media (pointer: fine) {
+  .logo-wrapper:hover,
+  .logo-wrapper:hover .logo {
+    animation-play-state: paused;
+  }
 }
 
-    /* TITLE ELEMENTS BG */
+/* TITLE ELEMENTS BG */
 
 .title-elements {
-    display: grid;
-    width: fit-content;
-    height: 15rem;
-    font-size: 1rem;
-    align-content: center;
-    align-items: center;
-    border-radius: 100vw;
-    grid-auto-rows: min-content;
-    justify-content: center;
+  display: grid;
+  width: fit-content;
+  height: 15rem;
+  font-size: 1rem;
+  align-content: center;
+  align-items: center;
+  border-radius: 100vw;
+  grid-auto-rows: min-content;
+  justify-content: center;
 }
 
-    /* TITLE TEXT */
+/* TITLE TEXT */
 
 .title {
-    font-family: 'Lexend Zetta', sans-serif;
-    font-size: 5em;
-    font-weight: 900;
-    text-align: center;
-    margin-block: 0;
-    margin-inline: 5rem;
+  font-family: "Lexend Zetta", sans-serif;
+  font-size: 5em;
+  font-weight: 900;
+  text-align: center;
+  margin-block: 0;
+  margin-inline: 5rem;
 }
 
-    /* SUBTITLE */
+/* SUBTITLE */
 
 .subtitle {
-    text-align: center;
-    margin-block: 0;
+  text-align: center;
+  margin-block: 0;
 }
 
 .subtitle:nth-child(n + 1) {
-    font-family: 'Lexend Deca', sans-serif;
-    font-size: 2.5em;
-    font-weight: 400;
-
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 2.5em;
+  font-weight: 400;
 }
 
 .subtitle:nth-child(n + 3) {
-    margin-top: .7rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2em;
-    font-weight: 800;
+  margin-top: 0.7rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 2em;
+  font-weight: 800;
 }
 
 /* FEATURED PROJECTS */
 
 .featured-projects-wrapper {
-    width: 100%;
-    max-width: 120rem;
-    margin-top: 7.5rem;
+  width: 100%;
+  max-width: 120rem;
+  margin-top: 7.5rem;
 }
 
 .featured-projects-title {
-    margin-left: 3rem;
-    font-family: 'Lexend Deca', sans-serif;
-    font-size: var(--font-size-l);
-    line-height: 1;
-    font-weight: 600;
-    color: var(--md-sys-color-on-background);
+  margin-left: 3rem;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: var(--font-size-l);
+  line-height: 1;
+  font-weight: 600;
+  color: var(--md-sys-color-on-background);
 }
 
 .featured-projects {
-    --min: 32rem;
-    display: grid;
-    margin-top: 2rem;
-    gap: 1rem;
-    grid-auto-flow: row;
-    grid-auto-rows: minmax(var(--min), auto);
-    grid-template-columns: repeat(3, 1fr);
+  --min: 32rem;
+  display: grid;
+  margin-top: 2rem;
+  gap: 1rem;
+  grid-auto-flow: row;
+  grid-auto-rows: minmax(var(--min), auto);
+  grid-template-columns: repeat(3, 1fr);
 }
 
-    /* FEATURED PROJECTS ELEMENTS */
+/* FEATURED PROJECTS ELEMENTS */
 
 .featured-project-element {
-    display: grid;
-    height: 100%;
-    background-color: var(--md-sys-color-surface-variant);
-    border-radius: var(--border-radius-l);
-    grid-auto-rows: min-content auto max-content;
-    transition: background-color 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), 
-                border-radius 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+  display: grid;
+  height: 100%;
+  background-color: var(--md-sys-color-surface-variant);
+  border-radius: var(--border-radius-l);
+  grid-auto-rows: min-content auto max-content;
+  transition:
+    background-color 200ms cubic-bezier(0.42, 0, 0.58, 1),
+    border-radius 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .featured-project-illustration {
-    height: 20rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: inherit;
+  height: 20rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: inherit;
 }
 
 .featured-project-informations {
-    display: grid;
-    margin: 2rem;
-    align-self: start;
-    gap: .8rem;
+  display: grid;
+  margin: 2rem;
+  align-self: start;
+  gap: 0.8rem;
 }
 
 .featured-project-name,
 .featured-project-desc {
-    margin: 0;
-    font-family: 'Lexend Deca', sans-serif;
-    color: var(--md-sys-color-on-background);
+  margin: 0;
+  font-family: "Lexend Deca", sans-serif;
+  color: var(--md-sys-color-on-background);
 }
 
 .featured-project-name {
-    font-size: var(--font-size-m);
-    transition: color 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000), 
-                text-shadow 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+  font-size: var(--font-size-m);
+  transition:
+    color 200ms cubic-bezier(0.42, 0, 0.58, 1),
+    text-shadow 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .featured-project-desc {
-    font-size: var(--font-size-s);
-    transition: color 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+  font-size: var(--font-size-s);
+  transition: color 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .featured-project-links-wrapper {
-    display: flex;
-    float: bottom;
-    height: 3rem;
-    margin: 2rem;
-    gap: 1rem;
+  display: flex;
+  float: bottom;
+  height: 3rem;
+  margin: 2rem;
+  gap: 1rem;
 }
 
 .featured-project-link {
-    height: 3rem;
-    fill: var(--md-sys-color-on-surface-variant);
-    transition: fill 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+  height: 3rem;
+  fill: var(--md-sys-color-on-surface-variant);
+  transition: fill 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .featured-project-links-wrapper a {
-    border-radius: 20%;
+  border-radius: 20%;
 }
 
-@media(pointer: fine) {
-    .featured-project-element:hover {
-        background-color: var(--md-sys-color-inverse-primary);
-        border-radius: var(--border-radius-xl);
-    }
+@media (pointer: fine) {
+  .featured-project-element:hover {
+    background-color: var(--md-sys-color-inverse-primary);
+    border-radius: var(--border-radius-xl);
+  }
 
-    .featured-project-element:hover .featured-project-informations > * {
-        color: var(--md-sys-color-on-primary-container);
-    }
+  .featured-project-element:hover .featured-project-informations > * {
+    color: var(--md-sys-color-on-primary-container);
+  }
 
-    .featured-project-element:hover .featured-project-name {
-        text-shadow: 0 0 .2rem var(--md-sys-color-on-primary-container);
-    }
+  .featured-project-element:hover .featured-project-name {
+    text-shadow: 0 0 0.2rem var(--md-sys-color-on-primary-container);
+  }
 
-    .featured-project-element:hover .featured-project-link {
-        fill: var(--md-sys-color-on-primary-container);
-    }
+  .featured-project-element:hover .featured-project-link {
+    fill: var(--md-sys-color-on-primary-container);
+  }
 
-    .featured-project-element:hover a {
-        outline-color: var(--md-sys-color-on-primary-container);
-    }
+  .featured-project-element:hover a {
+    outline-color: var(--md-sys-color-on-primary-container);
+  }
 }

@@ -16,7 +16,7 @@ export function updateClock(): void {
     minute = `0${minute}`;
   }
 
-  const clockElement = document.querySelector('.clock');
+  const clockElement = document.querySelector(".clock");
   if (clockElement) {
     clockElement.innerHTML = `<span class="clock-hours">${hour}</span><br><span class="clock-minutes">${minute}</span>`;
   }

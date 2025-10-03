@@ -35,7 +35,7 @@ export interface ArticleContent {
 }
 
 export interface ArticleSection {
-  type: 'heading' | 'paragraph' | 'code' | 'image' | 'list';
+  type: "heading" | "paragraph" | "code" | "image" | "list";
   content: string | string[];
   language?: string; // for code blocks
   alt?: string; // for images

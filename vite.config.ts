@@ -1,26 +1,26 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
+import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
-  root: '.',
-  publicDir: 'src/res',
+  root: ".",
+  publicDir: "src/res",
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        article: resolve(__dirname, 'article.html')
+        main: resolve(__dirname, "index.html"),
+        article: resolve(__dirname, "article.html"),
       },
       output: {
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
+        entryFileNames: "assets/[name].[hash].js",
+        chunkFileNames: "assets/[name].[hash].js",
+        assetFileNames: "assets/[name].[hash].[ext]",
+      },
+    },
   },
   server: {
     port: 8000,
-    open: false
-  }
+    open: false,
+  },
 });
