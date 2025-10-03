@@ -29,6 +29,21 @@
   <body onload="document.body.style.opacity = '1'">
     <div class="cursor"></div>
     <div class="super-wrapper">
+      <header class="mobile-topbar" aria-label="Mobile top bar">
+        <div class="mobile-topbar-clock">
+          <div class="clock clock--compact">CLOCK</div>
+        </div>
+        <button
+          aria-label="Change the theme"
+          class="clickable mobile-change-theme"
+          type="button"
+        >
+          <span id="mobile-theme-icon" class="material-symbols-rounded"
+            >light_mode</span
+          >
+        </button>
+      </header>
+
       <div class="page-content-wrapper">
         <div class="article-page page visible">
           <div class="title-wrapper">
@@ -64,6 +79,7 @@
     <script type="module">
       import { updateClock } from "./src/clock.ts";
       import { initCustomCursor } from "./src/customCursor.ts";
+      import { themeToggle } from "./src/theme.ts";
 
       // Update clock
       updateClock();
@@ -71,6 +87,12 @@
 
       // Initialize custom cursor
       initCustomCursor();
+
+      // Add click handler for mobile theme button
+      const mobileThemeBtn = document.querySelector('.mobile-change-theme');
+      if (mobileThemeBtn) {
+        mobileThemeBtn.addEventListener('click', themeToggle);
+      }
     </script>
   </body>
 </html>

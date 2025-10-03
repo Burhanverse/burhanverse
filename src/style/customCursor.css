@@ -3,7 +3,7 @@
 .cursor {
   display: none;
   position: fixed;
-  z-index: 5;
+  z-index: 9999;
   width: 2rem;
   height: 2rem;
   background: linear-gradient(
