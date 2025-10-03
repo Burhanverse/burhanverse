@@ -7,6 +7,7 @@
   overflow-y: scroll;
   padding: 0 0 0 8em;
   scrollbar-width: none;
+  overscroll-behavior-y: auto;
 }
 
 .page-content-wrapper::-webkit-scrollbar {
