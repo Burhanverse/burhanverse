@@ -41,8 +41,24 @@ const mobileNavPanel = document.querySelector<HTMLElement>(
   ".mobile-panel-wrapper",
 );
 const overlay = document.querySelector<HTMLElement>(".overlay");
+const mobileNav = document.querySelector<HTMLElement>(".mobile-nav");
 
 type PageSection = "home" | "repos" | "blog" | "contact";
+
+// Function to update the sliding indicator
+function updateSlidingIndicator(selectedItem: HTMLElement) {
+  if (!mobileNav || !selectedItem) return;
+  
+  const navRect = mobileNav.getBoundingClientRect();
+  const itemRect = selectedItem.getBoundingClientRect();
+  
+  const left = itemRect.left - navRect.left;
+  const width = itemRect.width;
+  
+  // Update the ::before pseudo-element via CSS custom properties
+  mobileNav.style.setProperty('--indicator-left', `${left}px`);
+  mobileNav.style.setProperty('--indicator-width', `${width}px`);
+}
 
 function hideAllPages() {
   homeContent?.classList.add("hidden");
@@ -101,6 +117,11 @@ export function homeSelected() {
   if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
   localStorage.setItem("page-section", "home");
   closeNavPanel();
+  
+  // Update sliding indicator
+  if (mobileHomeIcon) {
+    setTimeout(() => updateSlidingIndicator(mobileHomeIcon), 50);
+  }
 }
 
 export function reposSelected() {
@@ -112,6 +133,11 @@ export function reposSelected() {
   mobileReposIcon?.classList.add("selected");
   localStorage.setItem("page-section", "repos");
   closeNavPanel();
+  
+  // Update sliding indicator
+  if (mobileReposIcon) {
+    setTimeout(() => updateSlidingIndicator(mobileReposIcon), 50);
+  }
 }
 
 export function blogSelected() {
@@ -125,6 +151,11 @@ export function blogSelected() {
   if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
   localStorage.setItem("page-section", "blog");
   closeNavPanel();
+  
+  // Update sliding indicator
+  if (mobileBlogIcon) {
+    setTimeout(() => updateSlidingIndicator(mobileBlogIcon), 50);
+  }
 }
 
 export function contactSelected() {
@@ -138,6 +169,11 @@ export function contactSelected() {
   if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
   localStorage.setItem("page-section", "contact");
   closeNavPanel();
+  
+  // Update sliding indicator
+  if (mobileContactIcon) {
+    setTimeout(() => updateSlidingIndicator(mobileContactIcon), 50);
+  }
 }
 
 // Initialize page based on localStorage
