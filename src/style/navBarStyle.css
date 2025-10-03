@@ -136,3 +136,10 @@
 .clock-minutes {
   color: var(--md-sys-clock-minutes);
 }
+
+.clock-separator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--md-sys-clock-hours);
+  margin: 0 0.4rem;
+}

@@ -16,10 +16,15 @@ export function updateClock(): void {
     minute = `0${minute}`;
   }
 
-  const clockElement = document.querySelector(".clock");
-  if (clockElement) {
-    clockElement.innerHTML = `<span class="clock-hours">${hour}</span><br><span class="clock-minutes">${minute}</span>`;
-  }
+  const clockElements = document.querySelectorAll<HTMLElement>(".clock");
+  clockElements.forEach((clockElement) => {
+    const isCompact = clockElement.classList.contains("clock--compact");
+    const content = isCompact
+      ? `<span class="clock-hours">${hour}</span><span class="clock-separator">:</span><span class="clock-minutes">${minute}</span>`
+      : `<span class="clock-hours">${hour}</span><br><span class="clock-minutes">${minute}</span>`;
+
+    clockElement.innerHTML = content;
+  });
 
   // Update every 5 seconds
   setTimeout(updateClock, 5000);

@@ -1,14 +1,40 @@
 /* Redesigned mobile navigation */
 
+.mobile-topbar {
+  display: none;
+}
+
+.mobile-topbar-clock {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-topbar .clock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.32rem;
+  margin: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .mobile-nav-wrapper {
   position: fixed;
-  bottom: 2.4rem;
+  bottom: calc(env(safe-area-inset-bottom, 0) + 2.4rem);
   left: 50%;
   display: flex;
   align-items: center;
   gap: 1.2rem;
   transform: translateX(-50%);
   z-index: 20;
+  width: min(calc(100% - 2.4rem), 48rem);
+  max-width: 48rem;
+  justify-content: center;
 }
 
 .mobile-nav {
@@ -20,6 +46,8 @@
   background-color: var(--md-sys-color-surface-container-highest);
   box-shadow: 0 1.6rem 3.2rem rgba(15, 23, 42, 0.18);
   backdrop-filter: blur(18px);
+  width: 100%;
+  justify-content: space-between;
 }
 
 .mobile-nav-item {
@@ -73,14 +101,12 @@
   color: var(--md-sys-color-on-primary-container);
 }
 
-/* removed floating dot indicator for cleaner production look */
-
 .mobile-change-theme {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.8rem;
-  height: 4.8rem;
+  width: 4.4rem;
+  height: 4.4rem;
   border: none;
   border-radius: 50%;
   background-color: var(--md-sys-color-surface-container-highest);
@@ -90,7 +116,7 @@
 }
 
 .mobile-change-theme .material-symbols-rounded {
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   color: var(--md-sys-color-on-surface-variant);
 }
 
@@ -101,6 +127,38 @@
 
   .mobile-change-theme:hover {
     background-color: var(--md-sys-color-surface-container-high);
+  }
+}
+
+@media (max-width: 950px) {
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    width: min(calc(100% - 2.4rem), 48rem);
+    max-width: 48rem;
+    padding: 0.6rem 1rem;
+    margin: calc(env(safe-area-inset-top, 0) + 0.8rem) auto 1rem;
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+  }
+
+  .mobile-topbar .mobile-change-theme {
+    margin: 0;
+    width: 3.8rem;
+    height: 3.8rem;
+    background-color: var(--md-sys-color-surface-container-high);
+    box-shadow: 0 0.6rem 1.2rem rgba(15, 23, 42, 0.12);
+    flex-shrink: 0;
+  }
+
+  .mobile-topbar .material-symbols-rounded {
+    font-variation-settings: "FILL" 0;
+  }
+
+  .mobile-topbar .clock-separator {
+    margin: 0 0.16rem;
   }
 }
 
