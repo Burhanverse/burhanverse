@@ -51,11 +51,11 @@ export function themeToggle() {
   changeThemeBtn?.classList.add('theme-switching');
   mobileChangeThemeBtn.forEach(btn => btn.classList.add('theme-switching'));
 
-  // Remove animation class after animation completes
+  // Remove animation class after one complete spin (600ms)
   setTimeout(() => {
     changeThemeBtn?.classList.remove('theme-switching');
     mobileChangeThemeBtn.forEach(btn => btn.classList.remove('theme-switching'));
-  }, 500);
+  }, 600);
 
   if (theme === "dark_mode") {
     localStorage.setItem("theme", "light_mode");

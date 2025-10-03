@@ -160,9 +160,7 @@
 .mobile-change-theme .material-symbols-rounded {
   font-size: 2.4rem;
   color: var(--md-sys-color-on-secondary-container);
-  transition: 
-    transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    rotate 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-change-theme:active {
@@ -170,7 +168,8 @@
 }
 
 .mobile-change-theme.theme-switching .material-symbols-rounded {
-  transform: scale(0.8) rotate(180deg);
+  animation: spinRays 600ms linear forwards;
+  transition: none;
 }
 
 @media (pointer: fine) {
