@@ -52,6 +52,7 @@
   position: relative;
   --indicator-left: 0px;
   --indicator-width: 0px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Sliding background indicator */
@@ -93,6 +94,10 @@
   text-decoration: none;
   color: inherit;
   will-change: transform, padding;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .mobile-nav-item .material-symbols-rounded {
@@ -155,6 +160,10 @@
   transition: 
     transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 300ms ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .mobile-change-theme .material-symbols-rounded {
