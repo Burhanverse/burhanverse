@@ -381,15 +381,18 @@ body {
   }
 
   .code-header {
-    padding: 1.2rem 1.5rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    padding: 1rem 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: nowrap;
   }
-
   .code-copy-btn {
-    width: 100%;
+    width: auto;
     justify-content: center;
+    padding: 0.6rem 1rem;
+    font-size: 1.2rem;
   }
 }
 
