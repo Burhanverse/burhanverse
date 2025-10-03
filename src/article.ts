@@ -129,12 +129,19 @@ export function renderArticle(articleSlug: string): void {
       </div>
 
       <footer class="article-footer">
-        <button class="clickable back-to-blog" onclick="window.history.back()">
-          <svg class="back-arrow-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"/>
-          </svg>
-          <span>Back to Blog</span>
-        </button>
+        <div class="footer-actions">
+          <button class="clickable md-action-button back-to-blog" onclick="window.history.back()">
+            <svg class="back-arrow-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"/>
+            </svg>
+          </button>
+
+          <button class="clickable md-action-button home-button" aria-label="Home" title="Home">
+            <svg class="home-icon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </button>
+        </div>
       </footer>
     </article>
   `;
@@ -146,6 +153,18 @@ export function renderArticle(articleSlug: string): void {
 
   // Setup copy buttons after rendering
   initializeCopyButtons();
+  
+  // Setup home button navigation
+  setTimeout(() => {
+    const homeButton = document.querySelector<HTMLButtonElement>(".home-button");
+    if (homeButton) {
+      homeButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.setItem("page-section", "home");
+        window.location.href = "/";
+      });
+    }
+  }, 0);
 }
 
 /**
