@@ -3,8 +3,8 @@
 .stats-cards-wrapper {
   width: 100%;
   max-width: 120rem;
-  margin: 0 auto;
-  padding: 4rem 3rem 5rem 3rem;
+  margin-top: 7.5rem;
+  padding-bottom: 5rem;
 }
 
 .stats-cards-title {
@@ -12,7 +12,7 @@
   font-size: 3.2rem;
   font-weight: 600;
   color: var(--md-sys-color-on-background);
-  margin-bottom: 3rem;
+  margin: 0 0 3rem 0;
   text-align: center;
 }
 
@@ -21,6 +21,7 @@
   grid-template-columns: 2fr 1fr;
   gap: 2.4rem;
   width: 100%;
+  margin: 0;
 }
 
 /* STAT CARD BASE */
@@ -28,7 +29,6 @@
 .stat-card {
   background-color: var(--md-sys-color-surface-variant);
   border-radius: var(--border-radius-xl);
-  padding: 2.4rem;
   transition:
     transform 200ms cubic-bezier(0.42, 0, 0.58, 1),
     box-shadow 200ms cubic-bezier(0.42, 0, 0.58, 1),
@@ -48,9 +48,17 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin-bottom: 2rem;
+  margin: 2rem;
   padding-bottom: 1.6rem;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.stat-card-content {
+  margin: 0 2rem 2rem 2rem;
+  min-height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stat-card-icon {
@@ -65,13 +73,6 @@
   font-weight: 600;
   color: var(--md-sys-color-on-surface);
   margin: 0;
-}
-
-.stat-card-content {
-  min-height: 12rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* GITHUB STATS CARD */
@@ -518,10 +519,6 @@
 
 /* Mobile landscape and small tablets */
 @media (max-width: 768px) {
-  .stats-cards-wrapper {
-    padding: 2.5rem 2rem 4rem 2rem;
-  }
-
   .stats-cards-title {
     font-size: 2.4rem;
     margin-bottom: 2rem;
@@ -532,13 +529,13 @@
     gap: 1.6rem;
   }
 
-  .stat-card {
-    padding: 1.8rem;
+  .stat-card-header {
+    margin: 1.6rem;
+    padding-bottom: 1.2rem;
   }
 
-  .stat-card-header {
-    margin-bottom: 1.6rem;
-    padding-bottom: 1.2rem;
+  .stat-card-content {
+    margin: 0 1.6rem 1.6rem 1.6rem;
   }
 
   .stat-card-title {
@@ -667,23 +664,19 @@
 
 /* Mobile portrait */
 @media (max-width: 480px) {
-  .stats-cards-wrapper {
-    padding: 2rem 1.6rem 3rem 1.6rem;
-  }
-
   .stats-cards-title {
     font-size: 2rem;
     margin-bottom: 1.6rem;
   }
 
-  .stat-card {
-    padding: 1.4rem;
-  }
-
   .stat-card-header {
     gap: 0.8rem;
-    margin-bottom: 1.4rem;
+    margin: 1.4rem;
     padding-bottom: 1rem;
+  }
+
+  .stat-card-content {
+    margin: 0 1.4rem 1.4rem 1.4rem;
   }
 
   .stat-card-title {
@@ -797,10 +790,6 @@
 
 /* Extra small devices */
 @media (max-width: 360px) {
-  .stats-cards-wrapper {
-    padding: 1.6rem 1.2rem 2.5rem 1.2rem;
-  }
-
   .stats-cards-title {
     font-size: 1.8rem;
   }

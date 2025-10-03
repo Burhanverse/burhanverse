@@ -10,8 +10,8 @@
 .contact-content-wrapper {
   width: 100%;
   max-width: 120rem;
-  margin: 0 auto;
-  padding: 4rem 3rem 5rem 3rem;
+  margin-top: 7.5rem;
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -48,18 +48,14 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2.4rem;
-  max-width: 90rem;
-  margin: 0 auto;
   width: 100%;
 }
 
 .contact-card {
   background-color: var(--md-sys-color-surface-variant);
   border-radius: var(--border-radius-xl);
-  padding: 2.4rem;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
   transition:
     transform 200ms cubic-bezier(0.42, 0, 0.58, 1),
     box-shadow 200ms cubic-bezier(0.42, 0, 0.58, 1),
@@ -83,9 +79,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 2rem 2rem 0 2rem;
   transition:
     background-color 200ms ease,
     transform 150ms ease;
+}
+
+.contact-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1.6rem 2rem 2rem 2rem;
 }
 
 .contact-card:hover .contact-card-icon {
@@ -101,12 +105,6 @@
 
 .contact-card:hover .contact-card-icon .material-symbols-rounded {
   color: var(--md-sys-color-on-tertiary-container);
-}
-
-.contact-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
 }
 
 .contact-card-title {
@@ -156,7 +154,6 @@
 
 @media (max-width: 768px) {
   .contact-content-wrapper {
-    padding: 3rem 2rem 4rem 2rem;
     gap: 3rem;
   }
 
@@ -173,16 +170,16 @@
     gap: 2rem;
   }
 
-  .contact-card {
-    padding: 2rem;
+  .contact-card-icon {
+    margin: 1.6rem 1.6rem 0 1.6rem;
+  }
+
+  .contact-card-content {
+    margin: 1.6rem 1.6rem 1.6rem 1.6rem;
   }
 }
 
 @media (max-width: 480px) {
-  .contact-content-wrapper {
-    padding: 2rem 1.6rem 3rem 1.6rem;
-  }
-
   .contact-heading {
     font-size: 2rem;
   }
@@ -191,13 +188,14 @@
     font-size: 1.3rem;
   }
 
-  .contact-card {
-    padding: 1.8rem;
-  }
-
   .contact-card-icon {
     width: 4rem;
     height: 4rem;
+    margin: 1.4rem 1.4rem 0 1.4rem;
+  }
+
+  .contact-card-content {
+    margin: 1.4rem 1.4rem 1.4rem 1.4rem;
   }
 
   .contact-card-icon .material-symbols-rounded {

@@ -1,3 +1,16 @@
+@media (min-width: 951px) {
+  /* Desktop padding for all content wrappers */
+  .featured-projects-wrapper,
+  .repos-list-wrapper,
+  .blog-list-wrapper,
+  .stats-cards-wrapper,
+  .contact-content-wrapper,
+  .article-wrapper {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 @media (max-width: 1300px) {
   .featured-projects,
   .repos-list-wrapper,
@@ -54,6 +67,22 @@
   .inverted-topleft-corner {
     display: none;
   }
+
+  /* Consistent mobile padding for all content wrappers */
+  .featured-projects-wrapper,
+  .repos-list-wrapper,
+  .blog-list-wrapper,
+  .stats-cards-wrapper,
+  .contact-content-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  /* Article content maintains its wrapper padding */
+  .article-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 @media (max-width: 720px) {
@@ -67,16 +96,20 @@
 @media (max-width: 640px) {
   .page {
     margin-bottom: 3rem;
-    padding: 0;
+    padding: 0 1.6rem 3rem 1.6rem;
   }
 
   .logo-wrapper {
     display: none;
   }
 
+  /* Background images touch edges on mobile */
   .title-wrapper {
     border-radius: 0;
     height: 20rem;
+    margin-left: -1.6rem;
+    margin-right: -1.6rem;
+    width: calc(100% + 3.2rem);
   }
 
   .title-elements {
@@ -99,4 +132,51 @@
   .badges-wrapper {
     margin-top: 0.525rem;
   }
+
+  /* Consistent mobile padding for content wrappers */
+  .featured-projects-wrapper,
+  .repos-list-wrapper,
+  .blog-list-wrapper,
+  .stats-cards-wrapper,
+  .contact-content-wrapper {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  /* Article wrapper */
+  .article-wrapper {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  /* Featured projects title alignment */
+  .featured-projects-title {
+    margin-left: 0;
+    padding-left: 0;
+  }
 }
+
+@media (max-width: 480px) {
+  .page {
+    padding: 0 1.2rem 2.5rem 1.2rem;
+  }
+
+  /* Background images touch edges on smaller mobile */
+  .title-wrapper {
+    margin-left: -1.2rem;
+    margin-right: -1.2rem;
+    width: calc(100% + 2.4rem);
+  }
+
+  /* Consistent mobile padding for all content */
+  .featured-projects-wrapper,
+  .repos-list-wrapper,
+  .blog-list-wrapper,
+  .stats-cards-wrapper,
+  .contact-content-wrapper,
+  .article-wrapper {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+}
+

@@ -332,10 +332,6 @@ body {
 /* RESPONSIVE */
 
 @media (max-width: 950px) {
-  .article-wrapper {
-    padding: 0 2rem;
-  }
-
   .article-title {
     font-size: 3.6rem;
   }
@@ -350,8 +346,8 @@ body {
 }
 
 @media (max-width: 640px) {
-  .article-wrapper {
-    padding: 0 1.5rem;
+  .article-content {
+    padding: 0 0.4rem 5rem 0.4rem;
   }
 
   .article-title {
@@ -395,3 +391,31 @@ body {
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .article-content {
+    padding: 0 0.2rem 4rem 0.2rem;
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+  }
+
+  .article-title {
+    font-size: 2.4rem;
+  }
+
+  .article-description {
+    font-size: 1.5rem;
+  }
+
+  .article-body {
+    font-size: 1.5rem;
+  }
+
+  .article-body p,
+  .article-body li {
+    margin-bottom: 1.4rem;
+  }
+}
+
