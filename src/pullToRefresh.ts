@@ -6,6 +6,7 @@ let startY = 0;
 let currentY = 0;
 let isPulling = false;
 const pullThreshold = 80; // Distance to pull before refresh triggers
+const minPullDistance = 20; // Minimum distance before indicator appears (prevents accidental pulls)
 
 const pageContent = document.querySelector<HTMLElement>('.page-content-wrapper');
 
@@ -39,12 +40,13 @@ function handleTouchMove(e: TouchEvent) {
   currentY = e.touches[0].clientY;
   const pullDistance = currentY - startY;
   
-  // Only allow pulling down
-  if (pullDistance > 0 && pageContent.scrollTop === 0) {
+  // Only allow pulling down and only after minimum distance
+  if (pullDistance > minPullDistance && pageContent.scrollTop === 0) {
     e.preventDefault();
     
-    // Calculate progress (0 to 1)
-    const progress = Math.min(pullDistance / pullThreshold, 1);
+    // Calculate progress (0 to 1) starting from minPullDistance
+    const effectivePullDistance = pullDistance - minPullDistance;
+    const progress = Math.min(effectivePullDistance / pullThreshold, 1);
     
     // Update indicator
     const rotation = progress * 360;
@@ -65,7 +67,7 @@ function handleTouchMove(e: TouchEvent) {
     }
     
     // Add "ready" class when threshold is reached
-    if (pullDistance >= pullThreshold) {
+    if (effectivePullDistance >= pullThreshold) {
       refreshIndicator.classList.add('ready');
     } else {
       refreshIndicator.classList.remove('ready');
@@ -77,8 +79,9 @@ function handleTouchEnd() {
   if (!isPulling || !pageContent) return;
   
   const pullDistance = currentY - startY;
+  const effectivePullDistance = pullDistance - minPullDistance;
   
-  if (pullDistance >= pullThreshold) {
+  if (effectivePullDistance >= pullThreshold) {
     // Trigger refresh
     refreshIndicator.classList.add('refreshing');
     refreshIndicator.classList.remove('ready');
