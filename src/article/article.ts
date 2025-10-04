@@ -127,6 +127,14 @@ export function renderArticle(articleSlug: string): void {
       <div class="article-body">
         ${sectionsHtml}
       </div>
+
+      <footer class="article-footer">
+        <p class="footer-text">Made with ❤️ by Sid.</p>
+        <p class="footer-copyright">
+          <span class="material-symbols-rounded copyright-icon">copyright</span>
+          <span>2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></span>
+        </p>
+      </footer>
     </article>
   `;
 
