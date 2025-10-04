@@ -1,5 +1,11 @@
-/* Material Symbols Rounded */
-@import "material-symbols/rounded.css";
+/* Material Symbols Rounded - Variable Font (Local) */
+@font-face {
+  font-family: "Material Symbols Rounded";
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url("/src/res/font/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf") format("truetype");
+}
 
 /* Set default styling for material symbols */
 .material-symbols-rounded {
@@ -17,4 +23,11 @@
   font-feature-settings: "liga";
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
+  
+  /* Variable font axes support */
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
