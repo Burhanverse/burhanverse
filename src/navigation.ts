@@ -326,10 +326,33 @@ export function contactSelected() {
   });
 }
 
-// Initialize page - always start at home
+// Initialize page - check URL params or default to home
 function initializePage() {
-  // Always navigate to home when visiting the site
-  homeSelected();
+  // Check if there's a section parameter in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const section = urlParams.get("section");
+  
+  // Navigate based on URL parameter, otherwise default to home
+  switch (section) {
+    case "repos":
+      reposSelected();
+      break;
+    case "blog":
+      blogSelected();
+      break;
+    case "contact":
+      contactSelected();
+      break;
+    case "home":
+    default:
+      homeSelected();
+      break;
+  }
+  
+  // Clean up URL parameter after navigation
+  if (section) {
+    window.history.replaceState({}, "", "/");
+  }
 }
 
 // Export navigation functions for global access
