@@ -1,6 +1,6 @@
 import { Octokit } from "@octokit/rest";
-import type { Repository, GitHubConfig } from "./types";
-import { config } from "./config";
+import type { Repository, GitHubConfig } from "../types";
+import { config } from "../config";
 
 class GitHubAPI {
   private octokit: Octokit;

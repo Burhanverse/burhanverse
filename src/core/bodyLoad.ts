@@ -2,13 +2,13 @@
  * Body initialization - fade in effect and initialize all features
  */
 
-import { initCustomCursor } from "./customCursor";
-import { initClock } from "./clock";
-import { initDate } from "./dateDisplay";
-import { initDayProgress } from "./dayProgress";
-import { initSubtitleStyling } from "./subtitleStyling";
-import { initializeEventHandlers } from "./eventHandlers";
-import { initializeStatsCards } from "./statsCards";
+import { initCustomCursor } from "../features/customCursor";
+import { initClock } from "../features/clock";
+import { initDate } from "../features/dateDisplay";
+import { initDayProgress } from "../features/dayProgress";
+import { initSubtitleStyling } from "../features/subtitleStyling";
+import { initializeEventHandlers } from "../eventHandlers";
+import { initializeStatsCards } from "../repos/statsCards";
 
 export function bodyLoaded() {
   const body = document.querySelector<HTMLElement>("body");

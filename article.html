@@ -23,10 +23,7 @@
       rel="stylesheet"
       href="/src/style/articlePageStyle.css"
     />
-    <script type="module" src="/src/article.ts"></script>
-    <script type="module" src="/src/theme.ts"></script>
-    <script type="module" src="/src/clock.ts"></script>
-    <script type="module" src="/src/customCursor.ts"></script>
+    <script type="module" src="/src/article/index.ts"></script>
   </head>
 
   <body onload="document.body.style.opacity = '1'">
@@ -131,9 +128,9 @@
     </div>
 
     <script type="module">
-      import { updateClock } from "./src/clock.ts";
-      import { initCustomCursor } from "./src/customCursor.ts";
-      import { themeToggle } from "./src/theme.ts";
+      import { updateClock } from "./src/features/clock.ts";
+      import { initCustomCursor } from "./src/features/customCursor.ts";
+      import { themeToggle } from "./src/core/theme.ts";
 
       // Make themeToggle globally available
       window.themeToggle = themeToggle;

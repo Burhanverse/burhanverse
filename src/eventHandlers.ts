@@ -9,8 +9,8 @@ import {
   contactSelected,
   closeNavPanel,
   openNavPanel,
-} from "./navigation";
-import { themeToggle, themeToggleHover, themeToggleLeave } from "./theme";
+} from "./core/navigation";
+import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
 
 /**
  * Initialize all event listeners

@@ -1,4 +1,4 @@
-import type { Repository } from "./types";
+import type { Repository } from "../types";
 
 export class RepoRenderer {
   private container: HTMLElement;

@@ -2,9 +2,9 @@
  * Article page functionality
  */
 
-import { ArticleSection } from "./types";
-import { getArticleBySlug } from "./blog/index";
-import { getBlogPostBySlug } from "./blog/posts";
+import { ArticleSection } from "../types";
+import { getArticleBySlug } from "../blog/index";
+import { getBlogPostBySlug } from "../blog/posts";
 import Prism from "prismjs";
 
 // Import Prism languages

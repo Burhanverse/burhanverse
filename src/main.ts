@@ -1,20 +1,20 @@
 // Import all modules (auto-execute initialization)
-import "./listRepo";
-import "./theme";
-import "./navigation";
-import "./bodyLoad";
+import "./repos/listRepo";
+import "./core/theme";
+import "./core/navigation";
+import "./core/bodyLoad";
 import "./blog";
-import "./article";
+import "./article/article";
 
 // Import individual feature modules (initialized by bodyLoad)
-import "./customCursor";
-import "./clock";
-import "./dateDisplay";
-import "./dayProgress";
-import "./subtitleStyling";
+import "./features/customCursor";
+import "./features/clock";
+import "./features/dateDisplay";
+import "./features/dayProgress";
+import "./features/subtitleStyling";
 
 // Export functions to window for inline event handlers
-import { themeToggle, themeToggleHover, themeToggleLeave } from "./theme";
+import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
 import {
   homeSelected,
   reposSelected,
@@ -22,8 +22,8 @@ import {
   contactSelected,
   closeNavPanel,
   openNavPanel,
-} from "./navigation";
-import { bodyLoaded } from "./bodyLoad";
+} from "./core/navigation";
+import { bodyLoaded } from "./core/bodyLoad";
 
 // Make functions globally available for HTML inline handlers
 declare global {
