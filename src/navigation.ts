@@ -166,6 +166,9 @@ export function homeSelected() {
   hideAllPages();
   resetAllIcons();
   
+  // Set data-tab attribute for theme switching
+  document.documentElement.setAttribute('data-tab', 'home');
+  
   // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -173,8 +176,6 @@ export function homeSelected() {
       homeContent?.classList.add("visible");
       homeIcon?.classList.add("selected");
       mobileHomeIcon?.classList.add("selected");
-      if (homeFontIcon) homeFontIcon.textContent = "home";
-      if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
       localStorage.setItem("page-section", "home");
       closeNavPanel();
       
@@ -208,6 +209,9 @@ export function reposSelected() {
   isAnimating = true;
   hideAllPages();
   resetAllIcons();
+  
+  // Set data-tab attribute for theme switching
+  document.documentElement.setAttribute('data-tab', 'repos');
   
   // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
@@ -249,6 +253,9 @@ export function blogSelected() {
   isAnimating = true;
   hideAllPages();
   resetAllIcons();
+  
+  // Set data-tab attribute for theme switching
+  document.documentElement.setAttribute('data-tab', 'blog');
   
   // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
@@ -292,6 +299,9 @@ export function contactSelected() {
   isAnimating = true;
   hideAllPages();
   resetAllIcons();
+  
+  // Set data-tab attribute for theme switching
+  document.documentElement.setAttribute('data-tab', 'contact');
   
   // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {

@@ -113,6 +113,184 @@
   --md-ref-palette-neutral-variant98: #f4faff;
   --md-ref-palette-neutral-variant99: #fafcff;
   --md-ref-palette-neutral-variant100: #ffffff;
+
+  /* ============================================
+     TAB-SPECIFIC COLOR PALETTES
+     Colors extracted from background images for expressive theming
+     ============================================ */
+
+  /* HOME TAB (Ocean/Sky - Blues & Cyans) */
+  --home-ref-palette-primary0: #000000;
+  --home-ref-palette-primary10: #001d36;
+  --home-ref-palette-primary20: #00325a;
+  --home-ref-palette-primary30: #004881;
+  --home-ref-palette-primary40: #0060a9;
+  --home-ref-palette-primary50: #0079d2;
+  --home-ref-palette-primary60: #3c93ed;
+  --home-ref-palette-primary70: #67adff;
+  --home-ref-palette-primary80: #9ac8ff;
+  --home-ref-palette-primary90: #cfe4ff;
+  --home-ref-palette-primary95: #e8f2ff;
+  --home-ref-palette-primary99: #fcfcff;
+  --home-ref-palette-primary100: #ffffff;
+
+  --home-ref-palette-secondary0: #000000;
+  --home-ref-palette-secondary10: #0b1d2b;
+  --home-ref-palette-secondary20: #203240;
+  --home-ref-palette-secondary30: #374957;
+  --home-ref-palette-secondary40: #4e606f;
+  --home-ref-palette-secondary50: #667888;
+  --home-ref-palette-secondary60: #8092a2;
+  --home-ref-palette-secondary70: #9bacbd;
+  --home-ref-palette-secondary80: #b6c8d8;
+  --home-ref-palette-secondary90: #d2e4f4;
+  --home-ref-palette-secondary95: #e8f2ff;
+  --home-ref-palette-secondary99: #fcfcff;
+  --home-ref-palette-secondary100: #ffffff;
+
+  --home-ref-palette-tertiary0: #000000;
+  --home-ref-palette-tertiary10: #001f26;
+  --home-ref-palette-tertiary20: #00363f;
+  --home-ref-palette-tertiary30: #004e5a;
+  --home-ref-palette-tertiary40: #006876;
+  --home-ref-palette-tertiary50: #008393;
+  --home-ref-palette-tertiary60: #009fb0;
+  --home-ref-palette-tertiary70: #32bccf;
+  --home-ref-palette-tertiary80: #5ed8eb;
+  --home-ref-palette-tertiary90: #9eeeff;
+  --home-ref-palette-tertiary95: #d4f7ff;
+  --home-ref-palette-tertiary99: #f6feff;
+  --home-ref-palette-tertiary100: #ffffff;
+
+  /* REPOS TAB (Tech/Purple - Purples & Violets) */
+  --repos-ref-palette-primary0: #000000;
+  --repos-ref-palette-primary10: #1f0052;
+  --repos-ref-palette-primary20: #361870;
+  --repos-ref-palette-primary30: #4e2e8b;
+  --repos-ref-palette-primary40: #6745a7;
+  --repos-ref-palette-primary50: #815dc4;
+  --repos-ref-palette-primary60: #9b76e1;
+  --repos-ref-palette-primary70: #b690ff;
+  --repos-ref-palette-primary80: #cfb4ff;
+  --repos-ref-palette-primary90: #e7d9ff;
+  --repos-ref-palette-primary95: #f5edff;
+  --repos-ref-palette-primary99: #fffbff;
+  --repos-ref-palette-primary100: #ffffff;
+
+  --repos-ref-palette-secondary0: #000000;
+  --repos-ref-palette-secondary10: #1d192b;
+  --repos-ref-palette-secondary20: #322d41;
+  --repos-ref-palette-secondary30: #494458;
+  --repos-ref-palette-secondary40: #605b70;
+  --repos-ref-palette-secondary50: #797389;
+  --repos-ref-palette-secondary60: #938ca3;
+  --repos-ref-palette-secondary70: #ada7be;
+  --repos-ref-palette-secondary80: #c9c2d9;
+  --repos-ref-palette-secondary90: #e5def5;
+  --repos-ref-palette-secondary95: #f5edff;
+  --repos-ref-palette-secondary99: #fffbff;
+  --repos-ref-palette-secondary100: #ffffff;
+
+  --repos-ref-palette-tertiary0: #000000;
+  --repos-ref-palette-tertiary10: #31001d;
+  --repos-ref-palette-tertiary20: #4e1433;
+  --repos-ref-palette-tertiary30: #692a4a;
+  --repos-ref-palette-tertiary40: #854062;
+  --repos-ref-palette-tertiary50: #a2577b;
+  --repos-ref-palette-tertiary60: #c06f95;
+  --repos-ref-palette-tertiary70: #de89b0;
+  --repos-ref-palette-tertiary80: #fda4cb;
+  --repos-ref-palette-tertiary90: #ffd8e7;
+  --repos-ref-palette-tertiary95: #ffecf3;
+  --repos-ref-palette-tertiary99: #fffbff;
+  --repos-ref-palette-tertiary100: #ffffff;
+
+  /* BLOG TAB (Knowledge - Oranges & Ambers) */
+  --blog-ref-palette-primary0: #000000;
+  --blog-ref-palette-primary10: #331100;
+  --blog-ref-palette-primary20: #521e00;
+  --blog-ref-palette-primary30: #732d00;
+  --blog-ref-palette-primary40: #953e00;
+  --blog-ref-palette-primary50: #b95000;
+  --blog-ref-palette-primary60: #dd6400;
+  --blog-ref-palette-primary70: #ff8936;
+  --blog-ref-palette-primary80: #ffb599;
+  --blog-ref-palette-primary90: #ffdcc9;
+  --blog-ref-palette-primary95: #ffede5;
+  --blog-ref-palette-primary99: #fffbff;
+  --blog-ref-palette-primary100: #ffffff;
+
+  --blog-ref-palette-secondary0: #000000;
+  --blog-ref-palette-secondary10: #271a0b;
+  --blog-ref-palette-secondary20: #3d2f1f;
+  --blog-ref-palette-secondary30: #554534;
+  --blog-ref-palette-secondary40: #6e5c4b;
+  --blog-ref-palette-secondary50: #877463;
+  --blog-ref-palette-secondary60: #a18e7c;
+  --blog-ref-palette-secondary70: #bca896;
+  --blog-ref-palette-secondary80: #d8c3b0;
+  --blog-ref-palette-secondary90: #f4dfcc;
+  --blog-ref-palette-secondary95: #ffede5;
+  --blog-ref-palette-secondary99: #fffbff;
+  --blog-ref-palette-secondary100: #ffffff;
+
+  --blog-ref-palette-tertiary0: #000000;
+  --blog-ref-palette-tertiary10: #261a00;
+  --blog-ref-palette-tertiary20: #3f2e00;
+  --blog-ref-palette-tertiary30: #5a4300;
+  --blog-ref-palette-tertiary40: #765900;
+  --blog-ref-palette-tertiary50: #927014;
+  --blog-ref-palette-tertiary60: #af882e;
+  --blog-ref-palette-tertiary70: #cca147;
+  --blog-ref-palette-tertiary80: #e9bb60;
+  --blog-ref-palette-tertiary90: #ffdea1;
+  --blog-ref-palette-tertiary95: #ffeed0;
+  --blog-ref-palette-tertiary99: #fffbff;
+  --blog-ref-palette-tertiary100: #ffffff;
+
+  /* CONTACT TAB (Communication - Greens & Teals) */
+  --contact-ref-palette-primary0: #000000;
+  --contact-ref-palette-primary10: #002019;
+  --contact-ref-palette-primary20: #00352b;
+  --contact-ref-palette-primary30: #004d3f;
+  --contact-ref-palette-primary40: #006653;
+  --contact-ref-palette-primary50: #008069;
+  --contact-ref-palette-primary60: #009b7f;
+  --contact-ref-palette-primary70: #2ab797;
+  --contact-ref-palette-primary80: #4dd3af;
+  --contact-ref-palette-primary90: #73efc9;
+  --contact-ref-palette-primary95: #b0ffd9;
+  --contact-ref-palette-primary99: #f0fff8;
+  --contact-ref-palette-primary100: #ffffff;
+
+  --contact-ref-palette-secondary0: #000000;
+  --contact-ref-palette-secondary10: #0c1f19;
+  --contact-ref-palette-secondary20: #21342d;
+  --contact-ref-palette-secondary30: #374a42;
+  --contact-ref-palette-secondary40: #4f6259;
+  --contact-ref-palette-secondary50: #677a70;
+  --contact-ref-palette-secondary60: #809389;
+  --contact-ref-palette-secondary70: #9aaea3;
+  --contact-ref-palette-secondary80: #b5c9bd;
+  --contact-ref-palette-secondary90: #d1e5d9;
+  --contact-ref-palette-secondary95: #dff3e7;
+  --contact-ref-palette-secondary99: #f0fff8;
+  --contact-ref-palette-secondary100: #ffffff;
+
+  --contact-ref-palette-tertiary0: #000000;
+  --contact-ref-palette-tertiary10: #001f1b;
+  --contact-ref-palette-tertiary20: #00342e;
+  --contact-ref-palette-tertiary30: #004b43;
+  --contact-ref-palette-tertiary40: #006359;
+  --contact-ref-palette-tertiary50: #007c71;
+  --contact-ref-palette-tertiary60: #1e9689;
+  --contact-ref-palette-tertiary70: #3fb1a2;
+  --contact-ref-palette-tertiary80: #5eccbc;
+  --contact-ref-palette-tertiary90: #7de9d7;
+  --contact-ref-palette-tertiary95: #aefff0;
+  --contact-ref-palette-tertiary99: #f0fff8;
+  --contact-ref-palette-tertiary100: #ffffff;
+
   /* LIGHT */
   --md-sys-color-primary-light: #006684;
   --md-sys-color-on-primary-light: #ffffff;
@@ -326,6 +504,96 @@
   --devto-text: var(--devto-text-light);
 }
 
+/* TAB-SPECIFIC LIGHT THEMES */
+
+[theme="light"][data-tab="home"] {
+  --md-sys-color-primary: var(--home-ref-palette-primary40);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--home-ref-palette-primary90);
+  --md-sys-color-on-primary-container: var(--home-ref-palette-primary10);
+  
+  --md-sys-color-secondary: var(--home-ref-palette-secondary40);
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: var(--home-ref-palette-secondary90);
+  --md-sys-color-on-secondary-container: var(--home-ref-palette-secondary10);
+  
+  --md-sys-color-tertiary: var(--home-ref-palette-tertiary40);
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: var(--home-ref-palette-tertiary90);
+  --md-sys-color-on-tertiary-container: var(--home-ref-palette-tertiary10);
+  
+  --md-sys-color-surface: var(--home-ref-palette-primary95);
+  --md-sys-color-on-surface: var(--home-ref-palette-primary10);
+  --md-sys-color-surface-variant: var(--home-ref-palette-secondary90);
+  --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary30);
+}
+
+[theme="light"][data-tab="repos"] {
+  --md-sys-color-primary: var(--repos-ref-palette-primary40);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--repos-ref-palette-primary90);
+  --md-sys-color-on-primary-container: var(--repos-ref-palette-primary10);
+  
+  --md-sys-color-secondary: var(--repos-ref-palette-secondary40);
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: var(--repos-ref-palette-secondary90);
+  --md-sys-color-on-secondary-container: var(--repos-ref-palette-secondary10);
+  
+  --md-sys-color-tertiary: var(--repos-ref-palette-tertiary40);
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: var(--repos-ref-palette-tertiary90);
+  --md-sys-color-on-tertiary-container: var(--repos-ref-palette-tertiary10);
+  
+  --md-sys-color-surface: var(--repos-ref-palette-primary95);
+  --md-sys-color-on-surface: var(--repos-ref-palette-primary10);
+  --md-sys-color-surface-variant: var(--repos-ref-palette-secondary90);
+  --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary30);
+}
+
+[theme="light"][data-tab="blog"] {
+  --md-sys-color-primary: var(--blog-ref-palette-primary40);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--blog-ref-palette-primary90);
+  --md-sys-color-on-primary-container: var(--blog-ref-palette-primary10);
+  
+  --md-sys-color-secondary: var(--blog-ref-palette-secondary40);
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: var(--blog-ref-palette-secondary90);
+  --md-sys-color-on-secondary-container: var(--blog-ref-palette-secondary10);
+  
+  --md-sys-color-tertiary: var(--blog-ref-palette-tertiary40);
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: var(--blog-ref-palette-tertiary90);
+  --md-sys-color-on-tertiary-container: var(--blog-ref-palette-tertiary10);
+  
+  --md-sys-color-surface: var(--blog-ref-palette-primary95);
+  --md-sys-color-on-surface: var(--blog-ref-palette-primary10);
+  --md-sys-color-surface-variant: var(--blog-ref-palette-secondary90);
+  --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary30);
+}
+
+[theme="light"][data-tab="contact"] {
+  --md-sys-color-primary: var(--contact-ref-palette-primary40);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--contact-ref-palette-primary90);
+  --md-sys-color-on-primary-container: var(--contact-ref-palette-primary10);
+  
+  --md-sys-color-secondary: var(--contact-ref-palette-secondary40);
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: var(--contact-ref-palette-secondary90);
+  --md-sys-color-on-secondary-container: var(--contact-ref-palette-secondary10);
+  
+  --md-sys-color-tertiary: var(--contact-ref-palette-tertiary40);
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: var(--contact-ref-palette-tertiary90);
+  --md-sys-color-on-tertiary-container: var(--contact-ref-palette-tertiary10);
+  
+  --md-sys-color-surface: var(--contact-ref-palette-primary95);
+  --md-sys-color-on-surface: var(--contact-ref-palette-primary10);
+  --md-sys-color-surface-variant: var(--contact-ref-palette-secondary90);
+  --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary30);
+}
+
 /* DARK THEME */
 
 [theme="dark"] {
@@ -423,6 +691,96 @@
   --github-text: var(--github-text-dark);
   --devto-bg: var(--devto-bg-dark);
   --devto-text: var(--devto-text-dark);
+}
+
+/* TAB-SPECIFIC DARK THEMES */
+
+[theme="dark"][data-tab="home"] {
+  --md-sys-color-primary: var(--home-ref-palette-primary80);
+  --md-sys-color-on-primary: var(--home-ref-palette-primary20);
+  --md-sys-color-primary-container: var(--home-ref-palette-primary30);
+  --md-sys-color-on-primary-container: var(--home-ref-palette-primary90);
+  
+  --md-sys-color-secondary: var(--home-ref-palette-secondary80);
+  --md-sys-color-on-secondary: var(--home-ref-palette-secondary20);
+  --md-sys-color-secondary-container: var(--home-ref-palette-secondary30);
+  --md-sys-color-on-secondary-container: var(--home-ref-palette-secondary90);
+  
+  --md-sys-color-tertiary: var(--home-ref-palette-tertiary80);
+  --md-sys-color-on-tertiary: var(--home-ref-palette-tertiary20);
+  --md-sys-color-tertiary-container: var(--home-ref-palette-tertiary30);
+  --md-sys-color-on-tertiary-container: var(--home-ref-palette-tertiary90);
+  
+  --md-sys-color-surface: var(--home-ref-palette-primary10);
+  --md-sys-color-on-surface: var(--home-ref-palette-primary90);
+  --md-sys-color-surface-variant: var(--home-ref-palette-secondary30);
+  --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary80);
+}
+
+[theme="dark"][data-tab="repos"] {
+  --md-sys-color-primary: var(--repos-ref-palette-primary80);
+  --md-sys-color-on-primary: var(--repos-ref-palette-primary20);
+  --md-sys-color-primary-container: var(--repos-ref-palette-primary30);
+  --md-sys-color-on-primary-container: var(--repos-ref-palette-primary90);
+  
+  --md-sys-color-secondary: var(--repos-ref-palette-secondary80);
+  --md-sys-color-on-secondary: var(--repos-ref-palette-secondary20);
+  --md-sys-color-secondary-container: var(--repos-ref-palette-secondary30);
+  --md-sys-color-on-secondary-container: var(--repos-ref-palette-secondary90);
+  
+  --md-sys-color-tertiary: var(--repos-ref-palette-tertiary80);
+  --md-sys-color-on-tertiary: var(--repos-ref-palette-tertiary20);
+  --md-sys-color-tertiary-container: var(--repos-ref-palette-tertiary30);
+  --md-sys-color-on-tertiary-container: var(--repos-ref-palette-tertiary90);
+  
+  --md-sys-color-surface: var(--repos-ref-palette-primary10);
+  --md-sys-color-on-surface: var(--repos-ref-palette-primary90);
+  --md-sys-color-surface-variant: var(--repos-ref-palette-secondary30);
+  --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary80);
+}
+
+[theme="dark"][data-tab="blog"] {
+  --md-sys-color-primary: var(--blog-ref-palette-primary80);
+  --md-sys-color-on-primary: var(--blog-ref-palette-primary20);
+  --md-sys-color-primary-container: var(--blog-ref-palette-primary30);
+  --md-sys-color-on-primary-container: var(--blog-ref-palette-primary90);
+  
+  --md-sys-color-secondary: var(--blog-ref-palette-secondary80);
+  --md-sys-color-on-secondary: var(--blog-ref-palette-secondary20);
+  --md-sys-color-secondary-container: var(--blog-ref-palette-secondary30);
+  --md-sys-color-on-secondary-container: var(--blog-ref-palette-secondary90);
+  
+  --md-sys-color-tertiary: var(--blog-ref-palette-tertiary80);
+  --md-sys-color-on-tertiary: var(--blog-ref-palette-tertiary20);
+  --md-sys-color-tertiary-container: var(--blog-ref-palette-tertiary30);
+  --md-sys-color-on-tertiary-container: var(--blog-ref-palette-tertiary90);
+  
+  --md-sys-color-surface: var(--blog-ref-palette-primary10);
+  --md-sys-color-on-surface: var(--blog-ref-palette-primary90);
+  --md-sys-color-surface-variant: var(--blog-ref-palette-secondary30);
+  --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary80);
+}
+
+[theme="dark"][data-tab="contact"] {
+  --md-sys-color-primary: var(--contact-ref-palette-primary80);
+  --md-sys-color-on-primary: var(--contact-ref-palette-primary20);
+  --md-sys-color-primary-container: var(--contact-ref-palette-primary30);
+  --md-sys-color-on-primary-container: var(--contact-ref-palette-primary90);
+  
+  --md-sys-color-secondary: var(--contact-ref-palette-secondary80);
+  --md-sys-color-on-secondary: var(--contact-ref-palette-secondary20);
+  --md-sys-color-secondary-container: var(--contact-ref-palette-secondary30);
+  --md-sys-color-on-secondary-container: var(--contact-ref-palette-secondary90);
+  
+  --md-sys-color-tertiary: var(--contact-ref-palette-tertiary80);
+  --md-sys-color-on-tertiary: var(--contact-ref-palette-tertiary20);
+  --md-sys-color-tertiary-container: var(--contact-ref-palette-tertiary30);
+  --md-sys-color-on-tertiary-container: var(--contact-ref-palette-tertiary90);
+  
+  --md-sys-color-surface: var(--contact-ref-palette-primary10);
+  --md-sys-color-on-surface: var(--contact-ref-palette-primary90);
+  --md-sys-color-surface-variant: var(--contact-ref-palette-secondary30);
+  --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary80);
 }
 
 /* INVERTED ROUNDED CORNERS MASKS */
