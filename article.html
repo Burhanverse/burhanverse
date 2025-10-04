@@ -98,49 +98,49 @@
 
       <div class="mobile-nav-wrapper">
         <nav class="mobile-nav">
-          <button
+          <a
+            href="/"
             class="clickable mobile-nav-item"
             id="mobile-home-icon"
-            type="button"
           >
             <span id="mobile-home-font-icon" class="material-symbols-rounded"
               >home</span
             >
             <span class="mobile-nav-text">Home</span>
-          </button>
+          </a>
 
-          <button
+          <a
+            href="/?section=repos"
             class="clickable mobile-nav-item"
             id="mobile-repos-icon"
-            type="button"
           >
             <span id="mobile-repos-font-icon" class="material-symbols-rounded"
               >folder_code</span
             >
             <span class="mobile-nav-text">Repositories</span>
-          </button>
+          </a>
 
-          <button
+          <a
+            href="/?section=blog"
             class="clickable mobile-nav-item selected"
             id="mobile-blog-icon"
-            type="button"
           >
             <span id="mobile-blog-font-icon" class="material-symbols-rounded"
               >article</span
             >
             <span class="mobile-nav-text">Blog</span>
-          </button>
+          </a>
 
-          <button
+          <a
+            href="/?section=contact"
             class="clickable mobile-nav-item"
             id="mobile-contact-icon"
-            type="button"
           >
             <span id="mobile-contact-font-icon" class="material-symbols-rounded"
               >mail</span
             >
             <span class="mobile-nav-text">Contact</span>
-          </button>
+          </a>
         </nav>
       </div>
 
@@ -176,129 +176,6 @@
       </div>
     </div>
 
-    <script type="module">
-      import { updateClock } from "./src/features/clock.ts";
-      import { initCustomCursor } from "./src/features/customCursor.ts";
-      import { themeToggle } from "./src/core/theme.ts";
-
-      // Make themeToggle globally available
-      window.themeToggle = themeToggle;
-
-      // Update clock
-      updateClock();
-      setInterval(updateClock, 1000);
-
-      // Initialize custom cursor
-      initCustomCursor();
-
-      // Add click handler for mobile theme button
-      const mobileThemeBtn = document.querySelector('.mobile-change-theme');
-      if (mobileThemeBtn) {
-        mobileThemeBtn.addEventListener('click', themeToggle);
-      }
-
-      // Mobile navigation handlers
-      const mobileNavItems = {
-        'mobile-home-icon': '/',
-        'mobile-repos-icon': '/?section=repos',
-        'mobile-blog-icon': '/?section=blog',
-        'mobile-contact-icon': '/?section=contact'
-      };
-
-      Object.entries(mobileNavItems).forEach(([id, url]) => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (id === 'mobile-home-icon') {
-              localStorage.setItem('page-section', 'home');
-              window.location.href = '/';
-            } else if (id === 'mobile-blog-icon') {
-              // Go back to blog list page
-              localStorage.setItem('page-section', 'blog');
-              window.location.href = '/?section=blog';
-            } else {
-              const section = url.split('=')[1];
-              localStorage.setItem('page-section', section);
-              window.location.href = '/';
-            }
-          });
-        }
-      });
-
-      // Update mobile nav indicator position
-      function updateMobileNavIndicator() {
-        const nav = document.querySelector('.mobile-nav');
-        const selected = document.querySelector('.mobile-nav-item.selected');
-        
-        if (nav && selected) {
-          const navRect = nav.getBoundingClientRect();
-          const selectedRect = selected.getBoundingClientRect();
-          const left = selectedRect.left - navRect.left;
-          const width = selectedRect.width;
-          
-          nav.style.setProperty('--indicator-left', `${left}px`);
-          nav.style.setProperty('--indicator-width', `${width}px`);
-        }
-      }
-
-      // Update desktop nav indicator position
-      function updateDesktopNavIndicator() {
-        const navbarContainer = document.querySelector('.navbar-elements-container');
-        const selectedIcon = document.querySelector('.icon-container.selected');
-        
-        if (navbarContainer && selectedIcon) {
-          const iconClickable = selectedIcon.querySelector('.clickable');
-          if (iconClickable) {
-            const navRect = navbarContainer.getBoundingClientRect();
-            const iconRect = iconClickable.getBoundingClientRect();
-            const top = iconRect.top - navRect.top;
-            
-            navbarContainer.style.setProperty('--indicator-top', `${top}px`);
-          }
-        }
-      }
-
-      // Initialize indicator positions
-      setTimeout(() => {
-        updateMobileNavIndicator();
-        updateDesktopNavIndicator();
-      }, 100);
-
-      // Update on window resize
-      window.addEventListener('resize', () => {
-        updateMobileNavIndicator();
-        updateDesktopNavIndicator();
-      });
-
-      // Handle navigation links with section parameter
-      const navLinks = document.querySelectorAll('a[href^="/?section="]');
-      navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const url = new URL(link.href);
-          const section = url.searchParams.get('section');
-          if (section) {
-            localStorage.setItem('page-section', section);
-            // For blog section, navigate to blog list page
-            if (section === 'blog') {
-              window.location.href = '/?section=blog';
-            } else {
-              window.location.href = '/';
-            }
-          }
-        });
-      });
-
-      // Handle home link
-      const homeLink = document.querySelector('a[href="/"]');
-      if (homeLink && homeLink.getAttribute('href') === '/') {
-        homeLink.addEventListener('click', (e) => {
-          e.preventDefault();
-          localStorage.setItem('page-section', 'home');
-          window.location.href = '/';
-        });
-      }
-    </script>
+    <script type="module" src="./src/article/article.ts"></script>
   </body>
 </html>

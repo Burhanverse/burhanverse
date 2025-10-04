@@ -6,6 +6,9 @@ import { ArticleSection } from "../types";
 import { getArticleBySlug } from "../blog/index";
 import { getBlogPostBySlug } from "../blog/posts";
 import Prism from "prismjs";
+import { updateClock } from "../features/clock";
+import { initCustomCursor } from "../features/customCursor";
+import { themeToggle } from "../core/theme";
 
 // Import Prism languages
 import "prismjs/components/prism-javascript";
@@ -201,6 +204,138 @@ export function initializeArticlePage(): void {
   if (articleSlug) {
     renderArticle(articleSlug);
   }
+  
+  // Initialize page features
+  initializePageFeatures();
+}
+
+/**
+ * Initialize page features (clock, cursor, theme, navigation)
+ */
+function initializePageFeatures(): void {
+  // Make themeToggle globally available
+  (window as any).themeToggle = themeToggle;
+
+  // Update clock
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Initialize custom cursor
+  initCustomCursor();
+
+  // Add click handler for mobile theme button
+  const mobileThemeBtn = document.querySelector('.mobile-change-theme');
+  if (mobileThemeBtn) {
+    mobileThemeBtn.addEventListener('click', themeToggle);
+  }
+
+  // Initialize navigation
+  initializeMobileNavigation();
+  initializeDesktopNavigation();
+  initializeNavIndicators();
+}
+
+/**
+ * Initialize mobile navigation handlers
+ */
+function initializeMobileNavigation(): void {
+  const mobileNavItems = {
+    'mobile-home-icon': 'home',
+    'mobile-repos-icon': 'repos',
+    'mobile-blog-icon': 'blog',
+    'mobile-contact-icon': 'contact'
+  };
+
+  Object.entries(mobileNavItems).forEach(([id, section]) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.addEventListener('click', () => {
+        // Just set localStorage - let the link's href handle navigation
+        localStorage.setItem('page-section', section);
+      });
+    }
+  });
+}
+
+/**
+ * Initialize desktop navigation handlers
+ */
+function initializeDesktopNavigation(): void {
+  // Handle navigation links with section parameter
+  const navLinks = document.querySelectorAll('a[href^="/?section="]');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const url = new URL((link as HTMLAnchorElement).href);
+      const section = url.searchParams.get('section');
+      if (section) {
+        // Just set localStorage - let the link's href handle navigation
+        localStorage.setItem('page-section', section);
+      }
+    });
+  });
+
+  // Handle home link
+  const homeLink = document.querySelector('a[href="/"]');
+  if (homeLink && homeLink.getAttribute('href') === '/') {
+    homeLink.addEventListener('click', () => {
+      // Just set localStorage - let the link's href handle navigation
+      localStorage.setItem('page-section', 'home');
+    });
+  }
+}
+
+/**
+ * Update mobile nav indicator position
+ */
+function updateMobileNavIndicator(): void {
+  const nav = document.querySelector('.mobile-nav');
+  const selected = document.querySelector('.mobile-nav-item.selected');
+  
+  if (nav && selected) {
+    const navRect = nav.getBoundingClientRect();
+    const selectedRect = selected.getBoundingClientRect();
+    const left = selectedRect.left - navRect.left;
+    const width = selectedRect.width;
+    
+    (nav as HTMLElement).style.setProperty('--indicator-left', `${left}px`);
+    (nav as HTMLElement).style.setProperty('--indicator-width', `${width}px`);
+  }
+}
+
+/**
+ * Update desktop nav indicator position
+ */
+function updateDesktopNavIndicator(): void {
+  const navbarContainer = document.querySelector('.navbar-elements-container');
+  const selectedIcon = document.querySelector('.icon-container.selected');
+  
+  if (navbarContainer && selectedIcon) {
+    const iconClickable = selectedIcon.querySelector('.clickable');
+    if (iconClickable) {
+      const navRect = navbarContainer.getBoundingClientRect();
+      const iconRect = iconClickable.getBoundingClientRect();
+      const top = iconRect.top - navRect.top;
+      
+      (navbarContainer as HTMLElement).style.setProperty('--indicator-top', `${top}px`);
+    }
+  }
+}
+
+/**
+ * Initialize navigation indicators
+ */
+function initializeNavIndicators(): void {
+  // Initialize indicator positions
+  setTimeout(() => {
+    updateMobileNavIndicator();
+    updateDesktopNavIndicator();
+  }, 100);
+
+  // Update on window resize
+  window.addEventListener('resize', () => {
+    updateMobileNavIndicator();
+    updateDesktopNavIndicator();
+  });
 }
 
 // Auto-initialize if on article page

@@ -103,6 +103,14 @@
   user-select: none;
   contain: layout style;
   flex-shrink: 0;
+  /* Normalize anchor tag styles to match button */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  vertical-align: middle;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
 }
 
 .mobile-nav-item .material-symbols-rounded {
