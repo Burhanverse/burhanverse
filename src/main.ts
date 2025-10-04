@@ -13,6 +13,9 @@ import "./features/dateDisplay";
 import "./features/dayProgress";
 import "./features/subtitleStyling";
 
+// Import blog posts for image preloading
+import { blogPosts } from "./blog/posts";
+
 // Export functions to window for inline event handlers
 import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
 import {
@@ -52,5 +55,24 @@ window.contactSelected = contactSelected;
 window.closeNavPanel = closeNavPanel;
 window.openNavPanel = openNavPanel;
 window.bodyLoaded = bodyLoaded;
+
+/**
+ * Preload blog post images for smoother loading
+ */
+function preloadBlogImages(): void {
+  blogPosts.forEach(post => {
+    if (post.image) {
+      const img = new Image();
+      img.src = post.image;
+    }
+  });
+}
+
+// Preload images after page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', preloadBlogImages);
+} else {
+  preloadBlogImages();
+}
 
 console.log("🚀 Burhanverse Portfolio - All features initialized");
