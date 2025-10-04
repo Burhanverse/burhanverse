@@ -193,11 +193,9 @@
 /* RESPONSIVE */
 
 @media (max-width: 950px) {
-  /* Padding controlled by mediaQueries.css */
 }
 
 @media (max-width: 640px) {
-  /* Padding controlled by mediaQueries.css */
   .blog-list-wrapper {
     gap: 1.6rem;
   }
