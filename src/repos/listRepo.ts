@@ -10,11 +10,18 @@ async function loadRepositories(): Promise<void> {
   try {
     renderer.showLoading();
 
-    const repos = await githubApi.fetchRepositories();
-    const first9Repos = repos.slice(0, 9);
+    // Fetch 8 repos from both Burhanverse and burhancodes accounts
+    // Total: 16 repos mixed and sorted by update time
+    const repos = await githubApi.fetchAndMergeRepositories(
+      ["Burhanverse", "burhancodes"],
+      { 
+        Burhanverse: 9,
+        burhancodes: 9 
+      }
+    );
 
-    // Render repositories
-    renderer.renderRepos(first9Repos);
+    // Render all repositories (16 total)
+    renderer.renderRepos(repos);
   } catch (error) {
     console.error("Failed to load repositories:", error);
     renderer.showError("Failed to load repositories. Please try again later.");
