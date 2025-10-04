@@ -54,9 +54,9 @@ export class RepoRenderer {
           <p class="repo-desc">${this.escapeHtml(description)}</p>
           <div class="repo-metadata">
             ${language ? `<p class="repo-language">${this.escapeHtml(language)}</p>` : ""}
-            <span class="material-symbols-rounded">&#xe90e;</span>
+            <span class="material-symbols-rounded">star</span>
             <p class="metadata-text">${repo.stargazers_count}</p>
-            <span class="material-symbols-rounded">&#xe903;</span>
+            <span class="material-symbols-rounded">arrow_split</span>
             <p class="metadata-text">${repo.forks_count}</p>
           </div>
         </div>
