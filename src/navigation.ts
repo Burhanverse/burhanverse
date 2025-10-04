@@ -44,8 +44,6 @@ const overlay = document.querySelector<HTMLElement>(".overlay");
 const mobileNav = document.querySelector<HTMLElement>(".mobile-nav");
 const navbarContainer = document.querySelector<HTMLElement>(".navbar-elements-container");
 
-type PageSection = "home" | "repos" | "blog" | "contact";
-
 let isAnimating = false;
 let pendingNavigation: (() => void) | null = null;
 
@@ -328,28 +326,10 @@ export function contactSelected() {
   });
 }
 
-// Initialize page based on localStorage
+// Initialize page - always start at home
 function initializePage() {
-  const sectionOnLoad = localStorage.getItem(
-    "page-section",
-  ) as PageSection | null;
-
-  switch (sectionOnLoad) {
-    case "home":
-      homeSelected();
-      break;
-    case "repos":
-      reposSelected();
-      break;
-    case "blog":
-      blogSelected();
-      break;
-    case "contact":
-      contactSelected();
-      break;
-    default:
-      homeSelected(); // Default to home
-  }
+  // Always navigate to home when visiting the site
+  homeSelected();
 }
 
 // Export navigation functions for global access
