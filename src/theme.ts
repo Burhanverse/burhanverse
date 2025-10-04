@@ -71,14 +71,9 @@ function initializeTheme() {
   let currentTheme = localStorage.getItem("theme") as Theme | null;
 
   if (!currentTheme) {
-    // Detect system preference
-    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      localStorage.setItem("theme", "light_mode");
-      lightTheme();
-    } else {
-      localStorage.setItem("theme", "dark_mode");
-      darkTheme();
-    }
+    // Default to light mode (ignore system preference)
+    localStorage.setItem("theme", "light_mode");
+    lightTheme();
   } else {
     // Apply saved theme
     if (currentTheme === "light_mode") {
