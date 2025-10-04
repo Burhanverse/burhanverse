@@ -526,6 +526,9 @@
   --md-sys-color-on-surface: var(--home-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--home-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary30);
+  
+  --md-sys-clock-hours: var(--home-ref-palette-primary30);
+  --md-sys-clock-minutes: var(--home-ref-palette-primary60);
 }
 
 [theme="light"][data-tab="repos"] {
@@ -548,6 +551,9 @@
   --md-sys-color-on-surface: var(--repos-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--repos-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary30);
+  
+  --md-sys-clock-hours: var(--repos-ref-palette-primary30);
+  --md-sys-clock-minutes: var(--repos-ref-palette-primary60);
 }
 
 [theme="light"][data-tab="blog"] {
@@ -570,6 +576,9 @@
   --md-sys-color-on-surface: var(--blog-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--blog-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary30);
+  
+  --md-sys-clock-hours: var(--blog-ref-palette-primary30);
+  --md-sys-clock-minutes: var(--blog-ref-palette-primary60);
 }
 
 [theme="light"][data-tab="contact"] {
@@ -592,6 +601,9 @@
   --md-sys-color-on-surface: var(--contact-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--contact-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary30);
+  
+  --md-sys-clock-hours: var(--contact-ref-palette-primary30);
+  --md-sys-clock-minutes: var(--contact-ref-palette-primary60);
 }
 
 /* DARK THEME */
@@ -715,6 +727,9 @@
   --md-sys-color-on-surface: var(--home-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--home-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary80);
+  
+  --md-sys-clock-hours: var(--home-ref-palette-primary60);
+  --md-sys-clock-minutes: var(--home-ref-palette-primary30);
 }
 
 [theme="dark"][data-tab="repos"] {
@@ -737,6 +752,9 @@
   --md-sys-color-on-surface: var(--repos-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--repos-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary80);
+  
+  --md-sys-clock-hours: var(--repos-ref-palette-primary60);
+  --md-sys-clock-minutes: var(--repos-ref-palette-primary30);
 }
 
 [theme="dark"][data-tab="blog"] {
@@ -759,6 +777,9 @@
   --md-sys-color-on-surface: var(--blog-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--blog-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary80);
+  
+  --md-sys-clock-hours: var(--blog-ref-palette-primary60);
+  --md-sys-clock-minutes: var(--blog-ref-palette-primary30);
 }
 
 [theme="dark"][data-tab="contact"] {
@@ -781,6 +802,9 @@
   --md-sys-color-on-surface: var(--contact-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--contact-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary80);
+  
+  --md-sys-clock-hours: var(--contact-ref-palette-primary60);
+  --md-sys-clock-minutes: var(--contact-ref-palette-primary30);
 }
 
 /* INVERTED ROUNDED CORNERS MASKS */
