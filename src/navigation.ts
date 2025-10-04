@@ -46,9 +46,16 @@ const navbarContainer = document.querySelector<HTMLElement>(".navbar-elements-co
 
 type PageSection = "home" | "repos" | "blog" | "contact";
 
-// Function to update the sliding indicator for mobile navbar
-function updateSlidingIndicator(selectedItem: HTMLElement) {
+let isAnimating = false;
+let pendingNavigation: (() => void) | null = null;
+
+// Function to update the sliding indicator for mobile navbar (immediate)
+function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   if (!mobileNav || !selectedItem) return;
+  
+  // Force layout recalculation to ensure accurate measurements
+  void mobileNav.offsetHeight;
+  void selectedItem.offsetWidth;
   
   const navRect = mobileNav.getBoundingClientRect();
   const itemRect = selectedItem.getBoundingClientRect();
@@ -56,9 +63,29 @@ function updateSlidingIndicator(selectedItem: HTMLElement) {
   const left = itemRect.left - navRect.left;
   const width = itemRect.width;
   
-  // Update the ::before pseudo-element via CSS custom properties
+  // Update CSS custom properties
   mobileNav.style.setProperty('--indicator-left', `${left}px`);
   mobileNav.style.setProperty('--indicator-width', `${width}px`);
+  
+  // Force immediate style application
+  void mobileNav.offsetHeight;
+}
+
+// Function to update the sliding indicator with smooth tracking during expansion
+function updateSlidingIndicator(selectedItem: HTMLElement) {
+  if (!mobileNav || !selectedItem) return;
+  
+  // Update immediately
+  updateSlidingIndicatorImmediate(selectedItem);
+  
+  // Continue updating during the text expansion animation (300ms)
+  // Use multiple updates to create smooth tracking
+  const updateTimes = [16, 50, 100, 150, 200, 250, 300];
+  updateTimes.forEach(delay => {
+    setTimeout(() => {
+      updateSlidingIndicatorImmediate(selectedItem);
+    }, delay);
+  });
 }
 
 // Function to update the sliding indicator for desktop navbar
@@ -90,14 +117,21 @@ function hideAllPages() {
 }
 
 function resetAllIcons() {
-  homeIcon?.classList.remove("selected");
-  mobileHomeIcon?.classList.remove("selected");
-  reposIcon?.classList.remove("selected");
-  mobileReposIcon?.classList.remove("selected");
-  blogIcon?.classList.remove("selected");
-  mobileBlogIcon?.classList.remove("selected");
-  contactIcon?.classList.remove("selected");
-  mobileContactIcon?.classList.remove("selected");
+  // Remove selected class immediately without transition delay
+  const allIcons = [
+    homeIcon, mobileHomeIcon,
+    reposIcon, mobileReposIcon,
+    blogIcon, mobileBlogIcon,
+    contactIcon, mobileContactIcon
+  ];
+  
+  allIcons.forEach(icon => {
+    if (icon) {
+      icon.classList.remove("selected");
+      // Force style recalculation
+      void icon.offsetHeight;
+    }
+  });
 
   if (homeFontIcon) homeFontIcon.textContent = "home";
   if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
@@ -125,85 +159,173 @@ function openNavPanel() {
 }
 
 export function homeSelected() {
+  if (isAnimating) {
+    pendingNavigation = homeSelected;
+    return;
+  }
+  
+  isAnimating = true;
   hideAllPages();
   resetAllIcons();
-  homeContent?.classList.remove("hidden");
-  homeContent?.classList.add("visible");
-  homeIcon?.classList.add("selected");
-  mobileHomeIcon?.classList.add("selected");
-  if (homeFontIcon) homeFontIcon.textContent = "home";
-  if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
-  localStorage.setItem("page-section", "home");
-  closeNavPanel();
   
-  // Update sliding indicators immediately
-  if (mobileHomeIcon) {
-    requestAnimationFrame(() => updateSlidingIndicator(mobileHomeIcon));
-  }
-  if (homeIcon) {
-    requestAnimationFrame(() => updateDesktopSlidingIndicator(homeIcon));
-  }
+  // Use double requestAnimationFrame to ensure DOM has settled
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      homeContent?.classList.remove("hidden");
+      homeContent?.classList.add("visible");
+      homeIcon?.classList.add("selected");
+      mobileHomeIcon?.classList.add("selected");
+      if (homeFontIcon) homeFontIcon.textContent = "home";
+      if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
+      localStorage.setItem("page-section", "home");
+      closeNavPanel();
+      
+      // Update sliding indicators with forced reflow
+      if (mobileHomeIcon) {
+        updateSlidingIndicator(mobileHomeIcon);
+      }
+      if (homeIcon) {
+        updateDesktopSlidingIndicator(homeIcon);
+      }
+      
+      // Reset animation lock after all transitions complete (300ms)
+      setTimeout(() => {
+        isAnimating = false;
+        if (pendingNavigation) {
+          const next = pendingNavigation;
+          pendingNavigation = null;
+          next();
+        }
+      }, 300);
+    });
+  });
 }
 
 export function reposSelected() {
+  if (isAnimating) {
+    pendingNavigation = reposSelected;
+    return;
+  }
+  
+  isAnimating = true;
   hideAllPages();
   resetAllIcons();
-  reposContent?.classList.remove("hidden");
-  reposContent?.classList.add("visible");
-  reposIcon?.classList.add("selected");
-  mobileReposIcon?.classList.add("selected");
-  localStorage.setItem("page-section", "repos");
-  closeNavPanel();
   
-  // Update sliding indicators immediately
-  if (mobileReposIcon) {
-    requestAnimationFrame(() => updateSlidingIndicator(mobileReposIcon));
-  }
-  if (reposIcon) {
-    requestAnimationFrame(() => updateDesktopSlidingIndicator(reposIcon));
-  }
+  // Use double requestAnimationFrame to ensure DOM has settled
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      reposContent?.classList.remove("hidden");
+      reposContent?.classList.add("visible");
+      reposIcon?.classList.add("selected");
+      mobileReposIcon?.classList.add("selected");
+      localStorage.setItem("page-section", "repos");
+      closeNavPanel();
+      
+      // Update sliding indicators with forced reflow
+      if (mobileReposIcon) {
+        updateSlidingIndicator(mobileReposIcon);
+      }
+      if (reposIcon) {
+        updateDesktopSlidingIndicator(reposIcon);
+      }
+      
+      // Reset animation lock after all transitions complete (300ms)
+      setTimeout(() => {
+        isAnimating = false;
+        if (pendingNavigation) {
+          const next = pendingNavigation;
+          pendingNavigation = null;
+          next();
+        }
+      }, 300);
+    });
+  });
 }
 
 export function blogSelected() {
+  if (isAnimating) {
+    pendingNavigation = blogSelected;
+    return;
+  }
+  
+  isAnimating = true;
   hideAllPages();
   resetAllIcons();
-  blogContent?.classList.remove("hidden");
-  blogContent?.classList.add("visible");
-  blogIcon?.classList.add("selected");
-  mobileBlogIcon?.classList.add("selected");
-  if (blogFontIcon) blogFontIcon.textContent = "article";
-  if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
-  localStorage.setItem("page-section", "blog");
-  closeNavPanel();
   
-  // Update sliding indicators immediately
-  if (mobileBlogIcon) {
-    requestAnimationFrame(() => updateSlidingIndicator(mobileBlogIcon));
-  }
-  if (blogIcon) {
-    requestAnimationFrame(() => updateDesktopSlidingIndicator(blogIcon));
-  }
+  // Use double requestAnimationFrame to ensure DOM has settled
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      blogContent?.classList.remove("hidden");
+      blogContent?.classList.add("visible");
+      blogIcon?.classList.add("selected");
+      mobileBlogIcon?.classList.add("selected");
+      if (blogFontIcon) blogFontIcon.textContent = "article";
+      if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
+      localStorage.setItem("page-section", "blog");
+      closeNavPanel();
+      
+      // Update sliding indicators with forced reflow
+      if (mobileBlogIcon) {
+        updateSlidingIndicator(mobileBlogIcon);
+      }
+      if (blogIcon) {
+        updateDesktopSlidingIndicator(blogIcon);
+      }
+      
+      // Reset animation lock after all transitions complete (300ms)
+      setTimeout(() => {
+        isAnimating = false;
+        if (pendingNavigation) {
+          const next = pendingNavigation;
+          pendingNavigation = null;
+          next();
+        }
+      }, 300);
+    });
+  });
 }
 
 export function contactSelected() {
+  if (isAnimating) {
+    pendingNavigation = contactSelected;
+    return;
+  }
+  
+  isAnimating = true;
   hideAllPages();
   resetAllIcons();
-  contactContent?.classList.remove("hidden");
-  contactContent?.classList.add("visible");
-  contactIcon?.classList.add("selected");
-  mobileContactIcon?.classList.add("selected");
-  if (contactFontIcon) contactFontIcon.textContent = "mail";
-  if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
-  localStorage.setItem("page-section", "contact");
-  closeNavPanel();
   
-  // Update sliding indicators immediately
-  if (mobileContactIcon) {
-    requestAnimationFrame(() => updateSlidingIndicator(mobileContactIcon));
-  }
-  if (contactIcon) {
-    requestAnimationFrame(() => updateDesktopSlidingIndicator(contactIcon));
-  }
+  // Use double requestAnimationFrame to ensure DOM has settled
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      contactContent?.classList.remove("hidden");
+      contactContent?.classList.add("visible");
+      contactIcon?.classList.add("selected");
+      mobileContactIcon?.classList.add("selected");
+      if (contactFontIcon) contactFontIcon.textContent = "mail";
+      if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
+      localStorage.setItem("page-section", "contact");
+      closeNavPanel();
+      
+      // Update sliding indicators with forced reflow
+      if (mobileContactIcon) {
+        updateSlidingIndicator(mobileContactIcon);
+      }
+      if (contactIcon) {
+        updateDesktopSlidingIndicator(contactIcon);
+      }
+      
+      // Reset animation lock after all transitions complete (300ms)
+      setTimeout(() => {
+        isAnimating = false;
+        if (pendingNavigation) {
+          const next = pendingNavigation;
+          pendingNavigation = null;
+          next();
+        }
+      }, 300);
+    });
+  });
 }
 
 // Initialize page based on localStorage
@@ -233,9 +355,36 @@ function initializePage() {
 // Export navigation functions for global access
 export { closeNavPanel, openNavPanel };
 
+// Handle window resize to update indicator positions
+let resizeTimeout: number;
+function handleResize() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = window.setTimeout(() => {
+    // Find currently selected items and update indicators
+    const selectedMobileItem = document.querySelector<HTMLElement>('.mobile-nav-item.selected');
+    const selectedDesktopItem = document.querySelector<HTMLElement>('.navbar-icon-item.selected');
+    
+    if (selectedMobileItem) {
+      updateSlidingIndicator(selectedMobileItem);
+    }
+    if (selectedDesktopItem) {
+      updateDesktopSlidingIndicator(selectedDesktopItem);
+    }
+  }, 100);
+}
+
 // Initialize on DOM ready
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializePage);
+  document.addEventListener("DOMContentLoaded", () => {
+    initializePage();
+    window.addEventListener("resize", handleResize);
+  });
 } else {
   initializePage();
+  window.addEventListener("resize", handleResize);
 }
+
+// Update indicator on orientation change
+window.addEventListener("orientationchange", () => {
+  setTimeout(handleResize, 200);
+});
