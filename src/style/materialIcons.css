@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 100 700;
   font-display: block;
-  src: url("/src/res/font/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf") format("truetype");
+  src: url("/font/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf") format("truetype");
 }
 
 /* Set default styling for material symbols */

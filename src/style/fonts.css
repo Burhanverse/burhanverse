@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/src/res/font/LexendZetta-VariableFont_wght.ttf") format("truetype");
+  src: url("/font/LexendZetta-VariableFont_wght.ttf") format("truetype");
 }
 
 /* Lexend Deca - Variable Font (Local) */
@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/src/res/font/LexendDeca-VariableFont_wght.ttf") format("truetype");
+  src: url("/font/LexendDeca-VariableFont_wght.ttf") format("truetype");
 }
 
 /* JetBrains Mono - Variable Font (Local) */
@@ -22,7 +22,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/src/res/font/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  src: url("/font/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
 }
 
 /* Nunito Sans - Variable Font (Local) */
@@ -31,5 +31,5 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/src/res/font/Nunito-VariableFont_wght.ttf") format("truetype");
+  src: url("/font/Nunito-VariableFont_wght.ttf") format("truetype");
 }
