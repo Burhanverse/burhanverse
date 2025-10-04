@@ -242,13 +242,34 @@
         }
       }
 
-      // Initialize indicator position
+      // Update desktop nav indicator position
+      function updateDesktopNavIndicator() {
+        const navbarContainer = document.querySelector('.navbar-elements-container');
+        const selectedIcon = document.querySelector('.icon-container.selected');
+        
+        if (navbarContainer && selectedIcon) {
+          const iconClickable = selectedIcon.querySelector('.clickable');
+          if (iconClickable) {
+            const navRect = navbarContainer.getBoundingClientRect();
+            const iconRect = iconClickable.getBoundingClientRect();
+            const top = iconRect.top - navRect.top;
+            
+            navbarContainer.style.setProperty('--indicator-top', `${top}px`);
+          }
+        }
+      }
+
+      // Initialize indicator positions
       setTimeout(() => {
         updateMobileNavIndicator();
+        updateDesktopNavIndicator();
       }, 100);
 
       // Update on window resize
-      window.addEventListener('resize', updateMobileNavIndicator);
+      window.addEventListener('resize', () => {
+        updateMobileNavIndicator();
+        updateDesktopNavIndicator();
+      });
 
       // Handle navigation links with section parameter
       const navLinks = document.querySelectorAll('a[href^="/?section="]');
@@ -259,7 +280,12 @@
           const section = url.searchParams.get('section');
           if (section) {
             localStorage.setItem('page-section', section);
-            window.location.href = '/';
+            // For blog section, navigate to blog list page
+            if (section === 'blog') {
+              window.location.href = '/?section=blog';
+            } else {
+              window.location.href = '/';
+            }
           }
         });
       });
