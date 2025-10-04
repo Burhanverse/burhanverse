@@ -34,7 +34,7 @@ a:link {
 body,
 html {
   margin: 0;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .no-scroll {

@@ -4,7 +4,7 @@
   height: 100vh;
   height: 100svh;
   -ms-overflow-style: none;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 0 0 8em;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
