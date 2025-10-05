@@ -31,5 +31,6 @@ pnpm-debug.log*
 *.tmp
 .cache
 
-#Docs
+#Others
 *.md
+*.backup

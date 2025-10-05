@@ -332,7 +332,7 @@ export function articleSelected(articleSlug: string) {
       localStorage.setItem("page-section", "article");
       closeNavPanel();
       
-      import("../article/article").then(module => {
+      import("../blog/article").then(module => {
         module.renderArticle(articleSlug);
       });
       

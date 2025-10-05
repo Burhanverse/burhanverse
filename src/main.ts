@@ -4,7 +4,7 @@ import "./core/theme";
 import "./core/navigation";
 import "./core/bodyLoad";
 import "./blog";
-import "./article/article";
+import "./blog/article";
 
 // Import individual feature modules (initialized by bodyLoad)
 import "./features/customCursor";
