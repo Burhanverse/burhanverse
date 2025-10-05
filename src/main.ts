@@ -23,6 +23,7 @@ import {
   reposSelected,
   blogSelected,
   contactSelected,
+  articleSelected,
   closeNavPanel,
   openNavPanel,
 } from "./core/navigation";
@@ -38,6 +39,7 @@ declare global {
     reposSelected: typeof reposSelected;
     blogSelected: typeof blogSelected;
     contactSelected: typeof contactSelected;
+    articleSelected: typeof articleSelected;
     closeNavPanel: typeof closeNavPanel;
     openNavPanel: typeof openNavPanel;
     bodyLoaded: typeof bodyLoaded;
@@ -52,6 +54,7 @@ window.homeSelected = homeSelected;
 window.reposSelected = reposSelected;
 window.blogSelected = blogSelected;
 window.contactSelected = contactSelected;
+window.articleSelected = articleSelected;
 window.closeNavPanel = closeNavPanel;
 window.openNavPanel = openNavPanel;
 window.bodyLoaded = bodyLoaded;
@@ -74,5 +77,3 @@ if (document.readyState === 'loading') {
 } else {
   preloadBlogImages();
 }
-
-console.log("🚀 Burhanverse Portfolio - All features initialized");

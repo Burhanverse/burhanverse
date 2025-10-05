@@ -6,6 +6,7 @@
 const homeContent = document.querySelector<HTMLElement>("#home-page");
 const reposContent = document.querySelector<HTMLElement>("#repos-page");
 const blogContent = document.querySelector<HTMLElement>("#blog-page");
+const articleContent = document.querySelector<HTMLElement>("#article-page");
 const contactContent = document.querySelector<HTMLElement>("#contact-page");
 
 // Navigation icons
@@ -47,11 +48,9 @@ const navbarContainer = document.querySelector<HTMLElement>(".navbar-elements-co
 let isAnimating = false;
 let pendingNavigation: (() => void) | null = null;
 
-// Function to update the sliding indicator for mobile navbar (immediate)
 function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   if (!mobileNav || !selectedItem) return;
   
-  // Force layout recalculation to ensure accurate measurements
   void mobileNav.offsetHeight;
   void selectedItem.offsetWidth;
   
@@ -61,23 +60,17 @@ function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   const left = itemRect.left - navRect.left;
   const width = itemRect.width;
   
-  // Update CSS custom properties
   mobileNav.style.setProperty('--indicator-left', `${left}px`);
   mobileNav.style.setProperty('--indicator-width', `${width}px`);
   
-  // Force immediate style application
   void mobileNav.offsetHeight;
 }
 
-// Function to update the sliding indicator with smooth tracking during expansion
 function updateSlidingIndicator(selectedItem: HTMLElement) {
   if (!mobileNav || !selectedItem) return;
   
-  // Update immediately
   updateSlidingIndicatorImmediate(selectedItem);
   
-  // Continue updating during the text expansion animation (300ms)
-  // Use multiple updates to create smooth tracking
   const updateTimes = [16, 50, 100, 150, 200, 250, 300];
   updateTimes.forEach(delay => {
     setTimeout(() => {
@@ -86,11 +79,9 @@ function updateSlidingIndicator(selectedItem: HTMLElement) {
   });
 }
 
-// Function to update the sliding indicator for desktop navbar
 function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
   if (!navbarContainer || !selectedItem) return;
   
-  // Get the clickable icon element (not the entire container)
   const iconClickable = selectedItem.querySelector<HTMLElement>('.clickable');
   if (!iconClickable) return;
   
@@ -99,7 +90,6 @@ function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
   
   const top = iconRect.top - navRect.top;
   
-  // Update only the top position - height is fixed at 3.2rem in CSS
   navbarContainer.style.setProperty('--indicator-top', `${top}px`);
 }
 
@@ -110,12 +100,13 @@ function hideAllPages() {
   reposContent?.classList.remove("visible");
   blogContent?.classList.add("hidden");
   blogContent?.classList.remove("visible");
+  articleContent?.classList.add("hidden");
+  articleContent?.classList.remove("visible");
   contactContent?.classList.add("hidden");
   contactContent?.classList.remove("visible");
 }
 
 function resetAllIcons() {
-  // Remove selected class immediately without transition delay
   const allIcons = [
     homeIcon, mobileHomeIcon,
     reposIcon, mobileReposIcon,
@@ -126,7 +117,6 @@ function resetAllIcons() {
   allIcons.forEach(icon => {
     if (icon) {
       icon.classList.remove("selected");
-      // Force style recalculation
       void icon.offsetHeight;
     }
   });
@@ -166,10 +156,8 @@ export function homeSelected() {
   hideAllPages();
   resetAllIcons();
   
-  // Set data-tab attribute for theme switching
   document.documentElement.setAttribute('data-tab', 'home');
   
-  // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       homeContent?.classList.remove("hidden");
@@ -179,7 +167,6 @@ export function homeSelected() {
       localStorage.setItem("page-section", "home");
       closeNavPanel();
       
-      // Update sliding indicators with forced reflow
       if (mobileHomeIcon) {
         updateSlidingIndicator(mobileHomeIcon);
       }
@@ -187,7 +174,6 @@ export function homeSelected() {
         updateDesktopSlidingIndicator(homeIcon);
       }
       
-      // Reset animation lock after all transitions complete (300ms)
       setTimeout(() => {
         isAnimating = false;
         if (pendingNavigation) {
@@ -210,10 +196,8 @@ export function reposSelected() {
   hideAllPages();
   resetAllIcons();
   
-  // Set data-tab attribute for theme switching
   document.documentElement.setAttribute('data-tab', 'repos');
   
-  // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       reposContent?.classList.remove("hidden");
@@ -223,7 +207,6 @@ export function reposSelected() {
       localStorage.setItem("page-section", "repos");
       closeNavPanel();
       
-      // Update sliding indicators with forced reflow
       if (mobileReposIcon) {
         updateSlidingIndicator(mobileReposIcon);
       }
@@ -231,7 +214,6 @@ export function reposSelected() {
         updateDesktopSlidingIndicator(reposIcon);
       }
       
-      // Reset animation lock after all transitions complete (300ms)
       setTimeout(() => {
         isAnimating = false;
         if (pendingNavigation) {
@@ -254,10 +236,8 @@ export function blogSelected() {
   hideAllPages();
   resetAllIcons();
   
-  // Set data-tab attribute for theme switching
   document.documentElement.setAttribute('data-tab', 'blog');
   
-  // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       blogContent?.classList.remove("hidden");
@@ -269,7 +249,6 @@ export function blogSelected() {
       localStorage.setItem("page-section", "blog");
       closeNavPanel();
       
-      // Update sliding indicators with forced reflow
       if (mobileBlogIcon) {
         updateSlidingIndicator(mobileBlogIcon);
       }
@@ -277,7 +256,6 @@ export function blogSelected() {
         updateDesktopSlidingIndicator(blogIcon);
       }
       
-      // Reset animation lock after all transitions complete (300ms)
       setTimeout(() => {
         isAnimating = false;
         if (pendingNavigation) {
@@ -300,10 +278,8 @@ export function contactSelected() {
   hideAllPages();
   resetAllIcons();
   
-  // Set data-tab attribute for theme switching
   document.documentElement.setAttribute('data-tab', 'contact');
   
-  // Use double requestAnimationFrame to ensure DOM has settled
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       contactContent?.classList.remove("hidden");
@@ -314,8 +290,6 @@ export function contactSelected() {
       if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
       localStorage.setItem("page-section", "contact");
       closeNavPanel();
-      
-      // Update sliding indicators with forced reflow
       if (mobileContactIcon) {
         updateSlidingIndicator(mobileContactIcon);
       }
@@ -323,7 +297,6 @@ export function contactSelected() {
         updateDesktopSlidingIndicator(contactIcon);
       }
       
-      // Reset animation lock after all transitions complete (300ms)
       setTimeout(() => {
         isAnimating = false;
         if (pendingNavigation) {
@@ -336,13 +309,63 @@ export function contactSelected() {
   });
 }
 
-// Initialize page - check URL params or default to home
+export function articleSelected(articleSlug: string) {
+  if (isAnimating) {
+    pendingNavigation = () => articleSelected(articleSlug);
+    return;
+  }
+  
+  isAnimating = true;
+  hideAllPages();
+  resetAllIcons();
+  
+  document.documentElement.setAttribute('data-tab', 'blog');
+  
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      articleContent?.classList.remove("hidden");
+      articleContent?.classList.add("visible");
+      blogIcon?.classList.add("selected");
+      mobileBlogIcon?.classList.add("selected");
+      if (blogFontIcon) blogFontIcon.textContent = "article";
+      if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
+      localStorage.setItem("page-section", "article");
+      closeNavPanel();
+      
+      import("../article/article").then(module => {
+        module.renderArticle(articleSlug);
+      });
+      
+      if (mobileBlogIcon) {
+        updateSlidingIndicator(mobileBlogIcon);
+      }
+      if (blogIcon) {
+        updateDesktopSlidingIndicator(blogIcon);
+      }
+      
+      setTimeout(() => {
+        isAnimating = false;
+        if (pendingNavigation) {
+          const next = pendingNavigation;
+          pendingNavigation = null;
+          next();
+        }
+      }, 300);
+    });
+  });
+}
+
+// Initialize page
 function initializePage() {
-  // Check if there's a section parameter in the URL
   const urlParams = new URLSearchParams(window.location.search);
   const section = urlParams.get("section");
+  const article = urlParams.get("article");
   
-  // Navigate based on URL parameter, otherwise default to home
+  if (article) {
+    articleSelected(article);
+    return;
+  }
+  
   switch (section) {
     case "repos":
       reposSelected();
@@ -359,21 +382,17 @@ function initializePage() {
       break;
   }
   
-  // Clean up URL parameter after navigation
   if (section) {
     window.history.replaceState({}, "", "/");
   }
 }
 
-// Export navigation functions for global access
 export { closeNavPanel, openNavPanel };
 
-// Handle window resize to update indicator positions
 let resizeTimeout: number;
 function handleResize() {
   clearTimeout(resizeTimeout);
   resizeTimeout = window.setTimeout(() => {
-    // Find currently selected items and update indicators
     const selectedMobileItem = document.querySelector<HTMLElement>('.mobile-nav-item.selected');
     const selectedDesktopItem = document.querySelector<HTMLElement>('.navbar-icon-item.selected');
     
@@ -397,7 +416,10 @@ if (document.readyState === "loading") {
   window.addEventListener("resize", handleResize);
 }
 
-// Update indicator on orientation change
 window.addEventListener("orientationchange", () => {
   setTimeout(handleResize, 200);
+});
+
+window.addEventListener("popstate", () => {
+  initializePage();
 });
