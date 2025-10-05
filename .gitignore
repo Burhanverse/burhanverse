@@ -32,5 +32,6 @@ pnpm-debug.log*
 .cache
 
 #Others
-*.md
+/*.md
+!/README.md
 *.backup
