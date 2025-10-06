@@ -2,14 +2,6 @@
  * Centralized event handlers - replaces all inline event handlers from HTML
  */
 
-import {
-  homeSelected,
-  reposSelected,
-  blogSelected,
-  contactSelected,
-  closeNavPanel,
-  openNavPanel,
-} from "./core/navigation";
 import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
 
 /**
@@ -17,28 +9,39 @@ import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
  */
 export function initializeEventHandlers(): void {
   // Desktop navigation icons
-  setupNavigationHandlers(".home-icon", homeSelected);
-  setupNavigationHandlers(".repos-icon", reposSelected);
-  setupNavigationHandlers(".blog-icon", blogSelected);
-  setupNavigationHandlers(".contact-icon", contactSelected);
+  setupNavigationHandlers(".home-icon", () => loadNavigationModule("homeSelected"));
+  setupNavigationHandlers(".repos-icon", () => loadNavigationModule("reposSelected"));
+  setupNavigationHandlers(".blog-icon", () => loadNavigationModule("blogSelected"));
+  setupNavigationHandlers(".contact-icon", () => loadNavigationModule("contactSelected"));
 
   // Mobile navigation icons
-  setupNavigationHandlers("#mobile-home-icon", homeSelected);
-  setupNavigationHandlers("#mobile-repos-icon", reposSelected);
-  setupNavigationHandlers("#mobile-blog-icon", blogSelected);
-  setupNavigationHandlers("#mobile-contact-icon", contactSelected);
+  setupNavigationHandlers("#mobile-home-icon", () => loadNavigationModule("homeSelected"));
+  setupNavigationHandlers("#mobile-repos-icon", () => loadNavigationModule("reposSelected"));
+  setupNavigationHandlers("#mobile-blog-icon", () => loadNavigationModule("blogSelected"));
+  setupNavigationHandlers("#mobile-contact-icon", () => loadNavigationModule("contactSelected"));
 
   // Mobile header home button
-  setupNavigationHandlers(".header-wrapper", homeSelected);
+  setupNavigationHandlers(".header-wrapper", () => loadNavigationModule("homeSelected"));
 
   // Theme toggle buttons (desktop and mobile)
   setupThemeToggleHandlers(".change-theme");
   setupThemeToggleHandlers(".mobile-change-theme");
 
   // Mobile menu controls
-  setupClickHandler(".hamburger-menu-wrapper", openNavPanel);
-  setupClickHandler(".close-menu-button", closeNavPanel);
-  setupClickHandler(".overlay", closeNavPanel);
+  setupClickHandler(".hamburger-menu-wrapper", () => loadNavigationModule("openNavPanel"));
+  setupClickHandler(".close-menu-button", () => loadNavigationModule("closeNavPanel"));
+  setupClickHandler(".overlay", () => loadNavigationModule("closeNavPanel"));
+}
+
+/**
+ * Dynamically load navigation module and call the specified function
+ */
+async function loadNavigationModule(functionName: string): Promise<void> {
+  const module = await import("./core/navigation");
+  const fn = (module as any)[functionName];
+  if (typeof fn === "function") {
+    fn();
+  }
 }
 
 /**

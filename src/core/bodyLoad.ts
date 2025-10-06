@@ -8,7 +8,7 @@ import { initDate } from "../features/dateDisplay";
 import { initDayProgress } from "../features/dayProgress";
 import { initSubtitleStyling } from "../features/subtitleStyling";
 import { initializeEventHandlers } from "../eventHandlers";
-import { initializeStatsCards } from "../repos/statsCards";
+import { initializeStatsCards } from "../features/statsCards";
 
 export function bodyLoaded() {
   const body = document.querySelector<HTMLElement>("body");

@@ -361,30 +361,14 @@ function initializePage() {
   const section = urlParams.get("section");
   const article = urlParams.get("article");
   
-  if (article) {
-    articleSelected(article);
-    return;
-  }
-  
-  switch (section) {
-    case "repos":
-      reposSelected();
-      break;
-    case "blog":
-      blogSelected();
-      break;
-    case "contact":
-      contactSelected();
-      break;
-    case "home":
-    default:
-      homeSelected();
-      break;
-  }
-  
-  if (section) {
+  // Always go to home page on page load/refresh
+  // Clear any URL params that might be in the URL
+  if (article || section) {
     window.history.replaceState({}, "", "/");
   }
+  
+  // Always start at home
+  homeSelected();
 }
 
 export { closeNavPanel, openNavPanel };

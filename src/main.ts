@@ -1,10 +1,8 @@
 // Import all modules (auto-execute initialization)
 import "./repos/listRepo";
 import "./core/theme";
-import "./core/navigation";
 import "./core/bodyLoad";
 import "./blog";
-import "./blog/article";
 
 // Import individual feature modules (initialized by bodyLoad)
 import "./features/customCursor";
@@ -18,16 +16,15 @@ import { blogPosts } from "./blog/posts";
 
 // Export functions to window for inline event handlers
 import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
-import {
-  homeSelected,
-  reposSelected,
-  blogSelected,
-  contactSelected,
-  articleSelected,
-  closeNavPanel,
-  openNavPanel,
-} from "./core/navigation";
 import { bodyLoaded } from "./core/bodyLoad";
+
+/**
+ * Lazy load navigation functions
+ */
+async function loadNavigationFunctions() {
+  const nav = await import("./core/navigation");
+  return nav;
+}
 
 // Make functions globally available for HTML inline handlers
 declare global {
@@ -35,29 +32,33 @@ declare global {
     themeToggle: typeof themeToggle;
     themeToggleHover: typeof themeToggleHover;
     themeToggleLeave: typeof themeToggleLeave;
-    homeSelected: typeof homeSelected;
-    reposSelected: typeof reposSelected;
-    blogSelected: typeof blogSelected;
-    contactSelected: typeof contactSelected;
-    articleSelected: typeof articleSelected;
-    closeNavPanel: typeof closeNavPanel;
-    openNavPanel: typeof openNavPanel;
+    homeSelected: () => void;
+    reposSelected: () => void;
+    blogSelected: () => void;
+    contactSelected: () => void;
+    articleSelected: (slug: string) => void;
+    closeNavPanel: () => void;
+    openNavPanel: () => void;
     bodyLoaded: typeof bodyLoaded;
   }
 }
 
-// Attach to window object
+// Attach theme functions to window
 window.themeToggle = themeToggle;
 window.themeToggleHover = themeToggleHover;
 window.themeToggleLeave = themeToggleLeave;
-window.homeSelected = homeSelected;
-window.reposSelected = reposSelected;
-window.blogSelected = blogSelected;
-window.contactSelected = contactSelected;
-window.articleSelected = articleSelected;
-window.closeNavPanel = closeNavPanel;
-window.openNavPanel = openNavPanel;
 window.bodyLoaded = bodyLoaded;
+
+// Attach navigation functions lazily
+loadNavigationFunctions().then((nav) => {
+  window.homeSelected = nav.homeSelected;
+  window.reposSelected = nav.reposSelected;
+  window.blogSelected = nav.blogSelected;
+  window.contactSelected = nav.contactSelected;
+  window.articleSelected = nav.articleSelected;
+  window.closeNavPanel = nav.closeNavPanel;
+  window.openNavPanel = nav.openNavPanel;
+});
 
 /**
  * Preload blog post images for smoother loading

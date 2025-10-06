@@ -1,10 +1,13 @@
-/* STATS CARDS STYLES */
+/* STATS CARDS LAYOUT */
 
 .stats-cards-wrapper {
   width: 100%;
   max-width: 120rem;
   margin-top: 7.5rem;
   padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
 
 .stats-cards-title {
@@ -12,23 +15,25 @@
   font-size: 3.2rem;
   font-weight: 600;
   color: var(--md-sys-color-on-background);
-  margin: 0 0 3rem 0;
+  margin: 0;
   text-align: center;
+  letter-spacing: -0.05rem;
 }
 
 .stats-cards-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2.4rem;
   width: 100%;
-  margin: 0;
 }
 
-/* STAT CARD BASE */
+/* CARD BASE */
 
 .stat-card {
   background-color: var(--md-sys-color-surface-variant);
   border-radius: var(--border-radius-xl);
+  display: flex;
+  flex-direction: column;
   transition:
     transform 200ms cubic-bezier(0.42, 0, 0.58, 1),
     box-shadow 200ms cubic-bezier(0.42, 0, 0.58, 1),
@@ -53,14 +58,6 @@
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
-.stat-card-content {
-  margin: 0 2rem 2rem 2rem;
-  min-height: 12rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .stat-card-icon {
   width: 2.4rem;
   height: 2.4rem;
@@ -75,30 +72,38 @@
   margin: 0;
 }
 
-/* GITHUB STATS CARD */
-
-.github-stat-card {
-  grid-column: span 1;
-  background-color: var(--md-sys-color-surface-container-low);
+.stat-card-content {
+  margin: 0 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 12rem;
 }
 
-@media (pointer: fine) {
-  .github-stat-card:hover {
-    background-color: var(--md-sys-color-surface-container);
-  }
+.stat-card-content[data-state="loading"],
+.stat-card-content[data-state="error"],
+.stat-card-content[data-state="setup"] {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.github-stat-card .stat-card-icon {
-  fill: var(--md-sys-color-primary);
+.stat-loading,
+.stat-error {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 0;
 }
 
-.github-stat-card .stat-card-content {
-  min-height: auto;
-  align-items: flex-start;
+.stat-error {
+  color: var(--md-sys-color-error);
 }
+
+/* GITHUB CARD */
 
 .github-stats-wrapper {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
@@ -106,7 +111,7 @@
 
 .stat-grid-primary {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
 }
 
@@ -120,9 +125,11 @@
     background-color 200ms ease;
 }
 
-.stat-item-large:hover {
-  transform: scale(1.05);
-  background-color: var(--md-sys-color-secondary-container);
+@media (pointer: fine) {
+  .stat-item-large:hover {
+    transform: scale(1.05);
+    background-color: var(--md-sys-color-secondary-container);
+  }
 }
 
 .stat-value-large {
@@ -133,10 +140,6 @@
   margin-bottom: 0.8rem;
   line-height: 1;
   transition: color 200ms ease;
-}
-
-.stat-item-large:hover .stat-value-large {
-  color: var(--md-sys-color-on-secondary-container);
 }
 
 .stat-label {
@@ -153,23 +156,26 @@
   transition: color 200ms ease;
 }
 
-.stat-item-large:hover .stat-label {
-  color: var(--md-sys-color-on-secondary-container);
-}
-
 .stat-label .material-symbols-rounded {
   font-size: 1.8rem;
   color: var(--md-sys-color-on-surface-variant);
   transition: color 200ms ease;
 }
 
-.stat-item-large:hover .stat-label .material-symbols-rounded {
-  color: var(--md-sys-color-on-secondary-container);
+@media (pointer: fine) {
+  .stat-item-large:hover .stat-value-large {
+    color: var(--md-sys-color-on-secondary-container);
+  }
+
+  .stat-item-large:hover .stat-label,
+  .stat-item-large:hover .stat-label .material-symbols-rounded {
+    color: var(--md-sys-color-on-secondary-container);
+  }
 }
 
 .stat-grid-secondary {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.2rem;
 }
 
@@ -185,20 +191,11 @@
     transform 150ms ease;
 }
 
-.stat-item-small:hover {
-  background-color: var(--md-sys-color-secondary-container);
-  transform: translateX(0.2rem);
-}
-
 .stat-icon {
   font-size: 2.4rem;
   line-height: 1;
   color: var(--md-sys-color-on-surface);
   transition: color 200ms ease;
-}
-
-.stat-item-small:hover .stat-icon {
-  color: var(--md-sys-color-on-secondary-container);
 }
 
 .stat-value-small {
@@ -208,10 +205,6 @@
   color: var(--md-sys-color-on-surface);
   line-height: 1;
   transition: color 200ms ease;
-}
-
-.stat-item-small:hover .stat-value-small {
-  color: var(--md-sys-color-on-secondary-container);
 }
 
 .stat-sublabel {
@@ -225,14 +218,28 @@
   transition: color 200ms ease;
 }
 
-.stat-item-small:hover .stat-sublabel {
-  color: var(--md-sys-color-on-secondary-container);
+@media (pointer: fine) {
+  .stat-item-small:hover {
+    background-color: var(--md-sys-color-secondary-container);
+    transform: translateX(0.2rem);
+  }
+
+  .stat-item-small:hover .stat-icon,
+  .stat-item-small:hover .stat-value-small,
+  .stat-item-small:hover .stat-sublabel {
+    color: var(--md-sys-color-on-secondary-container);
+  }
 }
+
+/* LANGUAGE STATS */
 
 .language-stats {
   background-color: var(--md-sys-color-tertiary-container);
   border-radius: var(--border-radius-m);
   padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .language-stats-header {
@@ -243,7 +250,6 @@
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--md-sys-color-on-tertiary-container);
-  margin-bottom: 1.2rem;
 }
 
 .language-stats-header .material-symbols-rounded {
@@ -257,7 +263,7 @@
   height: 0.8rem;
   border-radius: 0.4rem;
   overflow: hidden;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.4rem;
   background-color: var(--md-sys-color-surface-variant);
 }
 
@@ -266,18 +272,23 @@
   transition: width 300ms ease;
 }
 
-.language-bar:first-child {
-  border-radius: 0.4rem 0 0 0.4rem;
-}
-
-.language-bar:last-child {
-  border-radius: 0 0.4rem 0.4rem 0;
+.language-bar--empty {
+  opacity: 0.4;
 }
 
 .language-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.8rem;
+}
+
+.language-empty-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.2rem;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 0.4rem 0;
 }
 
 .language-item {
@@ -286,6 +297,7 @@
   gap: 0.6rem;
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.2rem;
+  color: var(--md-sys-color-on-tertiary-container);
 }
 
 .language-dot {
@@ -296,75 +308,22 @@
 }
 
 .language-name {
-  color: var(--md-sys-color-on-tertiary-container);
   font-weight: 500;
 }
 
 .language-percent {
   margin-left: auto;
-  color: var(--md-sys-color-on-tertiary-container);
   font-weight: 600;
   font-family: "JetBrains Mono", monospace;
   opacity: 0.8;
 }
 
-.stat-loading {
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 1.6rem;
-  color: var(--md-sys-color-on-surface-variant);
-  text-align: center;
-}
-
-.stat-error {
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 1.6rem;
-  color: var(--md-sys-color-error);
-  text-align: center;
-}
-
 /* LAST.FM CARD */
-
-.lastfm-card {
-  grid-column: span 1;
-}
-
-.lastfm-card .stat-card-icon {
-  fill: #d51007;
-}
-
-.lastfm-card .stat-card-content {
-  min-height: auto;
-}
-
-.lastfm-not-playing,
-.lastfm-setup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  color: var(--md-sys-color-on-surface-variant);
-  padding: 2rem 1rem;
-}
-
-.lastfm-idle-icon {
-  font-size: 3.6rem;
-  color: var(--md-sys-color-on-surface-variant);
-  opacity: 0.6;
-}
-
-.lastfm-not-playing p,
-.lastfm-setup p {
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 1.4rem;
-  margin: 0;
-  text-align: center;
-}
 
 .lastfm-track {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  width: 100%;
 }
 
 .lastfm-album-art {
@@ -394,7 +353,7 @@
 .lastfm-track-info {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.2rem;
 }
 
 .lastfm-live-badge,
@@ -415,6 +374,11 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.lastfm-recent-badge {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -423,11 +387,6 @@
   50% {
     opacity: 0.7;
   }
-}
-
-.lastfm-recent-badge {
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
 }
 
 .lastfm-track-title {
@@ -463,7 +422,6 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 0.4rem;
 }
 
 .lastfm-playcount {
@@ -483,24 +441,46 @@
   color: var(--md-sys-color-on-tertiary-container);
 }
 
-/* RESPONSIVE */
+.lastfm-not-playing,
+.lastfm-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 2rem 1rem;
+}
 
-/* Tablets and smaller desktops */
+.lastfm-idle-icon {
+  font-size: 3.6rem;
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: 0.6;
+}
+
+.lastfm-setup code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.4rem;
+}
+
+/* RESPONSIVE DESIGN */
+
 @media (max-width: 1024px) {
   .stats-cards-grid {
     grid-template-columns: 1fr;
   }
 
-  .github-stat-card,
-  .lastfm-card {
-    grid-column: span 1;
+  .stat-grid-primary,
+  .stat-grid-secondary,
+  .language-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* Make Last.fm card more horizontal on tablet */
   .lastfm-track {
     flex-direction: row;
     align-items: flex-start;
-    gap: 1.6rem;
   }
 
   .lastfm-album-art,
@@ -512,21 +492,17 @@
 
   .lastfm-track-info {
     flex: 1;
-    text-align: left;
     align-items: flex-start;
   }
 }
 
-/* Mobile landscape and small tablets */
 @media (max-width: 768px) {
-  .stats-cards-title {
-    font-size: 2.4rem;
-    margin-bottom: 2rem;
+  .stats-cards-wrapper {
+    gap: 3rem;
   }
 
-  .stats-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
+  .stats-cards-title {
+    font-size: 2.4rem;
   }
 
   .stat-card-header {
@@ -538,39 +514,22 @@
     margin: 0 1.6rem 1.6rem 1.6rem;
   }
 
-  .stat-card-title {
-    font-size: 1.6rem;
-  }
-
-  .stat-card-icon {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  /* GitHub card optimizations */
-  .stat-grid-primary {
-    gap: 1.2rem;
+  .stat-grid-primary,
+  .stat-grid-secondary,
+  .language-list {
+    grid-template-columns: 1fr;
   }
 
   .stat-item-large {
     padding: 1.4rem;
   }
 
-  .stat-value-large {
+  .stat-value_large {
     font-size: 2.8rem;
   }
 
   .stat-label {
     font-size: 1.2rem;
-  }
-
-  .stat-label .material-symbols-rounded {
-    font-size: 1.6rem;
-  }
-
-  .stat-grid-secondary {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
   }
 
   .stat-item-small {
@@ -596,7 +555,6 @@
 
   .language-stats-header {
     font-size: 1.3rem;
-    margin-bottom: 1rem;
   }
 
   .language-stats-header .material-symbols-rounded {
@@ -605,12 +563,6 @@
 
   .language-progress-bar {
     height: 0.6rem;
-    margin-bottom: 1rem;
-  }
-
-  .language-list {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
   }
 
   .language-item {
@@ -622,9 +574,7 @@
     height: 0.8rem;
   }
 
-  /* Last.fm card optimizations */
   .lastfm-track {
-    flex-direction: row;
     gap: 1.2rem;
   }
 
@@ -632,10 +582,6 @@
   .lastfm-no-image {
     width: 8rem;
     height: 8rem;
-  }
-
-  .lastfm-track-info {
-    gap: 0.6rem;
   }
 
   .lastfm-live-badge,
@@ -662,36 +608,18 @@
   }
 }
 
-/* Mobile portrait */
 @media (max-width: 480px) {
   .stats-cards-title {
     font-size: 2rem;
-    margin-bottom: 1.6rem;
   }
 
   .stat-card-header {
-    gap: 0.8rem;
     margin: 1.4rem;
     padding-bottom: 1rem;
   }
 
   .stat-card-content {
     margin: 0 1.4rem 1.4rem 1.4rem;
-  }
-
-  .stat-card-title {
-    font-size: 1.4rem;
-  }
-
-  .stat-card-icon {
-    width: 1.8rem;
-    height: 1.8rem;
-  }
-
-  /* Stack primary stats vertically on small screens */
-  .stat-grid-primary {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
   .stat-item-large {
@@ -706,18 +634,10 @@
     font-size: 1.1rem;
   }
 
-  .stat-label .material-symbols-rounded {
-    font-size: 1.4rem;
-  }
-
-  /* Stack secondary stats in single column */
-  .stat-grid-secondary {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-
   .stat-item-small {
-    padding: 0.8rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
   }
 
   .stat-icon {
@@ -728,22 +648,6 @@
     font-size: 1.5rem;
   }
 
-  .stat-sublabel {
-    font-size: 0.95rem;
-  }
-
-  .language-stats {
-    padding: 1.2rem;
-  }
-
-  .language-stats-header {
-    font-size: 1.2rem;
-  }
-
-  .language-stats-header .material-symbols-rounded {
-    font-size: 1.6rem;
-  }
-
   .language-progress-bar {
     height: 0.5rem;
   }
@@ -752,12 +656,10 @@
     font-size: 1rem;
   }
 
-  /* Last.fm card - stack vertically on smallest screens */
   .lastfm-track {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1rem;
   }
 
   .lastfm-album-art,
@@ -765,65 +667,23 @@
     width: 100%;
     max-width: 20rem;
     height: auto;
-    aspect-ratio: 1;
   }
 
   .lastfm-track-info {
     width: 100%;
     align-items: center;
-    text-align: center;
   }
 
   .lastfm-track-title {
-    font-size: 1.3rem;
     text-align: center;
   }
 
   .lastfm-track-artist {
-    font-size: 1.1rem;
+    text-align: center;
   }
 
   .lastfm-stats-row {
     justify-content: center;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 360px) {
-  .stats-cards-title {
-    font-size: 1.8rem;
-  }
-
-  .stat-card {
-    padding: 1.2rem;
-  }
-
-  .stat-value-large {
-    font-size: 2.2rem;
-  }
-
-  .stat-label {
-    font-size: 1rem;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .stat-item-small {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .stat-icon {
-    align-self: center;
-  }
-
-  .language-list {
-    gap: 0.5rem;
-  }
-
-  .language-item {
-    font-size: 0.95rem;
   }
 }
 
@@ -891,12 +751,4 @@
 [theme="dark"] .lastfm-playcount {
   background-color: var(--md-sys-color-surface-container-high);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-[theme="dark"] .stat-card-header {
-  border-bottom-color: var(--md-sys-color-outline-variant);
-}
-
-[theme="dark"] .stats-cards-title {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }

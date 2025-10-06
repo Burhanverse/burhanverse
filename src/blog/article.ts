@@ -65,12 +65,10 @@ marked.setOptions({ renderer });
 // Load markdown content from file
 async function loadMarkdownContent(slug: string): Promise<string | null> {
   try {
-    const response = await fetch("/src/blog/content/" + slug + ".md");
-    if (!response.ok) {
-      console.error("Failed to load markdown for " + slug);
-      return null;
-    }
-    return await response.text();
+    // Use dynamic import with ?raw to load markdown as string
+    // This works in both dev and production
+    const markdownModule = await import(`./content/${slug}.md?raw`);
+    return markdownModule.default;
   } catch (error) {
     console.error("Error loading markdown content for " + slug + ":", error);
     return null;
