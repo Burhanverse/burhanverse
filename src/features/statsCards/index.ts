@@ -34,13 +34,6 @@ export function initializeStatsCards(): void {
 
   wrapper.replaceChildren();
 
-  const title = document.createElement("h2");
-  title.className = "stats-cards-title";
-  title.textContent = "My Stats";
-
-  const grid = document.createElement("div");
-  grid.className = "stats-cards-grid";
-
   const githubCard = createStatCard({
     title: "GitHub Stats",
     icon: "folder_code",
@@ -55,8 +48,7 @@ export function initializeStatsCards(): void {
     contentId: "lastfm-content",
   });
 
-  grid.append(githubCard.card, lastFmCard.card);
-  wrapper.append(title, grid);
+  wrapper.append(githubCard.card, lastFmCard.card);
 
   renderLoadingState(githubCard.content, "Loading stats...");
   renderLoadingState(lastFmCard.content, "Loading music stats...");
