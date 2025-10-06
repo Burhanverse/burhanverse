@@ -172,7 +172,6 @@ function renderGitHubContent(container: HTMLElement, overview: GitHubOverview): 
       <div class="stat-grid-secondary">
         ${renderSecondaryStat("group", formatNumber(overview.followers), "Followers")}
         ${renderSecondaryStat("call_split", formatNumber(overview.totalForks), "Total Forks")}
-        ${renderSecondaryStat("description", formatNumber(overview.publicGists), "Public Gists")}
         ${renderSecondaryStat(
           "emoji_events",
           overview.contributions > 0 ? formatNumber(overview.contributions) : "N/A",
