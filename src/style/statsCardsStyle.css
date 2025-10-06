@@ -94,13 +94,21 @@
 .stat-grid-primary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2rem;
+  gap: 0.8rem;
 }
+
+.stat-grid-secondary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+/* LARGE STAT ITEMS (Current Streak & Longest Streak) */
 
 .stat-item-large {
   text-align: center;
   padding: 1.2rem;
-  background-color: var(--md-sys-color-primary-container);
+  background-color: var(--md-sys-color-secondary-container);
   border-radius: var(--border-radius-m);
   transition:
     transform 150ms ease,
@@ -109,18 +117,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Differentiate the two primary stat items */
+/* Item 1: Current Streak - Orange/fire gradient */
 .stat-item-large:nth-child(1) {
-  background-color: var(--md-sys-color-primary-container);
+  background-color: var(--md-ref-palette-error60);
 }
 
-.stat-item-large:nth-child(2) {
-  background-color: var(--md-sys-color-tertiary-container);
-}
-
-/* Stronger colors for light mode */
 [theme="light"] .stat-item-large:nth-child(1) {
-  background: linear-gradient(135deg, #4a90e2 0%, #5b9fd8 100%);
+  background: linear-gradient(135deg, var(--blog-ref-palette-primary60) 0%, var(--blog-ref-palette-primary70) 100%);
 }
 
 [theme="light"] .stat-item-large:nth-child(1) .stat-value-large,
@@ -129,50 +132,46 @@
   color: #ffffff;
 }
 
+[theme="dark"] .stat-item-large:nth-child(1) {
+  background: linear-gradient(135deg, var(--md-ref-palette-error50) 0%, var(--md-ref-palette-error60) 100%);
+}
+
 .stat-item-large:nth-child(1) .stat-value-large,
 .stat-item-large:nth-child(1) .stat-label,
 .stat-item-large:nth-child(1) .stat-label .material-symbols-rounded {
-  color: var(--md-sys-color-on-primary-container);
+  color: #ffffff;
+}
+
+/* Item 2: Longest Streak - Purple gradient */
+.stat-item-large:nth-child(2) {
+  background-color: var(--repos-ref-palette-primary60);
+}
+
+[theme="light"] .stat-item-large:nth-child(2) {
+  background: linear-gradient(135deg, var(--repos-ref-palette-primary60) 0%, var(--repos-ref-palette-primary70) 100%);
+}
+
+[theme="light"] .stat-item-large:nth-child(2) .stat-value-large,
+[theme="light"] .stat-item-large:nth-child(2) .stat-label,
+[theme="light"] .stat-item-large:nth-child(2) .stat-label .material-symbols-rounded {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-large:nth-child(2) {
+  background: linear-gradient(135deg, var(--repos-ref-palette-primary50) 0%, var(--repos-ref-palette-primary60) 100%);
 }
 
 .stat-item-large:nth-child(2) .stat-value-large,
 .stat-item-large:nth-child(2) .stat-label,
 .stat-item-large:nth-child(2) .stat-label .material-symbols-rounded {
-  color: var(--md-sys-color-on-tertiary-container);
-}
-
-@media (pointer: fine) {
-  .stat-item-large:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .stat-item-large:nth-child(1):hover {
-    background-color: var(--md-sys-color-tertiary-container);
-  }
-
-  .stat-item-large:nth-child(1):hover .stat-value-large,
-  .stat-item-large:nth-child(1):hover .stat-label,
-  .stat-item-large:nth-child(1):hover .stat-label .material-symbols-rounded {
-    color: var(--md-sys-color-on-tertiary-container);
-  }
-
-  .stat-item-large:nth-child(2):hover {
-    background-color: var(--md-sys-color-primary-container);
-  }
-
-  .stat-item-large:nth-child(2):hover .stat-value-large,
-  .stat-item-large:nth-child(2):hover .stat-label,
-  .stat-item-large:nth-child(2):hover .stat-label .material-symbols-rounded {
-    color: var(--md-sys-color-on-primary-container);
-  }
+  color: #ffffff;
 }
 
 .stat-value-large {
   font-family: "JetBrains Mono", monospace;
   font-size: 2.8rem;
   font-weight: 800;
-  color: var(--md-sys-color-on-primary-container);
+  color: var(--md-sys-color-on-secondary-container);
   margin-bottom: 0.6rem;
   line-height: 1;
   transition: color 200ms ease;
@@ -182,7 +181,7 @@
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--md-sys-color-on-primary-container);
+  color: var(--md-sys-color-on-secondary-container);
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   display: flex;
@@ -195,27 +194,42 @@
 
 .stat-label .material-symbols-rounded {
   font-size: 1.6rem;
-  color: var(--md-sys-color-on-primary-container);
+  color: var(--md-sys-color-on-secondary-container);
   transition: color 200ms ease;
 }
 
 @media (pointer: fine) {
-  .stat-item-large:hover .stat-value-large {
-    color: var(--md-sys-color-on-tertiary-container);
+  .stat-item-large:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
 
-  .stat-item-large:hover .stat-label,
-  .stat-item-large:hover .stat-label .material-symbols-rounded {
-    color: var(--md-sys-color-on-tertiary-container);
+  .stat-item-large:nth-child(1):hover {
     opacity: 0.9;
   }
+
+  [theme="light"] .stat-item-large:nth-child(1):hover {
+    background: linear-gradient(135deg, var(--blog-ref-palette-primary50) 0%, var(--blog-ref-palette-primary60) 100%);
+  }
+
+  [theme="dark"] .stat-item-large:nth-child(1):hover {
+    background: linear-gradient(135deg, var(--md-ref-palette-error60) 0%, var(--md-ref-palette-error70) 100%);
+  }
+
+  .stat-item-large:nth-child(2):hover {
+    opacity: 0.9;
+  }
+
+  [theme="light"] .stat-item-large:nth-child(2):hover {
+    background: linear-gradient(135deg, var(--repos-ref-palette-primary50) 0%, var(--repos-ref-palette-primary60) 100%);
+  }
+
+  [theme="dark"] .stat-item-large:nth-child(2):hover {
+    background: linear-gradient(135deg, var(--repos-ref-palette-primary60) 0%, var(--repos-ref-palette-primary70) 100%);
+  }
 }
 
-.stat-grid-secondary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-}
+/* SMALL STAT ITEMS (Other Stats) */
 
 .stat-item-small {
   display: flex;
@@ -231,22 +245,15 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-/* Alternate colors for visual variety on mobile */
+/* Distinct colors for 5 small stat items */
+
+/* Item 1: Total Stars - Blue gradient */
 .stat-item-small:nth-child(1) {
-  background-color: var(--md-sys-color-secondary-container);
+  background-color: var(--home-ref-palette-primary60);
 }
 
-.stat-item-small:nth-child(2) {
-  background-color: var(--md-sys-color-tertiary-container);
-}
-
-.stat-item-small:nth-child(3) {
-  background-color: var(--md-sys-color-primary-container);
-}
-
-/* Stronger color for Followers in light mode */
 [theme="light"] .stat-item-small:nth-child(1) {
-  background: linear-gradient(135deg, #e85d75 0%, #f06c84 100%);
+  background: linear-gradient(135deg, var(--home-ref-palette-primary60) 0%, var(--home-ref-palette-primary70) 100%);
 }
 
 [theme="light"] .stat-item-small:nth-child(1) .stat-icon,
@@ -255,22 +262,139 @@
   color: #ffffff;
 }
 
+[theme="dark"] .stat-item-small:nth-child(1) {
+  background: linear-gradient(135deg, var(--home-ref-palette-primary50) 0%, var(--home-ref-palette-primary60) 100%);
+}
+
 .stat-item-small:nth-child(1) .stat-icon,
 .stat-item-small:nth-child(1) .stat-value-small,
 .stat-item-small:nth-child(1) .stat-sublabel {
-  color: var(--md-sys-color-on-secondary-container);
+  color: #ffffff;
+}
+
+/* Item 2: Repositories - Teal/Cyan */
+.stat-item-small:nth-child(2) {
+  background-color: var(--home-ref-palette-tertiary60);
+}
+
+[theme="light"] .stat-item-small:nth-child(2) {
+  background: linear-gradient(135deg, var(--home-ref-palette-tertiary60) 0%, var(--home-ref-palette-tertiary70) 100%);
+}
+
+[theme="light"] .stat-item-small:nth-child(2) .stat-icon,
+[theme="light"] .stat-item-small:nth-child(2) .stat-value-small,
+[theme="light"] .stat-item-small:nth-child(2) .stat-sublabel {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-small:nth-child(2) {
+  background: linear-gradient(135deg, var(--home-ref-palette-tertiary50) 0%, var(--home-ref-palette-tertiary60) 100%);
 }
 
 .stat-item-small:nth-child(2) .stat-icon,
 .stat-item-small:nth-child(2) .stat-value-small,
 .stat-item-small:nth-child(2) .stat-sublabel {
-  color: var(--md-sys-color-on-tertiary-container);
+  color: #ffffff;
+}
+
+/* Item 3: Followers - Pink gradient */
+.stat-item-small:nth-child(3) {
+  background-color: var(--repos-ref-palette-tertiary60);
+}
+
+[theme="light"] .stat-item-small:nth-child(3) {
+  background: linear-gradient(135deg, var(--repos-ref-palette-tertiary60) 0%, var(--repos-ref-palette-tertiary70) 100%);
+}
+
+[theme="light"] .stat-item-small:nth-child(3) .stat-icon,
+[theme="light"] .stat-item-small:nth-child(3) .stat-value-small,
+[theme="light"] .stat-item-small:nth-child(3) .stat-sublabel {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-small:nth-child(3) {
+  background: linear-gradient(135deg, var(--repos-ref-palette-tertiary50) 0%, var(--repos-ref-palette-tertiary60) 100%);
 }
 
 .stat-item-small:nth-child(3) .stat-icon,
 .stat-item-small:nth-child(3) .stat-value-small,
 .stat-item-small:nth-child(3) .stat-sublabel {
-  color: var(--md-sys-color-on-primary-container);
+  color: #ffffff;
+}
+
+/* Item 4: Total Forks - Green */
+.stat-item-small:nth-child(4) {
+  background-color: var(--contact-ref-palette-primary60);
+}
+
+[theme="light"] .stat-item-small:nth-child(4) {
+  background: linear-gradient(135deg, var(--contact-ref-palette-primary60) 0%, var(--contact-ref-palette-primary70) 100%);
+}
+
+[theme="light"] .stat-item-small:nth-child(4) .stat-icon,
+[theme="light"] .stat-item-small:nth-child(4) .stat-value-small,
+[theme="light"] .stat-item-small:nth-child(4) .stat-sublabel {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-small:nth-child(4) {
+  background: linear-gradient(135deg, var(--contact-ref-palette-primary50) 0%, var(--contact-ref-palette-primary60) 100%);
+}
+
+.stat-item-small:nth-child(4) .stat-icon,
+.stat-item-small:nth-child(4) .stat-value-small,
+.stat-item-small:nth-child(4) .stat-sublabel {
+  color: #ffffff;
+}
+
+/* Item 5: Contributions - Amber/Gold */
+.stat-item-small:nth-child(5) {
+  background-color: var(--blog-ref-palette-tertiary60);
+}
+
+[theme="light"] .stat-item-small:nth-child(5) {
+  background: linear-gradient(135deg, var(--blog-ref-palette-tertiary60) 0%, var(--blog-ref-palette-tertiary70) 100%);
+}
+
+[theme="light"] .stat-item-small:nth-child(5) .stat-icon,
+[theme="light"] .stat-item-small:nth-child(5) .stat-value-small,
+[theme="light"] .stat-item-small:nth-child(5) .stat-sublabel {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-small:nth-child(5) {
+  background: linear-gradient(135deg, var(--blog-ref-palette-tertiary50) 0%, var(--blog-ref-palette-tertiary60) 100%);
+}
+
+.stat-item-small:nth-child(5) .stat-icon,
+.stat-item-small:nth-child(5) .stat-value-small,
+.stat-item-small:nth-child(5) .stat-sublabel {
+  color: #ffffff;
+}
+
+/* Item 6: Public Gists - Teal */
+.stat-item-small:nth-child(6) {
+  background-color: var(--contact-ref-palette-tertiary60);
+}
+
+[theme="light"] .stat-item-small:nth-child(6) {
+  background: linear-gradient(135deg, var(--contact-ref-palette-tertiary60) 0%, var(--contact-ref-palette-tertiary70) 100%);
+}
+
+[theme="light"] .stat-item-small:nth-child(6) .stat-icon,
+[theme="light"] .stat-item-small:nth-child(6) .stat-value-small,
+[theme="light"] .stat-item-small:nth-child(6) .stat-sublabel {
+  color: #ffffff;
+}
+
+[theme="dark"] .stat-item-small:nth-child(6) {
+  background: linear-gradient(135deg, var(--contact-ref-palette-tertiary50) 0%, var(--contact-ref-palette-tertiary60) 100%);
+}
+
+.stat-item-small:nth-child(6) .stat-icon,
+.stat-item-small:nth-child(6) .stat-value-small,
+.stat-item-small:nth-child(6) .stat-sublabel {
+  color: #ffffff;
 }
 
 .stat-icon {
@@ -301,47 +425,62 @@
 @media (pointer: fine) {
   .stat-item-small:hover {
     transform: translateX(0.2rem);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
   }
 
-  .stat-item-small:nth-child(1):hover {
-    background-color: var(--md-sys-color-tertiary-container);
-  }
-
-  .stat-item-small:nth-child(1):hover .stat-icon,
-  .stat-item-small:nth-child(1):hover .stat-value-small,
-  .stat-item-small:nth-child(1):hover .stat-sublabel {
-    color: var(--md-sys-color-on-tertiary-container);
-  }
-
+  /* Item 1: Total Stars hover */
   [theme="light"] .stat-item-small:nth-child(1):hover {
-    background: linear-gradient(135deg, #d64d66 0%, #e85d75 100%);
+    background: linear-gradient(135deg, var(--home-ref-palette-primary50) 0%, var(--home-ref-palette-primary60) 100%);
   }
 
-  [theme="light"] .stat-item-small:nth-child(1):hover .stat-icon,
-  [theme="light"] .stat-item-small:nth-child(1):hover .stat-value-small,
-  [theme="light"] .stat-item-small:nth-child(1):hover .stat-sublabel {
-    color: #ffffff;
+  [theme="dark"] .stat-item-small:nth-child(1):hover {
+    background: linear-gradient(135deg, var(--home-ref-palette-primary60) 0%, var(--home-ref-palette-primary70) 100%);
   }
 
-  .stat-item-small:nth-child(2):hover {
-    background-color: var(--md-sys-color-primary-container);
+  /* Item 2: Repositories hover */
+  [theme="light"] .stat-item-small:nth-child(2):hover {
+    background: linear-gradient(135deg, var(--home-ref-palette-tertiary50) 0%, var(--home-ref-palette-tertiary60) 100%);
   }
 
-  .stat-item-small:nth-child(2):hover .stat-icon,
-  .stat-item-small:nth-child(2):hover .stat-value-small,
-  .stat-item-small:nth-child(2):hover .stat-sublabel {
-    color: var(--md-sys-color-on-primary-container);
+  [theme="dark"] .stat-item-small:nth-child(2):hover {
+    background: linear-gradient(135deg, var(--home-ref-palette-tertiary60) 0%, var(--home-ref-palette-tertiary70) 100%);
   }
 
-  .stat-item-small:nth-child(3):hover {
-    background-color: var(--md-sys-color-secondary-container);
+  /* Item 3: Followers hover */
+  [theme="light"] .stat-item-small:nth-child(3):hover {
+    background: linear-gradient(135deg, var(--repos-ref-palette-tertiary50) 0%, var(--repos-ref-palette-tertiary60) 100%);
   }
 
-  .stat-item-small:nth-child(3):hover .stat-icon,
-  .stat-item-small:nth-child(3):hover .stat-value-small,
-  .stat-item-small:nth-child(3):hover .stat-sublabel {
-    color: var(--md-sys-color-on-secondary-container);
+  [theme="dark"] .stat-item-small:nth-child(3):hover {
+    background: linear-gradient(135deg, var(--repos-ref-palette-tertiary60) 0%, var(--repos-ref-palette-tertiary70) 100%);
+  }
+
+  /* Item 4: Total Forks hover */
+  [theme="light"] .stat-item-small:nth-child(4):hover {
+    background: linear-gradient(135deg, var(--contact-ref-palette-primary50) 0%, var(--contact-ref-palette-primary60) 100%);
+  }
+
+  [theme="dark"] .stat-item-small:nth-child(4):hover {
+    background: linear-gradient(135deg, var(--contact-ref-palette-primary60) 0%, var(--contact-ref-palette-primary70) 100%);
+  }
+
+  /* Item 5: Contributions hover */
+  [theme="light"] .stat-item-small:nth-child(5):hover {
+    background: linear-gradient(135deg, var(--blog-ref-palette-tertiary50) 0%, var(--blog-ref-palette-tertiary60) 100%);
+  }
+
+  [theme="dark"] .stat-item-small:nth-child(5):hover {
+    background: linear-gradient(135deg, var(--blog-ref-palette-tertiary60) 0%, var(--blog-ref-palette-tertiary70) 100%);
+  }
+
+  /* Item 6: Public Gists hover */
+  [theme="light"] .stat-item-small:nth-child(6):hover {
+    background: linear-gradient(135deg, var(--contact-ref-palette-tertiary50) 0%, var(--contact-ref-palette-tertiary60) 100%);
+  }
+
+  [theme="dark"] .stat-item-small:nth-child(6):hover {
+    background: linear-gradient(135deg, var(--contact-ref-palette-tertiary60) 0%, var(--contact-ref-palette-tertiary70) 100%);
   }
 }
 
@@ -612,8 +751,8 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 8rem;
-    height: 8rem;
+    width: 10rem;
+    height: 10rem;
     max-width: none;
     margin: 0;
     flex-shrink: 0;

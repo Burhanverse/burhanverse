@@ -12,6 +12,8 @@ export interface GitHubOverview {
   publicGists: number;
   totalForks: number;
   contributions: number;
+  currentStreak: number;
+  longestStreak: number;
   languageStats: LanguageStat[];
   accountCreatedAt: string;
 }

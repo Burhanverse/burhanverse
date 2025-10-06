@@ -165,18 +165,20 @@ function renderGitHubContent(container: HTMLElement, overview: GitHubOverview): 
   container.innerHTML = `
     <div class="github-stats-wrapper">
       <div class="stat-grid-primary">
-        ${renderPrimaryStat("star", formatNumber(overview.totalStars), "Total Stars")}
-        ${renderPrimaryStat("folder", formatNumber(overview.totalRepos), "Repositories")}
+        ${renderPrimaryStat("local_fire_department", formatNumber(overview.currentStreak), "Current Streak")}
+        ${renderPrimaryStat("whatshot", formatNumber(overview.longestStreak), "Longest Streak")}
       </div>
-
       <div class="stat-grid-secondary">
+        ${renderSecondaryStat("star", formatNumber(overview.totalStars), "Total Stars")}
+        ${renderSecondaryStat("folder", formatNumber(overview.totalRepos), "Repositories")}
         ${renderSecondaryStat("group", formatNumber(overview.followers), "Followers")}
         ${renderSecondaryStat("call_split", formatNumber(overview.totalForks), "Total Forks")}
         ${renderSecondaryStat(
           "emoji_events",
           overview.contributions > 0 ? formatNumber(overview.contributions) : "N/A",
-          "Total Contributions",
+          "Contributions",
         )}
+        ${renderSecondaryStat("description", formatNumber(overview.publicGists), "Public Gists")}
       </div>
 
       <div class="language-stats">
@@ -195,7 +197,10 @@ function renderPrimaryStat(icon: string, value: string, label: string): string {
   return `
     <div class="stat-item-large">
       <div class="stat-value-large">${value}</div>
-      <div class="stat-label"><span class="material-symbols-rounded">${icon}</span> ${label}</div>
+      <div class="stat-label">
+        <span class="material-symbols-rounded">${icon}</span>
+        <span>${label}</span>
+      </div>
     </div>
   `;
 }
