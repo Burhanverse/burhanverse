@@ -133,11 +133,8 @@ export async function renderArticle(articleSlug: string): Promise<void> {
         contentHtml +
       '</div>' +
       '<footer class="article-footer">' +
-        '<p class="footer-text">Made with ❤️ by Sid.</p>' +
-        '<p class="footer-copyright">' +
-          '<span class="material-symbols-rounded copyright-icon">copyright</span>' +
-          '<span>2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></span>' +
-        '</p>' +
+        '<p class="footer-text">Made with ❤️ by <i>Sid</i>.</p>' +
+        '<p class="footer-copyright">© 2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></p>' +
       '</footer>' +
     '</article>'
   );
