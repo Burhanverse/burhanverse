@@ -48,7 +48,7 @@ export function initializeStatsCards(): void {
     contentId: "lastfm-content",
   });
 
-  wrapper.append(githubCard.card, lastFmCard.card);
+  wrapper.append(lastFmCard.card, githubCard.card);
 
   renderLoadingState(githubCard.content, "Loading stats...");
   renderLoadingState(lastFmCard.content, "Loading music stats...");
