@@ -480,8 +480,8 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
+    height: 8rem;
     max-width: none;
     margin: 0;
     flex-shrink: 0;
@@ -611,8 +611,8 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 7.5rem;
-    height: 7.5rem;
+    width: 8rem;
+    height: 8rem;
     max-width: none;
     margin: 0;
   }
@@ -791,8 +791,8 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 8rem;
+    height: 8rem;
     max-width: none;
     margin: 0;
   }
@@ -910,8 +910,8 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 5rem;
-    height: 5rem;
+    width: 8rem;
+    height: 8rem;
     max-width: none;
     margin: 0;
   }
