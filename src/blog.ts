@@ -62,7 +62,8 @@ export function renderBlogPosts(): void {
     .map((post) => renderBlogPost(post))
     .join("");
 
-  const blogLinks = blogListWrapper.querySelectorAll<HTMLAnchorElement>(".blog-read-more");
+  const blogLinks =
+    blogListWrapper.querySelectorAll<HTMLAnchorElement>(".blog-read-more");
   blogLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
@@ -70,7 +71,7 @@ export function renderBlogPosts(): void {
         e.preventDefault();
         const articleSlug = href.split("=")[1];
         window.history.pushState({ article: articleSlug }, "", href);
-        import("./core/navigation").then(module => {
+        import("./core/navigation").then((module) => {
           if (module.articleSelected) {
             module.articleSelected(articleSlug);
           }

@@ -4,7 +4,8 @@
   font-style: normal;
   font-weight: 100 700;
   font-display: block;
-  src: url("/font/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf") format("truetype");
+  src: url("/font/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.ttf")
+    format("truetype");
 }
 
 /* Set default styling for material symbols */
@@ -23,11 +24,11 @@
   font-feature-settings: "liga";
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
-  
+
   /* Variable font axes support */
   font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
 }

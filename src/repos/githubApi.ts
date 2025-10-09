@@ -47,7 +47,10 @@ class GitHubAPI {
   /**
    * Fetch repositories from a specific username
    */
-  async fetchRepositoriesFromUser(username: string, limit?: number): Promise<Repository[]> {
+  async fetchRepositoriesFromUser(
+    username: string,
+    limit?: number,
+  ): Promise<Repository[]> {
     try {
       const response = await this.octokit.repos.listForUser({
         username: username,
@@ -77,18 +80,22 @@ class GitHubAPI {
   /**
    * Fetch and merge repositories from multiple users, sorted by update time
    */
-  async fetchAndMergeRepositories(usernames: string[], limitsPerUser?: { [key: string]: number }): Promise<Repository[]> {
+  async fetchAndMergeRepositories(
+    usernames: string[],
+    limitsPerUser?: { [key: string]: number },
+  ): Promise<Repository[]> {
     try {
-      const repoPromises = usernames.map(username => 
-        this.fetchRepositoriesFromUser(username, limitsPerUser?.[username])
+      const repoPromises = usernames.map((username) =>
+        this.fetchRepositoriesFromUser(username, limitsPerUser?.[username]),
       );
-      
+
       const repoArrays = await Promise.all(repoPromises);
       const allRepos = repoArrays.flat();
-      
+
       // Sort by updated_at in descending order (most recent first)
-      return allRepos.sort((a, b) => 
-        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+      return allRepos.sort(
+        (a, b) =>
+          new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
       );
     } catch (error) {
       console.error("Error fetching and merging repositories:", error);

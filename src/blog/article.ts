@@ -23,39 +23,57 @@ marked.setOptions({
 // Custom renderer to add copy buttons to code blocks
 const renderer = new marked.Renderer();
 
-renderer.code = function(token: { text: string; lang?: string; escaped?: boolean }): string {
+renderer.code = function (token: {
+  text: string;
+  lang?: string;
+  escaped?: boolean;
+}): string {
   const code = token.text;
   const language = token.lang;
   const lang = language || "plaintext";
   const codeId = "code-" + Math.random().toString(36).substr(2, 9);
-  
+
   // Use Prism to highlight the code if language is supported
   let highlightedCode = code;
   try {
     if (language && Prism.languages[language]) {
-      highlightedCode = Prism.highlight(code, Prism.languages[language], language);
+      highlightedCode = Prism.highlight(
+        code,
+        Prism.languages[language],
+        language,
+      );
     }
   } catch (e) {
     console.warn("Failed to highlight code for language: " + language, e);
   }
-  
+
   // Return HTML with copy button
   return (
     '<div class="article-code-block">' +
-      '<div class="code-header">' +
-        '<span class="code-language">' + lang + '</span>' +
-        '<button class="code-copy-btn clickable" data-code-id="' + codeId + '" aria-label="Copy code">' +
-          '<svg class="copy-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
-            '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>' +
-          '</svg>' +
-          '<svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">' +
-            '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>' +
-          '</svg>' +
-          '<span class="copy-text">Copy</span>' +
-        '</button>' +
-      '</div>' +
-      '<pre><code id="' + codeId + '" class="language-' + lang + '">' + highlightedCode + '</code></pre>' +
-    '</div>'
+    '<div class="code-header">' +
+    '<span class="code-language">' +
+    lang +
+    "</span>" +
+    '<button class="code-copy-btn clickable" data-code-id="' +
+    codeId +
+    '" aria-label="Copy code">' +
+    '<svg class="copy-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+    '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>' +
+    "</svg>" +
+    '<svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">' +
+    '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>' +
+    "</svg>" +
+    '<span class="copy-text">Copy</span>' +
+    "</button>" +
+    "</div>" +
+    '<pre><code id="' +
+    codeId +
+    '" class="language-' +
+    lang +
+    '">' +
+    highlightedCode +
+    "</code></pre>" +
+    "</div>"
   );
 };
 
@@ -93,12 +111,11 @@ export async function renderArticle(articleSlug: string): Promise<void> {
   // Load markdown content
   const markdownContent = await loadMarkdownContent(articleSlug);
   if (!markdownContent) {
-    articleContainer.innerHTML = (
+    articleContainer.innerHTML =
       '<div class="article-error">' +
-        '<h2>Article Not Found</h2>' +
-        '<p>Sorry, the article content could not be loaded.</p>' +
-      '</div>'
-    );
+      "<h2>Article Not Found</h2>" +
+      "<p>Sorry, the article content could not be loaded.</p>" +
+      "</div>";
     return;
   }
 
@@ -114,30 +131,43 @@ export async function renderArticle(articleSlug: string): Promise<void> {
 
   // Generate tags HTML
   const tagsHtml = blogPost.tags
-    ? blogPost.tags.map((tag) => '<span class="article-tag">' + tag + '</span>').join("")
+    ? blogPost.tags
+        .map((tag) => '<span class="article-tag">' + tag + "</span>")
+        .join("")
     : "";
 
   // Render the article
-  articleContainer.innerHTML = (
+  articleContainer.innerHTML =
     '<article class="article-wrapper">' +
-      '<header class="article-header">' +
-        '<div class="article-meta">' +
-          '<time class="article-date" datetime="' + blogPost.date + '">' + formattedDate + '</time>' +
-          '<div class="article-tags">' + tagsHtml + '</div>' +
-        '</div>' +
-        '<h1 class="article-title">' + blogPost.title + '</h1>' +
-        '<p class="article-description">' + blogPost.description + '</p>' +
-        '<div class="article-hero-image" style="background-image: url(\'' + blogPost.image + '\')"></div>' +
-      '</header>' +
-      '<div class="article-body">' +
-        contentHtml +
-      '</div>' +
-      '<footer class="article-footer">' +
-        '<p class="footer-text">Made with ❤️ by <i>Sid</i>.</p>' +
-        '<p class="footer-copyright">© 2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></p>' +
-      '</footer>' +
-    '</article>'
-  );
+    '<header class="article-header">' +
+    '<div class="article-meta">' +
+    '<time class="article-date" datetime="' +
+    blogPost.date +
+    '">' +
+    formattedDate +
+    "</time>" +
+    '<div class="article-tags">' +
+    tagsHtml +
+    "</div>" +
+    "</div>" +
+    '<h1 class="article-title">' +
+    blogPost.title +
+    "</h1>" +
+    '<p class="article-description">' +
+    blogPost.description +
+    "</p>" +
+    '<div class="article-hero-image" style="background-image: url(\'' +
+    blogPost.image +
+    "')\"></div>" +
+    "</header>" +
+    '<div class="article-body">' +
+    contentHtml +
+    "</div>" +
+    '<footer class="article-footer">' +
+    '<p class="footer-text">Made with ❤️ by <i>Sid</i>.</p>' +
+    '<p class="footer-copyright">© 2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></p>' +
+    "</footer>" +
+    "</article>";
 
   // Initialize copy buttons
   initializeCopyButtons();

@@ -123,17 +123,28 @@
 }
 
 [theme="light"] .stat-item-large:nth-child(1) {
-  background: linear-gradient(135deg, var(--blog-ref-palette-primary60) 0%, var(--blog-ref-palette-primary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blog-ref-palette-primary60) 0%,
+    var(--blog-ref-palette-primary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-large:nth-child(1) .stat-value-large,
 [theme="light"] .stat-item-large:nth-child(1) .stat-label,
-[theme="light"] .stat-item-large:nth-child(1) .stat-label .material-symbols-rounded {
+[theme="light"]
+  .stat-item-large:nth-child(1)
+  .stat-label
+  .material-symbols-rounded {
   color: #ffffff;
 }
 
 [theme="dark"] .stat-item-large:nth-child(1) {
-  background: linear-gradient(135deg, var(--md-ref-palette-error50) 0%, var(--md-ref-palette-error60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--md-ref-palette-error50) 0%,
+    var(--md-ref-palette-error60) 100%
+  );
 }
 
 .stat-item-large:nth-child(1) .stat-value-large,
@@ -148,17 +159,28 @@
 }
 
 [theme="light"] .stat-item-large:nth-child(2) {
-  background: linear-gradient(135deg, var(--repos-ref-palette-primary60) 0%, var(--repos-ref-palette-primary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--repos-ref-palette-primary60) 0%,
+    var(--repos-ref-palette-primary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-large:nth-child(2) .stat-value-large,
 [theme="light"] .stat-item-large:nth-child(2) .stat-label,
-[theme="light"] .stat-item-large:nth-child(2) .stat-label .material-symbols-rounded {
+[theme="light"]
+  .stat-item-large:nth-child(2)
+  .stat-label
+  .material-symbols-rounded {
   color: #ffffff;
 }
 
 [theme="dark"] .stat-item-large:nth-child(2) {
-  background: linear-gradient(135deg, var(--repos-ref-palette-primary50) 0%, var(--repos-ref-palette-primary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--repos-ref-palette-primary50) 0%,
+    var(--repos-ref-palette-primary60) 100%
+  );
 }
 
 .stat-item-large:nth-child(2) .stat-value-large,
@@ -209,11 +231,19 @@
   }
 
   [theme="light"] .stat-item-large:nth-child(1):hover {
-    background: linear-gradient(135deg, var(--blog-ref-palette-primary50) 0%, var(--blog-ref-palette-primary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--blog-ref-palette-primary50) 0%,
+      var(--blog-ref-palette-primary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-large:nth-child(1):hover {
-    background: linear-gradient(135deg, var(--md-ref-palette-error60) 0%, var(--md-ref-palette-error70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--md-ref-palette-error60) 0%,
+      var(--md-ref-palette-error70) 100%
+    );
   }
 
   .stat-item-large:nth-child(2):hover {
@@ -221,11 +251,19 @@
   }
 
   [theme="light"] .stat-item-large:nth-child(2):hover {
-    background: linear-gradient(135deg, var(--repos-ref-palette-primary50) 0%, var(--repos-ref-palette-primary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--repos-ref-palette-primary50) 0%,
+      var(--repos-ref-palette-primary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-large:nth-child(2):hover {
-    background: linear-gradient(135deg, var(--repos-ref-palette-primary60) 0%, var(--repos-ref-palette-primary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--repos-ref-palette-primary60) 0%,
+      var(--repos-ref-palette-primary70) 100%
+    );
   }
 }
 
@@ -253,7 +291,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(1) {
-  background: linear-gradient(135deg, var(--home-ref-palette-primary60) 0%, var(--home-ref-palette-primary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--home-ref-palette-primary60) 0%,
+    var(--home-ref-palette-primary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(1) .stat-icon,
@@ -263,7 +305,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(1) {
-  background: linear-gradient(135deg, var(--home-ref-palette-primary50) 0%, var(--home-ref-palette-primary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--home-ref-palette-primary50) 0%,
+    var(--home-ref-palette-primary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(1) .stat-icon,
@@ -278,7 +324,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(2) {
-  background: linear-gradient(135deg, var(--home-ref-palette-tertiary60) 0%, var(--home-ref-palette-tertiary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--home-ref-palette-tertiary60) 0%,
+    var(--home-ref-palette-tertiary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(2) .stat-icon,
@@ -288,7 +338,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(2) {
-  background: linear-gradient(135deg, var(--home-ref-palette-tertiary50) 0%, var(--home-ref-palette-tertiary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--home-ref-palette-tertiary50) 0%,
+    var(--home-ref-palette-tertiary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(2) .stat-icon,
@@ -303,7 +357,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(3) {
-  background: linear-gradient(135deg, var(--repos-ref-palette-tertiary60) 0%, var(--repos-ref-palette-tertiary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--repos-ref-palette-tertiary60) 0%,
+    var(--repos-ref-palette-tertiary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(3) .stat-icon,
@@ -313,7 +371,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(3) {
-  background: linear-gradient(135deg, var(--repos-ref-palette-tertiary50) 0%, var(--repos-ref-palette-tertiary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--repos-ref-palette-tertiary50) 0%,
+    var(--repos-ref-palette-tertiary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(3) .stat-icon,
@@ -328,7 +390,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(4) {
-  background: linear-gradient(135deg, var(--contact-ref-palette-primary60) 0%, var(--contact-ref-palette-primary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--contact-ref-palette-primary60) 0%,
+    var(--contact-ref-palette-primary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(4) .stat-icon,
@@ -338,7 +404,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(4) {
-  background: linear-gradient(135deg, var(--contact-ref-palette-primary50) 0%, var(--contact-ref-palette-primary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--contact-ref-palette-primary50) 0%,
+    var(--contact-ref-palette-primary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(4) .stat-icon,
@@ -353,7 +423,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(5) {
-  background: linear-gradient(135deg, var(--blog-ref-palette-tertiary60) 0%, var(--blog-ref-palette-tertiary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blog-ref-palette-tertiary60) 0%,
+    var(--blog-ref-palette-tertiary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(5) .stat-icon,
@@ -363,7 +437,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(5) {
-  background: linear-gradient(135deg, var(--blog-ref-palette-tertiary50) 0%, var(--blog-ref-palette-tertiary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--blog-ref-palette-tertiary50) 0%,
+    var(--blog-ref-palette-tertiary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(5) .stat-icon,
@@ -378,7 +456,11 @@
 }
 
 [theme="light"] .stat-item-small:nth-child(6) {
-  background: linear-gradient(135deg, var(--contact-ref-palette-tertiary60) 0%, var(--contact-ref-palette-tertiary70) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--contact-ref-palette-tertiary60) 0%,
+    var(--contact-ref-palette-tertiary70) 100%
+  );
 }
 
 [theme="light"] .stat-item-small:nth-child(6) .stat-icon,
@@ -388,7 +470,11 @@
 }
 
 [theme="dark"] .stat-item-small:nth-child(6) {
-  background: linear-gradient(135deg, var(--contact-ref-palette-tertiary50) 0%, var(--contact-ref-palette-tertiary60) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--contact-ref-palette-tertiary50) 0%,
+    var(--contact-ref-palette-tertiary60) 100%
+  );
 }
 
 .stat-item-small:nth-child(6) .stat-icon,
@@ -431,56 +517,104 @@
 
   /* Item 1: Total Stars hover */
   [theme="light"] .stat-item-small:nth-child(1):hover {
-    background: linear-gradient(135deg, var(--home-ref-palette-primary50) 0%, var(--home-ref-palette-primary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--home-ref-palette-primary50) 0%,
+      var(--home-ref-palette-primary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(1):hover {
-    background: linear-gradient(135deg, var(--home-ref-palette-primary60) 0%, var(--home-ref-palette-primary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--home-ref-palette-primary60) 0%,
+      var(--home-ref-palette-primary70) 100%
+    );
   }
 
   /* Item 2: Repositories hover */
   [theme="light"] .stat-item-small:nth-child(2):hover {
-    background: linear-gradient(135deg, var(--home-ref-palette-tertiary50) 0%, var(--home-ref-palette-tertiary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--home-ref-palette-tertiary50) 0%,
+      var(--home-ref-palette-tertiary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(2):hover {
-    background: linear-gradient(135deg, var(--home-ref-palette-tertiary60) 0%, var(--home-ref-palette-tertiary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--home-ref-palette-tertiary60) 0%,
+      var(--home-ref-palette-tertiary70) 100%
+    );
   }
 
   /* Item 3: Followers hover */
   [theme="light"] .stat-item-small:nth-child(3):hover {
-    background: linear-gradient(135deg, var(--repos-ref-palette-tertiary50) 0%, var(--repos-ref-palette-tertiary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--repos-ref-palette-tertiary50) 0%,
+      var(--repos-ref-palette-tertiary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(3):hover {
-    background: linear-gradient(135deg, var(--repos-ref-palette-tertiary60) 0%, var(--repos-ref-palette-tertiary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--repos-ref-palette-tertiary60) 0%,
+      var(--repos-ref-palette-tertiary70) 100%
+    );
   }
 
   /* Item 4: Total Forks hover */
   [theme="light"] .stat-item-small:nth-child(4):hover {
-    background: linear-gradient(135deg, var(--contact-ref-palette-primary50) 0%, var(--contact-ref-palette-primary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--contact-ref-palette-primary50) 0%,
+      var(--contact-ref-palette-primary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(4):hover {
-    background: linear-gradient(135deg, var(--contact-ref-palette-primary60) 0%, var(--contact-ref-palette-primary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--contact-ref-palette-primary60) 0%,
+      var(--contact-ref-palette-primary70) 100%
+    );
   }
 
   /* Item 5: Contributions hover */
   [theme="light"] .stat-item-small:nth-child(5):hover {
-    background: linear-gradient(135deg, var(--blog-ref-palette-tertiary50) 0%, var(--blog-ref-palette-tertiary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--blog-ref-palette-tertiary50) 0%,
+      var(--blog-ref-palette-tertiary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(5):hover {
-    background: linear-gradient(135deg, var(--blog-ref-palette-tertiary60) 0%, var(--blog-ref-palette-tertiary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--blog-ref-palette-tertiary60) 0%,
+      var(--blog-ref-palette-tertiary70) 100%
+    );
   }
 
   /* Item 6: Public Gists hover */
   [theme="light"] .stat-item-small:nth-child(6):hover {
-    background: linear-gradient(135deg, var(--contact-ref-palette-tertiary50) 0%, var(--contact-ref-palette-tertiary60) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--contact-ref-palette-tertiary50) 0%,
+      var(--contact-ref-palette-tertiary60) 100%
+    );
   }
 
   [theme="dark"] .stat-item-small:nth-child(6):hover {
-    background: linear-gradient(135deg, var(--contact-ref-palette-tertiary60) 0%, var(--contact-ref-palette-tertiary70) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--contact-ref-palette-tertiary60) 0%,
+      var(--contact-ref-palette-tertiary70) 100%
+    );
   }
 }
 

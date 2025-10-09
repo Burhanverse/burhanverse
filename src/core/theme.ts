@@ -6,7 +6,9 @@ const themeIcon = document.querySelector<HTMLElement>("#theme-icon");
 const mobileThemeIcon =
   document.querySelector<HTMLElement>("#mobile-theme-icon");
 const changeThemeBtn = document.querySelector<HTMLElement>(".change-theme");
-const mobileChangeThemeBtn = document.querySelectorAll<HTMLElement>(".mobile-change-theme");
+const mobileChangeThemeBtn = document.querySelectorAll<HTMLElement>(
+  ".mobile-change-theme",
+);
 
 type Theme = "light_mode" | "dark_mode";
 
@@ -48,13 +50,15 @@ export function themeToggle() {
   const theme = localStorage.getItem("theme") as Theme | null;
 
   // Add animation class
-  changeThemeBtn?.classList.add('theme-switching');
-  mobileChangeThemeBtn.forEach(btn => btn.classList.add('theme-switching'));
+  changeThemeBtn?.classList.add("theme-switching");
+  mobileChangeThemeBtn.forEach((btn) => btn.classList.add("theme-switching"));
 
   // Remove animation class after one complete spin (600ms)
   setTimeout(() => {
-    changeThemeBtn?.classList.remove('theme-switching');
-    mobileChangeThemeBtn.forEach(btn => btn.classList.remove('theme-switching'));
+    changeThemeBtn?.classList.remove("theme-switching");
+    mobileChangeThemeBtn.forEach((btn) =>
+      btn.classList.remove("theme-switching"),
+    );
   }, 600);
 
   if (theme === "dark_mode") {

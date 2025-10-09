@@ -153,7 +153,9 @@ async function fetchContributionRange(
 
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
-    throw new Error(`GitHub GraphQL request failed (${response.status}): ${message}`);
+    throw new Error(
+      `GitHub GraphQL request failed (${response.status}): ${message}`,
+    );
   }
 
   const payload = (await response.json()) as GraphQLContributionResponse;
@@ -163,25 +165,29 @@ async function fetchContributionRange(
     throw new Error(`GitHub GraphQL returned errors: ${firstError}`);
   }
 
-  return payload.data?.user?.contributionsCollection?.contributionCalendar ?? null;
+  return (
+    payload.data?.user?.contributionsCollection?.contributionCalendar ?? null
+  );
 }
 
-function calculateStreaks(calendar: {
-  totalContributions?: number;
-  weeks?: Array<{
-    contributionDays?: Array<{
-      contributionCount?: number;
-      date?: string;
+function calculateStreaks(
+  calendar: {
+    totalContributions?: number;
+    weeks?: Array<{
+      contributionDays?: Array<{
+        contributionCount?: number;
+        date?: string;
+      }>;
     }>;
-  }>;
-} | null): { current: number; longest: number } {
+  } | null,
+): { current: number; longest: number } {
   if (!calendar?.weeks) {
     return { current: 0, longest: 0 };
   }
 
   // Flatten all contribution days into a single array
   const allDays: Array<{ date: string; count: number }> = [];
-  
+
   for (const week of calendar.weeks) {
     if (week.contributionDays) {
       for (const day of week.contributionDays) {
@@ -211,7 +217,8 @@ function calculateStreaks(calendar: {
   const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
   const lastDay = allDays[allDays.length - 1];
   const hasContributionToday = lastDay.date === today && lastDay.count > 0;
-  const hasContributionYesterday = lastDay.date === yesterday && lastDay.count > 0;
+  const hasContributionYesterday =
+    lastDay.date === yesterday && lastDay.count > 0;
 
   // Calculate current streak (from today backwards)
   for (let i = allDays.length - 1; i >= 0; i--) {
@@ -219,7 +226,10 @@ function calculateStreaks(calendar: {
       currentStreak++;
     } else {
       // Only break if we haven't started counting yet or if it's not today/yesterday
-      if (currentStreak > 0 || (allDays[i].date !== today && allDays[i].date !== yesterday)) {
+      if (
+        currentStreak > 0 ||
+        (allDays[i].date !== today && allDays[i].date !== yesterday)
+      ) {
         break;
       }
     }
@@ -269,8 +279,13 @@ async function fetchGitHubContributions(
       }>;
     }> = [];
 
-    for (let year = createdDate.getFullYear(); year <= today.getFullYear(); year += 1) {
-      const from = year === createdDate.getFullYear() ? createdDate : new Date(year, 0, 1);
+    for (
+      let year = createdDate.getFullYear();
+      year <= today.getFullYear();
+      year += 1
+    ) {
+      const from =
+        year === createdDate.getFullYear() ? createdDate : new Date(year, 0, 1);
       const to =
         year === today.getFullYear()
           ? today
@@ -287,7 +302,7 @@ async function fetchGitHubContributions(
     // Merge all calendars for streak calculation
     const mergedCalendar = {
       totalContributions,
-      weeks: allCalendars.flatMap(cal => cal.weeks ?? []),
+      weeks: allCalendars.flatMap((cal) => cal.weeks ?? []),
     };
 
     const streaks = calculateStreaks(mergedCalendar);
@@ -303,17 +318,32 @@ async function fetchGitHubContributions(
   }
 }
 
-export async function fetchGitHubOverview(username: string, token?: string): Promise<GitHubOverview> {
+export async function fetchGitHubOverview(
+  username: string,
+  token?: string,
+): Promise<GitHubOverview> {
   const [user, repos] = await Promise.all([
     fetchJson<GitHubUserResponse>(`${REST_API_BASE}/users/${username}`),
-    fetchJson<GitHubRepoResponse[]>(`${REST_API_BASE}/users/${username}/repos?per_page=100&sort=updated`),
+    fetchJson<GitHubRepoResponse[]>(
+      `${REST_API_BASE}/users/${username}/repos?per_page=100&sort=updated`,
+    ),
   ]);
 
-  const contributionData = await fetchGitHubContributions(username, user.created_at, token);
+  const contributionData = await fetchGitHubContributions(
+    username,
+    user.created_at,
+    token,
+  );
   const languageStats = computeLanguageStats(repos);
 
-  const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count ?? 0), 0);
-  const totalForks = repos.reduce((sum, repo) => sum + (repo.forks_count ?? 0), 0);
+  const totalStars = repos.reduce(
+    (sum, repo) => sum + (repo.stargazers_count ?? 0),
+    0,
+  );
+  const totalForks = repos.reduce(
+    (sum, repo) => sum + (repo.forks_count ?? 0),
+    0,
+  );
 
   return {
     totalStars,

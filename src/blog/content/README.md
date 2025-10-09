@@ -7,6 +7,7 @@ This directory contains article content written in **Markdown** format.
 Each article should be named using its slug: `{slug}.md`
 
 For example:
+
 - `fagram-desktop.md` → accessible at `/?article=fagram-desktop`
 - `my-awesome-post.md` → accessible at `/?article=my-awesome-post`
 
@@ -15,25 +16,31 @@ For example:
 All standard Markdown features are supported:
 
 ### Headers
+
 ```markdown
 # H1 Header
+
 ## H2 Header
+
 ### H3 Header
 ```
 
 ### Emphasis
+
 ```markdown
 **bold text**
-*italic text*
-***bold and italic***
+_italic text_
+**_bold and italic_**
 ```
 
 ### Links
+
 ```markdown
 [Link text](https://example.com)
 ```
 
 ### Images
+
 ```markdown
 ![Alt text](/img/image.jpg)
 ```
@@ -52,6 +59,7 @@ Supported languages: `javascript`, `typescript`, `python`, `java`, `css`, `bash`
 ### Lists
 
 Unordered:
+
 ```markdown
 - Item 1
 - Item 2
@@ -59,17 +67,20 @@ Unordered:
 ```
 
 Ordered:
+
 ```markdown
 1. First item
 2. Second item
 ```
 
 ### Blockquotes
+
 ```markdown
 > This is a quote
 ```
 
 ### Horizontal Rules
+
 ```markdown
 ---
 ```

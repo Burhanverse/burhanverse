@@ -511,22 +511,22 @@
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: var(--home-ref-palette-primary90);
   --md-sys-color-on-primary-container: var(--home-ref-palette-primary10);
-  
+
   --md-sys-color-secondary: var(--home-ref-palette-secondary40);
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: var(--home-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: var(--home-ref-palette-secondary10);
-  
+
   --md-sys-color-tertiary: var(--home-ref-palette-tertiary40);
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: var(--home-ref-palette-tertiary90);
   --md-sys-color-on-tertiary-container: var(--home-ref-palette-tertiary10);
-  
+
   --md-sys-color-surface: var(--home-ref-palette-primary95);
   --md-sys-color-on-surface: var(--home-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--home-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary30);
-  
+
   --md-sys-clock-hours: var(--home-ref-palette-primary30);
   --md-sys-clock-minutes: var(--home-ref-palette-primary60);
 }
@@ -536,22 +536,22 @@
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: var(--repos-ref-palette-primary90);
   --md-sys-color-on-primary-container: var(--repos-ref-palette-primary10);
-  
+
   --md-sys-color-secondary: var(--repos-ref-palette-secondary40);
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: var(--repos-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: var(--repos-ref-palette-secondary10);
-  
+
   --md-sys-color-tertiary: var(--repos-ref-palette-tertiary40);
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: var(--repos-ref-palette-tertiary90);
   --md-sys-color-on-tertiary-container: var(--repos-ref-palette-tertiary10);
-  
+
   --md-sys-color-surface: var(--repos-ref-palette-primary95);
   --md-sys-color-on-surface: var(--repos-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--repos-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary30);
-  
+
   --md-sys-clock-hours: var(--repos-ref-palette-primary30);
   --md-sys-clock-minutes: var(--repos-ref-palette-primary60);
 }
@@ -561,22 +561,22 @@
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: var(--blog-ref-palette-primary90);
   --md-sys-color-on-primary-container: var(--blog-ref-palette-primary10);
-  
+
   --md-sys-color-secondary: var(--blog-ref-palette-secondary40);
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: var(--blog-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: var(--blog-ref-palette-secondary10);
-  
+
   --md-sys-color-tertiary: var(--blog-ref-palette-tertiary40);
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: var(--blog-ref-palette-tertiary90);
   --md-sys-color-on-tertiary-container: var(--blog-ref-palette-tertiary10);
-  
+
   --md-sys-color-surface: var(--blog-ref-palette-primary95);
   --md-sys-color-on-surface: var(--blog-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--blog-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary30);
-  
+
   --md-sys-clock-hours: var(--blog-ref-palette-primary30);
   --md-sys-clock-minutes: var(--blog-ref-palette-primary60);
 }
@@ -586,22 +586,22 @@
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: var(--contact-ref-palette-primary90);
   --md-sys-color-on-primary-container: var(--contact-ref-palette-primary10);
-  
+
   --md-sys-color-secondary: var(--contact-ref-palette-secondary40);
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: var(--contact-ref-palette-secondary90);
   --md-sys-color-on-secondary-container: var(--contact-ref-palette-secondary10);
-  
+
   --md-sys-color-tertiary: var(--contact-ref-palette-tertiary40);
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: var(--contact-ref-palette-tertiary90);
   --md-sys-color-on-tertiary-container: var(--contact-ref-palette-tertiary10);
-  
+
   --md-sys-color-surface: var(--contact-ref-palette-primary95);
   --md-sys-color-on-surface: var(--contact-ref-palette-primary10);
   --md-sys-color-surface-variant: var(--contact-ref-palette-secondary90);
   --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary30);
-  
+
   --md-sys-clock-hours: var(--contact-ref-palette-primary30);
   --md-sys-clock-minutes: var(--contact-ref-palette-primary60);
 }
@@ -712,22 +712,22 @@
   --md-sys-color-on-primary: var(--home-ref-palette-primary20);
   --md-sys-color-primary-container: var(--home-ref-palette-primary30);
   --md-sys-color-on-primary-container: var(--home-ref-palette-primary90);
-  
+
   --md-sys-color-secondary: var(--home-ref-palette-secondary80);
   --md-sys-color-on-secondary: var(--home-ref-palette-secondary20);
   --md-sys-color-secondary-container: var(--home-ref-palette-secondary30);
   --md-sys-color-on-secondary-container: var(--home-ref-palette-secondary90);
-  
+
   --md-sys-color-tertiary: var(--home-ref-palette-tertiary80);
   --md-sys-color-on-tertiary: var(--home-ref-palette-tertiary20);
   --md-sys-color-tertiary-container: var(--home-ref-palette-tertiary30);
   --md-sys-color-on-tertiary-container: var(--home-ref-palette-tertiary90);
-  
+
   --md-sys-color-surface: var(--home-ref-palette-primary10);
   --md-sys-color-on-surface: var(--home-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--home-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--home-ref-palette-secondary80);
-  
+
   --md-sys-clock-hours: var(--home-ref-palette-primary60);
   --md-sys-clock-minutes: var(--home-ref-palette-primary30);
 }
@@ -737,22 +737,22 @@
   --md-sys-color-on-primary: var(--repos-ref-palette-primary20);
   --md-sys-color-primary-container: var(--repos-ref-palette-primary30);
   --md-sys-color-on-primary-container: var(--repos-ref-palette-primary90);
-  
+
   --md-sys-color-secondary: var(--repos-ref-palette-secondary80);
   --md-sys-color-on-secondary: var(--repos-ref-palette-secondary20);
   --md-sys-color-secondary-container: var(--repos-ref-palette-secondary30);
   --md-sys-color-on-secondary-container: var(--repos-ref-palette-secondary90);
-  
+
   --md-sys-color-tertiary: var(--repos-ref-palette-tertiary80);
   --md-sys-color-on-tertiary: var(--repos-ref-palette-tertiary20);
   --md-sys-color-tertiary-container: var(--repos-ref-palette-tertiary30);
   --md-sys-color-on-tertiary-container: var(--repos-ref-palette-tertiary90);
-  
+
   --md-sys-color-surface: var(--repos-ref-palette-primary10);
   --md-sys-color-on-surface: var(--repos-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--repos-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--repos-ref-palette-secondary80);
-  
+
   --md-sys-clock-hours: var(--repos-ref-palette-primary60);
   --md-sys-clock-minutes: var(--repos-ref-palette-primary30);
 }
@@ -762,22 +762,22 @@
   --md-sys-color-on-primary: var(--blog-ref-palette-primary20);
   --md-sys-color-primary-container: var(--blog-ref-palette-primary30);
   --md-sys-color-on-primary-container: var(--blog-ref-palette-primary90);
-  
+
   --md-sys-color-secondary: var(--blog-ref-palette-secondary80);
   --md-sys-color-on-secondary: var(--blog-ref-palette-secondary20);
   --md-sys-color-secondary-container: var(--blog-ref-palette-secondary30);
   --md-sys-color-on-secondary-container: var(--blog-ref-palette-secondary90);
-  
+
   --md-sys-color-tertiary: var(--blog-ref-palette-tertiary80);
   --md-sys-color-on-tertiary: var(--blog-ref-palette-tertiary20);
   --md-sys-color-tertiary-container: var(--blog-ref-palette-tertiary30);
   --md-sys-color-on-tertiary-container: var(--blog-ref-palette-tertiary90);
-  
+
   --md-sys-color-surface: var(--blog-ref-palette-primary10);
   --md-sys-color-on-surface: var(--blog-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--blog-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--blog-ref-palette-secondary80);
-  
+
   --md-sys-clock-hours: var(--blog-ref-palette-primary60);
   --md-sys-clock-minutes: var(--blog-ref-palette-primary30);
 }
@@ -787,22 +787,22 @@
   --md-sys-color-on-primary: var(--contact-ref-palette-primary20);
   --md-sys-color-primary-container: var(--contact-ref-palette-primary30);
   --md-sys-color-on-primary-container: var(--contact-ref-palette-primary90);
-  
+
   --md-sys-color-secondary: var(--contact-ref-palette-secondary80);
   --md-sys-color-on-secondary: var(--contact-ref-palette-secondary20);
   --md-sys-color-secondary-container: var(--contact-ref-palette-secondary30);
   --md-sys-color-on-secondary-container: var(--contact-ref-palette-secondary90);
-  
+
   --md-sys-color-tertiary: var(--contact-ref-palette-tertiary80);
   --md-sys-color-on-tertiary: var(--contact-ref-palette-tertiary20);
   --md-sys-color-tertiary-container: var(--contact-ref-palette-tertiary30);
   --md-sys-color-on-tertiary-container: var(--contact-ref-palette-tertiary90);
-  
+
   --md-sys-color-surface: var(--contact-ref-palette-primary10);
   --md-sys-color-on-surface: var(--contact-ref-palette-primary90);
   --md-sys-color-surface-variant: var(--contact-ref-palette-secondary30);
   --md-sys-color-on-surface-variant: var(--contact-ref-palette-secondary80);
-  
+
   --md-sys-clock-hours: var(--contact-ref-palette-primary60);
   --md-sys-clock-minutes: var(--contact-ref-palette-primary30);
 }

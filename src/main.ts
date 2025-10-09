@@ -64,7 +64,7 @@ loadNavigationFunctions().then((nav) => {
  * Preload blog post images for smoother loading
  */
 function preloadBlogImages(): void {
-  blogPosts.forEach(post => {
+  blogPosts.forEach((post) => {
     if (post.image) {
       const img = new Image();
       img.src = post.image;
@@ -73,8 +73,8 @@ function preloadBlogImages(): void {
 }
 
 // Preload images after page load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', preloadBlogImages);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", preloadBlogImages);
 } else {
   preloadBlogImages();
 }

@@ -76,7 +76,10 @@ function createStatCard(options: {
   icon.setAttribute("viewBox", "0 0 24 24");
   icon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-  const iconPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  const iconPath = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "path",
+  );
   iconPath.setAttribute("d", getIconPath(options.icon));
   icon.append(iconPath);
 
@@ -143,21 +146,26 @@ async function loadLastFmStats(container: HTMLElement): Promise<void> {
   }
 }
 
-function renderGitHubContent(container: HTMLElement, overview: GitHubOverview): void {
+function renderGitHubContent(
+  container: HTMLElement,
+  overview: GitHubOverview,
+): void {
   updateState(container, "ready");
 
   const languageBars = overview.languageStats.length
     ? overview.languageStats
-        .map((lang) =>
-          `<div class="language-bar" style="width: ${lang.percentage.toFixed(1)}%; background-color: ${lang.color};" title="${lang.name}: ${lang.percentage.toFixed(1)}%"></div>`,
+        .map(
+          (lang) =>
+            `<div class="language-bar" style="width: ${lang.percentage.toFixed(1)}%; background-color: ${lang.color};" title="${lang.name}: ${lang.percentage.toFixed(1)}%"></div>`,
         )
         .join("")
     : '<div class="language-bar language-bar--empty" style="width: 100%; background-color: var(--md-sys-color-surface-variant);"></div>';
 
   const languageList = overview.languageStats.length
     ? overview.languageStats
-        .map((lang) =>
-          `<div class="language-item"><span class="language-dot" style="background-color: ${lang.color};"></span><span class="language-name">${lang.name}</span><span class="language-percent">${lang.percentage.toFixed(1)}%</span></div>`,
+        .map(
+          (lang) =>
+            `<div class="language-item"><span class="language-dot" style="background-color: ${lang.color};"></span><span class="language-name">${lang.name}</span><span class="language-percent">${lang.percentage.toFixed(1)}%</span></div>`,
         )
         .join("")
     : '<div class="language-empty-message">Language data is not available yet.</div>';
@@ -175,7 +183,9 @@ function renderGitHubContent(container: HTMLElement, overview: GitHubOverview): 
         ${renderSecondaryStat("call_split", formatNumber(overview.totalForks), "Total Forks")}
         ${renderSecondaryStat(
           "emoji_events",
-          overview.contributions > 0 ? formatNumber(overview.contributions) : "N/A",
+          overview.contributions > 0
+            ? formatNumber(overview.contributions)
+            : "N/A",
           "Contributions",
         )}
         ${renderSecondaryStat("description", formatNumber(overview.publicGists), "Public Gists")}
@@ -205,7 +215,11 @@ function renderPrimaryStat(icon: string, value: string, label: string): string {
   `;
 }
 
-function renderSecondaryStat(icon: string, value: string, label: string): string {
+function renderSecondaryStat(
+  icon: string,
+  value: string,
+  label: string,
+): string {
   return `
     <div class="stat-item-small">
       <span class="material-symbols-rounded stat-icon">${icon}</span>
@@ -217,7 +231,10 @@ function renderSecondaryStat(icon: string, value: string, label: string): string
   `;
 }
 
-function renderLastFmContent(container: HTMLElement, summary: LastFmSummary): void {
+function renderLastFmContent(
+  container: HTMLElement,
+  summary: LastFmSummary,
+): void {
   updateState(container, "ready");
 
   if (!summary.track) {

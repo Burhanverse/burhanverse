@@ -9,27 +9,49 @@ import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
  */
 export function initializeEventHandlers(): void {
   // Desktop navigation icons
-  setupNavigationHandlers(".home-icon", () => loadNavigationModule("homeSelected"));
-  setupNavigationHandlers(".repos-icon", () => loadNavigationModule("reposSelected"));
-  setupNavigationHandlers(".blog-icon", () => loadNavigationModule("blogSelected"));
-  setupNavigationHandlers(".contact-icon", () => loadNavigationModule("contactSelected"));
+  setupNavigationHandlers(".home-icon", () =>
+    loadNavigationModule("homeSelected"),
+  );
+  setupNavigationHandlers(".repos-icon", () =>
+    loadNavigationModule("reposSelected"),
+  );
+  setupNavigationHandlers(".blog-icon", () =>
+    loadNavigationModule("blogSelected"),
+  );
+  setupNavigationHandlers(".contact-icon", () =>
+    loadNavigationModule("contactSelected"),
+  );
 
   // Mobile navigation icons
-  setupNavigationHandlers("#mobile-home-icon", () => loadNavigationModule("homeSelected"));
-  setupNavigationHandlers("#mobile-repos-icon", () => loadNavigationModule("reposSelected"));
-  setupNavigationHandlers("#mobile-blog-icon", () => loadNavigationModule("blogSelected"));
-  setupNavigationHandlers("#mobile-contact-icon", () => loadNavigationModule("contactSelected"));
+  setupNavigationHandlers("#mobile-home-icon", () =>
+    loadNavigationModule("homeSelected"),
+  );
+  setupNavigationHandlers("#mobile-repos-icon", () =>
+    loadNavigationModule("reposSelected"),
+  );
+  setupNavigationHandlers("#mobile-blog-icon", () =>
+    loadNavigationModule("blogSelected"),
+  );
+  setupNavigationHandlers("#mobile-contact-icon", () =>
+    loadNavigationModule("contactSelected"),
+  );
 
   // Mobile header home button
-  setupNavigationHandlers(".header-wrapper", () => loadNavigationModule("homeSelected"));
+  setupNavigationHandlers(".header-wrapper", () =>
+    loadNavigationModule("homeSelected"),
+  );
 
   // Theme toggle buttons (desktop and mobile)
   setupThemeToggleHandlers(".change-theme");
   setupThemeToggleHandlers(".mobile-change-theme");
 
   // Mobile menu controls
-  setupClickHandler(".hamburger-menu-wrapper", () => loadNavigationModule("openNavPanel"));
-  setupClickHandler(".close-menu-button", () => loadNavigationModule("closeNavPanel"));
+  setupClickHandler(".hamburger-menu-wrapper", () =>
+    loadNavigationModule("openNavPanel"),
+  );
+  setupClickHandler(".close-menu-button", () =>
+    loadNavigationModule("closeNavPanel"),
+  );
   setupClickHandler(".overlay", () => loadNavigationModule("closeNavPanel"));
 }
 

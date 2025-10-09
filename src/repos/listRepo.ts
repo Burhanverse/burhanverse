@@ -14,10 +14,10 @@ async function loadRepositories(): Promise<void> {
     // Total: 16 repos mixed and sorted by update time
     const repos = await githubApi.fetchAndMergeRepositories(
       ["Burhanverse", "burhancodes"],
-      { 
+      {
         Burhanverse: 9,
-        burhancodes: 9 
-      }
+        burhancodes: 9,
+      },
     );
 
     // Render all repositories (16 total)
