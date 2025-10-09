@@ -6,7 +6,7 @@
   margin-top: 7.5rem;
   display: grid;
   gap: 2.4rem;
-  grid-template-columns: 2.5fr 1fr;
+  grid-template-columns: 1fr 2.5fr;
 }
 
 /* CARD BASE */
