@@ -32,3 +32,20 @@ export interface LastFmSummary {
   playcount: number;
   username: string;
 }
+
+export interface AnilistMediaList {
+  count: number;
+  meanScore: number;
+  chapters?: number; // For manga
+  episodes?: number; // For anime
+}
+
+export interface AnilistStats {
+  totalWatchedAnimeEpisodes: number;
+  totalCompletedAnime: number;
+  totalCompletedMangaChapters: number;
+  totalCompletedManga: number;
+  meanScoreAnime: number;
+  meanScoreManga: number;
+  daysWatched: number;
+}
