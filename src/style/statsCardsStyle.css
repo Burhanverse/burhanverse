@@ -824,10 +824,11 @@
 
   .lastfm-album-art,
   .lastfm-no-image {
-    width: 8rem;
-    height: 8rem;
+    width: 10rem;
+    height: 10rem;
     max-width: none;
     margin: 0;
+    flex-shrink: 0;
   }
 
   .lastfm-no-image .material-symbols-rounded {
@@ -1009,6 +1010,7 @@
     height: 8rem;
     max-width: none;
     margin: 0;
+    flex-shrink: 0;
   }
 
   .lastfm-no-image .material-symbols-rounded {
@@ -1129,6 +1131,7 @@
     height: 8rem;
     max-width: none;
     margin: 0;
+    flex-shrink: 0;
   }
 
   .lastfm-no-image .material-symbols-rounded {
