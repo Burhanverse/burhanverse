@@ -57,7 +57,7 @@ export function initializeStatsCards(): void {
     contentId: "lastfm-content",
   });
 
-  wrapper.append(githubCard.card, anilistCard.card, lastFmCard.card);
+  wrapper.append(lastFmCard.card, anilistCard.card, githubCard.card);
 
   renderLoadingState(githubCard.content, "Loading stats...");
   renderLoadingState(anilistCard.content, "Loading anime stats...");
@@ -117,7 +117,7 @@ function getIconPath(name: string): string {
       return "M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z";
     case "anime":
       // AniList icon (TV/Anime icon)
-      return "M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8.5 13.5l2.5 3.01L14.5 11l4.5 6H5z";
+      return "M6.361 2.943L0 21.056h4.942l1.077-3.133H11.4l1.052 3.133H22.9c.71 0 1.1-.392 1.1-1.101V17.53c0-.71-.39-1.101-1.1-1.101h-6.483V4.045c0-.71-.392-1.102-1.101-1.102h-2.422c-.71 0-1.101.392-1.101 1.102v1.064l-.758-2.166zm2.324 5.948l1.688 5.018H7.144z";
     case "equalizer":
       // Last.fm icon
       return "M10.584 17.21l-.88-2.392s-1.43 1.594-3.573 1.594c-1.897 0-3.244-1.649-3.244-4.288 0-3.382 1.704-4.591 3.381-4.591 2.419 0 3.188 1.567 3.849 3.574l.88 2.75c.88 2.447 2.528 4.943 7.287 4.943 3.429 0 5.74-1.043 5.74-3.793 0-2.227-1.262-3.381-3.622-3.931l-1.76-.385c-1.21-.275-1.566-.77-1.566-1.594 0-.935.742-1.485 1.952-1.485 1.319 0 2.034.495 2.144 1.677l2.749-.33c-.22-2.474-1.924-3.492-4.729-3.492-2.474 0-4.893.935-4.893 3.931 0 1.87.907 3.052 3.188 3.602l1.869.44c1.402.33 1.869.907 1.869 1.704 0 1.017-.99 1.43-2.86 1.43-2.776 0-3.932-1.457-4.591-3.464l-.907-2.75c-1.155-3.573-2.997-4.893-6.653-4.893C2.144 5.333 0 7.89 0 12.233c0 4.18 2.144 6.434 5.993 6.434 3.106 0 4.591-1.457 4.591-1.457z";
@@ -247,7 +247,7 @@ function renderAnilistContent(
       <div class="stat-grid-secondary">
         ${renderSecondaryStat("play_circle", formatNumber(stats.totalWatchedAnimeEpisodes), "Episodes Watched")}
         ${renderSecondaryStat("auto_stories", formatNumber(stats.totalCompletedMangaChapters), "Chapters Read")}
-        ${renderSecondaryStat("calendar_today", formatNumber(stats.daysWatched), "Days Watched")}
+
         ${renderSecondaryStat("star", stats.meanScoreAnime > 0 ? stats.meanScoreAnime.toFixed(1) : "N/A", "Anime Score")}
         ${renderSecondaryStat("star", stats.meanScoreManga > 0 ? stats.meanScoreManga.toFixed(1) : "N/A", "Manga Score")}
       </div>
@@ -292,10 +292,10 @@ function renderLastFmContent(
       ${track.image ? `<img src="${track.image}" alt="${escapeHtml(track.album)}" class="lastfm-album-art" />` : '<div class="lastfm-no-image"><span class="material-symbols-rounded">album</span></div>'}
       <div class="lastfm-track-info">
         ${statusBadge}
-        <a href="${track.url}" target="_blank" rel="noopener noreferrer" class="lastfm-track-title">${escapeHtml(
+        <a href="${track.url}" target="_blank" rel="noopener noreferrer" class="lastfm-track-title" title="${escapeHtml(track.name)}">${escapeHtml(
           track.name,
         )}</a>
-        <p class="lastfm-track-artist">${escapeHtml(track.artist)}</p>
+        <p class="lastfm-track-artist" title="${escapeHtml(track.artist)}">${escapeHtml(track.artist)}</p>
         <div class="lastfm-stats-row">
           <span class="lastfm-playcount">
             <span class="material-symbols-rounded">play_circle</span>

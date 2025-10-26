@@ -570,6 +570,11 @@
   overflow: hidden;
   line-height: 1.3;
   transition: color 150ms ease;
+  max-width: 45ch;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .lastfm-track-title:hover {
@@ -584,6 +589,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 45ch;
 }
 
 .lastfm-stats-row {
