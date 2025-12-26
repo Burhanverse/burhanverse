@@ -367,13 +367,15 @@ function initializePage() {
   const section = urlParams.get("section");
   const article = urlParams.get("article");
 
-  // Always go to home page on page load/refresh
-  // Clear any URL params that might be in the URL
-  if (article || section) {
+  if (article) {
+    articleSelected(article);
+    return;
+  }
+
+  if (section) {
     window.history.replaceState({}, "", "/");
   }
 
-  // Always start at home
   homeSelected();
 }
 
