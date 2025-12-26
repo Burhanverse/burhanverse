@@ -368,7 +368,27 @@ function initializePage() {
   const article = urlParams.get("article");
 
   if (article) {
-    articleSelected(article);
+    hideAllPages();
+    resetAllIcons();
+    document.documentElement.setAttribute("data-tab", "blog");
+    
+    articleContent?.classList.remove("hidden");
+    articleContent?.classList.add("visible");
+    blogIcon?.classList.add("selected");
+    mobileBlogIcon?.classList.add("selected");
+    if (blogFontIcon) blogFontIcon.textContent = "article";
+    if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
+    
+    if (mobileBlogIcon) {
+      updateSlidingIndicatorImmediate(mobileBlogIcon);
+    }
+    if (blogIcon) {
+      updateDesktopSlidingIndicator(blogIcon);
+    }
+    
+    import("../blog/article").then((module) => {
+      module.renderArticle(article);
+    });
     return;
   }
 
@@ -376,7 +396,16 @@ function initializePage() {
     window.history.replaceState({}, "", "/");
   }
 
-  homeSelected();
+  homeContent?.classList.add("visible");
+  homeIcon?.classList.add("selected");
+  mobileHomeIcon?.classList.add("selected");
+  
+  if (mobileHomeIcon) {
+    updateSlidingIndicatorImmediate(mobileHomeIcon);
+  }
+  if (homeIcon) {
+    updateDesktopSlidingIndicator(homeIcon);
+  }
 }
 
 export { closeNavPanel, openNavPanel };
