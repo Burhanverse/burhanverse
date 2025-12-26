@@ -2,55 +2,44 @@
  * Navigation system for switching between pages
  */
 
+const getElement = (selector: string) => document.querySelector<HTMLElement>(selector);
+
 // Page elements
-const homeContent = document.querySelector<HTMLElement>("#home-page");
-const reposContent = document.querySelector<HTMLElement>("#repos-page");
-const blogContent = document.querySelector<HTMLElement>("#blog-page");
-const articleContent = document.querySelector<HTMLElement>("#article-page");
-const contactContent = document.querySelector<HTMLElement>("#contact-page");
+const getHomeContent = () => getElement("#home-page");
+const getReposContent = () => getElement("#repos-page");
+const getBlogContent = () => getElement("#blog-page");
+const getArticleContent = () => getElement("#article-page");
+const getContactContent = () => getElement("#contact-page");
 
 // Navigation icons
-const homeIcon = document.querySelector<HTMLElement>("#home-icon");
-const mobileHomeIcon = document.querySelector<HTMLElement>("#mobile-home-icon");
-const reposIcon = document.querySelector<HTMLElement>("#repos-icon");
-const mobileReposIcon =
-  document.querySelector<HTMLElement>("#mobile-repos-icon");
-const blogIcon = document.querySelector<HTMLElement>("#blog-icon");
-const mobileBlogIcon = document.querySelector<HTMLElement>("#mobile-blog-icon");
-const contactIcon = document.querySelector<HTMLElement>("#contact-icon");
-const mobileContactIcon = document.querySelector<HTMLElement>(
-  "#mobile-contact-icon",
-);
+const getHomeIcon = () => getElement("#home-icon");
+const getMobileHomeIcon = () => getElement("#mobile-home-icon");
+const getReposIcon = () => getElement("#repos-icon");
+const getMobileReposIcon = () => getElement("#mobile-repos-icon");
+const getBlogIcon = () => getElement("#blog-icon");
+const getMobileBlogIcon = () => getElement("#mobile-blog-icon");
+const getContactIcon = () => getElement("#contact-icon");
+const getMobileContactIcon = () => getElement("#mobile-contact-icon");
 
 // Font icons
-const homeFontIcon = document.querySelector<HTMLElement>("#home-font-icon");
-const mobileHomeFontIcon = document.querySelector<HTMLElement>(
-  "#mobile-home-font-icon",
-);
-const blogFontIcon = document.querySelector<HTMLElement>("#blog-font-icon");
-const mobileBlogFontIcon = document.querySelector<HTMLElement>(
-  "#mobile-blog-font-icon",
-);
-const contactFontIcon =
-  document.querySelector<HTMLElement>("#contact-font-icon");
-const mobileContactFontIcon = document.querySelector<HTMLElement>(
-  "#mobile-contact-font-icon",
-);
+const getHomeFontIcon = () => getElement("#home-font-icon");
+const getMobileHomeFontIcon = () => getElement("#mobile-home-font-icon");
+const getBlogFontIcon = () => getElement("#blog-font-icon");
+const getMobileBlogFontIcon = () => getElement("#mobile-blog-font-icon");
+const getContactFontIcon = () => getElement("#contact-font-icon");
+const getMobileContactFontIcon = () => getElement("#mobile-contact-font-icon");
 
 // Mobile nav
-const mobileNavPanel = document.querySelector<HTMLElement>(
-  ".mobile-panel-wrapper",
-);
-const overlay = document.querySelector<HTMLElement>(".overlay");
-const mobileNav = document.querySelector<HTMLElement>(".mobile-nav");
-const navbarContainer = document.querySelector<HTMLElement>(
-  ".navbar-elements-container",
-);
+const getMobileNavPanel = () => getElement(".mobile-panel-wrapper");
+const getOverlay = () => getElement(".overlay");
+const getMobileNav = () => getElement(".mobile-nav");
+const getNavbarContainer = () => getElement(".navbar-elements-container");
 
 let isAnimating = false;
 let pendingNavigation: (() => void) | null = null;
 
 function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
+  const mobileNav = getMobileNav();
   if (!mobileNav || !selectedItem) return;
 
   void mobileNav.offsetHeight;
@@ -58,6 +47,8 @@ function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
 
   const navRect = mobileNav.getBoundingClientRect();
   const itemRect = selectedItem.getBoundingClientRect();
+
+  if (itemRect.width === 0 || navRect.width === 0) return;
 
   const left = itemRect.left - navRect.left;
   const width = itemRect.width;
@@ -69,6 +60,7 @@ function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
 }
 
 function updateSlidingIndicator(selectedItem: HTMLElement) {
+  const mobileNav = getMobileNav();
   if (!mobileNav || !selectedItem) return;
 
   updateSlidingIndicatorImmediate(selectedItem);
@@ -81,7 +73,33 @@ function updateSlidingIndicator(selectedItem: HTMLElement) {
   });
 }
 
+function updateIndicatorsWithRetry(mobileItem: HTMLElement | null, desktopItem: HTMLElement | null) {
+  const update = () => {
+    if (mobileItem) {
+      updateSlidingIndicatorImmediate(mobileItem);
+    }
+    if (desktopItem) {
+      updateDesktopSlidingIndicator(desktopItem);
+    }
+  };
+
+  update();
+
+  const updateTimes = [10, 50, 100, 200, 300, 500, 1000];
+  updateTimes.forEach((delay) => {
+    setTimeout(update, delay);
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      update();
+      setTimeout(update, 50);
+    });
+  }
+}
+
 function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
+  const navbarContainer = getNavbarContainer();
   if (!navbarContainer || !selectedItem) return;
 
   const iconClickable = selectedItem.querySelector<HTMLElement>(".clickable");
@@ -96,28 +114,28 @@ function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
 }
 
 function hideAllPages() {
-  homeContent?.classList.add("hidden");
-  homeContent?.classList.remove("visible");
-  reposContent?.classList.add("hidden");
-  reposContent?.classList.remove("visible");
-  blogContent?.classList.add("hidden");
-  blogContent?.classList.remove("visible");
-  articleContent?.classList.add("hidden");
-  articleContent?.classList.remove("visible");
-  contactContent?.classList.add("hidden");
-  contactContent?.classList.remove("visible");
+  getHomeContent()?.classList.add("hidden");
+  getHomeContent()?.classList.remove("visible");
+  getReposContent()?.classList.add("hidden");
+  getReposContent()?.classList.remove("visible");
+  getBlogContent()?.classList.add("hidden");
+  getBlogContent()?.classList.remove("visible");
+  getArticleContent()?.classList.add("hidden");
+  getArticleContent()?.classList.remove("visible");
+  getContactContent()?.classList.add("hidden");
+  getContactContent()?.classList.remove("visible");
 }
 
 function resetAllIcons() {
   const allIcons = [
-    homeIcon,
-    mobileHomeIcon,
-    reposIcon,
-    mobileReposIcon,
-    blogIcon,
-    mobileBlogIcon,
-    contactIcon,
-    mobileContactIcon,
+    getHomeIcon(),
+    getMobileHomeIcon(),
+    getReposIcon(),
+    getMobileReposIcon(),
+    getBlogIcon(),
+    getMobileBlogIcon(),
+    getContactIcon(),
+    getMobileContactIcon(),
   ];
 
   allIcons.forEach((icon) => {
@@ -127,6 +145,13 @@ function resetAllIcons() {
     }
   });
 
+  const homeFontIcon = getHomeFontIcon();
+  const mobileHomeFontIcon = getMobileHomeFontIcon();
+  const blogFontIcon = getBlogFontIcon();
+  const mobileBlogFontIcon = getMobileBlogFontIcon();
+  const contactFontIcon = getContactFontIcon();
+  const mobileContactFontIcon = getMobileContactFontIcon();
+  
   if (homeFontIcon) homeFontIcon.textContent = "home";
   if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
   if (blogFontIcon) blogFontIcon.textContent = "article";
@@ -136,20 +161,20 @@ function resetAllIcons() {
 }
 
 function closeNavPanel() {
-  mobileNavPanel?.classList.add("hiding");
-  overlay?.classList.add("hiding");
+  getMobileNavPanel()?.classList.add("hiding");
+  getOverlay()?.classList.add("hiding");
 
   setTimeout(() => {
-    mobileNavPanel?.classList.remove("visible");
-    mobileNavPanel?.classList.remove("hiding");
-    overlay?.classList.add("hidden");
-    overlay?.classList.remove("hiding");
+    getMobileNavPanel()?.classList.remove("visible");
+    getMobileNavPanel()?.classList.remove("hiding");
+    getOverlay()?.classList.add("hidden");
+    getOverlay()?.classList.remove("hiding");
   }, 200);
 }
 
 function openNavPanel() {
-  mobileNavPanel?.classList.add("visible");
-  overlay?.classList.remove("hidden");
+  getMobileNavPanel()?.classList.add("visible");
+  getOverlay()?.classList.remove("hidden");
 }
 
 export function homeSelected() {
@@ -166,6 +191,10 @@ export function homeSelected() {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      const homeContent = getHomeContent();
+      const homeIcon = getHomeIcon();
+      const mobileHomeIcon = getMobileHomeIcon();
+      
       homeContent?.classList.remove("hidden");
       homeContent?.classList.add("visible");
       homeIcon?.classList.add("selected");
@@ -206,6 +235,10 @@ export function reposSelected() {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      const reposContent = getReposContent();
+      const reposIcon = getReposIcon();
+      const mobileReposIcon = getMobileReposIcon();
+      
       reposContent?.classList.remove("hidden");
       reposContent?.classList.add("visible");
       reposIcon?.classList.add("selected");
@@ -246,6 +279,12 @@ export function blogSelected() {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      const blogContent = getBlogContent();
+      const blogIcon = getBlogIcon();
+      const mobileBlogIcon = getMobileBlogIcon();
+      const blogFontIcon = getBlogFontIcon();
+      const mobileBlogFontIcon = getMobileBlogFontIcon();
+      
       blogContent?.classList.remove("hidden");
       blogContent?.classList.add("visible");
       blogIcon?.classList.add("selected");
@@ -288,6 +327,12 @@ export function contactSelected() {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      const contactContent = getContactContent();
+      const contactIcon = getContactIcon();
+      const mobileContactIcon = getMobileContactIcon();
+      const contactFontIcon = getContactFontIcon();
+      const mobileContactFontIcon = getMobileContactFontIcon();
+      
       contactContent?.classList.remove("hidden");
       contactContent?.classList.add("visible");
       contactIcon?.classList.add("selected");
@@ -329,6 +374,12 @@ export function articleSelected(articleSlug: string) {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      const articleContent = getArticleContent();
+      const blogIcon = getBlogIcon();
+      const mobileBlogIcon = getMobileBlogIcon();
+      const blogFontIcon = getBlogFontIcon();
+      const mobileBlogFontIcon = getMobileBlogFontIcon();
+      
       articleContent?.classList.remove("hidden");
       articleContent?.classList.add("visible");
       blogIcon?.classList.add("selected");
@@ -368,6 +419,12 @@ function initializePage() {
   const article = urlParams.get("article");
 
   if (article) {
+    const articleContent = getArticleContent();
+    const blogIcon = getBlogIcon();
+    const mobileBlogIcon = getMobileBlogIcon();
+    const blogFontIcon = getBlogFontIcon();
+    const mobileBlogFontIcon = getMobileBlogFontIcon();
+    
     hideAllPages();
     resetAllIcons();
     document.documentElement.setAttribute("data-tab", "blog");
@@ -379,12 +436,7 @@ function initializePage() {
     if (blogFontIcon) blogFontIcon.textContent = "article";
     if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
     
-    if (mobileBlogIcon) {
-      updateSlidingIndicatorImmediate(mobileBlogIcon);
-    }
-    if (blogIcon) {
-      updateDesktopSlidingIndicator(blogIcon);
-    }
+    updateIndicatorsWithRetry(mobileBlogIcon, blogIcon);
     
     import("../blog/article").then((module) => {
       module.renderArticle(article);
@@ -396,16 +448,15 @@ function initializePage() {
     window.history.replaceState({}, "", "/");
   }
 
+  const homeContent = getHomeContent();
+  const homeIcon = getHomeIcon();
+  const mobileHomeIcon = getMobileHomeIcon();
+  
   homeContent?.classList.add("visible");
   homeIcon?.classList.add("selected");
   mobileHomeIcon?.classList.add("selected");
   
-  if (mobileHomeIcon) {
-    updateSlidingIndicatorImmediate(mobileHomeIcon);
-  }
-  if (homeIcon) {
-    updateDesktopSlidingIndicator(homeIcon);
-  }
+  updateIndicatorsWithRetry(mobileHomeIcon, homeIcon);
 }
 
 export { closeNavPanel, openNavPanel };
@@ -447,4 +498,10 @@ window.addEventListener("orientationchange", () => {
 
 window.addEventListener("popstate", () => {
   initializePage();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    setTimeout(handleResize, 100);
+  }
 });
