@@ -165,7 +165,7 @@ export async function renderArticle(articleSlug: string): Promise<void> {
     "</div>" +
     '<footer class="article-footer">' +
     '<p class="footer-text">Made with ❤️ by <i>Sid</i>.</p>' +
-    '<p class="footer-copyright">© 2025 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></p>' +
+    '<p class="footer-copyright">© 2026 <a href="https://github.com/Burhanverse" target="_blank" rel="noopener noreferrer" class="footer-link">@burhanverse</a></p>' +
     "</footer>" +
     "</article>";
 

@@ -95,7 +95,7 @@ Ordered:
      slug: "my-article",
      title: "My Article Title",
      description: "Short description for the blog list",
-     date: "2025-01-06",
+     date: "2026-01-06",
      image: "/img/my-article.jpg",
      link: "/?article=my-article",
      tags: ["Tag1", "Tag2"],
