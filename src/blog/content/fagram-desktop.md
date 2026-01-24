@@ -1,5 +1,3 @@
-# FAgram Desktop Installation Guide
-
 All packages are maintained by [@burhanverse](https://github.com/burhanverse)
 
 ## For Windows:
