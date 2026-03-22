@@ -14,7 +14,6 @@ export function bodyLoaded() {
   const body = document.querySelector<HTMLElement>("body");
   if (body) {
     body.style.opacity = "1";
-    body.style.cursor = "none";
   }
 
   // Initialize all features

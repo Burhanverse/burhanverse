@@ -60,7 +60,7 @@ export function initializeEventHandlers(): void {
  */
 async function loadNavigationModule(functionName: string): Promise<void> {
   const module = await import("./core/navigation");
-  const fn = (module as any)[functionName];
+  const fn = (module as unknown as Record<string, () => void>)[functionName];
   if (typeof fn === "function") {
     fn();
   }

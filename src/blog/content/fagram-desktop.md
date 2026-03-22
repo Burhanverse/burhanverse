@@ -1,15 +1,18 @@
 All packages are maintained by [@burhanverse](https://github.com/burhanverse)
 
 ## For Windows:
-The recommended way to install  FAgram is via [scoop](https://scoop.sh)
+
+The recommended way to install FAgram is via [scoop](https://scoop.sh)
 
 ```powershell
 scoop bucket add fagram-scoop https://github.com/fagramdesktop/fagram-scoop
 scoop install fagram
 ```
+
 You can get the installer and portable versions on GitHub [releases](https://github.com/fagramdesktop/fadesktop/releases)
 
 ## For Linux:
+
 ### Setup for ArchLinux/ArchLinux based distros:
 
 You can install fagram from AUR. If you have an AUR helper like yay, you can run:

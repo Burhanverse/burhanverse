@@ -2,7 +2,8 @@
  * Navigation system for switching between pages
  */
 
-const getElement = (selector: string) => document.querySelector<HTMLElement>(selector);
+const getElement = (selector: string) =>
+  document.querySelector<HTMLElement>(selector);
 
 // Page elements
 const getHomeContent = () => getElement("#home-page");
@@ -38,67 +39,29 @@ const getNavbarContainer = () => getElement(".navbar-elements-container");
 let isAnimating = false;
 let pendingNavigation: (() => void) | null = null;
 
+let indicatorObserver: ResizeObserver | null = null;
+
 function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   const mobileNav = getMobileNav();
   if (!mobileNav || !selectedItem) return;
 
-  void mobileNav.offsetHeight;
-  void selectedItem.offsetWidth;
-
   const navRect = mobileNav.getBoundingClientRect();
   const itemRect = selectedItem.getBoundingClientRect();
-
-  if (itemRect.width === 0 || navRect.width === 0) return;
-
-  const left = itemRect.left - navRect.left;
   const width = itemRect.width;
+
+  if (width === 0 || navRect.width === 0) return;
+
+  const computedStyle = getComputedStyle(mobileNav);
+  const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
+  
+  // Position is relative to padding edge
+  const left = itemRect.left - (navRect.left + borderLeft);
 
   mobileNav.style.setProperty("--indicator-left", `${left}px`);
   mobileNav.style.setProperty("--indicator-width", `${width}px`);
-
-  void mobileNav.offsetHeight;
 }
 
-function updateSlidingIndicator(selectedItem: HTMLElement) {
-  const mobileNav = getMobileNav();
-  if (!mobileNav || !selectedItem) return;
-
-  updateSlidingIndicatorImmediate(selectedItem);
-
-  const updateTimes = [16, 50, 100, 150, 200, 250, 300];
-  updateTimes.forEach((delay) => {
-    setTimeout(() => {
-      updateSlidingIndicatorImmediate(selectedItem);
-    }, delay);
-  });
-}
-
-function updateIndicatorsWithRetry(mobileItem: HTMLElement | null, desktopItem: HTMLElement | null) {
-  const update = () => {
-    if (mobileItem) {
-      updateSlidingIndicatorImmediate(mobileItem);
-    }
-    if (desktopItem) {
-      updateDesktopSlidingIndicator(desktopItem);
-    }
-  };
-
-  update();
-
-  const updateTimes = [10, 50, 100, 200, 300, 500, 1000];
-  updateTimes.forEach((delay) => {
-    setTimeout(update, delay);
-  });
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => {
-      update();
-      setTimeout(update, 50);
-    });
-  }
-}
-
-function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
+function updateDesktopSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   const navbarContainer = getNavbarContainer();
   if (!navbarContainer || !selectedItem) return;
 
@@ -108,9 +71,56 @@ function updateDesktopSlidingIndicator(selectedItem: HTMLElement) {
   const navRect = navbarContainer.getBoundingClientRect();
   const iconRect = iconClickable.getBoundingClientRect();
 
-  const top = iconRect.top - navRect.top;
+  if (iconRect.height === 0 || navRect.height === 0) return;
+
+  const computedStyle = getComputedStyle(navbarContainer);
+  const borderTop = parseFloat(computedStyle.borderTopWidth) || 0;
+
+  const top = iconRect.top - (navRect.top + borderTop);
 
   navbarContainer.style.setProperty("--indicator-top", `${top}px`);
+}
+
+function updateIndicators(
+  mobileItem: HTMLElement | null,
+  desktopItem: HTMLElement | null,
+) {
+  if (indicatorObserver) {
+    indicatorObserver.disconnect();
+  }
+
+  const update = () => {
+    if (mobileItem) updateSlidingIndicatorImmediate(mobileItem);
+    if (desktopItem) updateDesktopSlidingIndicatorImmediate(desktopItem);
+  };
+
+  indicatorObserver = new ResizeObserver(() => {
+    update();
+  });
+
+  // Observe all nav items to catch layout position shifts
+  document.querySelectorAll(".mobile-nav-item").forEach(item => {
+    indicatorObserver!.observe(item);
+  });
+  
+  document.querySelectorAll(".icon-container").forEach(item => {
+    indicatorObserver!.observe(item);
+  });
+  
+  const mobileNav = getMobileNav();
+  if (mobileNav) indicatorObserver.observe(mobileNav);
+  
+  const navbarContainer = getNavbarContainer();
+  if (navbarContainer) indicatorObserver.observe(navbarContainer);
+
+  update();
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      update();
+      setTimeout(update, 50);
+    });
+  }
 }
 
 function hideAllPages() {
@@ -151,7 +161,7 @@ function resetAllIcons() {
   const mobileBlogFontIcon = getMobileBlogFontIcon();
   const contactFontIcon = getContactFontIcon();
   const mobileContactFontIcon = getMobileContactFontIcon();
-  
+
   if (homeFontIcon) homeFontIcon.textContent = "home";
   if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
   if (blogFontIcon) blogFontIcon.textContent = "article";
@@ -194,7 +204,7 @@ export function homeSelected() {
       const homeContent = getHomeContent();
       const homeIcon = getHomeIcon();
       const mobileHomeIcon = getMobileHomeIcon();
-      
+
       homeContent?.classList.remove("hidden");
       homeContent?.classList.add("visible");
       homeIcon?.classList.add("selected");
@@ -202,12 +212,7 @@ export function homeSelected() {
       localStorage.setItem("page-section", "home");
       closeNavPanel();
 
-      if (mobileHomeIcon) {
-        updateSlidingIndicator(mobileHomeIcon);
-      }
-      if (homeIcon) {
-        updateDesktopSlidingIndicator(homeIcon);
-      }
+      updateIndicators(mobileHomeIcon, homeIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -238,7 +243,7 @@ export function reposSelected() {
       const reposContent = getReposContent();
       const reposIcon = getReposIcon();
       const mobileReposIcon = getMobileReposIcon();
-      
+
       reposContent?.classList.remove("hidden");
       reposContent?.classList.add("visible");
       reposIcon?.classList.add("selected");
@@ -246,12 +251,7 @@ export function reposSelected() {
       localStorage.setItem("page-section", "repos");
       closeNavPanel();
 
-      if (mobileReposIcon) {
-        updateSlidingIndicator(mobileReposIcon);
-      }
-      if (reposIcon) {
-        updateDesktopSlidingIndicator(reposIcon);
-      }
+      updateIndicators(mobileReposIcon, reposIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -284,7 +284,7 @@ export function blogSelected() {
       const mobileBlogIcon = getMobileBlogIcon();
       const blogFontIcon = getBlogFontIcon();
       const mobileBlogFontIcon = getMobileBlogFontIcon();
-      
+
       blogContent?.classList.remove("hidden");
       blogContent?.classList.add("visible");
       blogIcon?.classList.add("selected");
@@ -294,12 +294,7 @@ export function blogSelected() {
       localStorage.setItem("page-section", "blog");
       closeNavPanel();
 
-      if (mobileBlogIcon) {
-        updateSlidingIndicator(mobileBlogIcon);
-      }
-      if (blogIcon) {
-        updateDesktopSlidingIndicator(blogIcon);
-      }
+      updateIndicators(mobileBlogIcon, blogIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -332,7 +327,7 @@ export function contactSelected() {
       const mobileContactIcon = getMobileContactIcon();
       const contactFontIcon = getContactFontIcon();
       const mobileContactFontIcon = getMobileContactFontIcon();
-      
+
       contactContent?.classList.remove("hidden");
       contactContent?.classList.add("visible");
       contactIcon?.classList.add("selected");
@@ -341,12 +336,7 @@ export function contactSelected() {
       if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
       localStorage.setItem("page-section", "contact");
       closeNavPanel();
-      if (mobileContactIcon) {
-        updateSlidingIndicator(mobileContactIcon);
-      }
-      if (contactIcon) {
-        updateDesktopSlidingIndicator(contactIcon);
-      }
+      updateIndicators(mobileContactIcon, contactIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -379,7 +369,7 @@ export function articleSelected(articleSlug: string) {
       const mobileBlogIcon = getMobileBlogIcon();
       const blogFontIcon = getBlogFontIcon();
       const mobileBlogFontIcon = getMobileBlogFontIcon();
-      
+
       articleContent?.classList.remove("hidden");
       articleContent?.classList.add("visible");
       blogIcon?.classList.add("selected");
@@ -393,12 +383,7 @@ export function articleSelected(articleSlug: string) {
         module.renderArticle(articleSlug);
       });
 
-      if (mobileBlogIcon) {
-        updateSlidingIndicator(mobileBlogIcon);
-      }
-      if (blogIcon) {
-        updateDesktopSlidingIndicator(blogIcon);
-      }
+      updateIndicators(mobileBlogIcon, blogIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -424,20 +409,20 @@ function initializePage() {
     const mobileBlogIcon = getMobileBlogIcon();
     const blogFontIcon = getBlogFontIcon();
     const mobileBlogFontIcon = getMobileBlogFontIcon();
-    
+
     hideAllPages();
     resetAllIcons();
     document.documentElement.setAttribute("data-tab", "blog");
-    
+
     articleContent?.classList.remove("hidden");
     articleContent?.classList.add("visible");
     blogIcon?.classList.add("selected");
     mobileBlogIcon?.classList.add("selected");
     if (blogFontIcon) blogFontIcon.textContent = "article";
     if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
-    
-    updateIndicatorsWithRetry(mobileBlogIcon, blogIcon);
-    
+
+    updateIndicators(mobileBlogIcon, blogIcon);
+
     import("../blog/article").then((module) => {
       module.renderArticle(article);
     });
@@ -451,12 +436,12 @@ function initializePage() {
   const homeContent = getHomeContent();
   const homeIcon = getHomeIcon();
   const mobileHomeIcon = getMobileHomeIcon();
-  
+
   homeContent?.classList.add("visible");
   homeIcon?.classList.add("selected");
   mobileHomeIcon?.classList.add("selected");
-  
-  updateIndicatorsWithRetry(mobileHomeIcon, homeIcon);
+
+  updateIndicators(mobileHomeIcon, homeIcon);
 }
 
 export { closeNavPanel, openNavPanel };
@@ -469,14 +454,14 @@ function handleResize() {
       ".mobile-nav-item.selected",
     );
     const selectedDesktopItem = document.querySelector<HTMLElement>(
-      ".navbar-icon-item.selected",
+      ".icon-container.selected",
     );
 
     if (selectedMobileItem) {
-      updateSlidingIndicator(selectedMobileItem);
+      updateSlidingIndicatorImmediate(selectedMobileItem);
     }
     if (selectedDesktopItem) {
-      updateDesktopSlidingIndicator(selectedDesktopItem);
+      updateDesktopSlidingIndicatorImmediate(selectedDesktopItem);
     }
   }, 100);
 }

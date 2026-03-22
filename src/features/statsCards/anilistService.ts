@@ -23,7 +23,9 @@ interface AnilistUserResponse {
   };
 }
 
-export async function fetchAnilistStats(username: string): Promise<AnilistStats> {
+export async function fetchAnilistStats(
+  username: string,
+): Promise<AnilistStats> {
   const query = `
     query ($username: String) {
       User(name: $username) {

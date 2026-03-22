@@ -137,8 +137,7 @@
   font-weight: 600;
   color: var(--md-sys-color-on-surface-variant);
   opacity: 0;
-  line-height: 1.4;
-  padding-bottom: 0.2rem;
+  line-height: normal;
   transition:
     color 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
     opacity 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
