@@ -11,6 +11,15 @@ scoop install fagram
 
 You can get the installer and portable versions on GitHub [releases](https://github.com/fagramdesktop/fadesktop/releases)
 
+## For macOS:
+
+You can download the FAgram DMG installer from the [GitHub releases](https://github.com/fagramdesktop/fadesktop/releases) page.
+
+After downloading:
+1. Open the DMG file
+2. Drag the FAgram application to the Applications folder
+3. Launch FAgram from your Applications folder
+
 ## For Linux:
 
 ### Setup for ArchLinux/ArchLinux based distros:
