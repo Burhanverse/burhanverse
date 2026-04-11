@@ -7,7 +7,7 @@ body {
 }
 
 /* ARTICLE PAGE USES BLOG COLOR SCHEME */
-.article-page .title-wrapper {
+.article .title-wrapper {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -16,7 +16,7 @@ body {
 }
 
 /* Blur effect layer */
-.article-page .title-wrapper::before {
+.article .title-wrapper::before {
   content: "";
   position: absolute;
   top: -170px;
@@ -33,7 +33,7 @@ body {
 }
 
 /* Noise texture overlay */
-.article-page .title-wrapper::after {
+.article .title-wrapper::after {
   content: "";
   position: absolute;
   top: 0;
@@ -48,11 +48,11 @@ body {
 }
 
 /* Dark theme adjustments */
-[theme="dark"] .article-page .title-wrapper::before {
+[theme="dark"] .article .title-wrapper::before {
   filter: blur(45px) brightness(95%);
 }
 
-[theme="dark"] .article-page .title-wrapper {
+[theme="dark"] .article .title-wrapper {
   filter: brightness(85%);
 }
 
@@ -65,15 +65,15 @@ body {
 
 /* Hide system cursor on desktop */
 @media (pointer: fine) {
-  .article-page,
-  .article-page * {
+  .article,
+  .article * {
     cursor: none !important;
   }
 }
 
 /* ARTICLE PAGE WRAPPER */
 
-.article-page .title-elements {
+.article .title-elements {
   color: var(--md-sys-color-on-secondary-container);
   background-color: var(--md-sys-color-secondary-container);
   position: relative;
