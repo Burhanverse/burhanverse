@@ -17,7 +17,5 @@ In my free time, I dive into music, try crafting some designs, tinker with apps,
   <br/><br/>
   <img src="https://github-streak-nu.vercel.app/?user=Burhanverse&theme=catppuccin-mocha&hide_border=true&border_radius=10&short_numbers=true&date_format=M%20j%5B%2C%20Y%5D&card_width=525&stroke=17EBCC&fire=C691EB" alt="GitHub Streak" />
   <br/><br/>
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=burhanverse&bg_color=1e1e2e&color=b4befe&line=94e2d5&point=cba6f7&area=true&hide_border=true&radius=16" alt="Burhan's activity graph" />
-  <br/><br/>
   <img src="https://raw.githubusercontent.com/Burhanverse/assets/main/sanke.svg" alt="animation" />
 </div>
