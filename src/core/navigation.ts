@@ -6,29 +6,15 @@ const getElement = (selector: string) =>
   document.querySelector<HTMLElement>(selector);
 
 // Page elements
-const getHomeContent = () => getElement("#home-page");
-const getReposContent = () => getElement("#repos-page");
-const getBlogContent = () => getElement("#blog-page");
-const getArticleContent = () => getElement("#article-page");
-const getContactContent = () => getElement("#contact-page");
+const getPageElement = (id: string) => getElement(`#${id}-page`);
 
 // Navigation icons
-const getHomeIcon = () => getElement("#home-icon");
-const getMobileHomeIcon = () => getElement("#mobile-home-icon");
-const getReposIcon = () => getElement("#repos-icon");
-const getMobileReposIcon = () => getElement("#mobile-repos-icon");
-const getBlogIcon = () => getElement("#blog-icon");
-const getMobileBlogIcon = () => getElement("#mobile-blog-icon");
-const getContactIcon = () => getElement("#contact-icon");
-const getMobileContactIcon = () => getElement("#mobile-contact-icon");
+const getDesktopIcon = (id: string) => getElement(`#${id}-icon`);
+const getMobileIcon = (id: string) => getElement(`#mobile-${id}-icon`);
 
-// Font icons
-const getHomeFontIcon = () => getElement("#home-font-icon");
-const getMobileHomeFontIcon = () => getElement("#mobile-home-font-icon");
-const getBlogFontIcon = () => getElement("#blog-font-icon");
-const getMobileBlogFontIcon = () => getElement("#mobile-blog-font-icon");
-const getContactFontIcon = () => getElement("#contact-font-icon");
-const getMobileContactFontIcon = () => getElement("#mobile-contact-font-icon");
+// Font icons (for icons that change text content on selection)
+const getFontIcon = (id: string) => getElement(`#${id}-font-icon`);
+const getMobileFontIcon = (id: string) => getElement(`#mobile-${id}-font-icon`);
 
 // Mobile nav
 const getMobileNavPanel = () => getElement(".mobile-panel-wrapper");
@@ -40,6 +26,8 @@ let isAnimating = false;
 let pendingNavigation: (() => void) | null = null;
 
 let indicatorObserver: ResizeObserver | null = null;
+
+// ─── Sliding Indicator Helpers ───────────────────────────────────────────────
 
 function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
   const mobileNav = getMobileNav();
@@ -53,7 +41,7 @@ function updateSlidingIndicatorImmediate(selectedItem: HTMLElement) {
 
   const computedStyle = getComputedStyle(mobileNav);
   const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
-  
+
   // Position is relative to padding edge
   const left = itemRect.left - (navRect.left + borderLeft);
 
@@ -102,14 +90,14 @@ function updateIndicators(
   document.querySelectorAll(".mobile-nav-item").forEach(item => {
     indicatorObserver!.observe(item);
   });
-  
+
   document.querySelectorAll(".icon-container").forEach(item => {
     indicatorObserver!.observe(item);
   });
-  
+
   const mobileNav = getMobileNav();
   if (mobileNav) indicatorObserver.observe(mobileNav);
-  
+
   const navbarContainer = getNavbarContainer();
   if (navbarContainer) indicatorObserver.observe(navbarContainer);
 
@@ -123,52 +111,54 @@ function updateIndicators(
   }
 }
 
+// ─── Page Visibility & Icon State ────────────────────────────────────────────
+
+const PAGE_IDS = ["home", "repos", "blog", "article", "contact"] as const;
+
 function hideAllPages() {
-  getHomeContent()?.classList.add("hidden");
-  getHomeContent()?.classList.remove("visible");
-  getReposContent()?.classList.add("hidden");
-  getReposContent()?.classList.remove("visible");
-  getBlogContent()?.classList.add("hidden");
-  getBlogContent()?.classList.remove("visible");
-  getArticleContent()?.classList.add("hidden");
-  getArticleContent()?.classList.remove("visible");
-  getContactContent()?.classList.add("hidden");
-  getContactContent()?.classList.remove("visible");
+  for (const id of PAGE_IDS) {
+    const el = getPageElement(id);
+    if (el) {
+      el.classList.add("hidden");
+      el.classList.remove("visible");
+    }
+  }
 }
+
+/** Icon IDs that participate in selection state */
+const NAV_ICON_IDS = ["home", "repos", "blog", "contact"] as const;
+
+/** Icons with swappable font-icon text content */
+const FONT_ICON_DEFAULTS: Record<string, string> = {
+  home: "home",
+  blog: "article",
+  contact: "mail",
+};
 
 function resetAllIcons() {
-  const allIcons = [
-    getHomeIcon(),
-    getMobileHomeIcon(),
-    getReposIcon(),
-    getMobileReposIcon(),
-    getBlogIcon(),
-    getMobileBlogIcon(),
-    getContactIcon(),
-    getMobileContactIcon(),
-  ];
-
-  allIcons.forEach((icon) => {
-    if (icon) {
-      icon.classList.remove("selected");
-      void icon.offsetHeight;
+  for (const id of NAV_ICON_IDS) {
+    const desktopIcon = getDesktopIcon(id);
+    const mobileIcon = getMobileIcon(id);
+    if (desktopIcon) {
+      desktopIcon.classList.remove("selected");
+      void desktopIcon.offsetHeight;
     }
-  });
+    if (mobileIcon) {
+      mobileIcon.classList.remove("selected");
+      void mobileIcon.offsetHeight;
+    }
+  }
 
-  const homeFontIcon = getHomeFontIcon();
-  const mobileHomeFontIcon = getMobileHomeFontIcon();
-  const blogFontIcon = getBlogFontIcon();
-  const mobileBlogFontIcon = getMobileBlogFontIcon();
-  const contactFontIcon = getContactFontIcon();
-  const mobileContactFontIcon = getMobileContactFontIcon();
-
-  if (homeFontIcon) homeFontIcon.textContent = "home";
-  if (mobileHomeFontIcon) mobileHomeFontIcon.textContent = "home";
-  if (blogFontIcon) blogFontIcon.textContent = "article";
-  if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
-  if (contactFontIcon) contactFontIcon.textContent = "mail";
-  if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
+  // Reset font icons to defaults
+  for (const [id, text] of Object.entries(FONT_ICON_DEFAULTS)) {
+    const fontIcon = getFontIcon(id);
+    const mobileFontIcon = getMobileFontIcon(id);
+    if (fontIcon) fontIcon.textContent = text;
+    if (mobileFontIcon) mobileFontIcon.textContent = text;
+  }
 }
+
+// ─── Mobile Nav Panel ────────────────────────────────────────────────────────
 
 function closeNavPanel() {
   getMobileNavPanel()?.classList.add("hiding");
@@ -187,9 +177,24 @@ function openNavPanel() {
   getOverlay()?.classList.remove("hidden");
 }
 
-export function homeSelected() {
+// ─── Generic Navigation ──────────────────────────────────────────────────────
+
+interface NavigateOptions {
+  /** The page element ID suffix (e.g. "home" → "#home-page") */
+  pageId: string;
+  /** The data-tab value to set on <html> */
+  tab: string;
+  /** The navigation icon ID suffix (e.g. "home" → "#home-icon") */
+  iconId: string;
+  /** localStorage key value for page-section */
+  section: string;
+  /** Optional callback invoked inside the rAF after the page is shown */
+  onShow?: () => void;
+}
+
+function navigateTo(options: NavigateOptions, selfRef: () => void) {
   if (isAnimating) {
-    pendingNavigation = homeSelected;
+    pendingNavigation = selfRef;
     return;
   }
 
@@ -197,22 +202,24 @@ export function homeSelected() {
   hideAllPages();
   resetAllIcons();
 
-  document.documentElement.setAttribute("data-tab", "home");
+  document.documentElement.setAttribute("data-tab", options.tab);
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      const homeContent = getHomeContent();
-      const homeIcon = getHomeIcon();
-      const mobileHomeIcon = getMobileHomeIcon();
+      const page = getPageElement(options.pageId);
+      const desktopIcon = getDesktopIcon(options.iconId);
+      const mobileIcon = getMobileIcon(options.iconId);
 
-      homeContent?.classList.remove("hidden");
-      homeContent?.classList.add("visible");
-      homeIcon?.classList.add("selected");
-      mobileHomeIcon?.classList.add("selected");
-      localStorage.setItem("page-section", "home");
+      page?.classList.remove("hidden");
+      page?.classList.add("visible");
+      desktopIcon?.classList.add("selected");
+      mobileIcon?.classList.add("selected");
+      localStorage.setItem("page-section", options.section);
       closeNavPanel();
 
-      updateIndicators(mobileHomeIcon, homeIcon);
+      options.onShow?.();
+
+      updateIndicators(mobileIcon, desktopIcon);
 
       setTimeout(() => {
         isAnimating = false;
@@ -224,202 +231,80 @@ export function homeSelected() {
       }, 300);
     });
   });
+}
+
+// ─── Exported Navigation Functions ───────────────────────────────────────────
+
+export function homeSelected() {
+  navigateTo(
+    { pageId: "home", tab: "home", iconId: "home", section: "home" },
+    homeSelected,
+  );
 }
 
 export function reposSelected() {
-  if (isAnimating) {
-    pendingNavigation = reposSelected;
-    return;
-  }
-
-  isAnimating = true;
-  hideAllPages();
-  resetAllIcons();
-
-  document.documentElement.setAttribute("data-tab", "repos");
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const reposContent = getReposContent();
-      const reposIcon = getReposIcon();
-      const mobileReposIcon = getMobileReposIcon();
-
-      reposContent?.classList.remove("hidden");
-      reposContent?.classList.add("visible");
-      reposIcon?.classList.add("selected");
-      mobileReposIcon?.classList.add("selected");
-      localStorage.setItem("page-section", "repos");
-      closeNavPanel();
-
-      updateIndicators(mobileReposIcon, reposIcon);
-
-      setTimeout(() => {
-        isAnimating = false;
-        if (pendingNavigation) {
-          const next = pendingNavigation;
-          pendingNavigation = null;
-          next();
-        }
-      }, 300);
-    });
-  });
+  navigateTo(
+    { pageId: "repos", tab: "repos", iconId: "repos", section: "repos" },
+    reposSelected,
+  );
 }
 
 export function blogSelected() {
-  if (isAnimating) {
-    pendingNavigation = blogSelected;
-    return;
-  }
-
-  isAnimating = true;
-  hideAllPages();
-  resetAllIcons();
-
-  document.documentElement.setAttribute("data-tab", "blog");
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const blogContent = getBlogContent();
-      const blogIcon = getBlogIcon();
-      const mobileBlogIcon = getMobileBlogIcon();
-      const blogFontIcon = getBlogFontIcon();
-      const mobileBlogFontIcon = getMobileBlogFontIcon();
-
-      blogContent?.classList.remove("hidden");
-      blogContent?.classList.add("visible");
-      blogIcon?.classList.add("selected");
-      mobileBlogIcon?.classList.add("selected");
-      if (blogFontIcon) blogFontIcon.textContent = "article";
-      if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
-      localStorage.setItem("page-section", "blog");
-      closeNavPanel();
-
-      updateIndicators(mobileBlogIcon, blogIcon);
-
-      setTimeout(() => {
-        isAnimating = false;
-        if (pendingNavigation) {
-          const next = pendingNavigation;
-          pendingNavigation = null;
-          next();
-        }
-      }, 300);
-    });
-  });
+  navigateTo(
+    { pageId: "blog", tab: "blog", iconId: "blog", section: "blog" },
+    blogSelected,
+  );
 }
 
 export function contactSelected() {
-  if (isAnimating) {
-    pendingNavigation = contactSelected;
-    return;
-  }
-
-  isAnimating = true;
-  hideAllPages();
-  resetAllIcons();
-
-  document.documentElement.setAttribute("data-tab", "contact");
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const contactContent = getContactContent();
-      const contactIcon = getContactIcon();
-      const mobileContactIcon = getMobileContactIcon();
-      const contactFontIcon = getContactFontIcon();
-      const mobileContactFontIcon = getMobileContactFontIcon();
-
-      contactContent?.classList.remove("hidden");
-      contactContent?.classList.add("visible");
-      contactIcon?.classList.add("selected");
-      mobileContactIcon?.classList.add("selected");
-      if (contactFontIcon) contactFontIcon.textContent = "mail";
-      if (mobileContactFontIcon) mobileContactFontIcon.textContent = "mail";
-      localStorage.setItem("page-section", "contact");
-      closeNavPanel();
-      updateIndicators(mobileContactIcon, contactIcon);
-
-      setTimeout(() => {
-        isAnimating = false;
-        if (pendingNavigation) {
-          const next = pendingNavigation;
-          pendingNavigation = null;
-          next();
-        }
-      }, 300);
-    });
-  });
+  navigateTo(
+    {
+      pageId: "contact",
+      tab: "contact",
+      iconId: "contact",
+      section: "contact",
+    },
+    contactSelected,
+  );
 }
 
 export function articleSelected(articleSlug: string) {
-  if (isAnimating) {
-    pendingNavigation = () => articleSelected(articleSlug);
-    return;
-  }
-
-  isAnimating = true;
-  hideAllPages();
-  resetAllIcons();
-
-  document.documentElement.setAttribute("data-tab", "blog");
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const articleContent = getArticleContent();
-      const blogIcon = getBlogIcon();
-      const mobileBlogIcon = getMobileBlogIcon();
-      const blogFontIcon = getBlogFontIcon();
-      const mobileBlogFontIcon = getMobileBlogFontIcon();
-
-      articleContent?.classList.remove("hidden");
-      articleContent?.classList.add("visible");
-      blogIcon?.classList.add("selected");
-      mobileBlogIcon?.classList.add("selected");
-      if (blogFontIcon) blogFontIcon.textContent = "article";
-      if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
-      localStorage.setItem("page-section", "article");
-      closeNavPanel();
-
-      import("../blog/article").then((module) => {
-        module.renderArticle(articleSlug);
-      });
-
-      updateIndicators(mobileBlogIcon, blogIcon);
-
-      setTimeout(() => {
-        isAnimating = false;
-        if (pendingNavigation) {
-          const next = pendingNavigation;
-          pendingNavigation = null;
-          next();
-        }
-      }, 300);
-    });
-  });
+  navigateTo(
+    {
+      pageId: "article",
+      tab: "blog",
+      iconId: "blog",
+      section: "article",
+      onShow: () => {
+        import("../blog/article").then((module) => {
+          module.renderArticle(articleSlug);
+        });
+      },
+    },
+    () => articleSelected(articleSlug),
+  );
 }
 
-// Initialize page
+// ─── Page Initialization ─────────────────────────────────────────────────────
+
 function initializePage() {
   const urlParams = new URLSearchParams(window.location.search);
   const section = urlParams.get("section");
   const article = urlParams.get("article");
 
   if (article) {
-    const articleContent = getArticleContent();
-    const blogIcon = getBlogIcon();
-    const mobileBlogIcon = getMobileBlogIcon();
-    const blogFontIcon = getBlogFontIcon();
-    const mobileBlogFontIcon = getMobileBlogFontIcon();
+    const blogIcon = getDesktopIcon("blog");
+    const mobileBlogIcon = getMobileIcon("blog");
 
     hideAllPages();
     resetAllIcons();
     document.documentElement.setAttribute("data-tab", "blog");
 
+    const articleContent = getPageElement("article");
     articleContent?.classList.remove("hidden");
     articleContent?.classList.add("visible");
     blogIcon?.classList.add("selected");
     mobileBlogIcon?.classList.add("selected");
-    if (blogFontIcon) blogFontIcon.textContent = "article";
-    if (mobileBlogFontIcon) mobileBlogFontIcon.textContent = "article";
 
     updateIndicators(mobileBlogIcon, blogIcon);
 
@@ -433,9 +318,9 @@ function initializePage() {
     window.history.replaceState({}, "", "/");
   }
 
-  const homeContent = getHomeContent();
-  const homeIcon = getHomeIcon();
-  const mobileHomeIcon = getMobileHomeIcon();
+  const homeIcon = getDesktopIcon("home");
+  const mobileHomeIcon = getMobileIcon("home");
+  const homeContent = getPageElement("home");
 
   homeContent?.classList.add("visible");
   homeIcon?.classList.add("selected");
@@ -445,6 +330,8 @@ function initializePage() {
 }
 
 export { closeNavPanel, openNavPanel };
+
+// ─── Resize & Visibility Handlers ────────────────────────────────────────────
 
 let resizeTimeout: number;
 function handleResize() {

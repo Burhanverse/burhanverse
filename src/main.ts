@@ -14,52 +14,6 @@ import "./features/subtitleStyling";
 // Import blog posts for image preloading
 import { blogPosts } from "./blog/posts";
 
-// Export functions to window for inline event handlers
-import { themeToggle, themeToggleHover, themeToggleLeave } from "./core/theme";
-import { bodyLoaded } from "./core/bodyLoad";
-
-/**
- * Lazy load navigation functions
- */
-async function loadNavigationFunctions() {
-  const nav = await import("./core/navigation");
-  return nav;
-}
-
-// Make functions globally available for HTML inline handlers
-declare global {
-  interface Window {
-    themeToggle: typeof themeToggle;
-    themeToggleHover: typeof themeToggleHover;
-    themeToggleLeave: typeof themeToggleLeave;
-    homeSelected: () => void;
-    reposSelected: () => void;
-    blogSelected: () => void;
-    contactSelected: () => void;
-    articleSelected: (slug: string) => void;
-    closeNavPanel: () => void;
-    openNavPanel: () => void;
-    bodyLoaded: typeof bodyLoaded;
-  }
-}
-
-// Attach theme functions to window
-window.themeToggle = themeToggle;
-window.themeToggleHover = themeToggleHover;
-window.themeToggleLeave = themeToggleLeave;
-window.bodyLoaded = bodyLoaded;
-
-// Attach navigation functions lazily
-loadNavigationFunctions().then((nav) => {
-  window.homeSelected = nav.homeSelected;
-  window.reposSelected = nav.reposSelected;
-  window.blogSelected = nav.blogSelected;
-  window.contactSelected = nav.contactSelected;
-  window.articleSelected = nav.articleSelected;
-  window.closeNavPanel = nav.closeNavPanel;
-  window.openNavPanel = nav.openNavPanel;
-});
-
 /**
  * Preload blog post images for smoother loading
  */

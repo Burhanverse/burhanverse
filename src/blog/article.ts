@@ -1,5 +1,3 @@
-// Copy this entire content to: src/blog/article.ts
-
 import { getBlogPostBySlug } from "./posts";
 import { marked } from "marked";
 import Prism from "prismjs";
