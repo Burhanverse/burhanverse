@@ -16,6 +16,15 @@ export const blogPosts: BlogPost[] = [
     link: "/?article=fagram-desktop",
     tags: ["Fork", "FAgram", "Telegram Desktop"],
   },
+  {
+    id: 2,
+    slug: "webclip-sync",
+    title: "WebClip",
+    description: "WebClip is a Gboard web clipboard companion for desktop.",
+    date: "2026-09-10",
+    link: "/?article=webclip-sync",
+    tags: ["Linux", "Android", "Windows", "Open Source"],
+  },
 ];
 
 /**

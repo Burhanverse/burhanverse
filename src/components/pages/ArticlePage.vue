@@ -181,8 +181,8 @@ watch(() => props.articleSlug, () => {
         <div class="footer-profile-box">
           <img src="https://github.com/Burhanverse.png" alt="Burhan" class="footer-avatar" />
           <div>
-            <h4 class="footer-author-name">Written by Sid (Burhan)</h4>
-            <p class="footer-author-bio">Creator of Burhanverse & open source explorer.</p>
+            <h4 class="footer-author-name">Sid (Burhan)</h4>
+            <p class="footer-author-bio">Author & open source explorer.</p>
           </div>
         </div>
         <button type="button" class="back-pill-btn footer-back-btn" @click="emit('back-to-blog')">
