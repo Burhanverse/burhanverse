@@ -17,6 +17,7 @@ const props = withDefaults(
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 let animationFrameId: number | null = null;
 let resizeObserver: ResizeObserver | null = null;
+let resizeTimeout: number | null = null;
 let lastTimestamp: number | null = null;
 
 const wavelength = 36; 
@@ -110,7 +111,10 @@ watch(
 onMounted(() => {
   if (canvasRef.value) {
     resizeObserver = new ResizeObserver(() => {
-      startAnimation();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        startAnimation();
+      }, 150);
     });
     resizeObserver.observe(canvasRef.value);
   }
@@ -125,6 +129,10 @@ onUnmounted(() => {
   if (resizeObserver) {
     resizeObserver.disconnect();
     resizeObserver = null;
+  }
+  if (resizeTimeout) {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = null;
   }
 });
 </script>

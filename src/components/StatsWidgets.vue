@@ -319,6 +319,8 @@ onMounted(() => {
 
 .lang-slice {
   height: 100%;
+  transition: width 300ms ease;
+  will-change: width;
 }
 
 .lang-legend {

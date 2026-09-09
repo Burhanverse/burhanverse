@@ -711,17 +711,7 @@ onMounted(() => {
   padding: 2rem 2rem 6rem 9rem;
   animation: dashboardFadeIn 360ms ease;
   position: relative;
-}
-
-@keyframes dashboardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  will-change: opacity, transform;
 }
 
 /* Floating Heatmap Tooltip */
@@ -1536,6 +1526,7 @@ onMounted(() => {
   font-weight: 700;
   cursor: pointer;
   transition: all 200ms ease;
+  will-change: transform, background-color, box-shadow;
 }
 
 [theme="dark"] .filter-chip-btn {
@@ -1571,6 +1562,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 1.4rem;
   transition: transform 220ms ease, box-shadow 220ms ease;
+  will-change: transform, box-shadow;
 }
 
 [theme="dark"] .repo-card-widget {
@@ -1759,11 +1751,6 @@ onMounted(() => {
   color: var(--md-sys-color-primary, #bf6038);
   animation: spin 1s linear infinite;
   margin-bottom: 1.2rem;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 .empty-icon {

@@ -46,7 +46,7 @@ function navigate(tab: "home" | "repos" | "blog" | "contact") {
   currentArticleSlug.value = "";
   document.documentElement.setAttribute("data-tab", tab);
   window.history.pushState({ tab }, "", tab === "home" ? "/" : `/?section=${tab}`);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 300);
 }
 
 function openArticle(slug: string) {
@@ -54,7 +54,7 @@ function openArticle(slug: string) {
   currentTab.value = "article";
   document.documentElement.setAttribute("data-tab", "blog");
   window.history.pushState({ tab: "article", slug }, "", `/?article=${slug}`);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 300);
 }
 
 function parseUrl() {
@@ -122,22 +122,27 @@ watch(currentTab, (newTab) => {
       <Transition name="fade-slide" mode="out-in">
         <HomePage
           v-if="currentTab === 'home'"
+          :key="currentTab"
           :is-mobile="isMobile"
         />
         <ReposPage
           v-else-if="currentTab === 'repos'"
+          :key="currentTab"
         />
         <BlogPage
           v-else-if="currentTab === 'blog'"
+          :key="currentTab"
           @open-article="openArticle"
         />
         <ArticlePage
           v-else-if="currentTab === 'article'"
+          :key="currentTab"
           :article-slug="currentArticleSlug"
           @back-to-blog="navigate('blog')"
         />
         <ContactPage
           v-else-if="currentTab === 'contact'"
+          :key="currentTab"
         />
       </Transition>
     </main>
@@ -168,6 +173,7 @@ watch(currentTab, (newTab) => {
   background-repeat: no-repeat;
   z-index: 0;
   transition: filter 300ms ease;
+  will-change: filter;
 }
 
 [theme="dark"] .homescreen-wallpaper-bg {

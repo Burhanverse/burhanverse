@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick, watch } from "vue";
 import { getBlogPostBySlug } from "../../blog/posts";
 import type { BlogPost } from "../../types";
 import { marked } from "marked";
@@ -93,7 +93,7 @@ function setupCodeCopyButtons() {
 }
 
 function handleScroll(e: Event) {
-  const target = e.target as HTMLElement;
+  const target = e.currentTarget as HTMLElement;
   if (!target) return;
   const scrollTop = target.scrollTop;
   const scrollHeight = target.scrollHeight - target.clientHeight;
@@ -111,6 +111,10 @@ function formatDate(dateStr: string) {
 }
 
 onMounted(() => {
+  loadArticle();
+});
+
+watch(() => props.articleSlug, () => {
   loadArticle();
 });
 </script>

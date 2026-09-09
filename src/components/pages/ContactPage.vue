@@ -22,15 +22,15 @@ const keyTechnologies = [
 const featuredProjects = [
   {
     title: "Fagram Desktop",
-    desc: "A modern, expressive cross-platform desktop Telegram client focused on speed, privacy, and fluid Material 3 design.",
+    desc: "A feature-rich Telegram desktop client with Material Design 3 UI.",
     icon: "send",
     url: "https://github.com/fagramdesktop/fagram-desktop",
   },
   {
-    title: "Burhanverse",
-    desc: "A personalized Material Design 3 tablet & desktop homescreen with live interactive widgets.",
+    title: "WebClip",
+    desc: "A Gboard web clipboard companion for desktop.",
     icon: "widgets",
-    url: "https://github.com/Burhanverse/Burhanverse.github.io",
+    url: "https://github.com/Burhanverse/webclip",
   },
 ];
 </script>
@@ -58,7 +58,7 @@ const featuredProjects = [
             <p class="profile-role">Software Builder & Interface Artisan</p>
 
             <p class="profile-bio-text">
-              Crafting open-source software, desktop tools, and tactile Material Design interfaces. Focused on simplicity, performance, and clean design.
+              Crafting open-source, desktop tools, and tactile Material Design interfaces.
             </p>
 
             <div class="tech-chips-row">
@@ -157,17 +157,7 @@ const featuredProjects = [
   margin: 0 auto;
   padding: 2rem 2rem 6rem 9rem;
   animation: aboutFadeIn 300ms ease;
-}
-
-@keyframes aboutFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  will-change: opacity, transform;
 }
 
 .minimal-about-container {
