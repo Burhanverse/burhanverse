@@ -1,9 +1,19 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   root: ".",
   publicDir: "src/res",
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith("md-"),
+        },
+      },
+    }),
+  ],
   build: {
     outDir: "dist",
     emptyOutDir: true,

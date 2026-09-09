@@ -25,6 +25,7 @@ export interface LastFmTrack {
   image: string;
   url: string;
   nowPlaying: boolean;
+  playedAt?: string;
 }
 
 export interface LastFmSummary {
@@ -48,4 +49,37 @@ export interface AnilistStats {
   meanScoreAnime: number;
   meanScoreManga: number;
   daysWatched: number;
+}
+
+export interface ContributionDay {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+export interface ContributionWeek {
+  days: ContributionDay[];
+}
+
+export interface ContributionCalendarData {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+  months: Array<{
+    name: string;
+    firstWeekIndex: number;
+  }>;
+  currentStreak: number;
+  longestStreak: number;
+}
+
+export interface GitHubActivityEvent {
+  id: string;
+  type: string;
+  repoName: string;
+  repoUrl: string;
+  createdAt: string;
+  payloadAction?: string;
+  commitCount?: number;
+  commitMessage?: string;
+  branch?: string;
 }

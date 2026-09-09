@@ -12,14 +12,17 @@
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@types/prismjs": "^1.26.5",
+    "@vitejs/plugin-vue": "^6.0.8",
     "prettier": "^3.3.3",
     "typescript": "^5.3.3",
     "vite": "^7.1.8"
   },
   "dependencies": {
+    "@material/web": "^2.5.0",
     "@octokit/rest": "^20.0.2",
     "marked": "^16.3.0",
     "material-symbols": "^0.36.2",
-    "prismjs": "^1.30.0"
+    "prismjs": "^1.30.0",
+    "vue": "^3.5.42"
   }
 }

@@ -11,6 +11,7 @@ type RecentTracksResponse = {
           album: { "#text": string };
           image?: Array<{ "#text": string }>;
           url: string;
+          date?: { uts?: string; "#text"?: string };
           "@attr"?: { nowplaying?: string };
         }>
       | {
@@ -19,6 +20,7 @@ type RecentTracksResponse = {
           album: { "#text": string };
           image?: Array<{ "#text": string }>;
           url: string;
+          date?: { uts?: string; "#text"?: string };
           "@attr"?: { nowplaying?: string };
         };
   };
@@ -57,6 +59,23 @@ function extractTrack(
     track.image?.[3]?.["#text"] ?? track.image?.[2]?.["#text"] ?? "";
   const nowPlaying = track["@attr"]?.nowplaying === "true";
 
+  let playedAt: string | undefined = undefined;
+  if (!nowPlaying && track.date) {
+    if (track.date.uts) {
+      const uts = parseInt(track.date.uts, 10) * 1000;
+      const diffMins = Math.round((Date.now() - uts) / 60000);
+      if (diffMins < 1) playedAt = "Just now";
+      else if (diffMins < 60) playedAt = `${diffMins}m ago`;
+      else {
+        const diffHours = Math.round(diffMins / 60);
+        if (diffHours < 24) playedAt = `${diffHours}h ago`;
+        else playedAt = `${Math.round(diffHours / 24)}d ago`;
+      }
+    } else if (track.date["#text"]) {
+      playedAt = track.date["#text"];
+    }
+  }
+
   return {
     name: track.name,
     artist,
@@ -64,6 +83,7 @@ function extractTrack(
     image,
     url: track.url,
     nowPlaying,
+    playedAt,
   };
 }
 

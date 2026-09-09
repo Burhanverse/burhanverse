@@ -1,0 +1,534 @@
+<script setup lang="ts">
+import { ref, onMounted, nextTick } from "vue";
+import { getBlogPostBySlug } from "../../blog/posts";
+import type { BlogPost } from "../../types";
+import { marked } from "marked";
+import Prism from "prismjs";
+
+// Prism syntax highlighters
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-markdown";
+
+const props = defineProps<{
+  articleSlug: string;
+}>();
+
+const emit = defineEmits<{
+  (e: "back-to-blog"): void;
+}>();
+
+const post = ref<BlogPost | null>(null);
+const contentHtml = ref("");
+const isLoading = ref(true);
+const scrollProgress = ref(0);
+
+async function loadArticle() {
+  isLoading.value = true;
+  post.value = getBlogPostBySlug(props.articleSlug);
+
+  if (!post.value) {
+    isLoading.value = false;
+    return;
+  }
+
+  try {
+    const markdownModule = await import(`../../blog/content/${props.articleSlug}.md?raw`);
+    const rawMarkdown = markdownModule.default;
+    contentHtml.value = await marked.parse(rawMarkdown);
+  } catch (err) {
+    console.error("Could not load article markdown:", err);
+    contentHtml.value = "<p>Sorry, the content for this article could not be loaded.</p>";
+  } finally {
+    isLoading.value = false;
+    await nextTick();
+    Prism.highlightAll();
+    setupCodeCopyButtons();
+  }
+}
+
+function setupCodeCopyButtons() {
+  const codeBlocks = document.querySelectorAll<HTMLElement>(".article-window pre code");
+  codeBlocks.forEach((codeEl) => {
+    const pre = codeEl.parentElement;
+    if (!pre || pre.querySelector(".code-copy-btn")) return;
+
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "code-copy-btn";
+    copyBtn.innerHTML = `
+      <span class="material-symbols-rounded">content_copy</span>
+      <span>Copy</span>
+    `;
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(codeEl.textContent || "");
+        copyBtn.innerHTML = `
+          <span class="material-symbols-rounded">check</span>
+          <span>Copied!</span>
+        `;
+        setTimeout(() => {
+          copyBtn.innerHTML = `
+            <span class="material-symbols-rounded">content_copy</span>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (e) {
+        console.error("Copy failed", e);
+      }
+    });
+
+    pre.style.position = "relative";
+    pre.appendChild(copyBtn);
+  });
+}
+
+function handleScroll(e: Event) {
+  const target = e.target as HTMLElement;
+  if (!target) return;
+  const scrollTop = target.scrollTop;
+  const scrollHeight = target.scrollHeight - target.clientHeight;
+  if (scrollHeight > 0) {
+    scrollProgress.value = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+  }
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+onMounted(() => {
+  loadArticle();
+});
+</script>
+
+<template>
+  <div class="article-reader-view" @scroll="handleScroll">
+    <!-- Wrapped in a Large Material Design 3 Tablet Window Widget -->
+    <div class="article-window-widget">
+      <!-- Window App Bar / Toolbar -->
+      <div class="window-top-bar">
+        <button
+          type="button"
+          class="back-pill-btn"
+          title="Back to Articles"
+          @click="emit('back-to-blog')"
+        >
+          <md-ripple></md-ripple>
+          <span class="material-symbols-rounded">arrow_back</span>
+          <span>Back to Articles</span>
+        </button>
+
+        <div v-if="post" class="window-reading-meta">
+          <span class="material-symbols-rounded">schedule</span>
+          <span>5 min read</span>
+        </div>
+      </div>
+
+      <!-- Linear Reading Progress Bar -->
+      <div class="reading-progress-track">
+        <div class="reading-progress-bar" :style="{ width: `${scrollProgress}%` }"></div>
+      </div>
+
+      <!-- Article Header Inside Window -->
+      <header v-if="post" class="article-inner-header">
+        <div class="article-tags-row">
+          <span v-for="tag in post.tags" :key="tag" class="m3-tag-pill">{{ tag }}</span>
+        </div>
+
+        <h1 class="article-main-title">{{ post.title }}</h1>
+        <p class="article-lead-description">{{ post.description }}</p>
+
+        <div class="article-author-row">
+          <img src="https://github.com/Burhanverse.png" alt="Burhan" class="author-avatar" />
+          <div class="author-meta">
+            <span class="author-name">Sid (Burhan)</span>
+            <span class="publish-date">{{ formatDate(post.date) }}</span>
+          </div>
+        </div>
+
+        <!-- Hero Image Banner -->
+        <div v-if="post.image" class="article-hero-banner">
+          <img :src="post.image" :alt="post.title" class="article-hero-img" />
+        </div>
+      </header>
+
+      <!-- Markdown Article Content -->
+      <div class="article-content-body" v-html="contentHtml"></div>
+
+      <!-- Article Footer Widget -->
+      <footer class="article-window-footer">
+        <div class="footer-profile-box">
+          <img src="https://github.com/Burhanverse.png" alt="Burhan" class="footer-avatar" />
+          <div>
+            <h4 class="footer-author-name">Written by Sid (Burhan)</h4>
+            <p class="footer-author-bio">Creator of Burhanverse & open source explorer.</p>
+          </div>
+        </div>
+        <button type="button" class="back-pill-btn footer-back-btn" @click="emit('back-to-blog')">
+          <span class="material-symbols-rounded">arrow_back</span>
+          <span>Return to Articles</span>
+        </button>
+      </footer>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.article-reader-view {
+  width: 100%;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem 9rem;
+}
+
+/* Material Design 3 Tablet Window Widget */
+.article-window-widget {
+  position: relative;
+  background: var(--md-sys-color-surface-container, rgba(255, 248, 245, 0.95));
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(191, 96, 56, 0.14);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+[theme="dark"] .article-window-widget {
+  background: var(--md-sys-color-surface-container, rgba(38, 27, 22, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* Window Top Bar */
+.window-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid rgba(191, 96, 56, 0.1);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[theme="dark"] .window-top-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.back-pill-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  background: rgba(0, 0, 0, 0.035);
+  color: var(--md-sys-color-on-surface, #221a16);
+  border: 1px solid rgba(191, 96, 56, 0.12);
+  border-radius: 9999px;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 200ms ease;
+}
+
+[theme="dark"] .back-pill-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--md-sys-color-on-surface, #ece2dc);
+}
+
+.back-pill-btn:hover {
+  background: var(--md-sys-color-primary-container, #faebd4);
+  color: var(--md-sys-color-on-primary-container, #3c1200);
+  transform: translateX(-2px);
+}
+
+[theme="dark"] .back-pill-btn:hover {
+  background: var(--md-sys-color-primary-container, #783615);
+  color: var(--md-sys-color-on-primary-container, #ffdccf);
+}
+
+.window-reading-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant, #6b5548);
+}
+
+.window-reading-meta .material-symbols-rounded {
+  font-size: 1.6rem;
+  color: var(--md-sys-color-primary, #b95000);
+}
+
+/* Reading Progress */
+.reading-progress-track {
+  width: 100%;
+  height: 0.4rem;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: var(--md-sys-color-primary, #b95000);
+  transition: width 150ms linear;
+}
+
+/* Article Header */
+.article-inner-header {
+  padding: 3.2rem 3.2rem 1.6rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.article-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.m3-tag-pill {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 1.2rem;
+  background: var(--md-sys-color-primary-container, #ffdcc9);
+  color: var(--md-sys-color-on-primary-container, #331100);
+  border-radius: 9999px;
+}
+
+.article-main-title {
+  font-family: "Lexend Zetta", sans-serif;
+  font-size: 3.4rem;
+  font-weight: 800;
+  color: var(--md-sys-color-on-surface, #221a16);
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.article-lead-description {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--md-sys-color-on-surface-variant, #52443d);
+  margin: 0;
+}
+
+.article-author-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding-block: 0.6rem;
+}
+
+.author-avatar {
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--md-sys-color-primary-container, #ffdcc9);
+}
+
+.author-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface, #221a16);
+}
+
+.publish-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  color: var(--md-sys-color-on-surface-variant, #6b5548);
+}
+
+.article-hero-banner {
+  width: 100%;
+  max-height: 36rem;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 1rem;
+  background: var(--md-sys-color-surface-container-high, #f8ece4);
+}
+
+.article-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Article Body Typography */
+.article-content-body {
+  padding: 1.6rem 3.2rem 3.2rem 3.2rem;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.55rem;
+  line-height: 1.8;
+  color: var(--md-sys-color-on-surface, #221a16);
+}
+
+.article-content-body :deep(h2) {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-top: 3.2rem;
+  margin-bottom: 1.2rem;
+  color: var(--md-sys-color-on-surface, #221a16);
+}
+
+.article-content-body :deep(h3) {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 2.4rem;
+  margin-bottom: 1rem;
+  color: var(--md-sys-color-on-surface, #221a16);
+}
+
+.article-content-body :deep(p) {
+  margin-bottom: 1.6rem;
+}
+
+.article-content-body :deep(ul),
+.article-content-body :deep(ol) {
+  margin-bottom: 1.6rem;
+  padding-left: 2.4rem;
+}
+
+.article-content-body :deep(li) {
+  margin-bottom: 0.6rem;
+}
+
+.article-content-body :deep(a) {
+  color: var(--md-sys-color-primary, #b95000);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.article-content-body :deep(blockquote) {
+  margin: 2rem 0;
+  padding: 1.4rem 2rem;
+  background: var(--md-sys-color-surface-container-high, rgba(255, 238, 230, 0.7));
+  border-left: 4px solid var(--md-sys-color-primary, #b95000);
+  border-radius: 0 16px 16px 0;
+  font-style: italic;
+}
+
+.article-content-body :deep(pre) {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 16px;
+  overflow-x: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.article-content-body :deep(code:not(pre code)) {
+  background: var(--md-sys-color-surface-container-high, rgba(255, 238, 230, 0.8));
+  color: var(--md-sys-color-primary, #b95000);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.3rem;
+}
+
+.article-content-body :deep(.code-copy-btn) {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.article-content-body :deep(.code-copy-btn:hover) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.article-content-body :deep(.code-copy-btn .material-symbols-rounded) {
+  font-size: 1.4rem;
+}
+
+/* Footer */
+.article-window-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.4rem 3.2rem;
+  border-top: 1px solid var(--md-sys-color-outline-variant, rgba(220, 195, 180, 0.3));
+  background: var(--md-sys-color-surface-container-high, rgba(255, 238, 230, 0.6));
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.footer-profile-box {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.footer-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.footer-author-name {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface, #221a16);
+  margin: 0;
+}
+
+.footer-author-bio {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1.25rem;
+  color: var(--md-sys-color-on-surface-variant, #6b5548);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .article-reader-view {
+    padding: 5rem 1.4rem 8rem 1.4rem;
+  }
+  .article-inner-header,
+  .article-content-body {
+    padding: 2rem 1.8rem;
+  }
+  .article-main-title {
+    font-size: 2.6rem;
+  }
+}
+</style>

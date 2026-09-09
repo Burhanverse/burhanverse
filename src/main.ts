@@ -1,17 +1,6 @@
-// Import all modules (auto-execute initialization)
-import "./repos/listRepo";
-import "./core/theme";
-import "./core/bodyLoad";
-import "./blog";
-
-// Import individual feature modules (initialized by bodyLoad)
-import "./features/customCursor";
-import "./features/clock";
-import "./features/dateDisplay";
-import "./features/dayProgress";
-import "./features/subtitleStyling";
-
-// Import blog posts for image preloading
+import { createApp } from "vue";
+import App from "./App.vue";
+import { initCustomCursor } from "./features/customCursor";
 import { blogPosts } from "./blog/posts";
 
 /**
@@ -26,9 +15,23 @@ function preloadBlogImages(): void {
   });
 }
 
-// Preload images after page load
+// Initialize custom cursor and preloading
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", preloadBlogImages);
+  document.addEventListener("DOMContentLoaded", () => {
+    initCustomCursor();
+    preloadBlogImages();
+  });
 } else {
+  initCustomCursor();
   preloadBlogImages();
+}
+
+// Mount Vue application
+const app = createApp(App);
+app.mount("#app");
+
+// Fade-in body
+const body = document.querySelector<HTMLElement>("body");
+if (body) {
+  body.style.opacity = "1";
 }
