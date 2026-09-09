@@ -46,7 +46,7 @@ function navigate(tab: "home" | "repos" | "blog" | "contact") {
   currentArticleSlug.value = "";
   document.documentElement.setAttribute("data-tab", tab);
   window.history.pushState({ tab }, "", tab === "home" ? "/" : `/?section=${tab}`);
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 300);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function openArticle(slug: string) {
@@ -54,7 +54,7 @@ function openArticle(slug: string) {
   currentTab.value = "article";
   document.documentElement.setAttribute("data-tab", "blog");
   window.history.pushState({ tab: "article", slug }, "", `/?article=${slug}`);
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 300);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function parseUrl() {
@@ -200,7 +200,7 @@ watch(currentTab, (newTab) => {
   z-index: 10;
   width: 100%;
   max-width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding-top: 4.8rem;
@@ -219,7 +219,7 @@ watch(currentTab, (newTab) => {
 .is-mobile-device .homescreen-content-scroller {
   padding-top: calc(4.2rem + env(safe-area-inset-top, 0));
   padding-bottom: calc(9.4rem + env(safe-area-inset-bottom, 0));
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 .is-mobile-device .homescreen-wallpaper-bg {

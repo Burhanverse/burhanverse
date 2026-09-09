@@ -93,7 +93,7 @@ function setupCodeCopyButtons() {
 }
 
 function handleScroll(e: Event) {
-  const target = e.currentTarget as HTMLElement;
+  const target = e.target as HTMLElement;
   if (!target) return;
   const scrollTop = target.scrollTop;
   const scrollHeight = target.scrollHeight - target.clientHeight;
