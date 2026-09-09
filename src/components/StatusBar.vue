@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 defineProps<{
   theme: "light" | "dark";
   currentTab?: "home" | "repos" | "blog" | "article" | "contact";
+  isMobile?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -36,9 +37,9 @@ onUnmounted(() => {
     <!-- Left status items -->
     <div class="status-left">
       <Transition name="fade-clock">
-        <span v-if="currentTab !== 'home'" class="status-time">{{ currentTime }}</span>
+        <span v-if="isMobile || currentTab !== 'home'" class="status-time">{{ currentTime }}</span>
       </Transition>
-      <span class="status-badge">Pixel Tablet</span>
+      <span class="status-badge">{{ isMobile ? "Phone" : "Desktop" }}</span>
     </div>
 
     <!-- Right status icons -->
@@ -81,7 +82,7 @@ onUnmounted(() => {
   justify-content: space-between;
   z-index: 90;
   user-select: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 100%);
   color: #ffffff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   font-family: "JetBrains Mono", monospace;
@@ -111,15 +112,16 @@ onUnmounted(() => {
 }
 
 .status-badge {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.15rem;
-  font-weight: 500;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 0.2rem 0.8rem;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.02em;
 }
 
 .status-right {
@@ -172,11 +174,14 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .tablet-status-bar {
-    height: 3.4rem;
-    padding: 0 1.4rem;
+    height: calc(3.8rem + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
   }
   .status-badge {
-    display: none;
+    font-size: 1.1rem;
+    padding: 0.15rem 0.7rem;
   }
 }
 </style>

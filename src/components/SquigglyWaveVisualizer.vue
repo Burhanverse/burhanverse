@@ -138,6 +138,9 @@ onUnmounted(() => {
 <style scoped>
 .squiggly-visualizer-container {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
   position: relative;
   display: flex;
   align-items: center;
@@ -147,6 +150,8 @@ onUnmounted(() => {
 
 .squiggly-canvas {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 100%;
   display: block;
 }

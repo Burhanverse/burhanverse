@@ -267,28 +267,33 @@ onUnmounted(() => {
 }
 
 .pill-info-wrapper {
-  flex: 1;
+  flex: 1 1 0%;
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  overflow: hidden;
 }
 
 .pill-track-row {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .pill-track-name {
-  font-family: "Lexend Deca", sans-serif;
+  flex: 1 1 0%;
+  min-width: 0;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--md-sys-color-on-surface, #221a16);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 17rem;
+  max-width: 100%;
 }
 
 .pill-live-badge {
@@ -344,7 +349,9 @@ onUnmounted(() => {
 }
 
 .pill-artist-name {
-  font-family: "Lexend Deca", sans-serif;
+  width: 100%;
+  min-width: 0;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.15rem;
   font-weight: 500;
   color: var(--md-sys-color-on-surface-variant, #52443d);
@@ -390,5 +397,40 @@ onUnmounted(() => {
   width: 1.8rem;
   height: 1.8rem;
   fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .lastfm-scrobble-pill {
+    max-width: 100%;
+    width: 100%;
+    padding: 0.9rem 1.4rem 0.9rem 1rem;
+    border-radius: 28px;
+    gap: 1.2rem;
+    box-sizing: border-box;
+  }
+  .pill-track-name {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .lastfm-scrobble-pill {
+    padding: 0.8rem 1.2rem 0.8rem 0.8rem;
+    gap: 0.9rem;
+  }
+  .pill-artwork-wrapper {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+  .pill-track-name {
+    font-size: 1.25rem;
+  }
+  .pill-artist-name {
+    font-size: 1.1rem;
+  }
+  .pill-play-btn {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
 }
 </style>

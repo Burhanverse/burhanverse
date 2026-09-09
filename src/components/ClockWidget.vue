@@ -160,7 +160,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   line-height: 0.82;
-  font-family: "Nunito Sans", "Lexend Deca", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-weight: 800;
   text-align: center;
   user-select: none;
@@ -179,7 +179,7 @@ onUnmounted(() => {
 }
 
 .digital-ampm {
-  font-family: "Nunito Sans", "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -189,30 +189,58 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .pixel-clock-widget {
-    width: 17.5rem;
-    height: 17.5rem;
+    width: 16.5rem;
+    height: 16.5rem;
   }
   .digital-hours,
   .digital-minutes {
-    font-size: 5.0rem;
+    font-size: 4.8rem;
   }
   .digital-ampm {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin-top: 0.25rem;
   }
   .hour-hand {
-    width: 1.5rem;
-    height: 5.0rem;
-    margin-left: -0.75rem;
-    bottom: calc(50% - 0.75rem);
-    transform-origin: center calc(100% - 0.75rem);
+    width: 1.4rem;
+    height: 4.8rem;
+    margin-left: -0.7rem;
+    bottom: calc(50% - 0.7rem);
+    transform-origin: center calc(100% - 0.7rem);
   }
   .minute-hand {
-    width: 1.35rem;
-    height: 6.8rem;
-    margin-left: -0.675rem;
-    bottom: calc(50% - 0.675rem);
-    transform-origin: center calc(100% - 0.675rem);
+    width: 1.25rem;
+    height: 6.5rem;
+    margin-left: -0.625rem;
+    bottom: calc(50% - 0.625rem);
+    transform-origin: center calc(100% - 0.625rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .pixel-clock-widget {
+    width: 15.5rem;
+    height: 15.5rem;
+  }
+  .digital-hours,
+  .digital-minutes {
+    font-size: 4.5rem;
+  }
+  .digital-ampm {
+    font-size: 1.2rem;
+  }
+  .hour-hand {
+    width: 1.3rem;
+    height: 4.4rem;
+    margin-left: -0.65rem;
+    bottom: calc(50% - 0.65rem);
+    transform-origin: center calc(100% - 0.65rem);
+  }
+  .minute-hand {
+    width: 1.15rem;
+    height: 6.0rem;
+    margin-left: -0.575rem;
+    bottom: calc(50% - 0.575rem);
+    transform-origin: center calc(100% - 0.575rem);
   }
 }
 </style>

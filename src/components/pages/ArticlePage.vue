@@ -389,7 +389,7 @@ onMounted(() => {
   width: 100%;
   max-height: 46rem;
   height: auto;
-  object-fit: cover;
+  object-fit: fill;
   display: block;
 }
 
@@ -601,14 +601,59 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .article-reader-view {
-    padding: 5rem 1.4rem 8rem 1.4rem;
+    padding: 1rem 1.6rem 2.4rem 1.6rem;
+    max-width: 100%;
   }
-  .article-inner-header,
-  .article-content-body {
-    padding: 2rem 1.8rem;
+  .article-window-widget {
+    border-radius: 28px;
+  }
+  .window-top-bar {
+    padding: 1.2rem 1.6rem;
+  }
+  .article-inner-header {
+    padding: 2rem 1.6rem 1.2rem 1.6rem;
+    gap: 1.2rem;
   }
   .article-main-title {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
+  }
+  .article-lead-description {
+    font-size: 1.45rem;
+  }
+  .article-hero-banner {
+    border-radius: 1.6rem;
+    margin-top: 1.2rem;
+  }
+  .article-hero-img {
+    max-height: 28rem;
+  }
+  .article-content-body {
+    padding: 1.2rem 1.6rem 2.4rem 1.6rem;
+    font-size: 1.5rem;
+    line-height: 1.75;
+  }
+  .article-content-body :deep(h2) {
+    font-size: 2.1rem;
+    margin-top: 2.4rem;
+  }
+  .article-content-body :deep(h3) {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+  }
+  .article-content-body :deep(pre) {
+    padding: 2.2rem 1.4rem 1.4rem 1.4rem;
+    border-radius: 1.6rem;
+    font-size: 1.25rem;
+  }
+  .article-window-footer {
+    padding: 1.8rem 1.6rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6rem;
+  }
+  .footer-back-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

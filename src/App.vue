@@ -105,6 +105,7 @@ watch(currentTab, (newTab) => {
     <StatusBar
       :theme="theme"
       :current-tab="currentTab"
+      :is-mobile="isMobile"
       @toggle-theme="toggleTheme"
     />
 
@@ -146,8 +147,10 @@ watch(currentTab, (newTab) => {
 <style scoped>
 .tablet-viewport-shell {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   background-color: var(--md-sys-color-background, #1a1512);
   color: var(--md-sys-color-on-background, #221a16);
@@ -190,9 +193,36 @@ watch(currentTab, (newTab) => {
   position: relative;
   z-index: 10;
   width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   overflow-y: auto;
-  padding-top: 4rem;
+  overflow-x: hidden;
+  padding-top: 4.8rem;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.homescreen-content-scroller::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.is-mobile-device .homescreen-content-scroller {
+  padding-top: calc(4.2rem + env(safe-area-inset-top, 0));
+  padding-bottom: calc(9.4rem + env(safe-area-inset-bottom, 0));
+  min-height: 100dvh;
+}
+
+.is-mobile-device .homescreen-wallpaper-bg {
+  background-position: 72% center;
+}
+
+.is-mobile-device .wallpaper-ambient-scrim {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* Page Transition */

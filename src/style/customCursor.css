@@ -34,10 +34,18 @@
   height: 1.5rem;
 }
 
-/* CHECK IF USER USES A COMPUTER TO ADD THE CUSTOM CURSOR */
-
-@media (pointer: fine) {
+/* ONLY DISPLAY CUSTOM CURSOR ON DESKTOP COMPUTERS WITH PRECISE POINTER */
+@media (min-width: 769px) and (pointer: fine) {
   .cursor {
     display: block;
+  }
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .cursor {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
   }
 }

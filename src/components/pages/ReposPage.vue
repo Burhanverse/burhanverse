@@ -708,7 +708,7 @@ onMounted(() => {
   width: 100%;
   max-width: 132rem;
   margin: 0 auto;
-  padding: 1.2rem 1.6rem 6rem;
+  padding: 2rem 2rem 6rem 9rem;
   animation: dashboardFadeIn 360ms ease;
   position: relative;
 }
@@ -1787,36 +1787,115 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .github-dashboard-view {
+    padding: 1.2rem 1.6rem 2rem 1.6rem;
+    gap: 1.8rem;
+  }
   .dashboard-hero-widget {
-    padding: 1.8rem 2rem;
+    padding: 2rem 1.6rem;
+    border-radius: 2.4rem;
+    gap: 1.8rem;
   }
   .hero-identity-col {
     flex-direction: column;
     text-align: center;
     align-items: center;
+    gap: 1.6rem;
   }
   .hero-badges-row {
     justify-content: center;
   }
   .hero-actions-col {
-    align-items: center;
+    align-items: stretch;
     width: 100%;
+    gap: 1.4rem;
+  }
+  .gh-external-btn {
+    width: 100%;
+    justify-content: center;
   }
   .hero-quick-stats {
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 0.8rem;
+  }
+  .quick-stat-box {
+    min-width: 0;
+    width: 100%;
+    padding: 1rem 0.8rem;
+  }
+  .dashboard-calendar-widget {
+    padding: 2rem 1.6rem;
+    border-radius: 2.4rem;
   }
   .calendar-widget-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.4rem;
   }
   .streak-badges-cluster {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  .streak-badge-pill {
+    justify-content: center;
+    padding: 0.6rem 0.8rem;
+  }
+  .calendar-scroll-wrapper {
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1.2rem;
+  }
+  .calendar-footer-legend {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
   }
   .dashboard-dual-grid {
     grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+  .dashboard-card {
+    padding: 2rem 1.6rem;
+    border-radius: 2.4rem;
+  }
+  .repos-toolbar-card {
+    padding: 2rem 1.6rem;
+    border-radius: 2.4rem;
+    gap: 1.4rem;
+  }
+  .repos-toolbar-title-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+  .sort-selector-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .filter-chips-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.6rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .filter-chips-row::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-chip-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .repos-cards-grid {
     grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .repo-card-widget {
+    padding: 1.8rem 1.6rem;
+    border-radius: 2.2rem;
   }
 }
 </style>

@@ -166,16 +166,16 @@ const navItems = [
 }
 
 /* ==========================================================================
-   GOOGLE PIXEL MOBILE MATERIAL 3 BOTTOM NAVIGATION BAR (80PX HEIGHT)
+   GOOGLE PIXEL MOBILE MATERIAL 3 BOTTOM NAVIGATION BAR (80PX SPEC)
    ========================================================================== */
 .m3-bottom-nav-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 7.2rem;
-  padding-bottom: env(safe-area-inset-bottom, 0);
-  background: var(--md-sys-color-surface-container, rgba(255, 248, 245, 0.92));
+  height: calc(8rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--md-sys-color-surface-container, rgba(255, 248, 245, 0.94));
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-top: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.12));
@@ -183,7 +183,13 @@ const navItems = [
   align-items: center;
   justify-content: space-around;
   z-index: 100;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.08);
+}
+
+[theme="dark"] .m3-bottom-nav-bar {
+  background: var(--md-sys-color-surface-container, rgba(38, 27, 22, 0.94));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
 .m3-nav-destination {
@@ -194,10 +200,11 @@ const navItems = [
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 1.2rem;
   color: var(--md-sys-color-on-surface-variant, #52443d);
   transition: color 200ms ease;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .m3-nav-icon-container {
@@ -213,12 +220,12 @@ const navItems = [
 }
 
 .m3-nav-icon {
-  font-size: 2.2rem;
-  transition: font-variation-settings 200ms ease, transform 200ms ease;
+  font-size: 2.4rem;
+  transition: font-variation-settings 200ms ease, transform 200ms ease, color 200ms ease;
 }
 
 .m3-nav-label {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.2rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -231,16 +238,31 @@ const navItems = [
 }
 
 .m3-nav-destination.selected .m3-nav-icon-container {
-  background-color: var(--md-sys-color-primary-container, #ffdcc9);
+  background-color: #ffd2b8;
+  box-shadow: 0 1px 4px rgba(191, 96, 56, 0.18);
+}
+
+[theme="dark"] .m3-nav-destination.selected .m3-nav-icon-container {
+  background-color: #723214;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .m3-nav-destination.selected .m3-nav-icon {
-  color: var(--md-sys-color-on-primary-container, #331100);
-  font-variation-settings: "FILL" 1, "wght" 500;
+  color: #3b1404;
+  font-variation-settings: "FILL" 1, "wght" 600;
+}
+
+[theme="dark"] .m3-nav-destination.selected .m3-nav-icon {
+  color: #ffdccf;
+  font-variation-settings: "FILL" 1, "wght" 600;
 }
 
 .m3-nav-destination.selected .m3-nav-label {
   font-weight: 700;
-  color: var(--md-sys-color-on-surface, #221a16);
+  color: #221a16;
+}
+
+[theme="dark"] .m3-nav-destination.selected .m3-nav-label {
+  color: #ede0db;
 }
 </style>

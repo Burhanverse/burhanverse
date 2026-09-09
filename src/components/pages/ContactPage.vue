@@ -155,7 +155,7 @@ const featuredProjects = [
   width: 100%;
   max-width: 96rem;
   margin: 0 auto;
-  padding: 2rem 1.6rem 6rem;
+  padding: 2rem 2rem 6rem 9rem;
   animation: aboutFadeIn 300ms ease;
 }
 
@@ -494,11 +494,23 @@ const featuredProjects = [
   opacity: 0.7;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .about-page-view {
+    padding: 1.2rem 1.6rem 2rem 1.6rem;
+  }
+
+  .minimal-profile-card,
+  .minimal-projects-section,
+  .minimal-connect-section {
+    padding: 2rem 1.6rem;
+    border-radius: 2.2rem;
+  }
+
   .profile-header-layout {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 1.6rem;
   }
 
   .name-badge-row {
@@ -519,6 +531,7 @@ const featuredProjects = [
 
   .connect-btn {
     justify-content: center;
+    width: 100%;
   }
 }
 </style>

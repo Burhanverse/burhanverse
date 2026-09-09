@@ -98,6 +98,7 @@ function formatDate(dateString: string): string {
   width: 100%;
   max-width: 132rem;
   margin: 0 auto;
+  box-sizing: border-box;
   padding: 2rem 2rem 6rem 9rem;
   display: flex;
   flex-direction: column;
@@ -225,7 +226,8 @@ function formatDate(dateString: string): string {
 .blog-thumbnail-wrapper {
   position: relative;
   width: 100%;
-  height: 22rem;
+  aspect-ratio: 16 / 9;
+  max-height: 26rem;
   background: var(--md-sys-color-surface-container-highest, rgba(0, 0, 0, 0.04));
   overflow: hidden;
   display: flex;
@@ -242,8 +244,10 @@ function formatDate(dateString: string): string {
 .blog-thumbnail-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 1.2rem;
+  object-fit: cover;
+  object-position: center center;
+  padding: 0;
+  display: block;
   transition: transform 400ms ease;
 }
 
@@ -366,10 +370,54 @@ function formatDate(dateString: string): string {
 
 @media (max-width: 768px) {
   .blog-view {
-    padding: 5rem 1.6rem 8rem 1.6rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 1rem 1.6rem 2.4rem 1.6rem;
+    gap: 2rem;
+  }
+  .blog-header-widget {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.8rem;
+    border-radius: 28px;
+    gap: 1.4rem;
+  }
+  .header-content {
+    gap: 1.2rem;
+  }
+  .header-icon-box {
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 1.4rem;
+  }
+  .blog-page-title {
+    font-size: 2.4rem;
   }
   .blog-widget-grid {
+    width: 100%;
+    box-sizing: border-box;
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .blog-card-widget {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 28px;
+  }
+  .blog-thumbnail-wrapper {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    max-height: 24rem;
+  }
+  .blog-card-body {
+    padding: 1.8rem;
+    box-sizing: border-box;
+  }
+  .blog-title {
+    font-size: 2rem;
   }
 }
 </style>

@@ -103,24 +103,25 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding-bottom: 8rem;
+  padding-bottom: 2rem;
+  width: 100%;
 }
 
 .mobile-glance-row {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 0.4rem;
 }
 
 .mobile-clock-row {
   display: flex;
   justify-content: center;
-  margin-block: 0.5rem;
+  margin-block: 1.4rem;
 }
 
 .mobile-media-row {
+  width: 100%;
   display: flex;
-  justify-content: center;
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -132,7 +133,9 @@ defineProps<{
 
 @media (max-width: 768px) {
   .homescreen-view {
-    padding: 5rem 1.6rem 8rem 1.6rem;
+    padding: 1rem 1.6rem 2.4rem 1.6rem;
+    min-height: auto;
+    justify-content: flex-start;
   }
 }
 </style>
