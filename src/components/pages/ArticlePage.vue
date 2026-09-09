@@ -51,32 +51,39 @@ async function loadArticle() {
 }
 
 function setupCodeCopyButtons() {
-  const codeBlocks = document.querySelectorAll<HTMLElement>(".article-window pre code");
-  codeBlocks.forEach((codeEl) => {
-    const pre = codeEl.parentElement;
-    if (!pre || pre.querySelector(".code-copy-btn")) return;
+  const codeBlocks = document.querySelectorAll<HTMLElement>(".article-content-body pre");
+  codeBlocks.forEach((pre) => {
+    if (pre.querySelector(".code-copy-btn")) return;
+    const codeEl = pre.querySelector("code") || pre;
 
     const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
     copyBtn.className = "code-copy-btn";
+    copyBtn.setAttribute("title", "Copy code");
+    copyBtn.setAttribute("aria-label", "Copy code snippet");
     copyBtn.innerHTML = `
       <span class="material-symbols-rounded">content_copy</span>
       <span>Copy</span>
     `;
-    copyBtn.addEventListener("click", async () => {
+    copyBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      e.preventDefault();
       try {
         await navigator.clipboard.writeText(codeEl.textContent || "");
+        copyBtn.classList.add("copied");
         copyBtn.innerHTML = `
           <span class="material-symbols-rounded">check</span>
           <span>Copied!</span>
         `;
         setTimeout(() => {
+          copyBtn.classList.remove("copied");
           copyBtn.innerHTML = `
             <span class="material-symbols-rounded">content_copy</span>
             <span>Copy</span>
           `;
         }, 2000);
-      } catch (e) {
-        console.error("Copy failed", e);
+      } catch (err) {
+        console.error("Copy failed", err);
       }
     });
 
@@ -363,30 +370,50 @@ onMounted(() => {
 
 .article-hero-banner {
   width: 100%;
-  max-height: 36rem;
   border-radius: 20px;
   overflow: hidden;
-  margin-top: 1rem;
-  background: var(--md-sys-color-surface-container-high, #f8ece4);
+  margin-top: 1.6rem;
+  background: var(--md-sys-color-surface-container-highest, rgba(0, 0, 0, 0.04));
+  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[theme="dark"] .article-hero-banner {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .article-hero-img {
   width: 100%;
-  height: 100%;
+  max-height: 46rem;
+  height: auto;
   object-fit: cover;
+  display: block;
 }
 
 /* Article Body Typography */
 .article-content-body {
   padding: 1.6rem 3.2rem 3.2rem 3.2rem;
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.55rem;
   line-height: 1.8;
   color: var(--md-sys-color-on-surface, #221a16);
 }
 
+.article-content-body :deep(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 2.4rem auto;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.12));
+}
+
 .article-content-body :deep(h2) {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 2.4rem;
   font-weight: 800;
   margin-top: 3.2rem;
@@ -395,7 +422,7 @@ onMounted(() => {
 }
 
 .article-content-body :deep(h3) {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 2rem;
   font-weight: 700;
   margin-top: 2.4rem;
@@ -432,48 +459,101 @@ onMounted(() => {
   font-style: italic;
 }
 
+/* Codeblocks - Dynamic Light and Dark Mode */
 .article-content-body :deep(pre) {
-  margin: 2rem 0;
-  padding: 2rem;
-  background: #1e1e1e;
-  color: #d4d4d4;
-  border-radius: 16px;
+  position: relative;
+  margin: 2.4rem 0;
+  padding: 2.4rem 2.4rem 2rem 2.4rem;
+  background: var(--md-sys-color-surface-container-high, #f5e8e0);
+  color: var(--md-sys-color-on-surface, #221a16);
+  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.18));
+  border-radius: 20px;
   overflow-x: auto;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 1.35rem;
-  line-height: 1.5;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+[theme="dark"] .article-content-body :deep(pre) {
+  background: var(--md-sys-color-surface-container-lowest, #150e0b);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ede0db;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.article-content-body :deep(pre code) {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  font-family: var(--font-mono, "JetBrains Mono", monospace) !important;
 }
 
 .article-content-body :deep(code:not(pre code)) {
-  background: var(--md-sys-color-surface-container-high, rgba(255, 238, 230, 0.8));
-  color: var(--md-sys-color-primary, #b95000);
+  background: var(--md-sys-color-surface-container-high, rgba(191, 96, 56, 0.12));
+  color: var(--md-sys-color-primary, #bf6038);
   padding: 0.2rem 0.6rem;
   border-radius: 0.6rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 1.3rem;
+  font-weight: 600;
 }
 
+[theme="dark"] .article-content-body :deep(code:not(pre code)) {
+  background: rgba(255, 181, 157, 0.15);
+  color: var(--md-sys-color-primary, #ffb59d);
+}
+
+/* Code Copy Button */
 .article-content-body :deep(.code-copy-btn) {
   position: absolute;
   top: 1rem;
   right: 1rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 0.8rem;
-  font-family: "JetBrains Mono", monospace;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  background: var(--md-sys-color-surface, #fff8f3);
+  color: var(--md-sys-color-on-surface, #221a16);
+  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.22));
+  border-radius: 9999px;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.15rem;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: all 200ms ease;
+  z-index: 10;
+  user-select: none;
+}
+
+[theme="dark"] .article-content-body :deep(.code-copy-btn) {
+  background: var(--md-sys-color-surface-container-high, #2d201a);
+  color: var(--md-sys-color-on-surface, #ede0db);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .article-content-body :deep(.code-copy-btn:hover) {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--md-sys-color-primary-container, #faebd4);
+  color: var(--md-sys-color-on-primary-container, #3c1200);
+  border-color: var(--md-sys-color-primary, #bf6038);
+  transform: translateY(-1px);
+}
+
+[theme="dark"] .article-content-body :deep(.code-copy-btn:hover) {
+  background: var(--md-sys-color-primary, #ffb59d);
+  color: #26130b;
+}
+
+.article-content-body :deep(.code-copy-btn.copied) {
+  background: #2e7d32 !important;
+  color: #ffffff !important;
+  border-color: #2e7d32 !important;
+}
+
+.article-content-body :deep(.code-copy-btn .material-symbols-rounded) {
+  font-size: 1.4rem;
 }
 
 .article-content-body :deep(.code-copy-btn .material-symbols-rounded) {

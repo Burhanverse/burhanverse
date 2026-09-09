@@ -1,35 +1,51 @@
-/* Lexend Zetta - Variable Font (Local) */
-@font-face {
-  font-family: "Lexend Zetta";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("/font/LexendZetta-VariableFont_wght.ttf") format("truetype");
+/* ==========================================================================
+   PRIMARY TYPOGRAPHY: Google Sans & Inter
+   ========================================================================== */
+
+:root {
+  --font-sans: "Google Sans Flex", "Google Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Google Sans Flex", "Google Sans", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
-/* Lexend Deca - Variable Font (Local) */
+/* Fallback Aliases: Map legacy Lexend and Nunito declarations to Google Sans & Inter */
 @font-face {
   font-family: "Lexend Deca";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("/font/LexendDeca-VariableFont_wght.ttf") format("truetype");
+  src: local("Google Sans Flex"), local("Google Sans"), local("Inter");
 }
 
-/* JetBrains Mono - Variable Font (Local) */
 @font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("/font/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-family: "Lexend Zetta";
+  src: local("Google Sans Flex"), local("Google Sans"), local("Inter");
 }
 
-/* Nunito Sans - Variable Font (Local) */
 @font-face {
   font-family: "Nunito Sans";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("/font/Nunito-VariableFont_wght.ttf") format("truetype");
+  src: local("Google Sans Flex"), local("Google Sans"), local("Inter");
+}
+
+/* Global Font Application */
+*, *::before, *::after {
+  font-family: var(--font-sans);
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select,
+h1, h2, h3, h4, h5, h6,
+p, span, a, label {
+  font-family: var(--font-sans);
+}
+
+/* Preserve Mono for Code and Material Icons */
+code, pre, kbd, samp, .mono, .code-font, [class*="language-"] {
+  font-family: var(--font-mono) !important;
+}
+
+.material-symbols-rounded,
+.material-icons {
+  font-family: "Material Symbols Rounded" !important;
 }

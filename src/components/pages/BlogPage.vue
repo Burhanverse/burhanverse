@@ -154,7 +154,7 @@ function formatDate(dateString: string): string {
 }
 
 .blog-page-title {
-  font-family: "Lexend Zetta", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 2.8rem;
   font-weight: 800;
   color: var(--md-sys-color-on-surface, #221a16);
@@ -162,7 +162,7 @@ function formatDate(dateString: string): string {
 }
 
 .blog-page-subtitle {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.4rem;
   color: var(--md-sys-color-on-surface-variant, #6b5548);
   margin: 0.2rem 0 0 0;
@@ -225,20 +225,30 @@ function formatDate(dateString: string): string {
 .blog-thumbnail-wrapper {
   position: relative;
   width: 100%;
-  height: 20rem;
-  background: var(--md-sys-color-surface-container-high, #f8ece4);
+  height: 22rem;
+  background: var(--md-sys-color-surface-container-highest, rgba(0, 0, 0, 0.04));
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.1));
+}
+
+[theme="dark"] .blog-thumbnail-wrapper {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .blog-thumbnail-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 1.2rem;
   transition: transform 400ms ease;
 }
 
 .blog-card-widget:hover .blog-thumbnail-img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .blog-thumbnail-fallback {
@@ -294,7 +304,7 @@ function formatDate(dateString: string): string {
 }
 
 .m3-tag-chip {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.15rem;
   font-weight: 600;
   padding: 0.3rem 0.8rem;
@@ -305,7 +315,7 @@ function formatDate(dateString: string): string {
 }
 
 .blog-title {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--md-sys-color-on-surface, #221a16);
@@ -314,7 +324,7 @@ function formatDate(dateString: string): string {
 }
 
 .blog-description {
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.4rem;
   line-height: 1.6;
   color: var(--md-sys-color-on-surface-variant, #52443d);
@@ -337,7 +347,7 @@ function formatDate(dateString: string): string {
   color: var(--md-sys-color-on-primary, #ffffff);
   border-radius: 9999px;
   border: none;
-  font-family: "Lexend Deca", sans-serif;
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
   font-size: 1.3rem;
   font-weight: 600;
   cursor: pointer;
