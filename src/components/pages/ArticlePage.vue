@@ -4,8 +4,6 @@ import { getBlogPostBySlug } from "../../blog/posts";
 import type { BlogPost } from "../../types";
 import { marked } from "marked";
 import Prism from "prismjs";
-
-// Prism syntax highlighters
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-css";
@@ -53,7 +51,7 @@ async function loadArticle() {
 function setupCodeCopyButtons() {
   const codeBlocks = document.querySelectorAll<HTMLElement>(".article-content-body pre");
   codeBlocks.forEach((pre) => {
-    if (pre.querySelector(".code-copy-btn")) return;
+    if (pre.parentElement?.classList.contains("code-block-wrapper")) return;
     const codeEl = pre.querySelector("code") || pre;
 
     const copyBtn = document.createElement("button");
@@ -87,8 +85,13 @@ function setupCodeCopyButtons() {
       }
     });
 
-    pre.style.position = "relative";
-    pre.appendChild(copyBtn);
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-block-wrapper";
+    const parent = pre.parentNode;
+    if (!parent) return;
+    parent.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    wrapper.appendChild(copyBtn);
   });
 }
 
@@ -351,7 +354,6 @@ watch(() => props.articleSlug, () => {
   height: 4.4rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--md-sys-color-primary-container, #ffdcc9);
 }
 
 .author-meta {
@@ -378,7 +380,6 @@ watch(() => props.articleSlug, () => {
   overflow: hidden;
   margin-top: 1.6rem;
   background: var(--md-sys-color-surface-container-highest, rgba(0, 0, 0, 0.04));
-  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.12));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,7 +387,6 @@ watch(() => props.articleSlug, () => {
 
 [theme="dark"] .article-hero-banner {
   background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .article-hero-img {
@@ -413,7 +413,6 @@ watch(() => props.articleSlug, () => {
   display: block;
   margin: 2.4rem auto;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.12));
 }
 
 .article-content-body :deep(h2) {
@@ -464,6 +463,10 @@ watch(() => props.articleSlug, () => {
 }
 
 /* Codeblocks - Dynamic Light and Dark Mode */
+.article-content-body :deep(.code-block-wrapper) {
+  position: relative;
+}
+
 .article-content-body :deep(pre) {
   position: relative;
   margin: 2.4rem 0;

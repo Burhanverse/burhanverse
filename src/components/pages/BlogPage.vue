@@ -45,23 +45,15 @@ function formatDate(dateString: string): string {
       >
         <md-ripple></md-ripple>
 
-        <!-- Hero Illustration -->
-        <div class="blog-thumbnail-wrapper">
-          <img
-            v-if="post.image"
-            :src="post.image"
-            :alt="post.title"
-            class="blog-thumbnail-img"
-          />
-          <div v-else class="blog-thumbnail-fallback">
+        <!-- Compact card header -->
+        <div class="compact-card-header">
+          <div class="compact-card-icon">
             <span class="material-symbols-rounded">menu_book</span>
           </div>
-
-          <!-- Date Badge inside hero -->
-          <div class="thumbnail-overlay-badge">
+          <span class="compact-card-date">
             <span class="material-symbols-rounded">event</span>
             <span>{{ formatDate(post.date) }}</span>
-          </div>
+          </span>
         </div>
 
         <!-- Article Info -->
@@ -222,74 +214,60 @@ function formatDate(dateString: string): string {
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6);
 }
 
-/* Thumbnail */
-.blog-thumbnail-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 26rem;
-  background: var(--md-sys-color-surface-container-highest, rgba(0, 0, 0, 0.04));
-  overflow: hidden;
+/* Compact card header */
+.compact-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 1.8rem 0 1.8rem;
+}
+
+.compact-card-icon {
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 1.4rem;
+  background: var(--md-sys-color-secondary-container, #fce4c0);
+  color: var(--md-sys-color-secondary, #81552a);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant, rgba(191, 96, 56, 0.1));
+  flex-shrink: 0;
 }
 
-[theme="dark"] .blog-thumbnail-wrapper {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.06);
+[theme="dark"] .compact-card-icon {
+  background: rgba(129, 85, 42, 0.25);
+  color: #edbc90;
 }
 
-.blog-thumbnail-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  padding: 0;
-  display: block;
-  transition: transform 400ms ease;
+.compact-card-icon .material-symbols-rounded {
+  font-size: 2.4rem;
 }
 
-.blog-card-widget:hover .blog-thumbnail-img {
-  transform: scale(1.03);
-}
-
-.blog-thumbnail-fallback {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--md-sys-color-primary, #b95000);
-}
-
-.blog-thumbnail-fallback .material-symbols-rounded {
-  font-size: 5rem;
-  opacity: 0.5;
-}
-
-.thumbnail-overlay-badge {
-  position: absolute;
-  bottom: 1.2rem;
-  left: 1.2rem;
+.compact-card-date {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.4rem 1rem;
-  background: rgba(30, 20, 15, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #ffffff;
-  border-radius: 9999px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant, #6b5548);
 }
 
-.thumbnail-overlay-badge .material-symbols-rounded {
-  font-size: 1.4rem;
-  color: var(--md-sys-color-primary-container, #ffdcc9);
+.compact-card-date .material-symbols-rounded {
+  font-size: 1.6rem;
+  color: var(--md-sys-color-primary, #b95000);
+}
+
+.blog-card-widget .blog-card-body {
+  padding-top: 1.6rem;
+}
+
+.blog-card-widget .blog-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Card Body */
@@ -405,12 +383,6 @@ function formatDate(dateString: string): string {
     width: 100%;
     box-sizing: border-box;
     border-radius: 28px;
-  }
-  .blog-thumbnail-wrapper {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    max-height: 24rem;
   }
   .blog-card-body {
     padding: 1.8rem;
