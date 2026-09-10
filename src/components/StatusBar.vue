@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 defineProps<{
   theme: "light" | "dark";
@@ -11,6 +11,9 @@ const emit = defineEmits<{
   (e: "toggle-theme"): void;
 }>();
 
+// =============================================================================
+// Time Display
+// =============================================================================
 const currentTime = ref("");
 let timer: number | null = null;
 
@@ -22,13 +25,156 @@ function updateTime() {
   currentTime.value = `${hours}:${mStr}`;
 }
 
+// =============================================================================
+// Battery Status API
+// =============================================================================
+interface BatteryManager extends EventTarget {
+  charging: boolean;
+  chargingTime: number;
+  dischargingTime: number;
+  level: number;
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+}
+
+const batteryLevel = ref<number>(100);
+const isCharging = ref<boolean>(false);
+let batteryManager: BatteryManager | null = null;
+
+const onBatteryChange = () => {
+  if (batteryManager) {
+    batteryLevel.value = Math.round(batteryManager.level * 100);
+    isCharging.value = batteryManager.charging;
+  }
+};
+
+const batteryIcon = computed(() => {
+  const lvl = batteryLevel.value;
+  if (isCharging.value) {
+    if (lvl >= 90) return "battery_charging_full";
+    if (lvl >= 70) return "battery_charging_80";
+    if (lvl >= 50) return "battery_charging_60";
+    if (lvl >= 30) return "battery_charging_50";
+    if (lvl >= 15) return "battery_charging_30";
+    return "battery_charging_20";
+  }
+  if (lvl >= 95) return "battery_full";
+  if (lvl >= 85) return "battery_6_bar";
+  if (lvl >= 70) return "battery_5_bar";
+  if (lvl >= 55) return "battery_4_bar";
+  if (lvl >= 40) return "battery_3_bar";
+  if (lvl >= 25) return "battery_2_bar";
+  if (lvl >= 10) return "battery_1_bar";
+  return "battery_alert";
+});
+
+const batteryTitle = computed(() => {
+  return `${isCharging.value ? "Charging" : "Battery"}: ${batteryLevel.value}%`;
+});
+
+// =============================================================================
+// Network Information API & Online Status
+// =============================================================================
+const isOnline = ref<boolean>(typeof navigator !== "undefined" ? navigator.onLine : true);
+const connectionType = ref<string>("wifi");
+const effectiveType = ref<string>("");
+let networkConnection: any = null;
+
+function updateNetworkInfo() {
+  if (typeof navigator === "undefined") return;
+  isOnline.value = navigator.onLine;
+
+  const conn =
+    (navigator as any).connection ||
+    (navigator as any).mozConnection ||
+    (navigator as any).webkitConnection;
+
+  if (!navigator.onLine) {
+    connectionType.value = "offline";
+    effectiveType.value = "";
+  } else if (conn) {
+    effectiveType.value = conn.effectiveType ? conn.effectiveType.toUpperCase() : "";
+    const type = conn.type;
+    if (type === "cellular" || conn.effectiveType === "2g" || conn.effectiveType === "3g") {
+      connectionType.value = "cellular";
+    } else if (type === "ethernet") {
+      connectionType.value = "ethernet";
+    } else {
+      connectionType.value = "wifi";
+    }
+  } else {
+    connectionType.value = "wifi";
+  }
+}
+
+const networkIcon = computed(() => {
+  if (!isOnline.value) return "wifi_off";
+  if (connectionType.value === "cellular") return "signal_cellular_alt";
+  return "wifi";
+});
+
+const networkTitle = computed(() => {
+  if (!isOnline.value) return "Network: Offline";
+  if (effectiveType.value) {
+    return `Connected (${effectiveType.value})`;
+  }
+  return "Connected (Online)";
+});
+
+// =============================================================================
+// Lifecycle Hooks
+// =============================================================================
 onMounted(() => {
   updateTime();
   timer = window.setInterval(updateTime, 5000);
+
+  // Initialize Battery API
+  if (
+    typeof navigator !== "undefined" &&
+    "getBattery" in navigator &&
+    typeof (navigator as any).getBattery === "function"
+  ) {
+    (navigator as any)
+      .getBattery()
+      .then((bm: BatteryManager) => {
+        batteryManager = bm;
+        onBatteryChange();
+        bm.addEventListener("levelchange", onBatteryChange);
+        bm.addEventListener("chargingchange", onBatteryChange);
+      })
+      .catch(() => {
+        batteryLevel.value = 100;
+      });
+  }
+
+  // Initialize Network Info & Listeners
+  updateNetworkInfo();
+  window.addEventListener("online", updateNetworkInfo);
+  window.addEventListener("offline", updateNetworkInfo);
+
+  networkConnection =
+    (navigator as any).connection ||
+    (navigator as any).mozConnection ||
+    (navigator as any).webkitConnection;
+  if (networkConnection && typeof networkConnection.addEventListener === "function") {
+    networkConnection.addEventListener("change", updateNetworkInfo);
+  }
 });
 
 onUnmounted(() => {
   if (timer) clearInterval(timer);
+
+  if (batteryManager) {
+    batteryManager.removeEventListener("levelchange", onBatteryChange);
+    batteryManager.removeEventListener("chargingchange", onBatteryChange);
+  }
+
+  window.removeEventListener("online", updateNetworkInfo);
+  window.removeEventListener("offline", updateNetworkInfo);
+
+  if (networkConnection && typeof networkConnection.removeEventListener === "function") {
+    networkConnection.removeEventListener("change", updateNetworkInfo);
+  }
 });
 </script>
 
@@ -45,24 +191,41 @@ onUnmounted(() => {
     <!-- Right status icons -->
     <div class="status-right">
       <!-- Network / Wifi -->
-      <span class="material-symbols-rounded status-icon" title="Wi-Fi Connected">wifi</span>
+      <div class="network-indicator" :title="networkTitle">
+        <span
+          class="material-symbols-rounded status-icon"
+          :class="{ 'is-offline': !isOnline }"
+        >
+          {{ networkIcon }}
+        </span>
+      </div>
       
       <!-- Battery Status -->
-      <div class="battery-indicator" title="Battery 100%">
-        <span class="material-symbols-rounded status-icon">battery_full</span>
-        <span class="battery-text">100%</span>
+      <div class="battery-indicator" :title="batteryTitle">
+        <span
+          class="material-symbols-rounded status-icon"
+          :class="{ 'is-charging': isCharging, 'is-low': batteryLevel <= 20 }"
+        >
+          {{ batteryIcon }}
+        </span>
+        <span class="battery-text">{{ batteryLevel }}%</span>
       </div>
 
-      <!-- Quick Theme Switcher Button -->
+      <!-- Material 3 Theme Mode Switch (Icon-only switch) -->
       <button
         type="button"
-        class="status-theme-btn"
+        class="status-theme-switch"
+        :class="[`theme-${theme}`, { 'is-dark': theme === 'dark' }]"
+        role="switch"
+        :aria-checked="theme === 'dark'"
         :title="theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
         @click="emit('toggle-theme')"
       >
         <md-ripple></md-ripple>
-        <span class="material-symbols-rounded theme-quick-icon">
-          {{ theme === "dark" ? "light_mode" : "dark_mode" }}
+        <span class="switch-thumb">
+          <span class="material-symbols-rounded switch-thumb-icon">
+            {{ theme === "dark" ? "light_mode" : "dark_mode" }}
+          </span>
         </span>
       </button>
     </div>
@@ -76,7 +239,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 4rem;
-  padding: 0 2.4rem;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -88,16 +251,24 @@ onUnmounted(() => {
   font-family: "JetBrains Mono", monospace;
 }
 
+/* ==========================================================================
+   LEFT STATUS GROUP
+   ========================================================================== */
 .status-left {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
+  height: 100%;
 }
 
 .status-time {
-  font-size: 1.4rem;
+  height: 2.8rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  line-height: 1;
 }
 
 .fade-clock-enter-active,
@@ -111,77 +282,240 @@ onUnmounted(() => {
   transform: translateX(-4px);
 }
 
+/* Matching height & styling with right-side pills */
 .status-badge {
-  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
-  font-size: 1.15rem;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.2rem 0.8rem;
+  height: 2.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-sans, "Google Sans Flex", "Inter", sans-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
+/* ==========================================================================
+   RIGHT STATUS GROUP
+   ========================================================================== */
 .status-right {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1rem;
+  height: 100%;
+}
+
+/* Network Indicator Circle */
+.network-indicator {
+  height: 2.8rem;
+  width: 2.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: default;
+  box-sizing: border-box;
+}
+
+/* Battery Indicator Pill */
+.battery-indicator {
+  height: 2.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: default;
+  box-sizing: border-box;
 }
 
 .status-icon {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms ease;
 }
 
-.battery-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
+.status-icon.is-offline {
+  color: #ff8585;
+}
+
+.status-icon.is-charging {
+  color: #8ce99a;
+}
+
+.status-icon.is-low {
+  color: #ff8585;
 }
 
 .battery-text {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1;
+  font-family: "JetBrains Mono", monospace;
 }
 
-.status-theme-btn {
+/* ==========================================================================
+   MATERIAL DESIGN 3 THEME MODE SWITCH (ICON-ONLY PILL)
+   ========================================================================== */
+.status-theme-switch {
   position: relative;
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  height: 2.8rem;
+  width: 4.8rem;
+  border-radius: 9999px;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 250ms cubic-bezier(0.2, 0, 0, 1),
+              border-color 250ms cubic-bezier(0.2, 0, 0, 1),
+              transform 200ms cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 200ms ease;
+}
+
+.status-theme-switch:hover {
+  transform: scale(1.04);
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+}
+
+.status-theme-switch:active {
+  transform: scale(0.96);
+}
+
+/* Switch Thumb */
+.switch-thumb {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1e1e1e;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 200ms ease, background-color 200ms ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transform: translateX(0);
+  transition: transform 250ms cubic-bezier(0.2, 0, 0, 1),
+              background-color 250ms cubic-bezier(0.2, 0, 0, 1),
+              color 250ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-.status-theme-btn:hover {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.3);
+.switch-thumb-icon {
+  font-size: 1.35rem;
+  line-height: 1;
 }
 
-.theme-quick-icon {
-  font-size: 1.8rem;
+/* Dark Mode State: Thumb slides to active right position */
+.theme-dark {
+  background: rgba(255, 182, 140, 0.22);
+  border-color: rgba(255, 182, 140, 0.4);
 }
 
+.theme-dark .switch-thumb {
+  transform: translateX(2.0rem);
+  background: #ffb68c;
+  color: #432200;
+}
+
+/* ==========================================================================
+   MOBILE VIEWPORT ADAPTATIONS (<= 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
   .tablet-status-bar {
     height: calc(3.8rem + env(safe-area-inset-top, 0px));
     padding-top: env(safe-area-inset-top, 0px);
-    padding-left: 1.6rem;
-    padding-right: 1.6rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
   }
+
+  .status-left {
+    gap: 0.8rem;
+  }
+
+  .status-time {
+    height: 2.6rem;
+    font-size: 1.3rem;
+  }
+
   .status-badge {
-    font-size: 1.1rem;
-    padding: 0.15rem 0.7rem;
+    height: 2.6rem;
+    padding: 0 1rem;
+    font-size: 1.15rem;
+  }
+
+  .status-right {
+    gap: 0.8rem;
+  }
+
+  .network-indicator {
+    height: 2.6rem;
+    width: 2.6rem;
+  }
+
+  .network-indicator .status-icon {
+    font-size: 1.55rem;
+  }
+
+  .battery-indicator {
+    height: 2.6rem;
+    padding: 0 0.8rem;
+    gap: 0.35rem;
+  }
+
+  .battery-indicator .status-icon {
+    font-size: 1.55rem;
+  }
+
+  .battery-text {
+    font-size: 1.15rem;
+  }
+
+  .status-theme-switch {
+    height: 2.6rem;
+    width: 4.4rem;
+    padding: 0.2rem;
+  }
+
+  .switch-thumb {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+
+  .theme-dark .switch-thumb {
+    transform: translateX(1.8rem);
+  }
+
+  .switch-thumb-icon {
+    font-size: 1.25rem;
   }
 }
 </style>
