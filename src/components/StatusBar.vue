@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
-defineProps<{
+const props = defineProps<{
   theme: "light" | "dark";
   currentTab?: "home" | "repos" | "blog" | "article" | "contact";
   isMobile?: boolean;
@@ -10,6 +10,15 @@ defineProps<{
 const emit = defineEmits<{
   (e: "toggle-theme"): void;
 }>();
+
+// Check if device is a mobile phone
+const isMobileDevice = computed(() => {
+  if (props.isMobile) return true;
+  if (typeof navigator !== "undefined") {
+    return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  }
+  return false;
+});
 
 // =============================================================================
 // Time Display
@@ -37,6 +46,7 @@ interface BatteryManager extends EventTarget {
   removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
 
+const hasBatteryApi = ref<boolean>(false);
 const batteryLevel = ref<number>(100);
 const isCharging = ref<boolean>(false);
 let batteryManager: BatteryManager | null = null;
@@ -49,6 +59,9 @@ const onBatteryChange = () => {
 };
 
 const batteryIcon = computed(() => {
+  if (!hasBatteryApi.value) {
+    return "battery_full";
+  }
   const lvl = batteryLevel.value;
   if (isCharging.value) {
     if (lvl >= 90) return "battery_charging_full";
@@ -69,6 +82,9 @@ const batteryIcon = computed(() => {
 });
 
 const batteryTitle = computed(() => {
+  if (!hasBatteryApi.value) {
+    return "Battery: System managed";
+  }
   return `${isCharging.value ? "Charging" : "Battery"}: ${batteryLevel.value}%`;
 });
 
@@ -92,10 +108,23 @@ function updateNetworkInfo() {
   if (!navigator.onLine) {
     connectionType.value = "offline";
     effectiveType.value = "";
-  } else if (conn) {
-    effectiveType.value = conn.effectiveType ? conn.effectiveType.toUpperCase() : "";
-    const type = conn.type;
-    if (type === "cellular" || conn.effectiveType === "2g" || conn.effectiveType === "3g") {
+    return;
+  }
+
+  if (conn) {
+    const rawEff = (conn.effectiveType || "").toLowerCase();
+    effectiveType.value = rawEff ? rawEff.toUpperCase() : "";
+
+    const type = (conn.type || "").toLowerCase();
+    if (
+      type === "cellular" ||
+      type === "wimax" ||
+      rawEff === "2g" ||
+      rawEff === "3g" ||
+      rawEff === "slow-2g" ||
+      (conn.saveData && type !== "wifi") ||
+      (isMobileDevice.value && type !== "wifi" && type !== "ethernet")
+    ) {
       connectionType.value = "cellular";
     } else if (type === "ethernet") {
       connectionType.value = "ethernet";
@@ -103,22 +132,31 @@ function updateNetworkInfo() {
       connectionType.value = "wifi";
     }
   } else {
-    connectionType.value = "wifi";
+    // Browsers without Network Information API (e.g. iOS Safari)
+    connectionType.value = isMobileDevice.value ? "cellular" : "wifi";
+    effectiveType.value = "";
   }
+}
+
+function toggleNetworkType() {
+  if (!isOnline.value) return;
+  // Allow user to toggle between wifi and cellular if on a mobile or restricted environment
+  connectionType.value = connectionType.value === "cellular" ? "wifi" : "cellular";
 }
 
 const networkIcon = computed(() => {
   if (!isOnline.value) return "wifi_off";
   if (connectionType.value === "cellular") return "signal_cellular_alt";
+  if (connectionType.value === "ethernet") return "lan";
   return "wifi";
 });
 
 const networkTitle = computed(() => {
   if (!isOnline.value) return "Network: Offline";
   if (effectiveType.value) {
-    return `Connected (${effectiveType.value})`;
+    return `${connectionType.value === "cellular" ? "Cellular Mobile Data" : "Wi-Fi"} (${effectiveType.value})`;
   }
-  return "Connected (Online)";
+  return `${connectionType.value === "cellular" ? "Cellular Mobile Data" : "Wi-Fi"} (Connected)`;
 });
 
 // =============================================================================
@@ -138,13 +176,18 @@ onMounted(() => {
       .getBattery()
       .then((bm: BatteryManager) => {
         batteryManager = bm;
+        hasBatteryApi.value = true;
         onBatteryChange();
         bm.addEventListener("levelchange", onBatteryChange);
         bm.addEventListener("chargingchange", onBatteryChange);
+        (bm as any).onlevelchange = onBatteryChange;
+        (bm as any).onchargingchange = onBatteryChange;
       })
       .catch(() => {
-        batteryLevel.value = 100;
+        hasBatteryApi.value = false;
       });
+  } else {
+    hasBatteryApi.value = false;
   }
 
   // Initialize Network Info & Listeners
@@ -156,8 +199,11 @@ onMounted(() => {
     (navigator as any).connection ||
     (navigator as any).mozConnection ||
     (navigator as any).webkitConnection;
-  if (networkConnection && typeof networkConnection.addEventListener === "function") {
-    networkConnection.addEventListener("change", updateNetworkInfo);
+  if (networkConnection) {
+    if (typeof networkConnection.addEventListener === "function") {
+      networkConnection.addEventListener("change", updateNetworkInfo);
+    }
+    networkConnection.onchange = updateNetworkInfo;
   }
 });
 
@@ -167,13 +213,18 @@ onUnmounted(() => {
   if (batteryManager) {
     batteryManager.removeEventListener("levelchange", onBatteryChange);
     batteryManager.removeEventListener("chargingchange", onBatteryChange);
+    (batteryManager as any).onlevelchange = null;
+    (batteryManager as any).onchargingchange = null;
   }
 
   window.removeEventListener("online", updateNetworkInfo);
   window.removeEventListener("offline", updateNetworkInfo);
 
-  if (networkConnection && typeof networkConnection.removeEventListener === "function") {
-    networkConnection.removeEventListener("change", updateNetworkInfo);
+  if (networkConnection) {
+    if (typeof networkConnection.removeEventListener === "function") {
+      networkConnection.removeEventListener("change", updateNetworkInfo);
+    }
+    networkConnection.onchange = null;
   }
 });
 </script>
@@ -191,24 +242,37 @@ onUnmounted(() => {
     <!-- Right status icons -->
     <div class="status-right">
       <!-- Network / Wifi -->
-      <div class="network-indicator" :title="networkTitle">
+      <div
+        class="network-indicator"
+        :class="{ 'has-text': isOnline && !!effectiveType }"
+        :title="networkTitle"
+        role="button"
+        tabindex="0"
+        @click="toggleNetworkType"
+        @keydown.enter="toggleNetworkType"
+      >
         <span
           class="material-symbols-rounded status-icon"
           :class="{ 'is-offline': !isOnline }"
         >
           {{ networkIcon }}
         </span>
+        <span v-if="isOnline && effectiveType" class="network-text">{{ effectiveType }}</span>
       </div>
       
       <!-- Battery Status -->
-      <div class="battery-indicator" :title="batteryTitle">
+      <div
+        class="battery-indicator"
+        :class="{ 'icon-only': !hasBatteryApi }"
+        :title="batteryTitle"
+      >
         <span
           class="material-symbols-rounded status-icon"
-          :class="{ 'is-charging': isCharging, 'is-low': batteryLevel <= 20 }"
+          :class="{ 'is-charging': isCharging, 'is-low': hasBatteryApi && batteryLevel <= 20 }"
         >
           {{ batteryIcon }}
         </span>
-        <span class="battery-text">{{ batteryLevel }}%</span>
+        <span v-if="hasBatteryApi" class="battery-text">{{ batteryLevel }}%</span>
       </div>
 
       <!-- Material 3 Theme Mode Switch (Icon-only switch) -->
@@ -313,7 +377,7 @@ onUnmounted(() => {
   height: 100%;
 }
 
-/* Network Indicator Circle */
+/* Network Indicator Circle / Pill */
 .network-indicator {
   height: 2.8rem;
   width: 2.8rem;
@@ -326,8 +390,28 @@ onUnmounted(() => {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  cursor: default;
+  cursor: pointer;
   box-sizing: border-box;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.network-indicator:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.network-indicator.has-text {
+  width: auto;
+  padding: 0 0.85rem;
+  border-radius: 9999px;
+  gap: 0.35rem;
+}
+
+.network-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.02em;
 }
 
 /* Battery Indicator Pill */
@@ -345,6 +429,13 @@ onUnmounted(() => {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   cursor: default;
   box-sizing: border-box;
+}
+
+.battery-indicator.icon-only {
+  width: 2.8rem;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
 }
 
 .status-icon {
@@ -481,6 +572,16 @@ onUnmounted(() => {
     width: 2.6rem;
   }
 
+  .network-indicator.has-text {
+    width: auto;
+    padding: 0 0.75rem;
+    gap: 0.3rem;
+  }
+
+  .network-text {
+    font-size: 1.1rem;
+  }
+
   .network-indicator .status-icon {
     font-size: 1.55rem;
   }
@@ -489,6 +590,11 @@ onUnmounted(() => {
     height: 2.6rem;
     padding: 0 0.8rem;
     gap: 0.35rem;
+  }
+
+  .battery-indicator.icon-only {
+    width: 2.6rem;
+    padding: 0;
   }
 
   .battery-indicator .status-icon {

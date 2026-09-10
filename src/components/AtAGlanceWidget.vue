@@ -71,14 +71,30 @@ async function fetchWeather() {
   let lat = 26.2006;
   let lon = 92.9376;
 
+  // Silently determine visitor's overall regional location via IP (No browser permission prompt)
   try {
-    if ("geolocation" in navigator) {
-      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 2000, maximumAge: 600000 });
+    const ipRes = await fetch("https://ipwho.is/", {
+      signal: AbortSignal.timeout(3000),
+    }).catch(() => null);
+
+    if (ipRes && ipRes.ok) {
+      const ipData = await ipRes.json();
+      if (ipData && ipData.success && typeof ipData.latitude === "number" && typeof ipData.longitude === "number") {
+        lat = ipData.latitude;
+        lon = ipData.longitude;
+      }
+    } else {
+      // Secondary fallback IP lookup
+      const secRes = await fetch("https://freeipapi.com/api/json", {
+        signal: AbortSignal.timeout(3000),
       }).catch(() => null);
-      if (pos) {
-        lat = pos.coords.latitude;
-        lon = pos.coords.longitude;
+
+      if (secRes && secRes.ok) {
+        const secData = await secRes.json();
+        if (typeof secData.latitude === "number" && typeof secData.longitude === "number") {
+          lat = secData.latitude;
+          lon = secData.longitude;
+        }
       }
     }
   } catch {
