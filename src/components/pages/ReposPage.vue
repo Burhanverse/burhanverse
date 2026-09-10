@@ -767,9 +767,7 @@ onUnmounted(() => {
   max-width: 132rem;
   margin: 0 auto;
   padding: 2rem 2rem 6rem 9rem;
-  animation: dashboardFadeIn 360ms ease;
   position: relative;
-  will-change: opacity, transform;
 }
 
 /* Floating Heatmap Tooltip */

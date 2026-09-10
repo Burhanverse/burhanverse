@@ -156,8 +156,6 @@ const featuredProjects = [
   max-width: 96rem;
   margin: 0 auto;
   padding: 2rem 2rem 6rem 9rem;
-  animation: aboutFadeIn 300ms ease;
-  will-change: opacity, transform;
 }
 
 .minimal-about-container {
