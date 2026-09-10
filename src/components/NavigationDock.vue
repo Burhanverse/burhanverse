@@ -11,7 +11,7 @@ const emit = defineEmits<{
 
 const navItems = [
   { id: "home", label: "Home", icon: "home" },
-  { id: "repos", label: "Repos", icon: "folder_code" },
+  { id: "repos", label: "GitHub", icon: "developer_mode" },
   { id: "blog", label: "Blog", icon: "article" },
   { id: "contact", label: "About", icon: "person" },
 ] as const;

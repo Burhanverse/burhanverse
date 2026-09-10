@@ -2,6 +2,7 @@ export interface LanguageStat {
   name: string;
   percentage: number;
   color: string;
+  count: number;
 }
 
 export interface GitHubOverview {
@@ -37,8 +38,8 @@ export interface LastFmSummary {
 export interface AnilistMediaList {
   count: number;
   meanScore: number;
-  chapters?: number; // For manga
-  episodes?: number; // For anime
+  chapters?: number;
+  episodes?: number;
 }
 
 export interface AnilistStats {

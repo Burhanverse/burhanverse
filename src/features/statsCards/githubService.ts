@@ -86,6 +86,7 @@ async function safeReadErrorMessage(response: Response): Promise<string> {
 
 function computeLanguageStats(repos: GitHubRepoResponse[]): LanguageStat[] {
   const languageTotals: Record<string, number> = {};
+  const languageCounts: Record<string, number> = {};
   let total = 0;
 
   repos.forEach((repo) => {
@@ -93,6 +94,7 @@ function computeLanguageStats(repos: GitHubRepoResponse[]): LanguageStat[] {
 
     const size = repo.size && repo.size > 0 ? repo.size : 1;
     languageTotals[repo.language] = (languageTotals[repo.language] ?? 0) + size;
+    languageCounts[repo.language] = (languageCounts[repo.language] ?? 0) + 1;
     total += size;
   });
 
@@ -103,11 +105,12 @@ function computeLanguageStats(repos: GitHubRepoResponse[]): LanguageStat[] {
   return Object.entries(languageTotals)
     .map<LanguageStat>(([name, size]) => ({
       name,
-      percentage: (size / total) * 100,
+      percentage: Math.round((size / total) * 100),
+      count: languageCounts[name] ?? 0,
       color: LANGUAGE_COLORS[name] ?? "#8257e5",
     }))
     .sort((a, b) => b.percentage - a.percentage)
-    .slice(0, 4);
+    .slice(0, 8);
 }
 
 async function fetchContributionRange(
@@ -192,7 +195,6 @@ function calculateStreaks(
     return { current: 0, longest: 0 };
   }
 
-  // Flatten all contribution days into a single array
   const allDays: Array<{ date: string; count: number }> = [];
 
   for (const week of calendar.weeks) {
@@ -208,7 +210,6 @@ function calculateStreaks(
     }
   }
 
-  // Sort by date (oldest to newest)
   allDays.sort((a, b) => a.date.localeCompare(b.date));
 
   if (allDays.length === 0) {
@@ -219,7 +220,6 @@ function calculateStreaks(
   let longestStreak = 0;
   let tempStreak = 0;
 
-  // Check if today has contributions (for current streak)
   const today = new Date().toISOString().split("T")[0];
   const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
   const lastDay = allDays[allDays.length - 1];
@@ -227,12 +227,10 @@ function calculateStreaks(
   const hasContributionYesterday =
     lastDay.date === yesterday && lastDay.count > 0;
 
-  // Calculate current streak (from today backwards)
   for (let i = allDays.length - 1; i >= 0; i--) {
     if (allDays[i].count > 0) {
       currentStreak++;
     } else {
-      // Only break if we haven't started counting yet or if it's not today/yesterday
       if (
         currentStreak > 0 ||
         (allDays[i].date !== today && allDays[i].date !== yesterday)
@@ -242,13 +240,10 @@ function calculateStreaks(
     }
   }
 
-  // If today has no contributions but yesterday does, current streak is valid
-  // If today and yesterday have no contributions, current streak is 0
   if (!hasContributionToday && !hasContributionYesterday) {
     currentStreak = 0;
   }
 
-  // Calculate longest streak (iterate through all days)
   for (const day of allDays) {
     if (day.count > 0) {
       tempStreak++;
@@ -267,7 +262,6 @@ async function fetchGitHubContributions(
   token?: string,
 ): Promise<{ total: number; currentStreak: number; longestStreak: number }> {
   if (!token) {
-    // Token is optional; gracefully fall back when missing
     return { total: 0, currentStreak: 0, longestStreak: 0 };
   }
 
@@ -298,7 +292,6 @@ async function fetchGitHubContributions(
           ? today
           : new Date(year, 11, 31, 23, 59, 59, 999);
 
-      // Sequential requests keep us within GitHub's secondary rate limits
       const calendar = await fetchContributionRange(username, from, to, token);
       if (calendar) {
         totalContributions += calendar.totalContributions ?? 0;
@@ -306,7 +299,6 @@ async function fetchGitHubContributions(
       }
     }
 
-    // Merge all calendars for streak calculation
     const mergedCalendar = {
       totalContributions,
       weeks: allCalendars.flatMap((cal) => cal.weeks ?? []),
@@ -380,16 +372,13 @@ function processContributionDays(
     return getFallbackCalendarData();
   }
 
-  // Sort chronological
   days.sort((a, b) => a.date.localeCompare(b.date));
 
-  // Determine starting pad so first week aligns to Sunday (0)
   const firstDateStr = days[0].date;
   const firstDate = new Date(firstDateStr);
-  const startDayOfWeek = firstDate.getDay(); // 0 = Sun, 6 = Sat
+  const startDayOfWeek = firstDate.getDay();
 
   const paddedDays: ContributionDay[] = [];
-  // Pad preceding days in first week if not starting on Sunday
   for (let i = 0; i < startDayOfWeek; i++) {
     const padDate = new Date(firstDate.getTime() - (startDayOfWeek - i) * 86400000);
     paddedDays.push({
@@ -400,7 +389,6 @@ function processContributionDays(
   }
   paddedDays.push(...days);
 
-  // Group into weeks of 7 days
   const weeks: ContributionWeek[] = [];
   let currentWeekDays: ContributionDay[] = [];
 
@@ -412,7 +400,6 @@ function processContributionDays(
     }
   }
 
-  // Pad the final week to 7 days if needed
   if (currentWeekDays.length > 0) {
     const lastDay = currentWeekDays[currentWeekDays.length - 1];
     const lastDate = new Date(lastDay.date);
@@ -427,12 +414,10 @@ function processContributionDays(
     weeks.push({ days: currentWeekDays });
   }
 
-  // Determine month positions along the 52+ weeks
   const months: Array<{ name: string; firstWeekIndex: number }> = [];
   let lastMonthIndex = -1;
 
   weeks.forEach((week, wIndex) => {
-    // Check middle day of week for reliable month placement
     const midDay = week.days[3] || week.days[0];
     if (midDay && midDay.date) {
       const monthNum = new Date(midDay.date).getMonth();
@@ -446,7 +431,6 @@ function processContributionDays(
     }
   });
 
-  // Calculate streaks
   let currentStreak = 0;
   let longestStreak = 0;
   let runningStreak = 0;
@@ -454,7 +438,6 @@ function processContributionDays(
   const todayStr = new Date().toISOString().split("T")[0];
   const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split("T")[0];
 
-  // Longest streak
   for (const d of days) {
     if (d.count > 0) {
       runningStreak++;
@@ -464,7 +447,6 @@ function processContributionDays(
     }
   }
 
-  // Current streak (walking backwards from end)
   let foundStart = false;
   for (let i = days.length - 1; i >= 0; i--) {
     const d = days[i];
@@ -529,10 +511,24 @@ export async function fetchGitHubRecentEvents(username: string): Promise<GitHubA
       let commitCount = 0;
       let branch = "";
 
-      if (ev.type === "PushEvent" && ev.payload?.commits) {
-        commitCount = ev.payload.commits.length;
-        commitMessage = ev.payload.commits[0]?.message || "Pushed code changes";
-        branch = ev.payload.ref ? ev.payload.ref.replace("refs/heads/", "") : "main";
+      if (ev.type === "PushEvent") {
+        commitCount = ev.payload?.commits?.length || 1;
+        commitMessage = ev.payload?.commits?.[0]?.message || "Pushed code changes";
+        branch = ev.payload?.ref ? ev.payload.ref.replace("refs/heads/", "") : "main";
+      } else if (ev.type === "CreateEvent") {
+        commitMessage = `Created ${ev.payload?.ref_type || "repository"} ${ev.payload?.ref || ""}`.trim();
+      } else if (ev.type === "WatchEvent") {
+        commitMessage = "Starred repository";
+      } else if (ev.type === "ForkEvent") {
+        commitMessage = "Forked repository";
+      } else if (ev.type === "IssuesEvent") {
+        commitMessage = ev.payload?.action ? `${ev.payload.action} an issue` : "Updated issue";
+      } else if (ev.type === "PullRequestEvent") {
+        commitMessage = ev.payload?.action ? `${ev.payload.action} pull request` : "Updated pull request";
+      } else if (ev.payload?.action) {
+        commitMessage = `${ev.payload.action} event`;
+      } else {
+        commitMessage = "Active repository update";
       }
 
       return {
@@ -560,11 +556,10 @@ function getFallbackCalendarData(): ContributionCalendarData {
   for (let i = 364; i >= 0; i--) {
     const d = new Date(now.getTime() - i * 86400000);
     const dateStr = d.toISOString().split("T")[0];
-    // Generate realistic activity distribution (high activity on weekdays, bursts of commits)
     const dayOfWeek = d.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     const seed = (d.getFullYear() * 365 + d.getMonth() * 31 + d.getDate()) % 17;
-    
+
     let count = 0;
     let level: 0 | 1 | 2 | 3 | 4 = 0;
 
@@ -588,7 +583,7 @@ function getFallbackCalendarData(): ContributionCalendarData {
   return processContributionDays(days, 1769);
 }
 
-function getFallbackRecentEvents(): GitHubActivityEvent[] {
+export function getFallbackRecentEvents(): GitHubActivityEvent[] {
   return [
     {
       id: "ev-1",

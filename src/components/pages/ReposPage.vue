@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
 import { githubApi } from "../../repos/githubApi";
 import {
   fetchGitHubOverview,
   fetchGitHubCalendarData,
   fetchGitHubRecentEvents,
+  getFallbackRecentEvents,
 } from "../../features/statsCards/githubService";
 import type {
-  Repository,
   GitHubOverview,
   ContributionCalendarData,
   ContributionDay,
@@ -18,6 +18,7 @@ const repositories = ref<any[]>([]);
 const overview = ref<GitHubOverview | null>(null);
 const calendarData = ref<ContributionCalendarData | null>(null);
 const recentEvents = ref<GitHubActivityEvent[]>([]);
+const calendarScrollEl = ref<HTMLElement | null>(null);
 
 const isLoading = ref(true);
 const selectedFilter = ref("All");
@@ -250,16 +251,68 @@ const languageColors: Record<string, string> = {
   TypeScript: "#3178c6",
   JavaScript: "#f1e05a",
   Python: "#3572A5",
-  Rust: "#dea584",
-  CSS: "#563d7c",
-  Vue: "#41b883",
+  Java: "#b07219",
   HTML: "#e34c26",
-  Shell: "#89e051",
+  CSS: "#563d7c",
+  Go: "#00ADD8",
+  Rust: "#dea584",
   C: "#555555",
+  "C++": "#f34b7d",
+  Ruby: "#701516",
+  PHP: "#4F5D95",
+  Kotlin: "#A97BFF",
+  Swift: "#F05138",
+  Dart: "#00B4AB",
+  Shell: "#89e051",
+  Makefile: "#427819",
+  Vue: "#41b883",
 };
 
+const displayLanguages = computed(() => {
+  if (overview.value?.languageStats && overview.value.languageStats.length > 0) {
+    return overview.value.languageStats;
+  }
+  return [
+    { name: "TypeScript", percentage: 48, count: 9, color: "#3178c6" },
+    { name: "Vue", percentage: 26, count: 5, color: "#41b883" },
+    { name: "CSS", percentage: 16, count: 6, color: "#563d7c" },
+    { name: "Rust", percentage: 5, count: 2, color: "#dea584" },
+    { name: "JavaScript", percentage: 3, count: 3, color: "#f1e05a" },
+    { name: "Shell", percentage: 2, count: 2, color: "#89e051" },
+  ];
+});
+
+const displayEvents = computed(() => {
+  if (recentEvents.value && recentEvents.value.length > 0) {
+    return recentEvents.value.slice(0, 4);
+  }
+  return getFallbackRecentEvents().slice(0, 4);
+});
+
+function scrollToRecentWeeks() {
+  nextTick(() => {
+    if (calendarScrollEl.value) {
+      calendarScrollEl.value.scrollLeft = calendarScrollEl.value.scrollWidth;
+    }
+  });
+}
+
+function handleGlobalClick(e: MouseEvent) {
+  if (!(e.target as HTMLElement)?.closest(".calendar-day-cell")) {
+    activeTooltip.value.visible = false;
+  }
+}
+
 onMounted(() => {
-  loadDashboard();
+  loadDashboard().then(() => {
+    scrollToRecentWeeks();
+  });
+  scrollToRecentWeeks();
+  window.addEventListener("click", handleGlobalClick);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("click", handleGlobalClick);
 });
 </script>
 
@@ -277,36 +330,38 @@ onMounted(() => {
     <!-- 1. Hero Profile & Dashboard Header Widget -->
     <section class="dashboard-hero-widget" aria-label="GitHub Profile Overview">
       <div class="hero-identity-col">
-        <div class="avatar-ring-container">
-          <img
-            src="https://github.com/Burhanverse.png"
-            alt="Sid (Burhanverse)"
-            class="hero-avatar"
-          />
-          <span class="avatar-online-dot" title="Actively Shipping Code"></span>
-        </div>
-
-        <div class="hero-info-meta">
-          <div class="hero-name-row">
-            <h1 class="hero-display-name">𝙎𝙞𝙙.</h1>
-            <span class="hero-handle-badge">@{{ githubUser }}</span>
+        <div class="hero-profile-banner">
+          <div class="avatar-ring-container">
+            <img
+              src="https://github.com/Burhanverse.png"
+              alt="Sid (Burhanverse)"
+              class="hero-avatar"
+            />
+            <span class="avatar-online-dot" title="Actively Shipping Code"></span>
           </div>
-          <p class="hero-bio-tagline">
-            Software builder, system explorer, and interface artisan crafting thoughtful open source tools & apps.
-          </p>
-          <div class="hero-badges-row">
-            <span class="hero-meta-chip">
-              <span class="material-symbols-rounded chip-icon">corporate_fare</span>
-              @fagramdesktop
-            </span>
-            <span class="hero-meta-chip">
-              <span class="material-symbols-rounded chip-icon">location_on</span>
-              Assam, India
-            </span>
-            <span class="hero-meta-chip">
-              <span class="material-symbols-rounded chip-icon">public</span>
-              burhanverse.eu.org
-            </span>
+
+          <div class="hero-info-meta">
+            <div class="hero-name-row">
+              <h1 class="hero-display-name">𝙎𝙞𝙙.</h1>
+              <span class="hero-handle-badge">@{{ githubUser }}</span>
+            </div>
+            <p class="hero-bio-tagline">
+              Software builder, system explorer, and interface artisan crafting thoughtful open source tools & apps.
+            </p>
+            <div class="hero-badges-row">
+              <span class="hero-meta-chip">
+                <span class="material-symbols-rounded chip-icon">corporate_fare</span>
+                <span>@fagramdesktop</span>
+              </span>
+              <span class="hero-meta-chip">
+                <span class="material-symbols-rounded chip-icon">location_on</span>
+                <span>Assam, India</span>
+              </span>
+              <span class="hero-meta-chip">
+                <span class="material-symbols-rounded chip-icon">public</span>
+                <span>burhanverse.eu.org</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -375,7 +430,7 @@ onMounted(() => {
       </div>
 
       <!-- Calendar Matrix Scroll Container -->
-      <div class="calendar-scroll-wrapper">
+      <div ref="calendarScrollEl" class="calendar-scroll-wrapper">
         <div class="calendar-matrix-board">
           <!-- Month Header Row -->
           <div class="calendar-months-row">
@@ -441,16 +496,14 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- 3. Dual Row: Language Spectrum & Recent Activity Stream -->
     <div class="dashboard-dual-grid">
-      <!-- Left Card: Language Spectrum -->
       <section class="dashboard-card language-spectrum-card" aria-label="Languages Breakdown">
         <div class="card-inner-header">
           <div class="card-icon-tag">
             <span class="material-symbols-rounded">donut_large</span>
           </div>
           <div>
-            <h3 class="card-title">Technology Spectrum</h3>
+            <h3 class="card-title">Languages</h3>
             <span class="card-subtitle">Primary languages across open source code</span>
           </div>
         </div>
@@ -458,40 +511,48 @@ onMounted(() => {
         <!-- Proportional Multi-Segment Progress Bar -->
         <div class="language-multi-bar">
           <div
-            v-for="(lang, lIdx) in overview?.languageStats || [
-              { name: 'TypeScript', percentage: 48, color: '#3178c6' },
-              { name: 'Vue', percentage: 26, color: '#41b883' },
-              { name: 'CSS', percentage: 16, color: '#563d7c' },
-              { name: 'Rust', percentage: 10, color: '#dea584' },
-            ]"
+            v-for="(lang, lIdx) in displayLanguages"
             :key="lIdx"
             class="lang-bar-segment"
             :style="{
               width: `${lang.percentage}%`,
               backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
             }"
-            :title="`${lang.name}: ${Math.round(lang.percentage)}%`"
+            :title="`${lang.name}: ${Math.round(lang.percentage)}% across ${lang.count} repos`"
           ></div>
         </div>
 
-        <!-- Languages Legend List -->
-        <div class="language-chips-cluster">
+        <!-- Languages Breakdown Grid -->
+        <div class="lang-breakdown-grid">
           <div
-            v-for="(lang, lIdx) in overview?.languageStats || [
-              { name: 'TypeScript', percentage: 48, color: '#3178c6' },
-              { name: 'Vue', percentage: 26, color: '#41b883' },
-              { name: 'CSS', percentage: 16, color: '#563d7c' },
-              { name: 'Rust', percentage: 10, color: '#dea584' },
-            ]"
+            v-for="(lang, lIdx) in displayLanguages"
             :key="lIdx"
-            class="lang-chip-item"
+            class="lang-breakdown-card"
           >
-            <span
-              class="lang-color-dot"
-              :style="{ backgroundColor: lang.color || languageColors[lang.name] || '#bf6038' }"
-            ></span>
-            <span class="lang-name">{{ lang.name }}</span>
-            <span class="lang-pct">{{ Math.round(lang.percentage) }}%</span>
+            <div class="lang-card-top">
+              <div class="lang-name-cluster">
+                <span
+                  class="lang-color-dot"
+                  :style="{ backgroundColor: lang.color || languageColors[lang.name] || '#bf6038' }"
+                ></span>
+                <span class="lang-name">{{ lang.name }}</span>
+              </div>
+              <div class="lang-metrics-cluster">
+                <span v-if="lang.count" class="lang-count">
+                  {{ lang.count }} repo{{ lang.count === 1 ? '' : 's' }}
+                </span>
+                <span class="lang-pct">{{ Math.round(lang.percentage) }}%</span>
+              </div>
+            </div>
+            <div class="lang-mini-track">
+              <div
+                class="lang-mini-fill"
+                :style="{
+                  width: `${Math.max(lang.percentage, 2)}%`,
+                  backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
+                }"
+              ></div>
+            </div>
           </div>
         </div>
       </section>
@@ -503,14 +564,14 @@ onMounted(() => {
             <span class="material-symbols-rounded">history</span>
           </div>
           <div>
-            <h3 class="card-title">Recent Activity Stream</h3>
+            <h3 class="card-title">Recent Activity</h3>
             <span class="card-subtitle">Latest pushed commits and repository events</span>
           </div>
         </div>
 
         <div class="activity-events-list">
           <article
-            v-for="ev in recentEvents.slice(0, 4)"
+            v-for="ev in displayEvents"
             :key="ev.id"
             class="activity-event-item"
           >
@@ -530,11 +591,8 @@ onMounted(() => {
                 </span>
                 <span class="event-time">{{ formatRelativeTime(ev.createdAt) }}</span>
               </div>
-              <p v-if="ev.commitMessage" class="event-commit-msg">
-                {{ ev.commitMessage }}
-              </p>
-              <p v-else-if="ev.payloadAction" class="event-commit-msg">
-                {{ ev.payloadAction }}
+              <p class="event-commit-msg">
+                {{ ev.commitMessage || ev.payloadAction || 'Pushed code changes' }}
               </p>
             </div>
           </article>
@@ -551,7 +609,7 @@ onMounted(() => {
               <span class="material-symbols-rounded">folder_code</span>
             </div>
             <div>
-              <h2 class="card-title">Repositories & Open Source</h2>
+              <h2 class="card-title">Repositories</h2>
               <span class="card-subtitle">
                 {{ filteredRepositories.length }} repositories matching filters
               </span>
@@ -738,8 +796,8 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2.4rem;
-  padding: 2.4rem 2.8rem;
+  gap: 2.8rem;
+  padding: 2.6rem 3.2rem;
   border-radius: 2.8rem;
   background: var(--md-sys-color-surface-container, rgba(255, 248, 245, 0.88));
   backdrop-filter: blur(24px) saturate(180%);
@@ -758,7 +816,15 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 2.4rem;
-  flex: 1 1 50rem;
+  flex: 1 1 52rem;
+  min-width: 0;
+}
+
+.hero-profile-banner {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  width: 100%;
 }
 
 .avatar-ring-container {
@@ -865,7 +931,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: flex-end;
   gap: 1.6rem;
-  flex: 1 1 30rem;
+  flex: 0 1 auto;
 }
 
 .gh-external-btn {
@@ -892,19 +958,21 @@ onMounted(() => {
 }
 
 .hero-quick-stats {
-  display: flex;
-  gap: 1.6rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
 }
 
 .quick-stat-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.03);
-  padding: 0.8rem 1.4rem;
+  padding: 0.9rem 1.4rem;
   border-radius: 1.6rem;
-  min-width: 7.2rem;
+  min-width: 8.2rem;
+  box-sizing: border-box;
 }
 
 [theme="dark"] .quick-stat-box {
@@ -959,9 +1027,9 @@ onMounted(() => {
 }
 
 .cal-icon-box {
-  width: 4.8rem;
-  height: 4.8rem;
-  border-radius: 1.6rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 1.4rem;
   background: var(--md-sys-color-primary-container, rgba(191, 96, 56, 0.12));
   color: var(--md-sys-color-primary, #bf6038);
   display: flex;
@@ -1255,41 +1323,111 @@ onMounted(() => {
   transition: width 300ms ease;
 }
 
-.language-chips-cluster {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Language Spectrum Breakdown Grid */
+.lang-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
 }
 
-.lang-chip-item {
+.lang-breakdown-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.025);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 1rem 1.2rem;
+  border-radius: 1.6rem;
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+[theme="dark"] .lang-breakdown-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lang-breakdown-card:hover {
+  transform: translateY(-2px);
+  background: rgba(191, 96, 56, 0.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.lang-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.lang-name-cluster {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  background: rgba(0, 0, 0, 0.03);
-  padding: 0.5rem 1.2rem;
-  border-radius: 9999px;
-  font-size: 1.3rem;
-}
-
-[theme="dark"] .lang-chip-item {
-  background: rgba(255, 255, 255, 0.04);
+  gap: 0.7rem;
+  min-width: 0;
 }
 
 .lang-color-dot {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .lang-name {
   font-weight: 700;
+  font-size: 1.3rem;
   color: var(--md-sys-color-on-surface, #1f1b18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lang-metrics-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.lang-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant, #52443e);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.15rem 0.65rem;
+  border-radius: 9999px;
+}
+
+[theme="dark"] .lang-count {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .lang-pct {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.2rem;
-  color: var(--md-sys-color-on-surface-variant, #52443e);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface, #1f1b18);
+  min-width: 3.4rem;
+  text-align: right;
+}
+
+.lang-mini-track {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+[theme="dark"] .lang-mini-track {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.lang-mini-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 400ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Recent Activity Events */
@@ -1775,31 +1913,89 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .github-dashboard-view {
-    padding: 1.2rem 1.6rem 2rem 1.6rem;
-    gap: 1.8rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.6rem 2.4rem 1.6rem;
+    gap: 2rem;
   }
   .dashboard-hero-widget {
-    padding: 2rem 1.6rem;
-    border-radius: 2.4rem;
-    gap: 1.8rem;
+    padding: 1.8rem;
+    border-radius: 28px;
+    gap: 1.6rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   .hero-identity-col {
-    flex-direction: column;
-    text-align: center;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1 1 100%;
+  }
+  .hero-profile-banner {
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 1.6rem;
+    column-gap: 1.6rem;
+    row-gap: 1.2rem;
+    width: 100%;
+  }
+  .avatar-ring-container {
+    width: 6.8rem;
+    height: 6.8rem;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .hero-info-meta {
+    display: contents;
+  }
+  .hero-name-row {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .hero-display-name {
+    font-size: 2.4rem;
+    text-align: left;
+  }
+  .hero-handle-badge {
+    font-size: 1.25rem;
+  }
+  .hero-bio-tagline {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 1.35rem;
+    text-align: left;
+    max-width: 100%;
+    line-height: 1.5;
   }
   .hero-badges-row {
-    justify-content: center;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.6rem;
+    margin-top: 0;
+  }
+  .hero-meta-chip {
+    font-size: 1.2rem;
+    padding: 0.35rem 0.85rem;
   }
   .hero-actions-col {
     align-items: stretch;
     width: 100%;
-    gap: 1.4rem;
+    gap: 1.2rem;
+    flex: 1 1 100%;
   }
   .gh-external-btn {
     width: 100%;
     justify-content: center;
+    padding: 1.1rem 1.6rem;
   }
   .hero-quick-stats {
     display: grid;
@@ -1811,15 +2007,46 @@ onMounted(() => {
     min-width: 0;
     width: 100%;
     padding: 1rem 0.8rem;
+    border-radius: 1.4rem;
+  }
+  .qs-num {
+    font-size: 1.7rem;
+  }
+  .qs-lbl {
+    font-size: 1.05rem;
   }
   .dashboard-calendar-widget {
-    padding: 2rem 1.6rem;
-    border-radius: 2.4rem;
+    padding: 1.8rem;
+    border-radius: 28px;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 1.6rem;
+  }
+  .cal-title-group,
+  .card-inner-header {
+    gap: 1.2rem;
+  }
+  .cal-icon-box,
+  .card-icon-tag {
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 1.4rem;
+  }
+  .cal-title,
+  .card-title {
+    font-size: 2rem;
+    text-align: left;
+  }
+  .cal-subtitle,
+  .card-subtitle {
+    font-size: 1.25rem;
+    text-align: left;
   }
   .calendar-widget-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.4rem;
+    margin-bottom: 1.6rem;
   }
   .streak-badges-cluster {
     width: 100%;
@@ -1842,16 +2069,24 @@ onMounted(() => {
   }
   .dashboard-dual-grid {
     grid-template-columns: 1fr;
-    gap: 1.8rem;
+    gap: 2rem;
   }
   .dashboard-card {
-    padding: 2rem 1.6rem;
-    border-radius: 2.4rem;
+    padding: 1.8rem;
+    border-radius: 28px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .lang-breakdown-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
   .repos-toolbar-card {
-    padding: 2rem 1.6rem;
-    border-radius: 2.4rem;
+    padding: 1.8rem;
+    border-radius: 28px;
     gap: 1.4rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   .repos-toolbar-title-row {
     flex-direction: column;
@@ -1865,7 +2100,7 @@ onMounted(() => {
   .filter-chips-row {
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -1881,8 +2116,8 @@ onMounted(() => {
     gap: 1.6rem;
   }
   .repo-card-widget {
-    padding: 1.8rem 1.6rem;
-    border-radius: 2.2rem;
+    padding: 1.8rem;
+    border-radius: 24px;
   }
 }
 </style>

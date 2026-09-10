@@ -31,10 +31,10 @@ async function loadStats() {
       currentStreak: 14,
       longestStreak: 42,
       languageStats: [
-        { name: "TypeScript", percentage: 48, color: "#3178c6" },
-        { name: "Vue", percentage: 26, color: "#41b883" },
-        { name: "CSS", percentage: 16, color: "#563d7c" },
-        { name: "Rust", percentage: 10, color: "#dea584" },
+        { name: "TypeScript", percentage: 48, count: 9, color: "#3178c6" },
+        { name: "Vue", percentage: 26, count: 5, color: "#41b883" },
+        { name: "CSS", percentage: 16, count: 6, color: "#563d7c" },
+        { name: "Rust", percentage: 10, count: 2, color: "#dea584" },
       ],
       accountCreatedAt: "2022-01-01",
     };
@@ -73,7 +73,7 @@ onMounted(() => {
       <md-ripple></md-ripple>
       <div class="stat-widget-header">
         <div class="stat-header-icon-box gh-icon-box">
-          <span class="material-symbols-rounded">folder_code</span>
+          <span class="material-symbols-rounded">developer_mode</span>
         </div>
         <div class="stat-header-meta">
           <h2 class="stat-widget-title">GitHub Activity</h2>
@@ -157,8 +157,8 @@ onMounted(() => {
       </div>
 
       <div class="anime-vibe-footer">
-        <span class="material-symbols-rounded">smart_display</span>
-        <span>Lofi study vibes & seasonal anime watchlists</span>
+        <span class="material-symbols-rounded">stream</span>
+        <span>Overview of Anime & Manga stats from AniList</span>
       </div>
     </article>
   </div>
