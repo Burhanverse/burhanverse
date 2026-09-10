@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import M3LoadingIndicator from "../M3LoadingIndicator.vue";
 import { githubApi } from "../../repos/githubApi";
 import {
   fetchGitHubOverview,
   fetchGitHubCalendarData,
   fetchGitHubRecentEvents,
-  getFallbackRecentEvents,
 } from "../../features/statsCards/githubService";
 import type {
   GitHubOverview,
@@ -272,21 +272,35 @@ const displayLanguages = computed(() => {
   if (overview.value?.languageStats && overview.value.languageStats.length > 0) {
     return overview.value.languageStats;
   }
-  return [
-    { name: "TypeScript", percentage: 48, count: 9, color: "#3178c6" },
-    { name: "Vue", percentage: 26, count: 5, color: "#41b883" },
-    { name: "CSS", percentage: 16, count: 6, color: "#563d7c" },
-    { name: "Rust", percentage: 5, count: 2, color: "#dea584" },
-    { name: "JavaScript", percentage: 3, count: 3, color: "#f1e05a" },
-    { name: "Shell", percentage: 2, count: 2, color: "#89e051" },
-  ];
+  if (repositories.value && repositories.value.length > 0) {
+    const langCounts: Record<string, number> = {};
+    let total = 0;
+    for (const r of repositories.value) {
+      if (r.language) {
+        langCounts[r.language] = (langCounts[r.language] || 0) + 1;
+        total++;
+      }
+    }
+    if (total > 0) {
+      return Object.entries(langCounts)
+        .map(([name, count]) => ({
+          name,
+          count,
+          percentage: (count / total) * 100,
+          color: languageColors[name] || "#bf6038",
+        }))
+        .sort((a, b) => b.percentage - a.percentage)
+        .slice(0, 6);
+    }
+  }
+  return [];
 });
 
 const displayEvents = computed(() => {
   if (recentEvents.value && recentEvents.value.length > 0) {
     return recentEvents.value.slice(0, 4);
   }
-  return getFallbackRecentEvents().slice(0, 4);
+  return [];
 });
 
 function scrollToRecentWeeks() {
@@ -317,7 +331,16 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="github-dashboard-view">
+  <div class="repos-page-wrapper">
+    <!-- Full-Page Loader for ReposPage (Official Material 3 Expressive Morphing Animation) -->
+    <div v-if="isLoading" class="repos-fullpage-loader">
+      <M3LoadingIndicator
+        size="large"
+        :contained="true"
+      />
+    </div>
+
+    <div v-else class="github-dashboard-view">
     <!-- Floating Heatmap Tooltip -->
     <div
       v-if="activeTooltip.visible"
@@ -381,19 +404,19 @@ onUnmounted(() => {
 
         <div class="hero-quick-stats">
           <div class="quick-stat-box">
-            <span class="qs-num">{{ calendarData?.totalContributions ?? 1769 }}</span>
+            <span class="qs-num">{{ calendarData?.totalContributions ?? (overview?.contributions ?? '—') }}</span>
             <span class="qs-lbl">Year Commits</span>
           </div>
           <div class="quick-stat-box">
-            <span class="qs-num">{{ overview?.totalRepos ?? 98 }}</span>
+            <span class="qs-num">{{ overview?.totalRepos ?? (repositories.length || '—') }}</span>
             <span class="qs-lbl">Repositories</span>
           </div>
           <div class="quick-stat-box">
-            <span class="qs-num">{{ overview?.totalStars ?? 240 }}</span>
+            <span class="qs-num">{{ overview?.totalStars ?? '—' }}</span>
             <span class="qs-lbl">Stars</span>
           </div>
           <div class="quick-stat-box">
-            <span class="qs-num">{{ overview?.followers ?? 12 }}</span>
+            <span class="qs-num">{{ overview?.followers ?? '—' }}</span>
             <span class="qs-lbl">Followers</span>
           </div>
         </div>
@@ -409,8 +432,11 @@ onUnmounted(() => {
           </div>
           <div>
             <h2 class="cal-title">Contribution Activity</h2>
-            <span class="cal-subtitle">
-              {{ calendarData?.totalContributions ?? 1769 }} contributions in the last 365 days
+            <span v-if="calendarData?.totalContributions != null" class="cal-subtitle">
+              {{ calendarData.totalContributions }} contributions in the last 365 days
+            </span>
+            <span v-else class="cal-subtitle">
+              GitHub contribution timeline
             </span>
           </div>
         </div>
@@ -418,12 +444,12 @@ onUnmounted(() => {
         <div class="streak-badges-cluster">
           <div class="streak-badge-pill current-streak">
             <span class="material-symbols-rounded streak-icon">local_fire_department</span>
-            <span class="streak-val">{{ calendarData?.currentStreak ?? 14 }} Days</span>
+            <span class="streak-val">{{ calendarData?.currentStreak != null ? `${calendarData.currentStreak} Days` : '—' }}</span>
             <span class="streak-lbl">Current Streak</span>
           </div>
           <div class="streak-badge-pill longest-streak">
             <span class="material-symbols-rounded streak-icon">bolt</span>
-            <span class="streak-val">{{ calendarData?.longestStreak ?? 42 }} Days</span>
+            <span class="streak-val">{{ calendarData?.longestStreak != null ? `${calendarData.longestStreak} Days` : '—' }}</span>
             <span class="streak-lbl">Longest Streak</span>
           </div>
         </div>
@@ -508,52 +534,58 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Proportional Multi-Segment Progress Bar -->
-        <div class="language-multi-bar">
-          <div
-            v-for="(lang, lIdx) in displayLanguages"
-            :key="lIdx"
-            class="lang-bar-segment"
-            :style="{
-              width: `${lang.percentage}%`,
-              backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
-            }"
-            :title="`${lang.name}: ${Math.round(lang.percentage)}% across ${lang.count} repos`"
-          ></div>
-        </div>
+        <template v-if="displayLanguages.length > 0">
+          <!-- Proportional Multi-Segment Progress Bar -->
+          <div class="language-multi-bar">
+            <div
+              v-for="(lang, lIdx) in displayLanguages"
+              :key="lIdx"
+              class="lang-bar-segment"
+              :style="{
+                width: `${lang.percentage}%`,
+                backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
+              }"
+              :title="`${lang.name}: ${Math.round(lang.percentage)}% across ${lang.count} repos`"
+            ></div>
+          </div>
 
-        <!-- Languages Breakdown Grid -->
-        <div class="lang-breakdown-grid">
-          <div
-            v-for="(lang, lIdx) in displayLanguages"
-            :key="lIdx"
-            class="lang-breakdown-card"
-          >
-            <div class="lang-card-top">
-              <div class="lang-name-cluster">
-                <span
-                  class="lang-color-dot"
-                  :style="{ backgroundColor: lang.color || languageColors[lang.name] || '#bf6038' }"
-                ></span>
-                <span class="lang-name">{{ lang.name }}</span>
+          <!-- Languages Breakdown Grid -->
+          <div class="lang-breakdown-grid">
+            <div
+              v-for="(lang, lIdx) in displayLanguages"
+              :key="lIdx"
+              class="lang-breakdown-card"
+            >
+              <div class="lang-card-top">
+                <div class="lang-name-cluster">
+                  <span
+                    class="lang-color-dot"
+                    :style="{ backgroundColor: lang.color || languageColors[lang.name] || '#bf6038' }"
+                  ></span>
+                  <span class="lang-name">{{ lang.name }}</span>
+                </div>
+                <div class="lang-metrics-cluster">
+                  <span v-if="lang.count" class="lang-count">
+                    {{ lang.count }} repo{{ lang.count === 1 ? '' : 's' }}
+                  </span>
+                  <span class="lang-pct">{{ Math.round(lang.percentage) }}%</span>
+                </div>
               </div>
-              <div class="lang-metrics-cluster">
-                <span v-if="lang.count" class="lang-count">
-                  {{ lang.count }} repo{{ lang.count === 1 ? '' : 's' }}
-                </span>
-                <span class="lang-pct">{{ Math.round(lang.percentage) }}%</span>
+              <div class="lang-mini-track">
+                <div
+                  class="lang-mini-fill"
+                  :style="{
+                    width: `${Math.max(lang.percentage, 2)}%`,
+                    backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
+                  }"
+                ></div>
               </div>
-            </div>
-            <div class="lang-mini-track">
-              <div
-                class="lang-mini-fill"
-                :style="{
-                  width: `${Math.max(lang.percentage, 2)}%`,
-                  backgroundColor: lang.color || languageColors[lang.name] || '#bf6038',
-                }"
-              ></div>
             </div>
           </div>
+        </template>
+        <div v-else class="dual-card-empty-state">
+          <span class="material-symbols-rounded empty-icon">code_blocks</span>
+          <p>No language telemetry available</p>
         </div>
       </section>
 
@@ -569,7 +601,7 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div class="activity-events-list">
+        <div v-if="displayEvents.length > 0" class="activity-events-list">
           <article
             v-for="ev in displayEvents"
             :key="ev.id"
@@ -596,6 +628,10 @@ onUnmounted(() => {
               </p>
             </div>
           </article>
+        </div>
+        <div v-else class="dual-card-empty-state">
+          <span class="material-symbols-rounded empty-icon">history_toggle_off</span>
+          <p>No recent public activity recorded</p>
         </div>
       </section>
     </div>
@@ -665,14 +701,8 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Loading State -->
-      <div v-if="isLoading" class="repos-loading-indicator">
-        <span class="material-symbols-rounded spin-icon">sync</span>
-        <p>Loading GitHub dashboard and repository metrics...</p>
-      </div>
-
       <!-- Repositories Cards Grid -->
-      <div v-else-if="filteredRepositories.length > 0" class="repos-cards-grid">
+      <div v-if="filteredRepositories.length > 0" class="repos-cards-grid">
         <article
           v-for="repo in filteredRepositories"
           :key="repo.id"
@@ -755,10 +785,17 @@ onUnmounted(() => {
         </button>
       </div>
     </section>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.repos-page-wrapper {
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
 .github-dashboard-view {
   display: flex;
   flex-direction: column;
@@ -768,6 +805,27 @@ onUnmounted(() => {
   margin: 0 auto;
   padding: 2rem 2rem 6rem 9rem;
   position: relative;
+}
+
+/* Full-Page Loader for ReposPage */
+.repos-fullpage-loader {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 6rem 9rem;
+  width: 100%;
+  max-width: 132rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .repos-fullpage-loader {
+    padding: 6rem 2rem;
+    min-height: 65vh;
+  }
 }
 
 /* Floating Heatmap Tooltip */
@@ -992,6 +1050,13 @@ onUnmounted(() => {
   letter-spacing: 0.04em;
 }
 
+.stat-loader-cell {
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 2. Commit Heatmap Calendar Widget */
 .dashboard-calendar-widget {
   background: var(--md-sys-color-surface-container, rgba(255, 248, 245, 0.88));
@@ -1086,6 +1151,21 @@ onUnmounted(() => {
   font-size: 1.15rem;
   color: var(--md-sys-color-on-surface-variant, #52443e);
   font-weight: 600;
+}
+
+.streak-loader-cell {
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-loading-container {
+  min-height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
 }
 
 /* Calendar Matrix Layout */
@@ -1525,6 +1605,33 @@ onUnmounted(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.dual-card-loading-center {
+  min-height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.dual-card-empty-state {
+  min-height: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant, #52443e);
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 2rem;
+}
+
+.dual-card-empty-state .empty-icon {
+  font-size: 3.2rem;
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
 }
 
 /* 4. Repository Explorer Board */

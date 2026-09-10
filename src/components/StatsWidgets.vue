@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { fetchGitHubOverview } from "../features/statsCards/githubService";
 import { fetchAnilistStats } from "../features/statsCards/anilistService";
 import type { GitHubOverview, AnilistStats } from "../features/statsCards/types";
+import M3LoadingIndicator from "./M3LoadingIndicator.vue";
 
 const githubData = ref<GitHubOverview | null>(null);
 const anilistData = ref<AnilistStats | null>(null);
@@ -15,29 +16,15 @@ const githubToken = env.VITE_GITHUB_TOKEN;
 const anilistUser = env.VITE_ANILIST_USERNAME || "Burhanverse";
 
 async function loadStats() {
+  githubLoading.value = true;
+  anilistLoading.value = true;
+
   // Load GitHub stats
   try {
     githubData.value = await fetchGitHubOverview(githubUser, githubToken);
   } catch (err) {
-    console.warn("GitHub stats load issue, fallback values used:", err);
-    githubData.value = {
-      totalStars: 24,
-      totalRepos: 18,
-      followers: 12,
-      following: 5,
-      publicGists: 0,
-      totalForks: 8,
-      contributions: 340,
-      currentStreak: 14,
-      longestStreak: 42,
-      languageStats: [
-        { name: "TypeScript", percentage: 48, count: 9, color: "#3178c6" },
-        { name: "Vue", percentage: 26, count: 5, color: "#41b883" },
-        { name: "CSS", percentage: 16, count: 6, color: "#563d7c" },
-        { name: "Rust", percentage: 10, count: 2, color: "#dea584" },
-      ],
-      accountCreatedAt: "2022-01-01",
-    };
+    console.warn("GitHub stats load issue:", err);
+    githubData.value = null;
   } finally {
     githubLoading.value = false;
   }
@@ -46,16 +33,8 @@ async function loadStats() {
   try {
     anilistData.value = await fetchAnilistStats(anilistUser);
   } catch (err) {
-    console.warn("AniList stats load issue, fallback values used:", err);
-    anilistData.value = {
-      totalWatchedAnimeEpisodes: 420,
-      totalCompletedAnime: 32,
-      totalCompletedMangaChapters: 85,
-      totalCompletedManga: 6,
-      meanScoreAnime: 81.5,
-      meanScoreManga: 79.0,
-      daysWatched: 7.2,
-    };
+    console.warn("AniList stats load issue:", err);
+    anilistData.value = null;
   } finally {
     anilistLoading.value = false;
   }
@@ -81,47 +60,58 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="stat-grid-metric">
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ githubData?.currentStreak ?? 14 }}</span>
-          <span class="metric-lbl">Day Streak</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ githubData?.totalRepos ?? 18 }}</span>
-          <span class="metric-lbl">Repositories</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ githubData?.totalStars ?? 24 }}</span>
-          <span class="metric-lbl">Stars</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ githubData?.contributions ?? 340 }}</span>
-          <span class="metric-lbl">Commits</span>
-        </div>
+      <!-- Loading State -->
+      <div v-if="githubLoading" class="widget-loading-box">
+        <M3LoadingIndicator size="medium" label="Syncing GitHub Activity..." />
       </div>
 
-      <!-- Language Bar -->
-      <div v-if="githubData?.languageStats?.length" class="lang-bar-wrapper">
-        <div class="lang-bar">
-          <div
-            v-for="lang in githubData.languageStats"
-            :key="lang.name"
-            class="lang-slice"
-            :style="{ width: `${lang.percentage}%`, backgroundColor: lang.color }"
-            :title="`${lang.name}: ${lang.percentage}%`"
-          ></div>
+      <!-- Loaded Real Content -->
+      <template v-else>
+        <div class="stat-grid-metric">
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ githubData?.currentStreak ?? '--' }}</span>
+            <span class="metric-lbl">Day Streak</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ githubData?.totalRepos ?? '--' }}</span>
+            <span class="metric-lbl">Repositories</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ githubData?.totalStars ?? '--' }}</span>
+            <span class="metric-lbl">Stars</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ githubData?.contributions ?? '--' }}</span>
+            <span class="metric-lbl">Commits</span>
+          </div>
         </div>
-        <div class="lang-legend">
-          <span
-            v-for="lang in githubData.languageStats.slice(0, 3)"
-            :key="lang.name"
-            class="lang-item"
-          >
-            <span class="lang-circle" :style="{ backgroundColor: lang.color }"></span>
-            {{ lang.name }} {{ lang.percentage }}%
-          </span>
+
+        <!-- Language Bar -->
+        <div v-if="githubData?.languageStats?.length" class="lang-bar-wrapper">
+          <div class="lang-bar">
+            <div
+              v-for="lang in githubData.languageStats"
+              :key="lang.name"
+              class="lang-slice"
+              :style="{ width: `${lang.percentage}%`, backgroundColor: lang.color }"
+              :title="`${lang.name}: ${lang.percentage}%`"
+            ></div>
+          </div>
+          <div class="lang-legend">
+            <span
+              v-for="lang in githubData.languageStats.slice(0, 3)"
+              :key="lang.name"
+              class="lang-item"
+            >
+              <span class="lang-circle" :style="{ backgroundColor: lang.color }"></span>
+              {{ lang.name }} {{ lang.percentage }}%
+            </span>
+          </div>
         </div>
-      </div>
+        <div v-else-if="!githubData" class="widget-empty-note">
+          <span>Activity data temporarily unavailable</span>
+        </div>
+      </template>
     </article>
 
     <!-- AniList Anime Stats Widget -->
@@ -137,29 +127,37 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="stat-grid-metric">
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ anilistData?.totalCompletedAnime ?? 32 }}</span>
-          <span class="metric-lbl">Completed</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ anilistData?.totalWatchedAnimeEpisodes ?? 420 }}</span>
-          <span class="metric-lbl">Episodes</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ anilistData?.daysWatched ?? 7.2 }}d</span>
-          <span class="metric-lbl">Watch Time</span>
-        </div>
-        <div class="stat-metric-card">
-          <span class="metric-num">{{ anilistData?.meanScoreAnime ?? 81 }}%</span>
-          <span class="metric-lbl">Mean Score</span>
-        </div>
+      <!-- Loading State -->
+      <div v-if="anilistLoading" class="widget-loading-box">
+        <M3LoadingIndicator size="medium" label="Syncing AniList Stats..." />
       </div>
 
-      <div class="anime-vibe-footer">
-        <span class="material-symbols-rounded">stream</span>
-        <span>Overview of Anime & Manga stats from AniList</span>
-      </div>
+      <!-- Loaded Real Content -->
+      <template v-else>
+        <div class="stat-grid-metric">
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ anilistData?.totalCompletedAnime ?? '--' }}</span>
+            <span class="metric-lbl">Completed</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ anilistData?.totalWatchedAnimeEpisodes ?? '--' }}</span>
+            <span class="metric-lbl">Episodes</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ anilistData ? `${anilistData.daysWatched}d` : '--' }}</span>
+            <span class="metric-lbl">Watch Time</span>
+          </div>
+          <div class="stat-metric-card">
+            <span class="metric-num">{{ anilistData ? `${Math.round(anilistData.meanScoreAnime)}%` : '--' }}</span>
+            <span class="metric-lbl">Mean Score</span>
+          </div>
+        </div>
+
+        <div class="anime-vibe-footer">
+          <span class="material-symbols-rounded">stream</span>
+          <span>{{ anilistData ? 'Overview of Anime & Manga stats from AniList' : 'AniList stats temporarily unavailable' }}</span>
+        </div>
+      </template>
     </article>
   </div>
 </template>

@@ -369,7 +369,13 @@ function processContributionDays(
   totalContributionsOverride?: number,
 ): ContributionCalendarData {
   if (!days || days.length === 0) {
-    return getFallbackCalendarData();
+    return {
+      totalContributions: 0,
+      currentStreak: 0,
+      longestStreak: 0,
+      weeks: [],
+      months: [],
+    };
   }
 
   days.sort((a, b) => a.date.localeCompare(b.date));
@@ -466,12 +472,12 @@ function processContributionDays(
     totalContributions: totalContributionsOverride && totalContributionsOverride > 0 ? totalContributionsOverride : totalCalculated,
     weeks,
     months,
-    currentStreak: currentStreak || 14,
-    longestStreak: Math.max(longestStreak, 42),
+    currentStreak: currentStreak || 0,
+    longestStreak: longestStreak || 0,
   };
 }
 
-export async function fetchGitHubCalendarData(username: string): Promise<ContributionCalendarData> {
+export async function fetchGitHubCalendarData(username: string): Promise<ContributionCalendarData | null> {
   try {
     const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
     if (!res.ok) throw new Error(`Contributions API status ${res.status}`);
@@ -486,13 +492,13 @@ export async function fetchGitHubCalendarData(username: string): Promise<Contrib
         count: c.count,
         level: (c.level >= 0 && c.level <= 4 ? c.level : (c.count > 0 ? 1 : 0)) as 0 | 1 | 2 | 3 | 4,
       }));
-      const total = data.total?.["lastYear"] || Object.values(data.total || {})[0] || 1769;
+      const total = data.total?.["lastYear"] || Object.values(data.total || {})[0] || days.reduce((sum, d) => sum + d.count, 0);
       return processContributionDays(days, total);
     }
-    throw new Error("No contributions array in response");
+    return null;
   } catch (err) {
-    console.warn("GitHub contributions API unavailable, using high-fidelity fallback:", err);
-    return getFallbackCalendarData();
+    console.warn("GitHub contributions API unavailable:", err);
+    return null;
   }
 }
 
@@ -503,7 +509,7 @@ export async function fetchGitHubRecentEvents(username: string): Promise<GitHubA
     const rawEvents = await res.json() as any[];
 
     if (!Array.isArray(rawEvents) || rawEvents.length === 0) {
-      return getFallbackRecentEvents();
+      return [];
     }
 
     return rawEvents.map((ev) => {
@@ -544,83 +550,12 @@ export async function fetchGitHubRecentEvents(username: string): Promise<GitHubA
       };
     });
   } catch (err) {
-    console.warn("GitHub events API unavailable, using fallback:", err);
-    return getFallbackRecentEvents();
+    console.warn("GitHub events API unavailable:", err);
+    return [];
   }
-}
-
-function getFallbackCalendarData(): ContributionCalendarData {
-  const days: ContributionDay[] = [];
-  const now = new Date();
-
-  for (let i = 364; i >= 0; i--) {
-    const d = new Date(now.getTime() - i * 86400000);
-    const dateStr = d.toISOString().split("T")[0];
-    const dayOfWeek = d.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const seed = (d.getFullYear() * 365 + d.getMonth() * 31 + d.getDate()) % 17;
-
-    let count = 0;
-    let level: 0 | 1 | 2 | 3 | 4 = 0;
-
-    if (seed > 11) {
-      count = isWeekend ? 3 : 9;
-      level = 3;
-    } else if (seed > 6) {
-      count = isWeekend ? 1 : 5;
-      level = 2;
-    } else if (seed > 2) {
-      count = isWeekend ? 0 : 2;
-      level = 1;
-    } else if (seed === 1) {
-      count = 14;
-      level = 4;
-    }
-
-    days.push({ date: dateStr, count, level });
-  }
-
-  return processContributionDays(days, 1769);
 }
 
 export function getFallbackRecentEvents(): GitHubActivityEvent[] {
-  return [
-    {
-      id: "ev-1",
-      type: "PushEvent",
-      repoName: "fagramdesktop/fadesktop",
-      repoUrl: "https://github.com/fagramdesktop/fadesktop",
-      createdAt: new Date(Date.now() - 3600000 * 3).toISOString(),
-      branch: "dev",
-      commitCount: 3,
-      commitMessage: "feat(ui): refine Material 3 expressive components and elevation",
-    },
-    {
-      id: "ev-2",
-      type: "PushEvent",
-      repoName: "Burhanverse/Burhanverse.github.io",
-      repoUrl: "https://github.com/Burhanverse/Burhanverse.github.io",
-      createdAt: new Date(Date.now() - 3600000 * 18).toISOString(),
-      branch: "main",
-      commitCount: 2,
-      commitMessage: "refactor: implement Google Pixel Tablet homescreen widget grid",
-    },
-    {
-      id: "ev-3",
-      type: "CreateEvent",
-      repoName: "Burhanverse/material-you-widgets",
-      repoUrl: "https://github.com/Burhanverse",
-      createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
-      payloadAction: "created repository",
-    },
-    {
-      id: "ev-4",
-      type: "WatchEvent",
-      repoName: "material-components/material-web",
-      repoUrl: "https://github.com/material-components/material-web",
-      createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-      payloadAction: "starred repository",
-    },
-  ];
+  return [];
 }
 

@@ -233,9 +233,9 @@ onUnmounted(() => {
   <header class="tablet-status-bar" aria-label="Device Status Bar">
     <!-- Left status items -->
     <div class="status-left">
-      <Transition name="fade-clock">
-        <span v-if="isMobile || currentTab !== 'home'" class="status-time">{{ currentTime }}</span>
-      </Transition>
+      <div class="status-clock-pill" title="Current Time">
+        <span class="status-time">{{ currentTime }}</span>
+      </div>
       <span class="status-badge">{{ isMobile ? "Phone" : "Desktop" }}</span>
     </div>
 
@@ -325,25 +325,36 @@ onUnmounted(() => {
   height: 100%;
 }
 
-.status-time {
+.status-clock-pill {
   height: 2.8rem;
   display: inline-flex;
   align-items: center;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0 1.15rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.clock-icon {
+  font-size: 1.45rem;
   line-height: 1;
+  opacity: 0.9;
 }
 
-.fade-clock-enter-active,
-.fade-clock-leave-active {
-  transition: opacity 250ms ease, transform 250ms ease;
-}
-
-.fade-clock-enter-from,
-.fade-clock-leave-to {
-  opacity: 0;
-  transform: translateX(-4px);
+.status-time {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-family: "JetBrains Mono", monospace;
 }
 
 /* Matching height & styling with right-side pills */
@@ -552,9 +563,18 @@ onUnmounted(() => {
     gap: 0.8rem;
   }
 
-  .status-time {
+  .status-clock-pill {
     height: 2.6rem;
-    font-size: 1.3rem;
+    padding: 0 0.9rem;
+    gap: 0.45rem;
+  }
+
+  .clock-icon {
+    font-size: 1.35rem;
+  }
+
+  .status-time {
+    font-size: 1.15rem;
   }
 
   .status-badge {
