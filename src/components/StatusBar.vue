@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: "toggle-theme"): void;
 }>();
 
-// Check if device is a mobile phone
 const isMobileDevice = computed(() => {
   if (props.isMobile) return true;
   if (typeof navigator !== "undefined") {
@@ -33,6 +32,10 @@ function updateTime() {
   const mStr = minutes < 10 ? `0${minutes}` : `${minutes}`;
   currentTime.value = `${hours}:${mStr}`;
 }
+
+const showStatusClock = computed(() => {
+  return props.currentTab !== "home";
+});
 
 // =============================================================================
 // Battery Status API
@@ -132,7 +135,6 @@ function updateNetworkInfo() {
       connectionType.value = "wifi";
     }
   } else {
-    // Browsers without Network Information API (e.g. iOS Safari)
     connectionType.value = isMobileDevice.value ? "cellular" : "wifi";
     effectiveType.value = "";
   }
@@ -140,7 +142,6 @@ function updateNetworkInfo() {
 
 function toggleNetworkType() {
   if (!isOnline.value) return;
-  // Allow user to toggle between wifi and cellular if on a mobile or restricted environment
   connectionType.value = connectionType.value === "cellular" ? "wifi" : "cellular";
 }
 
@@ -166,7 +167,6 @@ onMounted(() => {
   updateTime();
   timer = window.setInterval(updateTime, 5000);
 
-  // Initialize Battery API
   if (
     typeof navigator !== "undefined" &&
     "getBattery" in navigator &&
@@ -190,7 +190,6 @@ onMounted(() => {
     hasBatteryApi.value = false;
   }
 
-  // Initialize Network Info & Listeners
   updateNetworkInfo();
   window.addEventListener("online", updateNetworkInfo);
   window.addEventListener("offline", updateNetworkInfo);
@@ -231,17 +230,20 @@ onUnmounted(() => {
 
 <template>
   <header class="tablet-status-bar" aria-label="Device Status Bar">
-    <!-- Left status items -->
     <div class="status-left">
-      <div class="status-clock-pill" title="Current Time">
-        <span class="status-time">{{ currentTime }}</span>
-      </div>
+      <Transition name="clock-pill-fade">
+        <div
+          v-if="showStatusClock"
+          class="status-clock-pill"
+          title="Current Time"
+        >
+          <span class="status-time">{{ currentTime }}</span>
+        </div>
+      </Transition>
       <span class="status-badge">{{ isMobile ? "Phone" : "Desktop" }}</span>
     </div>
 
-    <!-- Right status icons -->
     <div class="status-right">
-      <!-- Network / Wifi -->
       <div
         class="network-indicator"
         :class="{ 'has-text': isOnline && !!effectiveType }"
@@ -260,7 +262,6 @@ onUnmounted(() => {
         <span v-if="isOnline && effectiveType" class="network-text">{{ effectiveType }}</span>
       </div>
       
-      <!-- Battery Status -->
       <div
         class="battery-indicator"
         :class="{ 'icon-only': !hasBatteryApi }"
@@ -275,7 +276,6 @@ onUnmounted(() => {
         <span v-if="hasBatteryApi" class="battery-text">{{ batteryLevel }}%</span>
       </div>
 
-      <!-- Material 3 Theme Mode Switch (Icon-only switch) -->
       <button
         type="button"
         class="status-theme-switch"
@@ -341,6 +341,17 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
+.clock-pill-fade-enter-active,
+.clock-pill-fade-leave-active {
+  transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1), transform 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.clock-pill-fade-enter-from,
+.clock-pill-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
 .clock-icon {
   font-size: 1.45rem;
   line-height: 1;
@@ -357,7 +368,6 @@ onUnmounted(() => {
   font-family: "JetBrains Mono", monospace;
 }
 
-/* Matching height & styling with right-side pills */
 .status-badge {
   height: 2.8rem;
   display: inline-flex;
@@ -388,7 +398,6 @@ onUnmounted(() => {
   height: 100%;
 }
 
-/* Network Indicator Circle / Pill */
 .network-indicator {
   height: 2.8rem;
   width: 2.8rem;
@@ -425,7 +434,6 @@ onUnmounted(() => {
   letter-spacing: 0.02em;
 }
 
-/* Battery Indicator Pill */
 .battery-indicator {
   height: 2.8rem;
   display: inline-flex;
@@ -514,7 +522,6 @@ onUnmounted(() => {
   transform: scale(0.96);
 }
 
-/* Switch Thumb */
 .switch-thumb {
   width: 2.1rem;
   height: 2.1rem;
@@ -536,7 +543,6 @@ onUnmounted(() => {
   line-height: 1;
 }
 
-/* Dark Mode State: Thumb slides to active right position */
 .theme-dark {
   background: rgba(255, 182, 140, 0.22);
   border-color: rgba(255, 182, 140, 0.4);
